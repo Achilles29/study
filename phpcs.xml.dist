@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<ruleset name="Study CI3">
+	<description>Baseline source hygiene that respects CodeIgniter 3 and the project EditorConfig.</description>
+
+	<file>application/controllers</file>
+	<file>application/core</file>
+	<file>application/helpers</file>
+	<file>application/hooks</file>
+	<file>application/libraries</file>
+	<file>application/migrations</file>
+	<file>application/models</file>
+	<file>application/views</file>
+	<file>scripts</file>
+	<arg name="extensions" value="php" />
+	<arg name="tab-width" value="4" />
+
+	<rule ref="Generic.Files.ByteOrderMark" />
+	<rule ref="Generic.Files.LineEndings" />
+	<rule ref="Generic.PHP.DisallowShortOpenTag" />
+	<rule ref="Generic.PHP.NoSilencedErrors" />
+	<rule ref="Generic.WhiteSpace.DisallowSpaceIndent" />
+</ruleset>

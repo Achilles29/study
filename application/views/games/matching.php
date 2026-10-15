@@ -1,0 +1,18 @@
+<section class="container page-section">
+	<a class="back-link" href="<?php echo site_url('materi/'.$lesson['slug'].'#kartu-belajar'); ?>">Kembali ke kartu belajar</a>
+	<div class="page-heading mt-3"><div><p class="eyebrow"><i class="bi bi-puzzle me-2" aria-hidden="true"></i>Bermain sambil mengingat</p><h1 class="h2">Cocokkan Pasangan</h1><p class="text-secondary mb-0"><?php echo html_escape($lesson['title']); ?> · Tanpa timer, belajar dengan tenang.</p></div></div>
+	<?php if (count($game_cards) < 2): ?><div class="empty-card"><h2 class="h4">Pasangan belum cukup</h2><p>Permainan memerlukan minimal dua kartu dengan teks singkat dan pasangan yang tidak membingungkan. Kamu tetap bisa membaca kartu pada materi.</p></div><?php else: ?>
+		<div class="feature-card mb-4"><h2 class="h4">Cara bermain</h2><p>Pilih satu kartu di kolom kiri, lalu pasangan yang sesuai di kanan. Gunakan sentuhan, klik, atau tombol Tab lalu Enter/Spasi. Jika belum cocok, coba lagi.</p><p class="small text-secondary mb-0">Maksimal <?php echo (int) $round_size; ?> pasangan per babak. Progres hanya di halaman ini dan kembali kosong saat dimuat ulang; bukan nilai resmi, XP, atau kredit.</p></div>
+		<section id="matching-game" class="feature-card matching-game" data-round-size="<?php echo (int) $round_size; ?>" aria-labelledby="matching-heading" hidden>
+			<h2 class="h4" id="matching-heading" tabindex="-1">Babak 1</h2><label for="matching-progress">Pasangan ditemukan</label><progress id="matching-progress" class="w-100" value="0" max="1"></progress><p id="matching-count" class="small text-secondary"></p>
+			<p id="matching-message" class="matching-message" role="status" aria-live="polite" aria-atomic="true">Pilih kartu pertama.</p>
+			<div class="matching-columns"><section aria-labelledby="matching-left-label"><h3 class="h5" id="matching-left-label">Kartu</h3><div id="matching-left" class="matching-choices"></div></section><section aria-labelledby="matching-right-label"><h3 class="h5" id="matching-right-label">Pasangan</h3><div id="matching-right" class="matching-choices"></div></section></div>
+			<div class="d-flex flex-wrap gap-2 mt-4"><button type="button" class="btn btn-primary rounded-pill" id="matching-next" hidden>Babak berikutnya</button><button type="button" class="btn btn-outline-primary rounded-pill" id="matching-restart">Mulai ulang permainan</button></div>
+		</section>
+		<script type="application/json" id="matching-data"><?php echo json_encode($game_cards, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR); ?></script>
+		<div class="feature-card mt-4"><h2 class="h4">Ingin lanjut bermain nanti?</h2><p>Gunakan mode tersimpan untuk mencatat pilihan dan melanjutkan dari akun yang sama. Permainan lokal di atas tidak dipindahkan ke riwayat.</p><a class="btn btn-outline-primary rounded-pill" href="<?php echo site_url('permainan/tersimpan/pelajaran/'.$lesson['slug']); ?>"><?php echo $current_user ? 'Buka mode tersimpan' : 'Masuk untuk bermain tersimpan'; ?></a></div>
+		<noscript><div class="alert alert-info">JavaScript tidak aktif. Buka daftar pasangan di bawah untuk belajar tanpa permainan interaktif.</div></noscript>
+		<details class="feature-card mt-4"><summary>Baca pasangan untuk belajar</summary><dl class="mt-3 mb-0"><?php foreach ($game_cards as $card): ?><dt><?php echo html_escape($card['front']); ?></dt><dd><?php echo html_escape($card['back']); ?></dd><?php endforeach; ?></dl></details>
+	<?php endif; ?>
+	<?php if ($excluded_cards > 0): ?><p class="small text-secondary mt-3">Sebagian kartu tetap tersedia di materi, tetapi tidak dipakai dalam permainan karena teks panjang, kosong, atau pasangan berulang.</p><?php endif; ?>
+</section>

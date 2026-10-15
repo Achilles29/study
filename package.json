@@ -1,0 +1,24 @@
+{
+  "name": "study-learning-app-assets",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Pinned browser assets for the CodeIgniter 3 learning application",
+  "scripts": {
+    "build-assets": "node scripts/build-assets.mjs",
+    "check:docs": "node scripts/check-doc-links.mjs && node scripts/check-page-contracts.mjs",
+    "check:conflicts": "node scripts/check-conflict-markers.mjs",
+    "check:licenses": "node scripts/check-asset-licenses.mjs",
+		"check:secrets": "secretlint --no-color \"application/**/*.php\" \"docs/**/*.md\" \"scripts/**/*.php\" \"scripts/**/*.ps1\" \"scripts/**/*.mjs\" \"scripts/**/*.md\" \"assets/css/**/*.css\" \"assets/js/**/*.js\" \"index.php\" \"phpcs*.xml.dist\" \"package.json\" \"package-lock.json\" \"composer.json\" \"readme.rst\" \".editorconfig\" \".gitignore\" \".secretlintrc.json\" \".secretlintignore\" \".htaccess\"",
+    "test:secrets": "node scripts/test-secret-scanner.mjs",
+    "test:ui": "node scripts/test-navigation.mjs && node scripts/test-lesson-progress.mjs && node scripts/test-reading-save.mjs && node scripts/test-matching-game.mjs && node scripts/test-matching-save.mjs && node scripts/test-unsaved-form.mjs && node scripts/test-browser-focus-evidence.mjs && node scripts/test-browser-load-wait.mjs && node scripts/test-button-theme-contract.mjs"
+  },
+  "dependencies": {
+    "@coreui/coreui": "5.6.0",
+    "bootstrap": "5.3.8",
+    "bootstrap-icons": "1.13.1"
+  },
+  "devDependencies": {
+    "@secretlint/secretlint-rule-preset-recommend": "13.0.7",
+    "secretlint": "13.0.7"
+  }
+}

@@ -1,0 +1,753 @@
+{
+  "schemaVersion": 1,
+  "browserVersion": "Chrome/155.0.8059.79",
+  "route": "sign-up",
+  "browserContentWidth": 720,
+  "zoomEvidence": {
+    "dpr": 2,
+    "pinch": 1,
+    "cssZoom": "1",
+    "browserZoom": 2
+  },
+  "navigationCheck": {
+    "enhanced": true,
+    "bootstrapReady": true,
+    "toggleHidden": false,
+    "allMenuLinksVisible": true,
+    "menuExpanded": true,
+    "links": [
+      {
+        "state": "page",
+        "visible": true,
+        "underline": true,
+        "thickness": 2,
+        "weight": 750
+      }
+    ]
+  },
+  "negativeControl": true,
+  "steps": [
+    {
+      "step": 0,
+      "beforeTab": {
+        "element": {
+          "tag": "A",
+          "id": "",
+          "type": "",
+          "index": 0
+        },
+        "outsidePage": false,
+        "documentFocused": true,
+        "visibilityState": "visible",
+        "fontsStatus": "loaded",
+        "focusVisible": true,
+        "focused": true,
+        "rect": {
+          "top": 16,
+          "bottom": 64,
+          "left": 16,
+          "right": 181.4453125,
+          "width": 165.4453125,
+          "height": 48
+        },
+        "center": {
+          "x": 98.72265625,
+          "y": 40
+        },
+        "point": {
+          "x": 98.72265625,
+          "y": 40
+        },
+        "hit": {
+          "tag": "A",
+          "id": "",
+          "type": "",
+          "index": 0
+        },
+        "hitStack": [
+          {
+            "tag": "A",
+            "id": "",
+            "type": "",
+            "index": 0
+          },
+          {
+            "tag": "SPAN",
+            "id": "",
+            "type": "",
+            "index": 1
+          },
+          {
+            "tag": "A",
+            "id": "",
+            "type": "",
+            "index": 1
+          },
+          {
+            "tag": "NAV",
+            "id": "",
+            "type": "",
+            "index": 0
+          },
+          {
+            "tag": "HEADER",
+            "id": "",
+            "type": "",
+            "index": 0
+          },
+          {
+            "tag": "BODY",
+            "id": "",
+            "type": "",
+            "index": 0
+          },
+          {
+            "tag": "HTML",
+            "id": "",
+            "type": "",
+            "index": 0
+          }
+        ],
+        "outline": {
+          "style": "solid",
+          "width": "3px",
+          "offset": "3px",
+          "color": "rgb(64, 59, 179)"
+        },
+        "scroll": {
+          "x": 0,
+          "y": 0
+        },
+        "viewport": {
+          "width": 360,
+          "height": 450,
+          "clientWidth": 352,
+          "clientHeight": 450,
+          "dpr": 2
+        },
+        "visualViewport": {
+          "width": 352.5,
+          "height": 450,
+          "top": 0,
+          "left": 0,
+          "scale": 1
+        },
+        "visible": true,
+        "focusIndicator": true
+      },
+      "scrollSamples": [
+        {
+          "elapsedMs": 2,
+          "element": {
+            "tag": "A",
+            "id": "",
+            "type": "",
+            "index": 1
+          },
+          "outsidePage": false,
+          "documentFocused": true,
+          "visibilityState": "visible",
+          "fontsStatus": "loaded",
+          "focusVisible": true,
+          "focused": true,
+          "rect": {
+            "top": 16,
+            "bottom": 62,
+            "left": 12,
+            "right": 170.3203125,
+            "width": 158.3203125,
+            "height": 46
+          },
+          "center": {
+            "x": 91.16015625,
+            "y": 39
+          },
+          "point": {
+            "x": 91.16015625,
+            "y": 39
+          },
+          "hit": {
+            "tag": "SPAN",
+            "id": "",
+            "type": "",
+            "index": 1
+          },
+          "hitStack": [
+            {
+              "tag": "SPAN",
+              "id": "",
+              "type": "",
+              "index": 1
+            },
+            {
+              "tag": "A",
+              "id": "",
+              "type": "",
+              "index": 1
+            },
+            {
+              "tag": "NAV",
+              "id": "",
+              "type": "",
+              "index": 0
+            },
+            {
+              "tag": "HEADER",
+              "id": "",
+              "type": "",
+              "index": 0
+            },
+            {
+              "tag": "BODY",
+              "id": "",
+              "type": "",
+              "index": 0
+            },
+            {
+              "tag": "HTML",
+              "id": "",
+              "type": "",
+              "index": 0
+            }
+          ],
+          "outline": {
+            "style": "solid",
+            "width": "3px",
+            "offset": "3px",
+            "color": "rgb(64, 59, 179)"
+          },
+          "scroll": {
+            "x": 0,
+            "y": 0
+          },
+          "viewport": {
+            "width": 360,
+            "height": 450,
+            "clientWidth": 352,
+            "clientHeight": 450,
+            "dpr": 2
+          },
+          "visualViewport": {
+            "width": 352.5,
+            "height": 450,
+            "top": 0,
+            "left": 0,
+            "scale": 1
+          },
+          "visible": true,
+          "focusIndicator": true
+        },
+        {
+          "elapsedMs": 59,
+          "element": {
+            "tag": "A",
+            "id": "",
+            "type": "",
+            "index": 1
+          },
+          "outsidePage": false,
+          "documentFocused": true,
+          "visibilityState": "visible",
+          "fontsStatus": "loaded",
+          "focusVisible": true,
+          "focused": true,
+          "rect": {
+            "top": 16,
+            "bottom": 62,
+            "left": 12,
+            "right": 170.3203125,
+            "width": 158.3203125,
+            "height": 46
+          },
+          "center": {
+            "x": 91.16015625,
+            "y": 39
+          },
+          "point": {
+            "x": 91.16015625,
+            "y": 39
+          },
+          "hit": {
+            "tag": "SPAN",
+            "id": "",
+            "type": "",
+            "index": 1
+          },
+          "hitStack": [
+            {
+              "tag": "SPAN",
+              "id": "",
+              "type": "",
+              "index": 1
+            },
+            {
+              "tag": "A",
+              "id": "",
+              "type": "",
+              "index": 1
+            },
+            {
+              "tag": "NAV",
+              "id": "",
+              "type": "",
+              "index": 0
+            },
+            {
+              "tag": "HEADER",
+              "id": "",
+              "type": "",
+              "index": 0
+            },
+            {
+              "tag": "BODY",
+              "id": "",
+              "type": "",
+              "index": 0
+            },
+            {
+              "tag": "HTML",
+              "id": "",
+              "type": "",
+              "index": 0
+            }
+          ],
+          "outline": {
+            "style": "solid",
+            "width": "3px",
+            "offset": "3px",
+            "color": "rgb(64, 59, 179)"
+          },
+          "scroll": {
+            "x": 0,
+            "y": 0
+          },
+          "viewport": {
+            "width": 360,
+            "height": 450,
+            "clientWidth": 352,
+            "clientHeight": 450,
+            "dpr": 2
+          },
+          "visualViewport": {
+            "width": 352.5,
+            "height": 450,
+            "top": 0,
+            "left": 0,
+            "scale": 1
+          },
+          "visible": true,
+          "focusIndicator": true
+        },
+        {
+          "elapsedMs": 116,
+          "element": {
+            "tag": "A",
+            "id": "",
+            "type": "",
+            "index": 1
+          },
+          "outsidePage": false,
+          "documentFocused": true,
+          "visibilityState": "visible",
+          "fontsStatus": "loaded",
+          "focusVisible": true,
+          "focused": true,
+          "rect": {
+            "top": 16,
+            "bottom": 62,
+            "left": 12,
+            "right": 170.3203125,
+            "width": 158.3203125,
+            "height": 46
+          },
+          "center": {
+            "x": 91.16015625,
+            "y": 39
+          },
+          "point": {
+            "x": 91.16015625,
+            "y": 39
+          },
+          "hit": {
+            "tag": "SPAN",
+            "id": "",
+            "type": "",
+            "index": 1
+          },
+          "hitStack": [
+            {
+              "tag": "SPAN",
+              "id": "",
+              "type": "",
+              "index": 1
+            },
+            {
+              "tag": "A",
+              "id": "",
+              "type": "",
+              "index": 1
+            },
+            {
+              "tag": "NAV",
+              "id": "",
+              "type": "",
+              "index": 0
+            },
+            {
+              "tag": "HEADER",
+              "id": "",
+              "type": "",
+              "index": 0
+            },
+            {
+              "tag": "BODY",
+              "id": "",
+              "type": "",
+              "index": 0
+            },
+            {
+              "tag": "HTML",
+              "id": "",
+              "type": "",
+              "index": 0
+            }
+          ],
+          "outline": {
+            "style": "solid",
+            "width": "3px",
+            "offset": "3px",
+            "color": "rgb(64, 59, 179)"
+          },
+          "scroll": {
+            "x": 0,
+            "y": 0
+          },
+          "viewport": {
+            "width": 360,
+            "height": 450,
+            "clientWidth": 352,
+            "clientHeight": 450,
+            "dpr": 2
+          },
+          "visualViewport": {
+            "width": 352.5,
+            "height": 450,
+            "top": 0,
+            "left": 0,
+            "scale": 1
+          },
+          "visible": true,
+          "focusIndicator": true
+        },
+        {
+          "elapsedMs": 171,
+          "element": {
+            "tag": "A",
+            "id": "",
+            "type": "",
+            "index": 1
+          },
+          "outsidePage": false,
+          "documentFocused": true,
+          "visibilityState": "visible",
+          "fontsStatus": "loaded",
+          "focusVisible": true,
+          "focused": true,
+          "rect": {
+            "top": 16,
+            "bottom": 62,
+            "left": 12,
+            "right": 170.3203125,
+            "width": 158.3203125,
+            "height": 46
+          },
+          "center": {
+            "x": 91.16015625,
+            "y": 39
+          },
+          "point": {
+            "x": 91.16015625,
+            "y": 39
+          },
+          "hit": {
+            "tag": "SPAN",
+            "id": "",
+            "type": "",
+            "index": 1
+          },
+          "hitStack": [
+            {
+              "tag": "SPAN",
+              "id": "",
+              "type": "",
+              "index": 1
+            },
+            {
+              "tag": "A",
+              "id": "",
+              "type": "",
+              "index": 1
+            },
+            {
+              "tag": "NAV",
+              "id": "",
+              "type": "",
+              "index": 0
+            },
+            {
+              "tag": "HEADER",
+              "id": "",
+              "type": "",
+              "index": 0
+            },
+            {
+              "tag": "BODY",
+              "id": "",
+              "type": "",
+              "index": 0
+            },
+            {
+              "tag": "HTML",
+              "id": "",
+              "type": "",
+              "index": 0
+            }
+          ],
+          "outline": {
+            "style": "solid",
+            "width": "3px",
+            "offset": "3px",
+            "color": "rgb(64, 59, 179)"
+          },
+          "scroll": {
+            "x": 0,
+            "y": 0
+          },
+          "viewport": {
+            "width": 360,
+            "height": 450,
+            "clientWidth": 352,
+            "clientHeight": 450,
+            "dpr": 2
+          },
+          "visualViewport": {
+            "width": 352.5,
+            "height": 450,
+            "top": 0,
+            "left": 0,
+            "scale": 1
+          },
+          "visible": true,
+          "focusIndicator": true
+        }
+      ],
+      "scrollSettled": true,
+      "afterTab": {
+        "element": {
+          "tag": "A",
+          "id": "",
+          "type": "",
+          "index": 1
+        },
+        "outsidePage": false,
+        "documentFocused": true,
+        "visibilityState": "visible",
+        "fontsStatus": "loaded",
+        "focusVisible": true,
+        "focused": true,
+        "rect": {
+          "top": 16,
+          "bottom": 62,
+          "left": 12,
+          "right": 170.3203125,
+          "width": 158.3203125,
+          "height": 46
+        },
+        "center": {
+          "x": 91.16015625,
+          "y": 39
+        },
+        "point": {
+          "x": 91.16015625,
+          "y": 39
+        },
+        "hit": {
+          "tag": "SPAN",
+          "id": "",
+          "type": "",
+          "index": 1
+        },
+        "hitStack": [
+          {
+            "tag": "SPAN",
+            "id": "",
+            "type": "",
+            "index": 1
+          },
+          {
+            "tag": "A",
+            "id": "",
+            "type": "",
+            "index": 1
+          },
+          {
+            "tag": "NAV",
+            "id": "",
+            "type": "",
+            "index": 0
+          },
+          {
+            "tag": "HEADER",
+            "id": "",
+            "type": "",
+            "index": 0
+          },
+          {
+            "tag": "BODY",
+            "id": "",
+            "type": "",
+            "index": 0
+          },
+          {
+            "tag": "HTML",
+            "id": "",
+            "type": "",
+            "index": 0
+          }
+        ],
+        "outline": {
+          "style": "none",
+          "width": "3px",
+          "offset": "3px",
+          "color": "rgb(0, 0, 0)"
+        },
+        "scroll": {
+          "x": 0,
+          "y": 0
+        },
+        "viewport": {
+          "width": 360,
+          "height": 450,
+          "clientWidth": 352,
+          "clientHeight": 450,
+          "dpr": 2
+        },
+        "visualViewport": {
+          "width": 352.5,
+          "height": 450,
+          "top": 0,
+          "left": 0,
+          "scale": 1
+        },
+        "visible": true,
+        "focusIndicator": false,
+        "cycled": false
+      }
+    }
+  ],
+  "failureSnapshot": {
+    "element": {
+      "tag": "A",
+      "id": "",
+      "type": "",
+      "index": 1
+    },
+    "outsidePage": false,
+    "documentFocused": true,
+    "visibilityState": "visible",
+    "fontsStatus": "loaded",
+    "focusVisible": true,
+    "focused": true,
+    "rect": {
+      "top": 16,
+      "bottom": 62,
+      "left": 12,
+      "right": 170.3203125,
+      "width": 158.3203125,
+      "height": 46
+    },
+    "center": {
+      "x": 91.16015625,
+      "y": 39
+    },
+    "point": {
+      "x": 91.16015625,
+      "y": 39
+    },
+    "hit": {
+      "tag": "SPAN",
+      "id": "",
+      "type": "",
+      "index": 1
+    },
+    "hitStack": [
+      {
+        "tag": "SPAN",
+        "id": "",
+        "type": "",
+        "index": 1
+      },
+      {
+        "tag": "A",
+        "id": "",
+        "type": "",
+        "index": 1
+      },
+      {
+        "tag": "NAV",
+        "id": "",
+        "type": "",
+        "index": 0
+      },
+      {
+        "tag": "HEADER",
+        "id": "",
+        "type": "",
+        "index": 0
+      },
+      {
+        "tag": "BODY",
+        "id": "",
+        "type": "",
+        "index": 0
+      },
+      {
+        "tag": "HTML",
+        "id": "",
+        "type": "",
+        "index": 0
+      }
+    ],
+    "outline": {
+      "style": "none",
+      "width": "3px",
+      "offset": "3px",
+      "color": "rgb(0, 0, 0)"
+    },
+    "scroll": {
+      "x": 0,
+      "y": 0
+    },
+    "viewport": {
+      "width": 360,
+      "height": 450,
+      "clientWidth": 352,
+      "clientHeight": 450,
+      "dpr": 2
+    },
+    "visualViewport": {
+      "width": 352.5,
+      "height": 450,
+      "top": 0,
+      "left": 0,
+      "scale": 1
+    },
+    "visible": true,
+    "focusIndicator": false
+  },
+  "status": "failed",
+  "screenshot": {
+    "status": "saved",
+    "filename": "sign-up-720-zoom200-focus-failed.png"
+  }
+}

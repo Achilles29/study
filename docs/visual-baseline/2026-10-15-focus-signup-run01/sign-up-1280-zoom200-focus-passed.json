@@ -1,0 +1,2686 @@
+{
+  "schemaVersion": 1,
+  "browserVersion": "Chrome/155.0.8059.79",
+  "route": "sign-up",
+  "browserContentWidth": 1280,
+  "zoomEvidence": {
+    "dpr": 2,
+    "pinch": 1,
+    "cssZoom": "1",
+    "browserZoom": 2
+  },
+  "navigationCheck": {
+    "enhanced": true,
+    "bootstrapReady": true,
+    "toggleHidden": false,
+    "allMenuLinksVisible": true,
+    "menuExpanded": true,
+    "links": [
+      {
+        "state": "page",
+        "visible": true,
+        "underline": true,
+        "thickness": 2,
+        "weight": 750
+      }
+    ]
+  },
+  "negativeControl": false,
+  "steps": [
+    {
+      "step": 0,
+      "beforeTab": {
+        "element": {
+          "tag": "A",
+          "id": "",
+          "type": ""
+        },
+        "outsidePage": false,
+        "documentFocused": true,
+        "visibilityState": "visible",
+        "focusVisible": true,
+        "focused": true,
+        "rect": {
+          "top": 16,
+          "bottom": 64,
+          "left": 16,
+          "right": 181.4453125,
+          "width": 165.4453125,
+          "height": 48
+        },
+        "point": {
+          "x": 98.72265625,
+          "y": 40
+        },
+        "hit": {
+          "tag": "A",
+          "id": "",
+          "type": ""
+        },
+        "outline": {
+          "style": "solid",
+          "width": "3px",
+          "offset": "3px"
+        },
+        "scroll": {
+          "x": 0,
+          "y": 0
+        },
+        "viewport": {
+          "width": 640,
+          "height": 450,
+          "clientWidth": 632,
+          "clientHeight": 450,
+          "dpr": 2
+        },
+        "visualViewport": {
+          "width": 632.5,
+          "height": 450,
+          "top": 0,
+          "left": 0,
+          "scale": 1
+        },
+        "visible": true,
+        "focusIndicator": true
+      },
+      "scrollSamples": [
+        {
+          "elapsedMs": 2,
+          "x": 0,
+          "y": 0,
+          "outsidePage": false
+        },
+        {
+          "elapsedMs": 58,
+          "x": 0,
+          "y": 0,
+          "outsidePage": false
+        },
+        {
+          "elapsedMs": 224,
+          "x": 0,
+          "y": 0,
+          "outsidePage": false
+        }
+      ],
+      "scrollSettled": true,
+      "afterTab": {
+        "element": {
+          "tag": "A",
+          "id": "",
+          "type": ""
+        },
+        "outsidePage": false,
+        "documentFocused": true,
+        "visibilityState": "visible",
+        "focusVisible": true,
+        "focused": true,
+        "rect": {
+          "top": 16,
+          "bottom": 62,
+          "left": 58.25,
+          "right": 216.5703125,
+          "width": 158.3203125,
+          "height": 46
+        },
+        "point": {
+          "x": 137.41015625,
+          "y": 39
+        },
+        "hit": {
+          "tag": "SPAN",
+          "id": "",
+          "type": ""
+        },
+        "outline": {
+          "style": "solid",
+          "width": "3px",
+          "offset": "3px"
+        },
+        "scroll": {
+          "x": 0,
+          "y": 0
+        },
+        "viewport": {
+          "width": 640,
+          "height": 450,
+          "clientWidth": 632,
+          "clientHeight": 450,
+          "dpr": 2
+        },
+        "visualViewport": {
+          "width": 632.5,
+          "height": 450,
+          "top": 0,
+          "left": 0,
+          "scale": 1
+        },
+        "visible": true,
+        "focusIndicator": true,
+        "cycled": false
+      }
+    },
+    {
+      "step": 1,
+      "beforeTab": {
+        "element": {
+          "tag": "A",
+          "id": "",
+          "type": ""
+        },
+        "outsidePage": false,
+        "documentFocused": true,
+        "visibilityState": "visible",
+        "focusVisible": true,
+        "focused": true,
+        "rect": {
+          "top": 16,
+          "bottom": 62,
+          "left": 58.25,
+          "right": 216.5703125,
+          "width": 158.3203125,
+          "height": 46
+        },
+        "point": {
+          "x": 137.41015625,
+          "y": 39
+        },
+        "hit": {
+          "tag": "SPAN",
+          "id": "",
+          "type": ""
+        },
+        "outline": {
+          "style": "solid",
+          "width": "3px",
+          "offset": "3px"
+        },
+        "scroll": {
+          "x": 0,
+          "y": 0
+        },
+        "viewport": {
+          "width": 640,
+          "height": 450,
+          "clientWidth": 632,
+          "clientHeight": 450,
+          "dpr": 2
+        },
+        "visualViewport": {
+          "width": 632.5,
+          "height": 450,
+          "top": 0,
+          "left": 0,
+          "scale": 1
+        },
+        "visible": true,
+        "focusIndicator": true
+      },
+      "scrollSamples": [
+        {
+          "elapsedMs": 9,
+          "x": 0,
+          "y": 0,
+          "outsidePage": false
+        },
+        {
+          "elapsedMs": 66,
+          "x": 0,
+          "y": 0,
+          "outsidePage": false
+        },
+        {
+          "elapsedMs": 129,
+          "x": 0,
+          "y": 0,
+          "outsidePage": false
+        },
+        {
+          "elapsedMs": 190,
+          "x": 0,
+          "y": 0,
+          "outsidePage": false
+        }
+      ],
+      "scrollSettled": true,
+      "afterTab": {
+        "element": {
+          "tag": "BUTTON",
+          "id": "",
+          "type": "button"
+        },
+        "outsidePage": false,
+        "documentFocused": true,
+        "visibilityState": "visible",
+        "focusVisible": true,
+        "focused": true,
+        "rect": {
+          "top": 17,
+          "bottom": 61,
+          "left": 518.25,
+          "right": 574.25,
+          "width": 56,
+          "height": 44
+        },
+        "point": {
+          "x": 546.25,
+          "y": 39
+        },
+        "hit": {
+          "tag": "SPAN",
+          "id": "",
+          "type": ""
+        },
+        "outline": {
+          "style": "solid",
+          "width": "3px",
+          "offset": "3px"
+        },
+        "scroll": {
+          "x": 0,
+          "y": 0
+        },
+        "viewport": {
+          "width": 640,
+          "height": 450,
+          "clientWidth": 632,
+          "clientHeight": 450,
+          "dpr": 2
+        },
+        "visualViewport": {
+          "width": 632.5,
+          "height": 450,
+          "top": 0,
+          "left": 0,
+          "scale": 1
+        },
+        "visible": true,
+        "focusIndicator": true,
+        "cycled": false
+      }
+    },
+    {
+      "step": 2,
+      "beforeTab": {
+        "element": {
+          "tag": "BUTTON",
+          "id": "",
+          "type": "button"
+        },
+        "outsidePage": false,
+        "documentFocused": true,
+        "visibilityState": "visible",
+        "focusVisible": true,
+        "focused": true,
+        "rect": {
+          "top": 17,
+          "bottom": 61,
+          "left": 518.25,
+          "right": 574.25,
+          "width": 56,
+          "height": 44
+        },
+        "point": {
+          "x": 546.25,
+          "y": 39
+        },
+        "hit": {
+          "tag": "SPAN",
+          "id": "",
+          "type": ""
+        },
+        "outline": {
+          "style": "solid",
+          "width": "3px",
+          "offset": "3px"
+        },
+        "scroll": {
+          "x": 0,
+          "y": 0
+        },
+        "viewport": {
+          "width": 640,
+          "height": 450,
+          "clientWidth": 632,
+          "clientHeight": 450,
+          "dpr": 2
+        },
+        "visualViewport": {
+          "width": 632.5,
+          "height": 450,
+          "top": 0,
+          "left": 0,
+          "scale": 1
+        },
+        "visible": true,
+        "focusIndicator": true
+      },
+      "scrollSamples": [
+        {
+          "elapsedMs": 1,
+          "x": 0,
+          "y": 0,
+          "outsidePage": false
+        },
+        {
+          "elapsedMs": 63,
+          "x": 0,
+          "y": 0,
+          "outsidePage": false
+        },
+        {
+          "elapsedMs": 123,
+          "x": 0,
+          "y": 0,
+          "outsidePage": false
+        },
+        {
+          "elapsedMs": 185,
+          "x": 0,
+          "y": 0,
+          "outsidePage": false
+        }
+      ],
+      "scrollSettled": true,
+      "afterTab": {
+        "element": {
+          "tag": "A",
+          "id": "",
+          "type": ""
+        },
+        "outsidePage": false,
+        "documentFocused": true,
+        "visibilityState": "visible",
+        "focusVisible": true,
+        "focused": true,
+        "rect": {
+          "top": 62,
+          "bottom": 106,
+          "left": 58.25,
+          "right": 574.25,
+          "width": 516,
+          "height": 44
+        },
+        "point": {
+          "x": 316.25,
+          "y": 84
+        },
+        "hit": {
+          "tag": "A",
+          "id": "",
+          "type": ""
+        },
+        "outline": {
+          "style": "solid",
+          "width": "3px",
+          "offset": "3px"
+        },
+        "scroll": {
+          "x": 0,
+          "y": 0
+        },
+        "viewport": {
+          "width": 640,
+          "height": 450,
+          "clientWidth": 632,
+          "clientHeight": 450,
+          "dpr": 2
+        },
+        "visualViewport": {
+          "width": 632.5,
+          "height": 450,
+          "top": 0,
+          "left": 0,
+          "scale": 1
+        },
+        "visible": true,
+        "focusIndicator": true,
+        "cycled": false
+      }
+    },
+    {
+      "step": 3,
+      "beforeTab": {
+        "element": {
+          "tag": "A",
+          "id": "",
+          "type": ""
+        },
+        "outsidePage": false,
+        "documentFocused": true,
+        "visibilityState": "visible",
+        "focusVisible": true,
+        "focused": true,
+        "rect": {
+          "top": 62,
+          "bottom": 106,
+          "left": 58.25,
+          "right": 574.25,
+          "width": 516,
+          "height": 44
+        },
+        "point": {
+          "x": 316.25,
+          "y": 84
+        },
+        "hit": {
+          "tag": "A",
+          "id": "",
+          "type": ""
+        },
+        "outline": {
+          "style": "solid",
+          "width": "3px",
+          "offset": "3px"
+        },
+        "scroll": {
+          "x": 0,
+          "y": 0
+        },
+        "viewport": {
+          "width": 640,
+          "height": 450,
+          "clientWidth": 632,
+          "clientHeight": 450,
+          "dpr": 2
+        },
+        "visualViewport": {
+          "width": 632.5,
+          "height": 450,
+          "top": 0,
+          "left": 0,
+          "scale": 1
+        },
+        "visible": true,
+        "focusIndicator": true
+      },
+      "scrollSamples": [
+        {
+          "elapsedMs": 3,
+          "x": 0,
+          "y": 0,
+          "outsidePage": false
+        },
+        {
+          "elapsedMs": 61,
+          "x": 0,
+          "y": 0,
+          "outsidePage": false
+        },
+        {
+          "elapsedMs": 117,
+          "x": 0,
+          "y": 0,
+          "outsidePage": false
+        },
+        {
+          "elapsedMs": 180,
+          "x": 0,
+          "y": 0,
+          "outsidePage": false
+        }
+      ],
+      "scrollSettled": true,
+      "afterTab": {
+        "element": {
+          "tag": "A",
+          "id": "",
+          "type": ""
+        },
+        "outsidePage": false,
+        "documentFocused": true,
+        "visibilityState": "visible",
+        "focusVisible": true,
+        "focused": true,
+        "rect": {
+          "top": 106,
+          "bottom": 150,
+          "left": 58.25,
+          "right": 574.25,
+          "width": 516,
+          "height": 44
+        },
+        "point": {
+          "x": 316.25,
+          "y": 128
+        },
+        "hit": {
+          "tag": "A",
+          "id": "",
+          "type": ""
+        },
+        "outline": {
+          "style": "solid",
+          "width": "3px",
+          "offset": "3px"
+        },
+        "scroll": {
+          "x": 0,
+          "y": 0
+        },
+        "viewport": {
+          "width": 640,
+          "height": 450,
+          "clientWidth": 632,
+          "clientHeight": 450,
+          "dpr": 2
+        },
+        "visualViewport": {
+          "width": 632.5,
+          "height": 450,
+          "top": 0,
+          "left": 0,
+          "scale": 1
+        },
+        "visible": true,
+        "focusIndicator": true,
+        "cycled": false
+      }
+    },
+    {
+      "step": 4,
+      "beforeTab": {
+        "element": {
+          "tag": "A",
+          "id": "",
+          "type": ""
+        },
+        "outsidePage": false,
+        "documentFocused": true,
+        "visibilityState": "visible",
+        "focusVisible": true,
+        "focused": true,
+        "rect": {
+          "top": 106,
+          "bottom": 150,
+          "left": 58.25,
+          "right": 574.25,
+          "width": 516,
+          "height": 44
+        },
+        "point": {
+          "x": 316.25,
+          "y": 128
+        },
+        "hit": {
+          "tag": "A",
+          "id": "",
+          "type": ""
+        },
+        "outline": {
+          "style": "solid",
+          "width": "3px",
+          "offset": "3px"
+        },
+        "scroll": {
+          "x": 0,
+          "y": 0
+        },
+        "viewport": {
+          "width": 640,
+          "height": 450,
+          "clientWidth": 632,
+          "clientHeight": 450,
+          "dpr": 2
+        },
+        "visualViewport": {
+          "width": 632.5,
+          "height": 450,
+          "top": 0,
+          "left": 0,
+          "scale": 1
+        },
+        "visible": true,
+        "focusIndicator": true
+      },
+      "scrollSamples": [
+        {
+          "elapsedMs": 2,
+          "x": 0,
+          "y": 0,
+          "outsidePage": false
+        },
+        {
+          "elapsedMs": 66,
+          "x": 0,
+          "y": 0,
+          "outsidePage": false
+        },
+        {
+          "elapsedMs": 119,
+          "x": 0,
+          "y": 0,
+          "outsidePage": false
+        },
+        {
+          "elapsedMs": 171,
+          "x": 0,
+          "y": 0,
+          "outsidePage": false
+        }
+      ],
+      "scrollSettled": true,
+      "afterTab": {
+        "element": {
+          "tag": "A",
+          "id": "",
+          "type": ""
+        },
+        "outsidePage": false,
+        "documentFocused": true,
+        "visibilityState": "visible",
+        "focusVisible": true,
+        "focused": true,
+        "rect": {
+          "top": 150,
+          "bottom": 194,
+          "left": 58.25,
+          "right": 574.25,
+          "width": 516,
+          "height": 44
+        },
+        "point": {
+          "x": 316.25,
+          "y": 172
+        },
+        "hit": {
+          "tag": "A",
+          "id": "",
+          "type": ""
+        },
+        "outline": {
+          "style": "solid",
+          "width": "3px",
+          "offset": "3px"
+        },
+        "scroll": {
+          "x": 0,
+          "y": 0
+        },
+        "viewport": {
+          "width": 640,
+          "height": 450,
+          "clientWidth": 632,
+          "clientHeight": 450,
+          "dpr": 2
+        },
+        "visualViewport": {
+          "width": 632.5,
+          "height": 450,
+          "top": 0,
+          "left": 0,
+          "scale": 1
+        },
+        "visible": true,
+        "focusIndicator": true,
+        "cycled": false
+      }
+    },
+    {
+      "step": 5,
+      "beforeTab": {
+        "element": {
+          "tag": "A",
+          "id": "",
+          "type": ""
+        },
+        "outsidePage": false,
+        "documentFocused": true,
+        "visibilityState": "visible",
+        "focusVisible": true,
+        "focused": true,
+        "rect": {
+          "top": 150,
+          "bottom": 194,
+          "left": 58.25,
+          "right": 574.25,
+          "width": 516,
+          "height": 44
+        },
+        "point": {
+          "x": 316.25,
+          "y": 172
+        },
+        "hit": {
+          "tag": "A",
+          "id": "",
+          "type": ""
+        },
+        "outline": {
+          "style": "solid",
+          "width": "3px",
+          "offset": "3px"
+        },
+        "scroll": {
+          "x": 0,
+          "y": 0
+        },
+        "viewport": {
+          "width": 640,
+          "height": 450,
+          "clientWidth": 632,
+          "clientHeight": 450,
+          "dpr": 2
+        },
+        "visualViewport": {
+          "width": 632.5,
+          "height": 450,
+          "top": 0,
+          "left": 0,
+          "scale": 1
+        },
+        "visible": true,
+        "focusIndicator": true
+      },
+      "scrollSamples": [
+        {
+          "elapsedMs": 4,
+          "x": 0,
+          "y": 0,
+          "outsidePage": false
+        },
+        {
+          "elapsedMs": 56,
+          "x": 0,
+          "y": 0,
+          "outsidePage": false
+        },
+        {
+          "elapsedMs": 116,
+          "x": 0,
+          "y": 0,
+          "outsidePage": false
+        },
+        {
+          "elapsedMs": 180,
+          "x": 0,
+          "y": 0,
+          "outsidePage": false
+        }
+      ],
+      "scrollSettled": true,
+      "afterTab": {
+        "element": {
+          "tag": "A",
+          "id": "",
+          "type": ""
+        },
+        "outsidePage": false,
+        "documentFocused": true,
+        "visibilityState": "visible",
+        "focusVisible": true,
+        "focused": true,
+        "rect": {
+          "top": 210,
+          "bottom": 254,
+          "left": 58.25,
+          "right": 130.5546875,
+          "width": 72.3046875,
+          "height": 44
+        },
+        "point": {
+          "x": 94.40234375,
+          "y": 232
+        },
+        "hit": {
+          "tag": "A",
+          "id": "",
+          "type": ""
+        },
+        "outline": {
+          "style": "solid",
+          "width": "3px",
+          "offset": "3px"
+        },
+        "scroll": {
+          "x": 0,
+          "y": 0
+        },
+        "viewport": {
+          "width": 640,
+          "height": 450,
+          "clientWidth": 632,
+          "clientHeight": 450,
+          "dpr": 2
+        },
+        "visualViewport": {
+          "width": 632.5,
+          "height": 450,
+          "top": 0,
+          "left": 0,
+          "scale": 1
+        },
+        "visible": true,
+        "focusIndicator": true,
+        "cycled": false
+      }
+    },
+    {
+      "step": 6,
+      "beforeTab": {
+        "element": {
+          "tag": "A",
+          "id": "",
+          "type": ""
+        },
+        "outsidePage": false,
+        "documentFocused": true,
+        "visibilityState": "visible",
+        "focusVisible": true,
+        "focused": true,
+        "rect": {
+          "top": 210,
+          "bottom": 254,
+          "left": 58.25,
+          "right": 130.5546875,
+          "width": 72.3046875,
+          "height": 44
+        },
+        "point": {
+          "x": 94.40234375,
+          "y": 232
+        },
+        "hit": {
+          "tag": "A",
+          "id": "",
+          "type": ""
+        },
+        "outline": {
+          "style": "solid",
+          "width": "3px",
+          "offset": "3px"
+        },
+        "scroll": {
+          "x": 0,
+          "y": 0
+        },
+        "viewport": {
+          "width": 640,
+          "height": 450,
+          "clientWidth": 632,
+          "clientHeight": 450,
+          "dpr": 2
+        },
+        "visualViewport": {
+          "width": 632.5,
+          "height": 450,
+          "top": 0,
+          "left": 0,
+          "scale": 1
+        },
+        "visible": true,
+        "focusIndicator": true
+      },
+      "scrollSamples": [
+        {
+          "elapsedMs": 2,
+          "x": 0,
+          "y": 0,
+          "outsidePage": false
+        },
+        {
+          "elapsedMs": 208,
+          "x": 0,
+          "y": 0,
+          "outsidePage": false
+        }
+      ],
+      "scrollSettled": true,
+      "afterTab": {
+        "element": {
+          "tag": "A",
+          "id": "",
+          "type": ""
+        },
+        "outsidePage": false,
+        "documentFocused": true,
+        "visibilityState": "visible",
+        "focusVisible": true,
+        "focused": true,
+        "rect": {
+          "top": 210,
+          "bottom": 254,
+          "left": 138.5546875,
+          "right": 286.921875,
+          "width": 148.3671875,
+          "height": 44
+        },
+        "point": {
+          "x": 212.73828125,
+          "y": 232
+        },
+        "hit": {
+          "tag": "A",
+          "id": "",
+          "type": ""
+        },
+        "outline": {
+          "style": "solid",
+          "width": "3px",
+          "offset": "3px"
+        },
+        "scroll": {
+          "x": 0,
+          "y": 0
+        },
+        "viewport": {
+          "width": 640,
+          "height": 450,
+          "clientWidth": 632,
+          "clientHeight": 450,
+          "dpr": 2
+        },
+        "visualViewport": {
+          "width": 632.5,
+          "height": 450,
+          "top": 0,
+          "left": 0,
+          "scale": 1
+        },
+        "visible": true,
+        "focusIndicator": true,
+        "cycled": false
+      }
+    },
+    {
+      "step": 7,
+      "beforeTab": {
+        "element": {
+          "tag": "A",
+          "id": "",
+          "type": ""
+        },
+        "outsidePage": false,
+        "documentFocused": true,
+        "visibilityState": "visible",
+        "focusVisible": true,
+        "focused": true,
+        "rect": {
+          "top": 210,
+          "bottom": 254,
+          "left": 138.5546875,
+          "right": 286.921875,
+          "width": 148.3671875,
+          "height": 44
+        },
+        "point": {
+          "x": 212.73828125,
+          "y": 232
+        },
+        "hit": {
+          "tag": "A",
+          "id": "",
+          "type": ""
+        },
+        "outline": {
+          "style": "solid",
+          "width": "3px",
+          "offset": "3px"
+        },
+        "scroll": {
+          "x": 0,
+          "y": 0
+        },
+        "viewport": {
+          "width": 640,
+          "height": 450,
+          "clientWidth": 632,
+          "clientHeight": 450,
+          "dpr": 2
+        },
+        "visualViewport": {
+          "width": 632.5,
+          "height": 450,
+          "top": 0,
+          "left": 0,
+          "scale": 1
+        },
+        "visible": true,
+        "focusIndicator": true
+      },
+      "scrollSamples": [
+        {
+          "elapsedMs": 8,
+          "x": 0,
+          "y": 1,
+          "outsidePage": false
+        },
+        {
+          "elapsedMs": 63,
+          "x": 0,
+          "y": 28.5,
+          "outsidePage": false
+        },
+        {
+          "elapsedMs": 123,
+          "x": 0,
+          "y": 210,
+          "outsidePage": false
+        },
+        {
+          "elapsedMs": 183,
+          "x": 0,
+          "y": 298,
+          "outsidePage": false
+        },
+        {
+          "elapsedMs": 241,
+          "x": 0,
+          "y": 352.5,
+          "outsidePage": false
+        },
+        {
+          "elapsedMs": 303,
+          "x": 0,
+          "y": 374.5,
+          "outsidePage": false
+        },
+        {
+          "elapsedMs": 366,
+          "x": 0,
+          "y": 391,
+          "outsidePage": false
+        },
+        {
+          "elapsedMs": 426,
+          "x": 0,
+          "y": 398,
+          "outsidePage": false
+        },
+        {
+          "elapsedMs": 490,
+          "x": 0,
+          "y": 398.5,
+          "outsidePage": false
+        },
+        {
+          "elapsedMs": 554,
+          "x": 0,
+          "y": 398.5,
+          "outsidePage": false
+        },
+        {
+          "elapsedMs": 610,
+          "x": 0,
+          "y": 398.5,
+          "outsidePage": false
+        },
+        {
+          "elapsedMs": 664,
+          "x": 0,
+          "y": 398.5,
+          "outsidePage": false
+        }
+      ],
+      "scrollSettled": true,
+      "afterTab": {
+        "element": {
+          "tag": "INPUT",
+          "id": "",
+          "type": "radio"
+        },
+        "outsidePage": false,
+        "documentFocused": true,
+        "visibilityState": "visible",
+        "focusVisible": true,
+        "focused": true,
+        "rect": {
+          "top": 218.6796875,
+          "bottom": 231.6796875,
+          "left": 101.84375,
+          "right": 114.84375,
+          "width": 13,
+          "height": 13
+        },
+        "point": {
+          "x": 108.34375,
+          "y": 225.1796875
+        },
+        "hit": {
+          "tag": "INPUT",
+          "id": "",
+          "type": "radio"
+        },
+        "outline": {
+          "style": "solid",
+          "width": "3px",
+          "offset": "3px"
+        },
+        "scroll": {
+          "x": 0,
+          "y": 398.5
+        },
+        "viewport": {
+          "width": 640,
+          "height": 450,
+          "clientWidth": 632,
+          "clientHeight": 450,
+          "dpr": 2
+        },
+        "visualViewport": {
+          "width": 632.5,
+          "height": 450,
+          "top": 0,
+          "left": 0,
+          "scale": 1
+        },
+        "visible": true,
+        "focusIndicator": true,
+        "cycled": false
+      }
+    },
+    {
+      "step": 8,
+      "beforeTab": {
+        "element": {
+          "tag": "INPUT",
+          "id": "",
+          "type": "radio"
+        },
+        "outsidePage": false,
+        "documentFocused": true,
+        "visibilityState": "visible",
+        "focusVisible": true,
+        "focused": true,
+        "rect": {
+          "top": 218.6796875,
+          "bottom": 231.6796875,
+          "left": 101.84375,
+          "right": 114.84375,
+          "width": 13,
+          "height": 13
+        },
+        "point": {
+          "x": 108.34375,
+          "y": 225.1796875
+        },
+        "hit": {
+          "tag": "INPUT",
+          "id": "",
+          "type": "radio"
+        },
+        "outline": {
+          "style": "solid",
+          "width": "3px",
+          "offset": "3px"
+        },
+        "scroll": {
+          "x": 0,
+          "y": 398.5
+        },
+        "viewport": {
+          "width": 640,
+          "height": 450,
+          "clientWidth": 632,
+          "clientHeight": 450,
+          "dpr": 2
+        },
+        "visualViewport": {
+          "width": 632.5,
+          "height": 450,
+          "top": 0,
+          "left": 0,
+          "scale": 1
+        },
+        "visible": true,
+        "focusIndicator": true
+      },
+      "scrollSamples": [
+        {
+          "elapsedMs": 2,
+          "x": 0,
+          "y": 398.5,
+          "outsidePage": false
+        },
+        {
+          "elapsedMs": 71,
+          "x": 0,
+          "y": 398.5,
+          "outsidePage": false
+        },
+        {
+          "elapsedMs": 133,
+          "x": 0,
+          "y": 398.5,
+          "outsidePage": false
+        },
+        {
+          "elapsedMs": 195,
+          "x": 0,
+          "y": 398.5,
+          "outsidePage": false
+        }
+      ],
+      "scrollSettled": true,
+      "afterTab": {
+        "element": {
+          "tag": "INPUT",
+          "id": "display_name",
+          "type": "text"
+        },
+        "outsidePage": false,
+        "documentFocused": true,
+        "visibilityState": "visible",
+        "focusVisible": true,
+        "focused": true,
+        "rect": {
+          "top": 357.6796875,
+          "bottom": 401.6796875,
+          "left": 84.84375,
+          "right": 547.65625,
+          "width": 462.8125,
+          "height": 44
+        },
+        "point": {
+          "x": 316.25,
+          "y": 379.6796875
+        },
+        "hit": {
+          "tag": "INPUT",
+          "id": "display_name",
+          "type": "text"
+        },
+        "outline": {
+          "style": "solid",
+          "width": "3px",
+          "offset": "3px"
+        },
+        "scroll": {
+          "x": 0,
+          "y": 398.5
+        },
+        "viewport": {
+          "width": 640,
+          "height": 450,
+          "clientWidth": 632,
+          "clientHeight": 450,
+          "dpr": 2
+        },
+        "visualViewport": {
+          "width": 632.5,
+          "height": 450,
+          "top": 0,
+          "left": 0,
+          "scale": 1
+        },
+        "visible": true,
+        "focusIndicator": true,
+        "cycled": false
+      }
+    },
+    {
+      "step": 9,
+      "beforeTab": {
+        "element": {
+          "tag": "INPUT",
+          "id": "display_name",
+          "type": "text"
+        },
+        "outsidePage": false,
+        "documentFocused": true,
+        "visibilityState": "visible",
+        "focusVisible": true,
+        "focused": true,
+        "rect": {
+          "top": 357.6796875,
+          "bottom": 401.6796875,
+          "left": 84.84375,
+          "right": 547.65625,
+          "width": 462.8125,
+          "height": 44
+        },
+        "point": {
+          "x": 316.25,
+          "y": 379.6796875
+        },
+        "hit": {
+          "tag": "INPUT",
+          "id": "display_name",
+          "type": "text"
+        },
+        "outline": {
+          "style": "solid",
+          "width": "3px",
+          "offset": "3px"
+        },
+        "scroll": {
+          "x": 0,
+          "y": 398.5
+        },
+        "viewport": {
+          "width": 640,
+          "height": 450,
+          "clientWidth": 632,
+          "clientHeight": 450,
+          "dpr": 2
+        },
+        "visualViewport": {
+          "width": 632.5,
+          "height": 450,
+          "top": 0,
+          "left": 0,
+          "scale": 1
+        },
+        "visible": true,
+        "focusIndicator": true
+      },
+      "scrollSamples": [
+        {
+          "elapsedMs": 2,
+          "x": 0,
+          "y": 398.5,
+          "outsidePage": false
+        },
+        {
+          "elapsedMs": 73,
+          "x": 0,
+          "y": 434.5,
+          "outsidePage": false
+        },
+        {
+          "elapsedMs": 136,
+          "x": 0,
+          "y": 549.5,
+          "outsidePage": false
+        },
+        {
+          "elapsedMs": 232,
+          "x": 0,
+          "y": 618,
+          "outsidePage": false
+        },
+        {
+          "elapsedMs": 318,
+          "x": 0,
+          "y": 641.5,
+          "outsidePage": false
+        },
+        {
+          "elapsedMs": 389,
+          "x": 0,
+          "y": 645,
+          "outsidePage": false
+        },
+        {
+          "elapsedMs": 445,
+          "x": 0,
+          "y": 645,
+          "outsidePage": false
+        },
+        {
+          "elapsedMs": 497,
+          "x": 0,
+          "y": 645,
+          "outsidePage": false
+        },
+        {
+          "elapsedMs": 553,
+          "x": 0,
+          "y": 645,
+          "outsidePage": false
+        }
+      ],
+      "scrollSettled": true,
+      "afterTab": {
+        "element": {
+          "tag": "INPUT",
+          "id": "username",
+          "type": "text"
+        },
+        "outsidePage": false,
+        "documentFocused": true,
+        "visibilityState": "visible",
+        "focusVisible": true,
+        "focused": true,
+        "rect": {
+          "top": 203.1796875,
+          "bottom": 247.1796875,
+          "left": 84.84375,
+          "right": 547.65625,
+          "width": 462.8125,
+          "height": 44
+        },
+        "point": {
+          "x": 316.25,
+          "y": 225.1796875
+        },
+        "hit": {
+          "tag": "INPUT",
+          "id": "username",
+          "type": "text"
+        },
+        "outline": {
+          "style": "solid",
+          "width": "3px",
+          "offset": "3px"
+        },
+        "scroll": {
+          "x": 0,
+          "y": 645
+        },
+        "viewport": {
+          "width": 640,
+          "height": 450,
+          "clientWidth": 632,
+          "clientHeight": 450,
+          "dpr": 2
+        },
+        "visualViewport": {
+          "width": 632.5,
+          "height": 450,
+          "top": 0,
+          "left": 0,
+          "scale": 1
+        },
+        "visible": true,
+        "focusIndicator": true,
+        "cycled": false
+      }
+    },
+    {
+      "step": 10,
+      "beforeTab": {
+        "element": {
+          "tag": "INPUT",
+          "id": "username",
+          "type": "text"
+        },
+        "outsidePage": false,
+        "documentFocused": true,
+        "visibilityState": "visible",
+        "focusVisible": true,
+        "focused": true,
+        "rect": {
+          "top": 203.1796875,
+          "bottom": 247.1796875,
+          "left": 84.84375,
+          "right": 547.65625,
+          "width": 462.8125,
+          "height": 44
+        },
+        "point": {
+          "x": 316.25,
+          "y": 225.1796875
+        },
+        "hit": {
+          "tag": "INPUT",
+          "id": "username",
+          "type": "text"
+        },
+        "outline": {
+          "style": "solid",
+          "width": "3px",
+          "offset": "3px"
+        },
+        "scroll": {
+          "x": 0,
+          "y": 645
+        },
+        "viewport": {
+          "width": 640,
+          "height": 450,
+          "clientWidth": 632,
+          "clientHeight": 450,
+          "dpr": 2
+        },
+        "visualViewport": {
+          "width": 632.5,
+          "height": 450,
+          "top": 0,
+          "left": 0,
+          "scale": 1
+        },
+        "visible": true,
+        "focusIndicator": true
+      },
+      "scrollSamples": [
+        {
+          "elapsedMs": 5,
+          "x": 0,
+          "y": 645,
+          "outsidePage": false
+        },
+        {
+          "elapsedMs": 73,
+          "x": 0,
+          "y": 645,
+          "outsidePage": false
+        },
+        {
+          "elapsedMs": 134,
+          "x": 0,
+          "y": 645,
+          "outsidePage": false
+        },
+        {
+          "elapsedMs": 198,
+          "x": 0,
+          "y": 645,
+          "outsidePage": false
+        }
+      ],
+      "scrollSettled": true,
+      "afterTab": {
+        "element": {
+          "tag": "INPUT",
+          "id": "email",
+          "type": "email"
+        },
+        "outsidePage": false,
+        "documentFocused": true,
+        "visibilityState": "visible",
+        "focusVisible": true,
+        "focused": true,
+        "rect": {
+          "top": 320.1796875,
+          "bottom": 364.1796875,
+          "left": 84.84375,
+          "right": 547.65625,
+          "width": 462.8125,
+          "height": 44
+        },
+        "point": {
+          "x": 316.25,
+          "y": 342.1796875
+        },
+        "hit": {
+          "tag": "INPUT",
+          "id": "email",
+          "type": "email"
+        },
+        "outline": {
+          "style": "solid",
+          "width": "3px",
+          "offset": "3px"
+        },
+        "scroll": {
+          "x": 0,
+          "y": 645
+        },
+        "viewport": {
+          "width": 640,
+          "height": 450,
+          "clientWidth": 632,
+          "clientHeight": 450,
+          "dpr": 2
+        },
+        "visualViewport": {
+          "width": 632.5,
+          "height": 450,
+          "top": 0,
+          "left": 0,
+          "scale": 1
+        },
+        "visible": true,
+        "focusIndicator": true,
+        "cycled": false
+      }
+    },
+    {
+      "step": 11,
+      "beforeTab": {
+        "element": {
+          "tag": "INPUT",
+          "id": "email",
+          "type": "email"
+        },
+        "outsidePage": false,
+        "documentFocused": true,
+        "visibilityState": "visible",
+        "focusVisible": true,
+        "focused": true,
+        "rect": {
+          "top": 320.1796875,
+          "bottom": 364.1796875,
+          "left": 84.84375,
+          "right": 547.65625,
+          "width": 462.8125,
+          "height": 44
+        },
+        "point": {
+          "x": 316.25,
+          "y": 342.1796875
+        },
+        "hit": {
+          "tag": "INPUT",
+          "id": "email",
+          "type": "email"
+        },
+        "outline": {
+          "style": "solid",
+          "width": "3px",
+          "offset": "3px"
+        },
+        "scroll": {
+          "x": 0,
+          "y": 645
+        },
+        "viewport": {
+          "width": 640,
+          "height": 450,
+          "clientWidth": 632,
+          "clientHeight": 450,
+          "dpr": 2
+        },
+        "visualViewport": {
+          "width": 632.5,
+          "height": 450,
+          "top": 0,
+          "left": 0,
+          "scale": 1
+        },
+        "visible": true,
+        "focusIndicator": true
+      },
+      "scrollSamples": [
+        {
+          "elapsedMs": 2,
+          "x": 0,
+          "y": 645,
+          "outsidePage": false
+        },
+        {
+          "elapsedMs": 63,
+          "x": 0,
+          "y": 651,
+          "outsidePage": false
+        },
+        {
+          "elapsedMs": 123,
+          "x": 0,
+          "y": 651,
+          "outsidePage": false
+        },
+        {
+          "elapsedMs": 184,
+          "x": 0,
+          "y": 651,
+          "outsidePage": false
+        },
+        {
+          "elapsedMs": 238,
+          "x": 0,
+          "y": 651,
+          "outsidePage": false
+        }
+      ],
+      "scrollSettled": true,
+      "afterTab": {
+        "element": {
+          "tag": "INPUT",
+          "id": "password",
+          "type": "password"
+        },
+        "outsidePage": false,
+        "documentFocused": true,
+        "visibilityState": "visible",
+        "focusVisible": true,
+        "focused": true,
+        "rect": {
+          "top": 406.1796875,
+          "bottom": 450.1796875,
+          "left": 84.84375,
+          "right": 547.65625,
+          "width": 462.8125,
+          "height": 44
+        },
+        "point": {
+          "x": 316.25,
+          "y": 428.1796875
+        },
+        "hit": {
+          "tag": "INPUT",
+          "id": "password",
+          "type": "password"
+        },
+        "outline": {
+          "style": "solid",
+          "width": "3px",
+          "offset": "3px"
+        },
+        "scroll": {
+          "x": 0,
+          "y": 651
+        },
+        "viewport": {
+          "width": 640,
+          "height": 450,
+          "clientWidth": 632,
+          "clientHeight": 450,
+          "dpr": 2
+        },
+        "visualViewport": {
+          "width": 632.5,
+          "height": 450,
+          "top": 0,
+          "left": 0,
+          "scale": 1
+        },
+        "visible": true,
+        "focusIndicator": true,
+        "cycled": false
+      }
+    },
+    {
+      "step": 12,
+      "beforeTab": {
+        "element": {
+          "tag": "INPUT",
+          "id": "password",
+          "type": "password"
+        },
+        "outsidePage": false,
+        "documentFocused": true,
+        "visibilityState": "visible",
+        "focusVisible": true,
+        "focused": true,
+        "rect": {
+          "top": 406.1796875,
+          "bottom": 450.1796875,
+          "left": 84.84375,
+          "right": 547.65625,
+          "width": 462.8125,
+          "height": 44
+        },
+        "point": {
+          "x": 316.25,
+          "y": 428.1796875
+        },
+        "hit": {
+          "tag": "INPUT",
+          "id": "password",
+          "type": "password"
+        },
+        "outline": {
+          "style": "solid",
+          "width": "3px",
+          "offset": "3px"
+        },
+        "scroll": {
+          "x": 0,
+          "y": 651
+        },
+        "viewport": {
+          "width": 640,
+          "height": 450,
+          "clientWidth": 632,
+          "clientHeight": 450,
+          "dpr": 2
+        },
+        "visualViewport": {
+          "width": 632.5,
+          "height": 450,
+          "top": 0,
+          "left": 0,
+          "scale": 1
+        },
+        "visible": true,
+        "focusIndicator": true
+      },
+      "scrollSamples": [
+        {
+          "elapsedMs": 2,
+          "x": 0,
+          "y": 651,
+          "outsidePage": false
+        },
+        {
+          "elapsedMs": 59,
+          "x": 0,
+          "y": 681.5,
+          "outsidePage": false
+        },
+        {
+          "elapsedMs": 118,
+          "x": 0,
+          "y": 813.5,
+          "outsidePage": false
+        },
+        {
+          "elapsedMs": 175,
+          "x": 0,
+          "y": 919.5,
+          "outsidePage": false
+        },
+        {
+          "elapsedMs": 238,
+          "x": 0,
+          "y": 953.5,
+          "outsidePage": false
+        },
+        {
+          "elapsedMs": 294,
+          "x": 0,
+          "y": 977.5,
+          "outsidePage": false
+        },
+        {
+          "elapsedMs": 372,
+          "x": 0,
+          "y": 987,
+          "outsidePage": false
+        },
+        {
+          "elapsedMs": 474,
+          "x": 0,
+          "y": 992,
+          "outsidePage": false
+        },
+        {
+          "elapsedMs": 548,
+          "x": 0,
+          "y": 992,
+          "outsidePage": false
+        },
+        {
+          "elapsedMs": 614,
+          "x": 0,
+          "y": 992,
+          "outsidePage": false
+        },
+        {
+          "elapsedMs": 670,
+          "x": 0,
+          "y": 992,
+          "outsidePage": false
+        }
+      ],
+      "scrollSettled": true,
+      "afterTab": {
+        "element": {
+          "tag": "INPUT",
+          "id": "password_confirm",
+          "type": "password"
+        },
+        "outsidePage": false,
+        "documentFocused": true,
+        "visibilityState": "visible",
+        "focusVisible": true,
+        "focused": true,
+        "rect": {
+          "top": 203.1796875,
+          "bottom": 247.1796875,
+          "left": 84.84375,
+          "right": 547.65625,
+          "width": 462.8125,
+          "height": 44
+        },
+        "point": {
+          "x": 316.25,
+          "y": 225.1796875
+        },
+        "hit": {
+          "tag": "INPUT",
+          "id": "password_confirm",
+          "type": "password"
+        },
+        "outline": {
+          "style": "solid",
+          "width": "3px",
+          "offset": "3px"
+        },
+        "scroll": {
+          "x": 0,
+          "y": 992
+        },
+        "viewport": {
+          "width": 640,
+          "height": 450,
+          "clientWidth": 632,
+          "clientHeight": 450,
+          "dpr": 2
+        },
+        "visualViewport": {
+          "width": 632.5,
+          "height": 450,
+          "top": 0,
+          "left": 0,
+          "scale": 1
+        },
+        "visible": true,
+        "focusIndicator": true,
+        "cycled": false
+      }
+    },
+    {
+      "step": 13,
+      "beforeTab": {
+        "element": {
+          "tag": "INPUT",
+          "id": "password_confirm",
+          "type": "password"
+        },
+        "outsidePage": false,
+        "documentFocused": true,
+        "visibilityState": "visible",
+        "focusVisible": true,
+        "focused": true,
+        "rect": {
+          "top": 203.1796875,
+          "bottom": 247.1796875,
+          "left": 84.84375,
+          "right": 547.65625,
+          "width": 462.8125,
+          "height": 44
+        },
+        "point": {
+          "x": 316.25,
+          "y": 225.1796875
+        },
+        "hit": {
+          "tag": "INPUT",
+          "id": "password_confirm",
+          "type": "password"
+        },
+        "outline": {
+          "style": "solid",
+          "width": "3px",
+          "offset": "3px"
+        },
+        "scroll": {
+          "x": 0,
+          "y": 992
+        },
+        "viewport": {
+          "width": 640,
+          "height": 450,
+          "clientWidth": 632,
+          "clientHeight": 450,
+          "dpr": 2
+        },
+        "visualViewport": {
+          "width": 632.5,
+          "height": 450,
+          "top": 0,
+          "left": 0,
+          "scale": 1
+        },
+        "visible": true,
+        "focusIndicator": true
+      },
+      "scrollSamples": [
+        {
+          "elapsedMs": 3,
+          "x": 0,
+          "y": 992,
+          "outsidePage": false
+        },
+        {
+          "elapsedMs": 61,
+          "x": 0,
+          "y": 992,
+          "outsidePage": false
+        },
+        {
+          "elapsedMs": 120,
+          "x": 0,
+          "y": 992,
+          "outsidePage": false
+        },
+        {
+          "elapsedMs": 178,
+          "x": 0,
+          "y": 992,
+          "outsidePage": false
+        }
+      ],
+      "scrollSettled": true,
+      "afterTab": {
+        "element": {
+          "tag": "INPUT",
+          "id": "agree_terms",
+          "type": "checkbox"
+        },
+        "outsidePage": false,
+        "documentFocused": true,
+        "visibilityState": "visible",
+        "focusVisible": true,
+        "focused": true,
+        "rect": {
+          "top": 267.1796875,
+          "bottom": 283.1796875,
+          "left": 84.84375,
+          "right": 100.84375,
+          "width": 16,
+          "height": 16
+        },
+        "point": {
+          "x": 92.84375,
+          "y": 275.1796875
+        },
+        "hit": {
+          "tag": "INPUT",
+          "id": "agree_terms",
+          "type": "checkbox"
+        },
+        "outline": {
+          "style": "solid",
+          "width": "3px",
+          "offset": "3px"
+        },
+        "scroll": {
+          "x": 0,
+          "y": 992
+        },
+        "viewport": {
+          "width": 640,
+          "height": 450,
+          "clientWidth": 632,
+          "clientHeight": 450,
+          "dpr": 2
+        },
+        "visualViewport": {
+          "width": 632.5,
+          "height": 450,
+          "top": 0,
+          "left": 0,
+          "scale": 1
+        },
+        "visible": true,
+        "focusIndicator": true,
+        "cycled": false
+      }
+    },
+    {
+      "step": 14,
+      "beforeTab": {
+        "element": {
+          "tag": "INPUT",
+          "id": "agree_terms",
+          "type": "checkbox"
+        },
+        "outsidePage": false,
+        "documentFocused": true,
+        "visibilityState": "visible",
+        "focusVisible": true,
+        "focused": true,
+        "rect": {
+          "top": 267.1796875,
+          "bottom": 283.1796875,
+          "left": 84.84375,
+          "right": 100.84375,
+          "width": 16,
+          "height": 16
+        },
+        "point": {
+          "x": 92.84375,
+          "y": 275.1796875
+        },
+        "hit": {
+          "tag": "INPUT",
+          "id": "agree_terms",
+          "type": "checkbox"
+        },
+        "outline": {
+          "style": "solid",
+          "width": "3px",
+          "offset": "3px"
+        },
+        "scroll": {
+          "x": 0,
+          "y": 992
+        },
+        "viewport": {
+          "width": 640,
+          "height": 450,
+          "clientWidth": 632,
+          "clientHeight": 450,
+          "dpr": 2
+        },
+        "visualViewport": {
+          "width": 632.5,
+          "height": 450,
+          "top": 0,
+          "left": 0,
+          "scale": 1
+        },
+        "visible": true,
+        "focusIndicator": true
+      },
+      "scrollSamples": [
+        {
+          "elapsedMs": 2,
+          "x": 0,
+          "y": 992,
+          "outsidePage": false
+        },
+        {
+          "elapsedMs": 63,
+          "x": 0,
+          "y": 992,
+          "outsidePage": false
+        },
+        {
+          "elapsedMs": 130,
+          "x": 0,
+          "y": 992,
+          "outsidePage": false
+        },
+        {
+          "elapsedMs": 189,
+          "x": 0,
+          "y": 992,
+          "outsidePage": false
+        }
+      ],
+      "scrollSettled": true,
+      "afterTab": {
+        "element": {
+          "tag": "BUTTON",
+          "id": "",
+          "type": "submit"
+        },
+        "outsidePage": false,
+        "documentFocused": true,
+        "visibilityState": "visible",
+        "focusVisible": true,
+        "focused": true,
+        "rect": {
+          "top": 337.1796875,
+          "bottom": 388.1328125,
+          "left": 84.84375,
+          "right": 547.65625,
+          "width": 462.8125,
+          "height": 50.953125
+        },
+        "point": {
+          "x": 316.25,
+          "y": 362.65625
+        },
+        "hit": {
+          "tag": "BUTTON",
+          "id": "",
+          "type": "submit"
+        },
+        "outline": {
+          "style": "solid",
+          "width": "3px",
+          "offset": "3px"
+        },
+        "scroll": {
+          "x": 0,
+          "y": 992
+        },
+        "viewport": {
+          "width": 640,
+          "height": 450,
+          "clientWidth": 632,
+          "clientHeight": 450,
+          "dpr": 2
+        },
+        "visualViewport": {
+          "width": 632.5,
+          "height": 450,
+          "top": 0,
+          "left": 0,
+          "scale": 1
+        },
+        "visible": true,
+        "focusIndicator": true,
+        "cycled": false
+      }
+    },
+    {
+      "step": 15,
+      "beforeTab": {
+        "element": {
+          "tag": "BUTTON",
+          "id": "",
+          "type": "submit"
+        },
+        "outsidePage": false,
+        "documentFocused": true,
+        "visibilityState": "visible",
+        "focusVisible": true,
+        "focused": true,
+        "rect": {
+          "top": 337.1796875,
+          "bottom": 388.1328125,
+          "left": 84.84375,
+          "right": 547.65625,
+          "width": 462.8125,
+          "height": 50.953125
+        },
+        "point": {
+          "x": 316.25,
+          "y": 362.65625
+        },
+        "hit": {
+          "tag": "BUTTON",
+          "id": "",
+          "type": "submit"
+        },
+        "outline": {
+          "style": "solid",
+          "width": "3px",
+          "offset": "3px"
+        },
+        "scroll": {
+          "x": 0,
+          "y": 992
+        },
+        "viewport": {
+          "width": 640,
+          "height": 450,
+          "clientWidth": 632,
+          "clientHeight": 450,
+          "dpr": 2
+        },
+        "visualViewport": {
+          "width": 632.5,
+          "height": 450,
+          "top": 0,
+          "left": 0,
+          "scale": 1
+        },
+        "visible": true,
+        "focusIndicator": true
+      },
+      "scrollSamples": [
+        {
+          "elapsedMs": 2,
+          "x": 0,
+          "y": 992,
+          "outsidePage": false
+        },
+        {
+          "elapsedMs": 69,
+          "x": 0,
+          "y": 992,
+          "outsidePage": false
+        },
+        {
+          "elapsedMs": 128,
+          "x": 0,
+          "y": 992,
+          "outsidePage": false
+        },
+        {
+          "elapsedMs": 187,
+          "x": 0,
+          "y": 992,
+          "outsidePage": false
+        }
+      ],
+      "scrollSettled": true,
+      "afterTab": {
+        "element": {
+          "tag": "A",
+          "id": "",
+          "type": ""
+        },
+        "outsidePage": false,
+        "documentFocused": true,
+        "visibilityState": "visible",
+        "focusVisible": true,
+        "focused": true,
+        "rect": {
+          "top": 413.1328125,
+          "bottom": 434.6328125,
+          "left": 364.140625,
+          "right": 410.4453125,
+          "width": 46.3046875,
+          "height": 21.5
+        },
+        "point": {
+          "x": 387.29296875,
+          "y": 423.8828125
+        },
+        "hit": {
+          "tag": "A",
+          "id": "",
+          "type": ""
+        },
+        "outline": {
+          "style": "solid",
+          "width": "3px",
+          "offset": "3px"
+        },
+        "scroll": {
+          "x": 0,
+          "y": 992
+        },
+        "viewport": {
+          "width": 640,
+          "height": 450,
+          "clientWidth": 632,
+          "clientHeight": 450,
+          "dpr": 2
+        },
+        "visualViewport": {
+          "width": 632.5,
+          "height": 450,
+          "top": 0,
+          "left": 0,
+          "scale": 1
+        },
+        "visible": true,
+        "focusIndicator": true,
+        "cycled": false
+      }
+    },
+    {
+      "step": 16,
+      "beforeTab": {
+        "element": {
+          "tag": "A",
+          "id": "",
+          "type": ""
+        },
+        "outsidePage": false,
+        "documentFocused": true,
+        "visibilityState": "visible",
+        "focusVisible": true,
+        "focused": true,
+        "rect": {
+          "top": 413.1328125,
+          "bottom": 434.6328125,
+          "left": 364.140625,
+          "right": 410.4453125,
+          "width": 46.3046875,
+          "height": 21.5
+        },
+        "point": {
+          "x": 387.29296875,
+          "y": 423.8828125
+        },
+        "hit": {
+          "tag": "A",
+          "id": "",
+          "type": ""
+        },
+        "outline": {
+          "style": "solid",
+          "width": "3px",
+          "offset": "3px"
+        },
+        "scroll": {
+          "x": 0,
+          "y": 992
+        },
+        "viewport": {
+          "width": 640,
+          "height": 450,
+          "clientWidth": 632,
+          "clientHeight": 450,
+          "dpr": 2
+        },
+        "visualViewport": {
+          "width": 632.5,
+          "height": 450,
+          "top": 0,
+          "left": 0,
+          "scale": 1
+        },
+        "visible": true,
+        "focusIndicator": true
+      },
+      "scrollSamples": [
+        {
+          "elapsedMs": 3,
+          "x": 0,
+          "y": 992,
+          "outsidePage": true
+        }
+      ],
+      "scrollSettled": true,
+      "afterTab": {
+        "element": {
+          "tag": "BODY",
+          "id": "",
+          "type": ""
+        },
+        "outsidePage": true,
+        "documentFocused": true,
+        "visibilityState": "visible",
+        "focusVisible": false,
+        "focused": false,
+        "rect": {
+          "top": -992,
+          "bottom": 660.7265625,
+          "left": 0,
+          "right": 632.5,
+          "width": 632.5,
+          "height": 1652.7265625
+        },
+        "point": {
+          "x": 316.25,
+          "y": 0
+        },
+        "hit": {
+          "tag": "INPUT",
+          "id": "email",
+          "type": "email"
+        },
+        "outline": {
+          "style": "none",
+          "width": "3px",
+          "offset": "0px"
+        },
+        "scroll": {
+          "x": 0,
+          "y": 992
+        },
+        "viewport": {
+          "width": 640,
+          "height": 450,
+          "clientWidth": 632,
+          "clientHeight": 450,
+          "dpr": 2
+        },
+        "visualViewport": {
+          "width": 632.5,
+          "height": 450,
+          "top": 0,
+          "left": 0,
+          "scale": 1
+        },
+        "visible": true,
+        "focusIndicator": false
+      }
+    },
+    {
+      "step": 17,
+      "beforeTab": {
+        "element": {
+          "tag": "BODY",
+          "id": "",
+          "type": ""
+        },
+        "outsidePage": true,
+        "documentFocused": true,
+        "visibilityState": "visible",
+        "focusVisible": false,
+        "focused": false,
+        "rect": {
+          "top": -992,
+          "bottom": 660.7265625,
+          "left": 0,
+          "right": 632.5,
+          "width": 632.5,
+          "height": 1652.7265625
+        },
+        "point": {
+          "x": 316.25,
+          "y": 0
+        },
+        "hit": {
+          "tag": "INPUT",
+          "id": "email",
+          "type": "email"
+        },
+        "outline": {
+          "style": "none",
+          "width": "3px",
+          "offset": "0px"
+        },
+        "scroll": {
+          "x": 0,
+          "y": 992
+        },
+        "viewport": {
+          "width": 640,
+          "height": 450,
+          "clientWidth": 632,
+          "clientHeight": 450,
+          "dpr": 2
+        },
+        "visualViewport": {
+          "width": 632.5,
+          "height": 450,
+          "top": 0,
+          "left": 0,
+          "scale": 1
+        },
+        "visible": true,
+        "focusIndicator": false
+      },
+      "scrollSamples": [
+        {
+          "elapsedMs": 2,
+          "x": 0,
+          "y": 992,
+          "outsidePage": false
+        },
+        {
+          "elapsedMs": 58,
+          "x": 0,
+          "y": 980.5,
+          "outsidePage": false
+        },
+        {
+          "elapsedMs": 112,
+          "x": 0,
+          "y": 897,
+          "outsidePage": false
+        },
+        {
+          "elapsedMs": 174,
+          "x": 0,
+          "y": 695,
+          "outsidePage": false
+        },
+        {
+          "elapsedMs": 233,
+          "x": 0,
+          "y": 386.5,
+          "outsidePage": false
+        },
+        {
+          "elapsedMs": 308,
+          "x": 0,
+          "y": 232,
+          "outsidePage": false
+        },
+        {
+          "elapsedMs": 483,
+          "x": 0,
+          "y": 125.5,
+          "outsidePage": false
+        },
+        {
+          "elapsedMs": 556,
+          "x": 0,
+          "y": 27.5,
+          "outsidePage": false
+        },
+        {
+          "elapsedMs": 621,
+          "x": 0,
+          "y": 11,
+          "outsidePage": false
+        },
+        {
+          "elapsedMs": 676,
+          "x": 0,
+          "y": 3.5,
+          "outsidePage": false
+        },
+        {
+          "elapsedMs": 737,
+          "x": 0,
+          "y": 0,
+          "outsidePage": false
+        },
+        {
+          "elapsedMs": 799,
+          "x": 0,
+          "y": 0,
+          "outsidePage": false
+        },
+        {
+          "elapsedMs": 856,
+          "x": 0,
+          "y": 0,
+          "outsidePage": false
+        },
+        {
+          "elapsedMs": 909,
+          "x": 0,
+          "y": 0,
+          "outsidePage": false
+        }
+      ],
+      "scrollSettled": true,
+      "afterTab": {
+        "element": {
+          "tag": "A",
+          "id": "",
+          "type": ""
+        },
+        "outsidePage": false,
+        "documentFocused": true,
+        "visibilityState": "visible",
+        "focusVisible": true,
+        "focused": true,
+        "rect": {
+          "top": 16,
+          "bottom": 64,
+          "left": 16,
+          "right": 181.4453125,
+          "width": 165.4453125,
+          "height": 48
+        },
+        "point": {
+          "x": 98.72265625,
+          "y": 40
+        },
+        "hit": {
+          "tag": "A",
+          "id": "",
+          "type": ""
+        },
+        "outline": {
+          "style": "solid",
+          "width": "3px",
+          "offset": "3px"
+        },
+        "scroll": {
+          "x": 0,
+          "y": 0
+        },
+        "viewport": {
+          "width": 640,
+          "height": 450,
+          "clientWidth": 632,
+          "clientHeight": 450,
+          "dpr": 2
+        },
+        "visualViewport": {
+          "width": 632.5,
+          "height": 450,
+          "top": 0,
+          "left": 0,
+          "scale": 1
+        },
+        "visible": true,
+        "focusIndicator": true,
+        "cycled": true
+      }
+    }
+  ],
+  "status": "passed",
+  "screenshot": {
+    "status": "not-requested"
+  }
+}

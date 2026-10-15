@@ -1,0 +1,9 @@
+Options -Indexes
+
+<IfModule mod_rewrite.c>
+	RewriteEngine On
+	RewriteRule ^(?:docs|scripts|sql|\.git)(?:/|$) - [F,L,NC]
+	RewriteRule (^|/)\. - [F,L]
+	RewriteRule \.(?:md|rst|log|sql|zip|bak|ini|env|ya?ml|toml|lock)$ - [F,L,NC]
+	RewriteRule ^(?:composer\.json|package(?:-lock)?\.json|readme\.rst|license\.txt)$ - [F,L,NC]
+</IfModule>

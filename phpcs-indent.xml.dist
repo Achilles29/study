@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<ruleset name="Study CI3 indentation">
+	<description>Check nested indentation with tabs in PHP-only CI3 source and test scripts.</description>
+
+	<file>application/controllers</file>
+	<file>application/core</file>
+	<file>application/helpers</file>
+	<file>application/hooks</file>
+	<file>application/libraries</file>
+	<file>application/migrations</file>
+	<file>application/models</file>
+	<file>scripts</file>
+	<arg name="extensions" value="php" />
+	<arg name="tab-width" value="4" />
+
+	<rule ref="Generic.WhiteSpace.ScopeIndent">
+		<properties>
+			<property name="tabIndent" value="true" />
+		</properties>
+	</rule>
+	<rule ref="PEAR.Functions.FunctionDeclaration" />
+	<rule ref="Generic.Functions.OpeningFunctionBraceBsdAllman" />
+</ruleset>

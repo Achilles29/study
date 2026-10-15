@@ -1,0 +1,30 @@
+<section class="container page-section">
+	<a class="back-link" href="<?php echo site_url('kelola'); ?>">Kembali ke panel pengelola</a>
+	<div class="page-heading mt-3"><div><p class="eyebrow">Administrasi · Hanya baca</p><h1 class="h2">Direktori pengguna</h1><p class="text-secondary mb-0">Temukan akun berdasarkan nama pengguna atau ID, tanpa membuka kontak dan data belajar pribadi.</p></div><span class="welcome-mark" aria-hidden="true"><i class="bi bi-people"></i></span></div>
+	<div class="feature-card mb-4">
+		<?php echo form_open('kelola/pengguna', array('class' => 'row g-3 align-items-end')); ?>
+		<div class="col-md-8"><label class="form-label" for="directory-search">Nama pengguna atau ID akun</label><input id="directory-search" class="form-control" type="search" name="q" maxlength="100" value="<?php echo html_escape($query); ?>" aria-describedby="directory-search-help"><p id="directory-search-help" class="small text-secondary mb-0 mt-1">Gunakan nama pengguna teknis, bukan nama lengkap atau email. Pencarian hanya berlaku pada sesi masuk ini.</p></div>
+		<div class="col-md-4 d-flex flex-wrap gap-2"><button class="btn btn-primary rounded-pill" type="submit">Terapkan</button><a class="btn btn-outline-secondary rounded-pill" href="<?php echo site_url('kelola/pengguna'); ?>">Reset</a></div>
+		<div class="col-12"><details><summary class="fw-semibold">Filter lainnya dan urutan</summary><p class="small text-secondary mt-2">Jenis: <?php echo html_escape($options['jenis'][$filters['jenis']] ?? 'Semua'); ?> · Status: <?php echo html_escape($options['status'][$filters['status']] ?? 'Semua'); ?> · Peran: <?php echo html_escape($options['peran'][$filters['peran']] ?? 'Semua'); ?> · Urutan: <?php echo html_escape($options['urutan'][$filters['urutan']]); ?></p><div class="row g-3">
+		<?php foreach (array('jenis' => 'Jenis akun', 'status' => 'Status akun', 'peran' => 'Peran internal', 'urutan' => 'Urutkan') as $key => $label): ?>
+		<div class="col-sm-6 col-lg-3"><label class="form-label" for="directory-<?php echo $key; ?>"><?php echo $label; ?></label><select class="form-select" name="<?php echo $key; ?>" id="directory-<?php echo $key; ?>"><?php if ($key !== 'urutan'): ?><option value="">Semua</option><?php endif; ?><?php foreach ($options[$key] as $value => $text): ?><option value="<?php echo html_escape($value); ?>"<?php echo $filters[$key] === $value ? ' selected' : ''; ?>><?php echo html_escape($text); ?></option><?php endforeach; ?></select></div>
+		<?php endforeach; ?>
+		</div></details><p class="small text-secondary mb-0 mt-2">Filter aktif: <?php echo html_escape(($options['jenis'][$filters['jenis']] ?? 'Semua jenis').' · '.($options['status'][$filters['status']] ?? 'Semua status').' · '.($options['peran'][$filters['peran']] ?? 'Semua peran').' · '.$options['urutan'][$filters['urutan']]); ?></p></div>
+		<?php echo form_close(); ?>
+	</div>
+	<p id="directory-count">Menampilkan <?php echo $total ? $offset + 1 : 0; ?>–<?php echo min($offset + count($users), $total); ?> dari <?php echo (int) $total; ?> akun sesuai pencarian dan filter.</p>
+	<p class="small text-secondary">Tanggal menggunakan WIB. Halaman ini tidak menyediakan ekspor, perubahan akun, atau akses jawaban anak.</p>
+	<?php if ( ! $users): ?><div class="empty-card"><span class="empty-icon" aria-hidden="true"><i class="bi bi-search"></i></span><h2 class="h4">Tidak ada akun yang sesuai</h2><p>Coba nama pengguna atau ID lain, atau reset filter untuk kembali ke daftar.</p><a class="btn btn-outline-primary rounded-pill" href="<?php echo site_url('kelola/pengguna'); ?>">Hapus filter</a></div><?php else: ?>
+	<div class="table-responsive bg-white border rounded-4 d-none d-md-block"><table class="table align-middle mb-0" aria-describedby="directory-count"><caption class="visually-hidden">Daftar akun sesuai pencarian dan filter</caption><thead><tr><th scope="col">Akun</th><th scope="col">Jenis</th><th scope="col">Status</th><th scope="col">Peran internal</th><th scope="col">Dibuat</th></tr></thead><tbody>
+	<?php foreach ($users as $user): ?>
+	<tr data-directory-id="<?php echo (int) $user['id']; ?>"><th scope="row" class="practice-question"><span class="fw-semibold"><?php echo html_escape($user['username']); ?></span><span class="d-block small text-secondary fw-normal">ID <?php echo (int) $user['id']; ?></span></th><td><?php echo html_escape($options['jenis'][$user['account_kind']] ?? 'Tidak dikenal'); ?></td><td><span class="badge rounded-pill <?php echo $user['status'] === 'active' ? 'text-bg-success' : 'text-bg-secondary'; ?>"><?php echo html_escape($options['status'][$user['status']] ?? 'Tidak dikenal'); ?></span></td><td><?php echo html_escape(implode(', ', array_map(function ($role) use ($options) { return $options['peran'][$role] ?? 'Peran internal lain'; }, $user['roles'])) ?: 'Tanpa peran internal'); ?></td><td class="small"><?php echo html_escape(study_format_datetime($user['created_at'])); ?></td></tr>
+	<?php endforeach; ?>
+	</tbody></table></div>
+	<div class="d-md-none d-grid gap-3">
+	<?php foreach ($users as $user): ?>
+	<article class="feature-card practice-question"><p class="eyebrow">ID <?php echo (int) $user['id']; ?></p><h2 class="h5"><?php echo html_escape($user['username']); ?></h2><dl class="mb-0"><dt>Jenis akun</dt><dd><?php echo html_escape($options['jenis'][$user['account_kind']] ?? 'Tidak dikenal'); ?></dd><dt>Status</dt><dd><?php echo html_escape($options['status'][$user['status']] ?? 'Tidak dikenal'); ?></dd><dt>Peran internal</dt><dd><?php echo html_escape(implode(', ', array_map(function ($role) use ($options) { return $options['peran'][$role] ?? 'Peran internal lain'; }, $user['roles'])) ?: 'Tanpa peran internal'); ?></dd><dt>Dibuat</dt><dd class="mb-0"><?php echo html_escape(study_format_datetime($user['created_at'])); ?></dd></dl></article>
+	<?php endforeach; ?>
+	</div>
+	<?php endif; ?>
+	<?php $pagination_base = 'kelola/pengguna'; $pagination_query = $filters; if ($context !== '') { $pagination_query['pencarian'] = $context; } $this->load->view('practice/pagination', compact('pagination_base', 'pagination_query', 'page', 'page_count')); ?>
+</section>
