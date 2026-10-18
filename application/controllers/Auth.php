@@ -6,16 +6,19 @@ class Auth extends MY_Controller
 	public function sign_up()
 	{
 		$this->require_http_methods(array('GET', 'HEAD', 'POST'));
-		if (ENVIRONMENT === 'production')
+		if (ENVIRONMENT === 'production' || getenv('STUDY_QA_SSO_ONLY') === '1')
 		{
-			$this->session->set_flashdata('error', 'Pendaftaran belum dibuka karena verifikasi email dan kebijakan layanan masih disiapkan.');
-			redirect('/');
-			return;
+			if ($this->current_user) { redirect(study_account_landing($this->current_user)); return; }
+			if ($this->input->method(TRUE) === 'POST') { show_error('Pendaftaran email/sandi belum dibuka. Gunakan Daftar dengan Google.', 403); return; }
+			$this->load->model('Google_auth_model');
+			$c = $this->Google_auth_model->config_public();
+			$this->output->set_header('Cache-Control: private, no-store');
+			$this->render_page('auth/google_sign_up', array('page_title' => 'Daftar dengan Google', 'google_enabled' => $c['enabled'] && $c['registration_enabled'] && $this->Google_auth_model->registration_policy())); return;
 		}
 
 		if ($this->current_user)
 		{
-			redirect('beranda');
+			redirect(study_account_landing($this->current_user));
 			return;
 		}
 
@@ -82,7 +85,7 @@ class Auth extends MY_Controller
 		$this->require_http_methods(array('GET', 'HEAD', 'POST'));
 		if ($this->current_user)
 		{
-			redirect('beranda');
+			redirect(study_account_landing($this->current_user));
 			return;
 		}
 
@@ -110,7 +113,7 @@ class Auth extends MY_Controller
 						$this->session->sess_regenerate(TRUE);
 						$this->session->set_userdata('user_id', (int) $result['user']['id']);
 						$this->session->set_userdata('auth_stamp', $result['user']['auth_stamp']);
-						redirect('beranda');
+						redirect(study_account_landing($this->Account_model->find_active_user($result['user']['id'])));
 						return;
 					}
 
@@ -125,7 +128,10 @@ class Auth extends MY_Controller
 			}
 		}
 
+		$google_enabled = FALSE; $debug = $this->db->db_debug; $this->db->db_debug = FALSE;
+		try { $q = $this->db->query('SELECT enabled FROM st_google_config WHERE id=1'); $google_enabled = $q !== FALSE && ! empty($q->row_array()['enabled']); } catch (Throwable $ignored) { /* Local password login remains available. */ } finally { $this->db->db_debug = $debug; }
 		$this->render_page('auth/sign_in', array(
+			'google_enabled' => $google_enabled,
 			'page_title' => 'Masuk ke akun',
 			'form_errors' => $errors,
 			'submit_error' => $submit_error

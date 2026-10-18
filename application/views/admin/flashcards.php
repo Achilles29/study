@@ -1,4 +1,4 @@
-<section class="auth-shell container py-5">
+<section class="auth-shell container py-5 course-workspace">
 	<div class="auth-card auth-card-wide mx-auto">
 		<a class="back-link" href="<?php echo site_url('kelola/kursus/'.$course['id']); ?>"><i class="bi bi-arrow-left me-2" aria-hidden="true"></i>Kembali ke kursus</a>
 		<div class="mt-4 mb-4">

@@ -2,7 +2,7 @@
 $show_lesson_progress = $current_user && isset($lesson_progress_map) && is_array($lesson_progress_map);
 $lesson_progress_failed = $current_user && isset($lesson_progress_map) && $lesson_progress_map === FALSE;
 ?>
-<section class="container page-section">
+<section class="container page-section course-workspace">
 	<a class="back-link" href="<?php echo site_url('kursus'); ?>">
 		<i class="bi bi-arrow-left me-2" aria-hidden="true"></i>Kembali ke katalog
 	</a>
@@ -10,7 +10,7 @@ $lesson_progress_failed = $current_user && isset($lesson_progress_map) && $lesso
 		<div class="col-lg-8">
 			<p class="eyebrow">
 				<?php echo html_escape($course['category_name'] ?: 'Kursus belajar'); ?>
-				· <?php echo html_escape($target_group_label); ?>
+				· <?php echo html_escape($target_group_label); ?> · <?php echo html_escape(study_grade_label($course['grade_id'])); ?>
 			</p>
 			<h1 class="display-6 fw-bold"><?php echo html_escape($course['title']); ?></h1>
 			<p class="lead text-secondary"><?php echo html_escape($course['summary']); ?></p>
@@ -18,7 +18,7 @@ $lesson_progress_failed = $current_user && isset($lesson_progress_map) && $lesso
 
 			<div class="feature-card mb-4">
 				<h2 class="h5">Tujuan belajar</h2>
-				<p class="mb-0"><?php echo nl2br(html_escape($course['learning_objectives'])); ?></p>
+				<p class="mb-0"><?php echo nl2br(html_escape((string) $course['learning_objectives'])); ?></p>
 			</div>
 			<?php if (trim((string) $course['prerequisites']) !== ''): ?><div class="feature-card mb-4"><h2 class="h5">Persiapan belajar</h2><p class="mb-0"><?php echo nl2br(html_escape($course['prerequisites'])); ?></p></div><?php endif; ?>
 

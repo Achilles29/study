@@ -1,0 +1,356 @@
+{
+  "version": 1,
+  "source": "Pustaka curated Story Quiz texts; excludes SMA and generated 5x5 filler, not the session-exercise bank.",
+  "sources": [
+    {
+      "file": "2026-08-13c_story_quiz_catalog.sql",
+      "sha256": "4c8e0c32d40da34faf0615479d48e47c59eb4a8c4245ab0fc855f25c5ce96ba2"
+    },
+    {
+      "file": "2026-08-06b_story_quiz.sql",
+      "sha256": "ffa73220da278d2f3fc3484223e0ccf8086d01aaddeeb51df4dc9a6968d76b64"
+    }
+  ],
+  "packs": [
+    {
+      "slug": "cerita-semut-belalang",
+      "type": "story",
+      "title": "Semut dan Belalang",
+      "stage": "primary",
+      "reading": "Pada suatu musim panas, seekor belalang asyik bernyanyi dan bermain sepanjang hari. Ia melompat ke sana kemari tanpa memikirkan apa pun.\n\nDi dekatnya, sekelompok semut bekerja keras mengumpulkan makanan. Mereka membawa butir-butir gandum ke sarang untuk persediaan musim dingin.\n\nBelalang menertawakan semut, \"Mengapa kalian bekerja begitu keras? Ayo bermain bersamaku!\" Namun semut tetap bekerja tanpa menghiraukannya.\n\nKetika musim dingin tiba, salju menutupi tanah. Belalang kelaparan karena tidak punya makanan. Sementara itu, para semut hidup nyaman dengan persediaan yang mereka kumpulkan. Belalang pun menyesal karena tidak mempersiapkan diri sejak awal.",
+      "description": "Fabel klasik tentang kerja keras dan persiapan.",
+      "items": [
+        {
+          "definition": "Apa yang dilakukan belalang sepanjang musim panas?",
+          "options": {
+            "A": "Bekerja keras",
+            "B": "Bernyanyi dan bermain",
+            "C": "Mengumpulkan gandum",
+            "D": "Tidur di sarang"
+          },
+          "term": "B",
+          "explanation": "Belalang asyik bernyanyi dan bermain sepanjang hari."
+        },
+        {
+          "definition": "Mengapa semut bekerja keras mengumpulkan makanan?",
+          "options": {
+            "A": "Untuk dijual",
+            "B": "Untuk persediaan musim dingin",
+            "C": "Karena disuruh belalang",
+            "D": "Untuk pesta"
+          },
+          "term": "B",
+          "explanation": "Semut menyiapkan persediaan untuk musim dingin."
+        },
+        {
+          "definition": "Apa pelajaran dari cerita ini?",
+          "options": {
+            "A": "Bermain lebih penting",
+            "B": "Jangan bekerja keras",
+            "C": "Pentingnya kerja keras dan persiapan",
+            "D": "Semut lebih kuat dari belalang"
+          },
+          "term": "C",
+          "explanation": "Cerita mengajarkan pentingnya kerja keras dan mempersiapkan diri."
+        }
+      ]
+    },
+    {
+      "slug": "cerita-payung-mila",
+      "code": "payung_mila",
+      "type": "story",
+      "title": "Payung Merah Mila",
+      "stage": "primary",
+      "reading": "Pagi itu hujan turun. Mila membawa payung merah ke sekolah. Di jalan, ia melihat Rani berdiri tanpa payung. Mila mengajak Rani berjalan bersama. Mereka tiba di sekolah dengan pakaian tetap kering.",
+      "description": "Cerita sederhana tentang berbagi dan persahabatan.",
+      "items": [
+        {
+          "definition": "Mengapa pakaian Mila dan Rani tetap kering?",
+          "options": {
+            "A": "Mereka berlari",
+            "B": "Mereka berbagi payung",
+            "C": "Hujan berhenti",
+            "D": "Mereka naik bus"
+          },
+          "term": "B",
+          "explanation": "Mila mengajak Rani berjalan bersama di bawah payung."
+        },
+        {
+          "definition": "Sifat Mila dalam cerita adalah ...",
+          "options": {
+            "A": "Peduli",
+            "B": "Ceroboh",
+            "C": "Pemarah",
+            "D": "Malas"
+          },
+          "term": "A",
+          "explanation": "Mila peduli kepada teman yang tidak membawa payung."
+        }
+      ]
+    },
+    {
+      "slug": "cerita-kebun-kelas",
+      "code": "kebun_kelas",
+      "type": "story",
+      "title": "Kebun Kecil di Kelas",
+      "stage": "primary",
+      "reading": "Murid kelas dua menanam kacang hijau. Setiap kelompok memberi air secukupnya dan meletakkan pot dekat jendela. Beberapa hari kemudian, akar muncul lalu batang tumbuh ke arah cahaya. Mereka mencatat perubahan setiap pagi.",
+      "description": "Mengamati pertumbuhan tanaman melalui kegiatan kelas.",
+      "items": [
+        {
+          "definition": "Mengapa pot diletakkan dekat jendela?",
+          "options": {
+            "A": "Agar terkena cahaya",
+            "B": "Agar tidak terlihat",
+            "C": "Agar lebih berat",
+            "D": "Agar cepat kering"
+          },
+          "term": "A",
+          "explanation": "Tanaman memerlukan cahaya untuk tumbuh."
+        },
+        {
+          "definition": "Apa yang dilakukan murid setiap pagi?",
+          "options": {
+            "A": "Mengganti pot",
+            "B": "Memetik daun",
+            "C": "Mencatat perubahan",
+            "D": "Membuang tanaman"
+          },
+          "term": "C",
+          "explanation": "Mereka mengamati dan mencatat perubahan tanaman."
+        }
+      ]
+    },
+    {
+      "slug": "cerita-surat-dari-pantai",
+      "code": "surat_dari_pantai",
+      "type": "story",
+      "title": "Surat dari Pantai Karangjahe",
+      "stage": "primary",
+      "reading": "Dita mengunjungi Pantai Karangjahe bersama keluarganya. Ia melihat deretan cemara, pasir luas, dan nelayan yang merapikan perahu. Sebelum pulang, keluarga Dita memungut sampah di sekitar tempat duduk. Dita menulis surat kepada temannya tentang pentingnya menjaga pantai.",
+      "description": "Perjalanan lokal yang mengajarkan kepedulian lingkungan.",
+      "items": [
+        {
+          "definition": "Apa tujuan keluarga Dita memungut sampah?",
+          "options": {
+            "A": "Menghias pantai",
+            "B": "Menjaga kebersihan pantai",
+            "C": "Mencari kerang",
+            "D": "Membantu nelayan"
+          },
+          "term": "B",
+          "explanation": "Tindakan tersebut menjaga lingkungan pantai."
+        },
+        {
+          "definition": "Media yang dipakai Dita menceritakan pengalaman adalah ...",
+          "options": {
+            "A": "Poster",
+            "B": "Surat",
+            "C": "Iklan",
+            "D": "Puisi"
+          },
+          "term": "B",
+          "explanation": "Dita menulis surat kepada temannya."
+        }
+      ]
+    },
+    {
+      "slug": "cerita-pasar-jujur",
+      "code": "pasar_jujur",
+      "type": "story",
+      "title": "Kembalian di Pasar",
+      "stage": "primary",
+      "reading": "Bimo membeli buah seharga Rp18.000 dan membayar dengan uang Rp20.000. Pedagang tidak sengaja memberikan kembalian Rp5.000. Bimo menghitung ulang lalu mengembalikan kelebihan uang tersebut. Pedagang berterima kasih atas kejujurannya.",
+      "description": "Literasi numerasi dan sikap jujur dalam kehidupan sehari-hari.",
+      "items": [
+        {
+          "definition": "Kembalian yang seharusnya diterima Bimo adalah ...",
+          "options": {
+            "A": "Rp1.000",
+            "B": "Rp2.000",
+            "C": "Rp3.000",
+            "D": "Rp5.000"
+          },
+          "term": "B",
+          "explanation": "Rp20.000 dikurangi Rp18.000 sama dengan Rp2.000."
+        },
+        {
+          "definition": "Mengapa Bimo mengembalikan uang?",
+          "options": {
+            "A": "Uangnya rusak",
+            "B": "Buahnya kurang",
+            "C": "Kembaliannya berlebih",
+            "D": "Pedagang memintanya"
+          },
+          "term": "C",
+          "explanation": "Pedagang keliru memberi kembalian Rp5.000."
+        }
+      ]
+    },
+    {
+      "slug": "cerita-mangrove-penjaga",
+      "code": "mangrove_penjaga",
+      "type": "story",
+      "title": "Mangrove Sang Penjaga Pesisir",
+      "stage": "primary",
+      "reading": "Akar mangrove yang rapat memperlambat gelombang dan menahan lumpur. Hutan mangrove juga menjadi tempat hidup ikan kecil, kepiting, dan burung. Warga menanam bibit baru karena memahami bahwa mangrove melindungi pesisir sekaligus mendukung kehidupan nelayan.",
+      "description": "Mengenal fungsi ekologis hutan mangrove.",
+      "items": [
+        {
+          "definition": "Bagaimana akar mangrove melindungi pesisir?",
+          "options": {
+            "A": "Mempercepat gelombang",
+            "B": "Menahan lumpur dan memperlambat gelombang",
+            "C": "Mengeringkan laut",
+            "D": "Mengusir ikan"
+          },
+          "term": "B",
+          "explanation": "Akar rapat meredam gelombang dan menahan sedimen."
+        },
+        {
+          "definition": "Mengapa mangrove penting bagi nelayan?",
+          "options": {
+            "A": "Menjadi habitat biota laut",
+            "B": "Mengubah air menjadi tawar",
+            "C": "Menghilangkan pasang",
+            "D": "Membuat perahu"
+          },
+          "term": "A",
+          "explanation": "Ikan kecil dan biota lain hidup di kawasan mangrove."
+        }
+      ]
+    },
+    {
+      "slug": "cerita-kode-rahasia",
+      "code": "kode_rahasia",
+      "type": "story",
+      "title": "Kode Rahasia Perpustakaan",
+      "stage": "primary",
+      "reading": "Laras menemukan pesan berpola 2, 4, 8, 16 di sebuah buku. Ia menyadari setiap bilangan merupakan dua kali bilangan sebelumnya. Angka berikutnya membuka laci katalog yang berisi peta koleksi langka. Laras menyerahkan temuannya kepada pustakawan.",
+      "description": "Petualangan pola bilangan dan tanggung jawab.",
+      "items": [
+        {
+          "definition": "Angka berikutnya pada pola adalah ...",
+          "options": {
+            "A": "18",
+            "B": "24",
+            "C": "30",
+            "D": "32"
+          },
+          "term": "D",
+          "explanation": "Setiap bilangan dikali dua sehingga 16 menjadi 32."
+        },
+        {
+          "definition": "Apa yang dilakukan Laras setelah menemukan koleksi?",
+          "options": {
+            "A": "Menyembunyikannya",
+            "B": "Menjualnya",
+            "C": "Menyerahkannya kepada pustakawan",
+            "D": "Membawanya pulang"
+          },
+          "term": "C",
+          "explanation": "Laras menunjukkan sikap bertanggung jawab."
+        }
+      ]
+    },
+    {
+      "slug": "cerita-air-desa",
+      "code": "air_desa",
+      "type": "story",
+      "title": "Perjalanan Setetes Air",
+      "stage": "secondary",
+      "reading": "Air laut menguap karena panas matahari. Uap naik, mendingin, lalu membentuk awan. Ketika titik air semakin berat, hujan turun ke perbukitan. Sebagian meresap menjadi air tanah dan sebagian mengalir melalui sungai kembali ke laut.",
+      "description": "Siklus air dijelaskan melalui perjalanan setetes air.",
+      "items": [
+        {
+          "definition": "Proses uap air mendingin dan membentuk awan disebut ...",
+          "options": {
+            "A": "Evaporasi",
+            "B": "Kondensasi",
+            "C": "Infiltrasi",
+            "D": "Erosi"
+          },
+          "term": "B",
+          "explanation": "Pendinginan uap menjadi titik air adalah kondensasi."
+        },
+        {
+          "definition": "Ke mana air akhirnya kembali?",
+          "options": {
+            "A": "Laut",
+            "B": "Awan saja",
+            "C": "Matahari",
+            "D": "Pepohonan saja"
+          },
+          "term": "A",
+          "explanation": "Sungai mengalirkan air kembali menuju laut."
+        }
+      ]
+    },
+    {
+      "slug": "cerita-jejak-digital",
+      "code": "jejak_digital",
+      "type": "story",
+      "title": "Jejak yang Tidak Mudah Hilang",
+      "stage": "secondary",
+      "reading": "Nara hampir mengunggah foto temannya tanpa izin. Ia teringat bahwa unggahan dapat disalin dan tersimpan lama. Nara meminta izin terlebih dahulu, menghapus informasi lokasi, lalu membatasi siapa yang dapat melihatnya. Temannya menghargai keputusan itu.",
+      "description": "Literasi privasi dan tanggung jawab di ruang digital.",
+      "items": [
+        {
+          "definition": "Mengapa Nara meminta izin?",
+          "options": {
+            "A": "Agar fotonya viral",
+            "B": "Untuk menghormati privasi teman",
+            "C": "Agar mendapat hadiah",
+            "D": "Karena ponselnya rusak"
+          },
+          "term": "B",
+          "explanation": "Foto orang lain menyangkut privasi mereka."
+        },
+        {
+          "definition": "Tindakan keamanan lain yang dilakukan Nara adalah ...",
+          "options": {
+            "A": "Menambah lokasi",
+            "B": "Membuka akun",
+            "C": "Menghapus informasi lokasi",
+            "D": "Menyebarkan kata sandi"
+          },
+          "term": "C",
+          "explanation": "Informasi lokasi dapat menimbulkan risiko privasi."
+        }
+      ]
+    },
+    {
+      "slug": "cerita-english-green-school",
+      "code": "english_green_school",
+      "type": "story",
+      "title": "A Greener School",
+      "stage": "secondary",
+      "reading": "The student council noticed that many plastic cups were thrown away every day. They installed water refill stations and asked students to bring reusable bottles. After one month, plastic waste decreased significantly. The project succeeded because students changed a small daily habit together.",
+      "description": "English reading about collective environmental action.",
+      "items": [
+        {
+          "definition": "What caused plastic waste to decrease?",
+          "options": {
+            "A": "Students used more cups",
+            "B": "Students brought reusable bottles",
+            "C": "The school closed",
+            "D": "Teachers removed water"
+          },
+          "term": "B",
+          "explanation": "Reusable bottles replaced many disposable cups."
+        },
+        {
+          "definition": "What is the main message?",
+          "options": {
+            "A": "Small collective habits can create change",
+            "B": "Plastic is always harmless",
+            "C": "Only teachers can act",
+            "D": "Refill stations waste water"
+          },
+          "term": "A",
+          "explanation": "The project worked through a shared daily habit."
+        }
+      ]
+    }
+  ]
+}

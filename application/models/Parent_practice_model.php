@@ -5,6 +5,8 @@ class Parent_practice_model extends CI_Model
 {
 	public function has_access($parent_user_id, $lock = FALSE)
 	{
+		$this->load->model('Commerce_access_model');
+		if ($this->Commerce_access_model->family_practice($parent_user_id, $lock)) { return TRUE; }
 		$sql = "SELECT e.id FROM st_entitlements e JOIN st_packages p ON p.id = e.package_id JOIN st_users u ON u.id = e.user_id
 			WHERE e.user_id = ? AND u.account_kind = 'parent' AND u.status = 'active' AND e.status = 'active'
 			AND e.starts_at <= UTC_TIMESTAMP() AND (e.ends_at IS NULL OR e.ends_at > UTC_TIMESTAMP()) AND p.family_practice_enabled = 1

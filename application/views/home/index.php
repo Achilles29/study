@@ -2,9 +2,9 @@
 	<div class="container py-5 py-lg-6">
 		<div class="row align-items-center g-5">
 			<div class="col-lg-7">
-				<p class="eyebrow"><span class="eyebrow-dot"></span> Belajar sesuai langkahmu</p>
+				<p class="eyebrow"><span class="eyebrow-dot"></span> <?php echo html_escape($site_settings['brand_name']); ?> · Belajar anak TK, SD, dan SMP</p>
 				<h1 class="hero-title">Rasa ingin tahu bisa <span class="text-gradient">membawamu jauh.</span></h1>
-				<p class="hero-copy">Jelajahi materi, coba latihan pilihan ganda pada kursus yang menyediakannya, dan catat kemajuanmu. Latihan keluarga tersedia untuk akun dengan hak fitur aktif. Cocokkan Pasangan tersedia pada materi dengan kartu belajar yang sesuai.</p>
+				<p class="hero-copy">Belajar online bersama keluarga lewat materi belajar anak, latihan soal, flashcard, dan permainan edukasi. Orang tua dapat mengikuti progres belajar anak dan memilih langkah berikutnya. Kegiatan tersedia sesuai materi dan akses akun.</p>
 				<div class="d-flex flex-column flex-sm-row gap-3 mt-4">
 					<a class="btn btn-primary btn-lg rounded-pill px-4" href="<?php echo site_url('daftar'); ?>">Mulai gratis <i class="bi bi-arrow-right ms-2" aria-hidden="true"></i></a>
 					<a class="btn btn-light btn-lg rounded-pill px-4 border" href="#cara-belajar">Lihat cara belajar</a>

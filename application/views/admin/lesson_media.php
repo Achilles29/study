@@ -4,7 +4,7 @@ $media_revision = $posted_fields['revision'] ?? $lesson['content_version'];
 $media_actions = $image ? array('metadata', 'upload') : array('upload');
 $rights_options = array('owned', 'licensed', 'public_domain');
 ?>
-<section class="container page-section lesson-media-editor">
+<section class="container page-section lesson-media-editor course-workspace">
 	<a class="back-link" href="<?php echo html_escape(site_url('kelola/kursus/'.(int) $course['id'])); ?>">Kembali ke kursus</a>
 	<div class="page-heading mt-3"><div><p class="eyebrow">Draf pelajaran · versi <?php echo (int) $lesson['content_version']; ?></p><h1 class="h2">Gambar pendamping</h1><p class="text-secondary mb-0"><?php echo html_escape($lesson['title']); ?></p></div><a class="btn btn-light rounded-pill" href="<?php echo html_escape(site_url('kelola/kursus/'.(int) $course['id'].'/pelajaran/'.(int) $lesson['id'].'/pratinjau')); ?>">Lihat sebagai peserta</a></div>
 	<p>Satu gambar dapat melengkapi setiap pelajaran. Isi utama tetap tersedia sebagai teks. Periksa kesesuaian usia, deskripsi gambar, sumber, dan hak penggunaan sebelum mengajukan kursus untuk review.</p>

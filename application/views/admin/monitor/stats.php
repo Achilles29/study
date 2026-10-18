@@ -1,0 +1,6 @@
+<div class="row g-3 mb-4">
+<?php foreach (array(array('Inggris ditinjau', 'english_done', 'english_total', 'pelajaran unik'), array('Evaluasi Inggris', 'english_graded', 'english_tests', 'percobaan evaluasi'), array('Materi selesai', 'reading_done', 'reading_total', 'materi tercatat'), array('Latihan dinilai', 'quiz_done', 'quiz_total', 'percobaan'), array('Kartu dikenal', 'cards_known', 'cards_total', 'kartu tercatat'), array('Permainan selesai', 'games_done', 'games_total', 'sesi permainan')) as $metric): ?>
+	<div class="col-6 col-xl-3"><div class="feature-card h-100"><span class="small text-secondary"><?php echo $metric[0]; ?></span><strong class="monitor-stat"><?php echo (int) ($summary[$metric[1]] ?? 0); ?></strong><span class="small">dari <?php echo (int) ($summary[$metric[2]] ?? 0); ?> <?php echo $metric[3]; ?></span></div></div>
+<?php endforeach; ?>
+</div>
+<p class="monitor-note">Angka mengikuti catatan aktivitas pada periode yang dipilih. Materi/kartu menunjukkan status tersimpan terakhir; bukan jumlah kunjungan atau riwayat setiap perubahan. Kartu dikenal adalah refleksi diri peserta, bukan nilai ujian. Flashcard Arena menghitung kartu unik pada versi konten saat ini, tidak dihitung lagi sebagai sesi permainan. Percobaan latihan dan permainan lain dihitung per sesi. Selesai membaca tidak berarti menguasai materi.</p>

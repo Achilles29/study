@@ -66,7 +66,7 @@ if ( ! headers_sent())
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="robots" content="noindex, nofollow">
-	<title><?php echo htmlspecialchars($recovery_title, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8'); ?> | Study</title>
+	<title><?php echo htmlspecialchars($recovery_title, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8'); ?> | Project Pintar</title>
 	<style>
 		* { box-sizing: border-box; }
 		body { margin: 0; color: #202844; background: #f7f8ff; font: 1rem/1.65 system-ui, sans-serif; }
@@ -89,7 +89,7 @@ if ( ! headers_sent())
 <body>
 	<a class="skip-link" href="#konten-utama">Lewati ke isi halaman</a>
 	<main id="konten-utama" tabindex="-1">
-		<p class="brand">Study · Ruang belajar</p>
+		<p class="brand">Project Pintar</p>
 		<div class="mark" aria-hidden="true">?</div>
 		<p class="code">Kode halaman <?php echo $recovery_code; ?></p>
 		<h1><?php echo htmlspecialchars($recovery_title, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8'); ?></h1>

@@ -1,5 +1,5 @@
 <?php $is_content_preview = ! empty($is_content_preview); $lesson_return_url = $is_content_preview ? site_url('kelola/kursus/'.$lesson['course_id']) : site_url('kursus/'.$lesson['course_slug']); ?>
-<article class="container page-section">
+<article class="container page-section course-workspace">
 	<?php if ($is_content_preview): ?>
 		<section class="feature-card mb-4" aria-labelledby="preview-heading">
 			<p class="eyebrow mb-2">Pratinjau pengelola</p>
@@ -36,7 +36,7 @@
 						</figcaption>
 					</figure>
 				<?php endif; ?>
-				<div><?php echo nl2br(html_escape($lesson['body_text'])); ?></div>
+				<div class="lesson-content"><?php echo study_render_lesson_text($lesson['body_text']); ?></div>
 			</div>
 			<?php if (! empty($flashcard_deck) && $flashcards): ?>
 				<?php $known_flashcards = 0; foreach ($flashcards as $flashcard) { if ($flashcard['learner_status'] === 'known') { $known_flashcards++; } } ?>

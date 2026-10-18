@@ -1,4 +1,4 @@
-<section class="auth-shell container py-5">
+<section class="auth-shell container py-5 course-workspace">
 	<div class="auth-card auth-card-wide mx-auto">
 		<a class="back-link" href="<?php echo site_url('kelola/kursus'); ?>"><i class="bi bi-arrow-left me-2" aria-hidden="true"></i>Kembali ke kursus</a>
 		<div class="mt-4 mb-4"><p class="eyebrow">Konten · Draf</p><h1 class="h2"><?php echo !empty($is_edit)?'Edit draf kursus':'Buat draf kursus'; ?></h1><p class="text-secondary">Draf belum terlihat peserta. Setiap perubahan menambah versi konten; lengkapi tujuan, sasaran, dan catatan hak materi sebelum meminta review.</p></div>
@@ -7,6 +7,7 @@
 		<p class="small text-secondary mb-1" data-unsaved-status role="status" aria-live="polite" aria-atomic="true" hidden><?php echo !empty($unsaved_initial) ? 'Ada perubahan yang belum disimpan.' : 'Belum ada perubahan baru.'; ?></p>
 		<p class="form-text mb-4">Belum ada simpan otomatis. Tekan tombol Simpan setelah selesai mengisi.</p>
 		<div class="row g-3">
+			<div class="col-md-6"><?php echo study_grade_select(set_value('grade_id', $course['grade_id'] ?? '', FALSE), 'grade_id', TRUE); ?><?php echo study_render_field_error($form_errors, 'grade_id'); ?></div>
 			<div class="col-12"><label class="form-label" for="title">Judul kursus</label><input class="form-control" name="title" id="title" value="<?php echo html_escape(set_value('title',!empty($course)?$course['title']:'', FALSE)); ?>" maxlength="180" required<?php echo study_field_error_attributes($form_errors, 'title'); ?>><?php echo study_render_field_error($form_errors, 'title'); ?></div>
 			<div class="col-12"><label class="form-label" for="summary">Ringkasan</label><textarea class="form-control" name="summary" id="summary" rows="3" maxlength="2000" required<?php echo study_field_error_attributes($form_errors, 'summary'); ?>><?php echo html_escape(set_value('summary',!empty($course)?$course['summary']:'', FALSE)); ?></textarea><?php echo study_render_field_error($form_errors, 'summary'); ?></div>
 			<div class="col-12"><label class="form-label" for="learning_objectives">Apa yang akan dipelajari?</label><textarea class="form-control" name="learning_objectives" id="learning_objectives" rows="3" maxlength="3000" required<?php echo study_field_error_attributes($form_errors, 'learning_objectives'); ?>><?php echo html_escape(set_value('learning_objectives',!empty($course)?$course['learning_objectives']:'', FALSE)); ?></textarea><?php echo study_render_field_error($form_errors, 'learning_objectives'); ?></div>

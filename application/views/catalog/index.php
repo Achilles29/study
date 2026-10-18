@@ -1,4 +1,4 @@
-<section class="container page-section">
+<section class="container page-section course-workspace">
 	<div class="page-heading">
 		<div>
 			<p class="eyebrow">Belajar dengan ritmemu</p>
@@ -9,7 +9,7 @@
 
 	<form class="feature-card mb-4" method="get" action="<?php echo html_escape(site_url('kursus')); ?>" role="search" aria-label="Pencarian kursus">
 		<div class="row g-3 align-items-end">
-			<div class="col-md-6">
+			<div class="col-md-3">
 				<label class="form-label" for="q">Cari kursus</label>
 				<input class="form-control" type="search" name="q" id="q" maxlength="100" value="<?php echo html_escape($filters['q']); ?>" placeholder="Contoh: matematika, membaca">
 			</div>
@@ -22,7 +22,8 @@
 					<?php endforeach; ?>
 				</select>
 			</div>
-			<div class="col-md-3 d-flex flex-wrap gap-2">
+			<div class="col-md-3"><?php echo study_grade_select($filters['kelas']); ?></div>
+			<div class="col-12 d-flex flex-wrap gap-2">
 				<button class="btn btn-primary rounded-pill flex-grow-1" type="submit">Cari</button>
 				<a class="btn btn-light rounded-pill flex-grow-1" href="<?php echo html_escape(site_url('kursus')); ?>">Atur ulang</a>
 			</div>
@@ -39,7 +40,7 @@
 				<div class="col-md-6 col-xl-4">
 					<article class="feature-card h-100 d-flex flex-column">
 						<div class="d-flex flex-wrap justify-content-between align-items-start gap-2 mb-3">
-							<span class="badge rounded-pill text-bg-light text-wrap text-break text-start mw-100"><?php echo html_escape($course['category_name'] ?: 'Kursus'); ?></span>
+							<span class="badge rounded-pill text-bg-light text-wrap text-break text-start mw-100"><?php echo html_escape(($course['category_name'] ?: 'Kursus').' · '.study_grade_label($course['grade_id'])); ?></span>
 							<?php if ((int) $course['is_free'] === 1): ?>
 								<span class="badge rounded-pill text-bg-success">Gratis</span>
 							<?php endif; ?>

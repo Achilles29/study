@@ -1,0 +1,7 @@
+{
+  "name": "projectpintar/google-auth",
+  "description": "Isolated JWT verification dependency for Project Pintar Google OIDC",
+  "license": "proprietary",
+  "require": {"php": ">=8.0", "firebase/php-jwt": "^7.0"},
+  "config": {"allow-plugins": false, "sort-packages": true}
+}

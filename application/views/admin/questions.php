@@ -1,4 +1,4 @@
-<section class="container page-section">
+<section class="container page-section course-workspace">
 	<a class="back-link" href="<?php echo site_url('kelola/kursus/'.$course['id']); ?>">Kembali ke kursus</a>
 	<div class="page-heading mt-3"><div><p class="eyebrow"><?php echo html_escape($course['title']); ?></p><h1 class="h2">Soal latihan</h1><p class="text-secondary">Empat pilihan, satu jawaban benar. Soal dan pembahasan ikut review kursus sebelum terbit.</p></div><span class="badge text-bg-light"><?php echo (int) $total_questions; ?> dari 50 soal</span></div>
 	<?php if ($submit_error): ?><div class="alert alert-warning" role="alert"><?php echo html_escape($submit_error); ?></div><?php endif; ?>

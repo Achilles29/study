@@ -1,6 +1,16 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+function study_donation_status($status)
+{
+	return array('created' => 'Belum terkonfirmasi', 'pending' => 'Menunggu pembayaran', 'paid' => 'Diterima — terverifikasi', 'expired' => 'Kedaluwarsa', 'failed' => 'Gagal', 'cancelled' => 'Dibatalkan', 'refunded' => 'Dikompensasi')[$status] ?? 'Perlu diperiksa';
+}
+
+function study_account_landing($user)
+{
+	return in_array('system_admin', $user['roles'] ?? array(), TRUE) ? 'kelola' : 'beranda';
+}
+
 function study_navigation_attributes($view, $item, $is_preview = FALSE)
 {
 	$pages = array(
@@ -229,6 +239,58 @@ if ( ! function_exists('study_practice_status_label'))
 			}
 		}
 		return isset($labels[$session['status']]) ? $labels[$session['status']] : 'Tidak tersedia';
+	}
+}
+
+if ( ! function_exists('study_render_lesson_text'))
+{
+	/** Format plain lesson text only; author-supplied HTML is never trusted. */
+	function study_render_lesson_text($text)
+	{
+		$lines = explode("\n", str_replace(array("\r\n", "\r"), "\n", (string) $text));
+		$html = array();
+		$paragraph = array();
+		foreach ($lines as $index => $line)
+		{
+			$line = trim($line);
+			$heading = NULL;
+			$level = 2;
+			// Explicit headings for future lessons. No other Markdown/HTML is interpreted.
+			if (preg_match('/\A(#{2,3})\h+(.+)\z/u', $line, $match))
+			{
+				$level = strlen($match[1]);
+				$heading = $match[2];
+			}
+			// Legacy material uses short uppercase headings at the start of a block.
+			// Require several words and following body text; do not promote numbers/acronyms.
+			elseif (($index === 0 || trim($lines[$index - 1]) === '')
+				&& isset($lines[$index + 1]) && trim($lines[$index + 1]) !== ''
+				&& preg_match('/\A(?=.{5,80}\z)\p{Lu}[\p{Lu}\p{M}]*(?: +\p{Lu}[\p{Lu}\p{M}]*)+\z/u', $line))
+			{
+				$heading = $line;
+			}
+			if ($line === '' || $heading !== NULL)
+			{
+				if ($paragraph)
+				{
+					$html[] = '<p>'.implode("<br>\n", $paragraph).'</p>';
+					$paragraph = array();
+				}
+				if ($heading !== NULL)
+				{
+					$html[] = '<h'.$level.'>'.html_escape($heading).'</h'.$level.'>';
+				}
+			}
+			else
+			{
+				$paragraph[] = html_escape($line);
+			}
+		}
+		if ($paragraph)
+		{
+			$html[] = '<p>'.implode("<br>\n", $paragraph).'</p>';
+		}
+		return implode("\n", $html);
 	}
 }
 

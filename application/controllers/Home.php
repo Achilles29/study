@@ -11,7 +11,7 @@ class Home extends MY_Controller
 		$course_count = $this->db->count_all_results();
 
 		$this->render_page('home/index', array(
-			'page_title' => 'Belajar dengan langkah kecil yang berarti',
+			'page_title' => 'Belajar Anak TK, SD, SMP dan Latihan Soal',
 			'course_count' => $course_count
 		));
 	}

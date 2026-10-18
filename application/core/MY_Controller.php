@@ -19,7 +19,7 @@ class MY_Controller extends CI_Controller
 			if ( ! $this->current_user || ! is_string($stamp) || ! hash_equals($this->current_user['auth_stamp'], $stamp))
 			{
 				$this->current_user = NULL;
-				$this->session->unset_userdata(array('user_id', 'auth_stamp', 'directory_searches'));
+				$this->session->unset_userdata(array('user_id', 'auth_stamp', 'directory_searches', 'monitor_searches'));
 				$this->session->sess_regenerate(TRUE);
 				$this->session->set_flashdata('notice', 'Sesi akun tidak berlaku lagi. Silakan masuk kembali.');
 				$this->output->set_header('Cache-Control: private, no-store');
@@ -114,7 +114,7 @@ class MY_Controller extends CI_Controller
 		$data['theme_class'] = 'theme-public';
 		if ($this->current_user)
 		{
-			if (array_intersect(array('system_admin', 'content_editor', 'finance_operator', 'support_agent'), $this->current_user['roles']))
+			if ($data['admin_theme'] && array_intersect(array('system_admin', 'content_editor', 'finance_operator', 'support_agent'), $this->current_user['roles']))
 			{
 				$data['theme_class'] = 'theme-admin';
 			}
@@ -141,11 +141,29 @@ class MY_Controller extends CI_Controller
 		$data['flash_notice'] = empty($data['suppress_flash']) ? $this->session->flashdata('notice') : NULL;
 		$data['flash_success'] = empty($data['suppress_flash']) ? $this->session->flashdata('success') : NULL;
 		$data['flash_error'] = empty($data['suppress_flash']) ? $this->session->flashdata('error') : NULL;
-		$data['page_title'] = isset($data['page_title']) ? $data['page_title'] : 'Ruang belajar';
+		$data['page_title'] = isset($data['page_title']) ? $data['page_title'] : 'Project Pintar';
+		$this->load->helper('study_admin');
+		$this->load->model('Settings_model');
+		$data['site_settings'] = $this->Settings_model->public_values();
+		$data['seo'] = study_page_seo($view, $data, $this->current_user);
+		if ($data['admin_theme'])
+		{
+			$this->require_role(array('system_admin', 'content_editor', 'finance_operator', 'support_agent'));
+			$data['admin_menu'] = study_admin_menu($this->current_user['roles'], $view, $data['admin_section'] ?? '');
+		}
+		if ( ! $data['seo']['index'])
+		{
+			$this->output->set_header('X-Robots-Tag: noindex, nofollow');
+			$this->output->set_header('Cache-Control: private, no-store');
+		}
 
 		$this->load->view('layouts/header', $data);
 		$this->load->view($view, $data);
 		$this->load->view('layouts/footer', $data);
+		$this->load->model('Traffic_model');
+		$this->Traffic_model->record($view, $this->current_user, $data);
+		$this->load->model('Operational_traffic_model');
+		$this->Operational_traffic_model->record($view, $this->current_user);
 	}
 
 	protected function require_role($role_codes)

@@ -1,0 +1,1065 @@
+{
+  "version": 1,
+  "source": "Pustaka flashcard catalog SD/SMP; no user records, no lesson quiz bank.",
+  "sources": [
+    {
+      "file": "2026-08-06a_flashcards.sql",
+      "sha256": "0afefe639c8ac4f84cb4d61736f5d87484777f91c806e465f9d7b877cee5dabe"
+    },
+    {
+      "file": "2026-08-13a_flashcard_catalog_expansion.sql",
+      "sha256": "0ecd52c4d7e073fa6ac9cbf4fc0dba2d3db71ccfc391377c0825f2d4ca11fa75"
+    },
+    {
+      "file": "2026-08-13b_flashcard_secondary_school.sql",
+      "sha256": "1f3896dceb68a04fc320bbb9ec67dc3978671f5ef951c42a38a75b4efb76d2c2"
+    }
+  ],
+  "packs": [
+    {
+      "slug": "kartu-ipa-dasar",
+      "code": "ipa_dasar",
+      "type": "flashcard",
+      "title": "Sains Kelas 5 — Alam dan Energi",
+      "stage": "primary",
+      "items": [
+        {
+          "term": "Fotosintesis",
+          "definition": "Proses tumbuhan membuat makanan sendiri menggunakan cahaya matahari, air, dan karbon dioksida.",
+          "hint": "Terjadi di daun",
+          "key": "657b22fdceced9093a06dd4e242e71a6a8f895f289d8c1f096e8ce29a493596f"
+        },
+        {
+          "term": "Metamorfosis",
+          "definition": "Perubahan bentuk tubuh hewan dari lahir hingga dewasa, misalnya kupu-kupu.",
+          "hint": "Contoh: ulat → kupu-kupu",
+          "key": "bba6e6cc94d01902f974c149fb7666a1bd0872e51bfd20e27199fae9b19aff7d"
+        },
+        {
+          "term": "Ekosistem",
+          "definition": "Hubungan timbal balik antara makhluk hidup dengan lingkungannya.",
+          "hint": "",
+          "key": "69577abafc4778c0841c3e843a3020e49ea548f5f8d93eb4ce4d257e3b1c4a28"
+        },
+        {
+          "term": "Gaya Gravitasi",
+          "definition": "Gaya tarik bumi yang membuat benda jatuh ke bawah.",
+          "hint": "Membuat benda jatuh",
+          "key": "cfa563be5b1c18b8332ae8f97e22af646bbeec4615b7b90fca599ba55f44b549"
+        },
+        {
+          "term": "Kondensasi",
+          "definition": "Perubahan wujud benda dari gas menjadi cair (mengembun).",
+          "hint": "Uap air → titik air",
+          "key": "489d9a1c05dc5527724a9e5fc99202eea1f06abf64dce2ad1e037de05224d7dc"
+        },
+        {
+          "term": "Rantai makanan",
+          "definition": "Urutan perpindahan energi melalui proses makan dan dimakan antarmakhluk hidup.",
+          "hint": "Contoh: rumput → belalang → katak",
+          "key": "41616b3dc7f9d72fb1ca96a76830cf4a7d934e482f5b640a4366afca00f77e26"
+        },
+        {
+          "term": "Konduktor",
+          "definition": "Bahan yang dapat menghantarkan panas atau listrik dengan baik.",
+          "hint": "Contohnya logam",
+          "key": "be4b560785e76b9768ac8040f086f033c1dfceb18bb4e96e564b0ae861667159"
+        },
+        {
+          "term": "Isolator",
+          "definition": "Bahan yang sulit menghantarkan panas atau listrik.",
+          "hint": "Contohnya kayu dan plastik",
+          "key": "2371b0aa9dfde085845c9a84f717b6d88ed2ba69d6abf24fdf162e638ef01175"
+        },
+        {
+          "term": "Evaporasi",
+          "definition": "Perubahan zat cair menjadi gas atau proses menguap.",
+          "hint": "Air terkena panas matahari",
+          "key": "ce63131435b736cfa39b3821d5e3bc3dae195a7fc589bfdb2aea1afbfa2414ea"
+        },
+        {
+          "term": "Adaptasi",
+          "definition": "Penyesuaian makhluk hidup terhadap lingkungannya agar bertahan hidup.",
+          "hint": "Kaktus memiliki daun berbentuk duri",
+          "key": "90b387a0363f6847a6b6875e3add2caf9d5a55ba20989aa25da06dacd3ca1323"
+        },
+        {
+          "term": "Organ",
+          "definition": "Bagian tubuh yang memiliki fungsi khusus, seperti jantung atau paru-paru.",
+          "hint": "Tersusun dari beberapa jaringan",
+          "key": "603a6d1c84a0459c43a718442efafe16e89185b5436ef55fb2e516f187144992"
+        },
+        {
+          "term": "Energi kinetik",
+          "definition": "Energi yang dimiliki benda karena bergerak.",
+          "hint": "Makin cepat bergerak, makin besar energinya",
+          "key": "88dddf72c1df5d9919a619f7fab41e5a7a2ff36fa5fa3311f2964b5f8f7b1d5c"
+        },
+        {
+          "term": "Energi potensial",
+          "definition": "Energi yang tersimpan karena posisi atau keadaan benda.",
+          "hint": "Buah di atas pohon",
+          "key": "7c32d20fe93d89427aaf2fe74ed1d6cd988ec76c70da55176806b8894670ba2b"
+        },
+        {
+          "term": "Siklus air",
+          "definition": "Peredaran air terus-menerus dari bumi ke atmosfer dan kembali lagi.",
+          "hint": "Menguap, mengembun, turun sebagai hujan",
+          "key": "ddfdfda4a9ed72a2bb595ccbb1ee0047f1d8789ad86b968d204b95dbb6776a27"
+        },
+        {
+          "term": "Habitat",
+          "definition": "Tempat alami makhluk hidup tinggal dan berkembang.",
+          "hint": "Ikan hidup di habitat perairan",
+          "key": "49523df9b05df34c4919fa979ede4d7127cb1eaae716e141eb0ca6fe7920a3c1"
+        }
+      ]
+    },
+    {
+      "slug": "kartu-mtk-sd1-angka",
+      "code": "mtk_sd1_angka",
+      "type": "flashcard",
+      "title": "Matematika Kelas 1 — Angka Ceria",
+      "description": "Kenali bilangan, bentuk, dan operasi hitung paling dasar.",
+      "stage": "primary",
+      "items": [
+        {
+          "term": "Bilangan 0",
+          "definition": "Bilangan yang menunjukkan tidak ada benda.",
+          "hint": "Keranjang kosong berisi nol apel",
+          "key": "eb6932ff11bc824667dfe85e8a070214bad641b266c6a06cb2f67affa48fe75d"
+        },
+        {
+          "term": "Bilangan 10",
+          "definition": "Bilangan setelah sembilan, terdiri dari satu puluhan dan nol satuan.",
+          "hint": "Dua tangan memiliki sepuluh jari",
+          "key": "30851257c33fba91acc38113d237664803bc5ee31534023e7497f0930d6a71a3"
+        },
+        {
+          "term": "Lebih besar",
+          "definition": "Nilai yang jumlahnya lebih banyak.",
+          "hint": "8 lebih besar daripada 5",
+          "key": "f75b1ab33edeeeafd86dabae3ec4605edb6d65c0bf6643077a7315450452b778"
+        },
+        {
+          "term": "Lebih kecil",
+          "definition": "Nilai yang jumlahnya lebih sedikit.",
+          "hint": "3 lebih kecil daripada 7",
+          "key": "cde6826c2443968c588a247a988a3e98336aab49787626553b13dd0a63e5a38b"
+        },
+        {
+          "term": "Penjumlahan",
+          "definition": "Menggabungkan dua kelompok benda atau lebih.",
+          "hint": "2 + 3 = 5",
+          "key": "0389db5c1ec6584f289e69a7b811875b1e554b3f26ba9e2511ea4d42f0e5434c"
+        },
+        {
+          "term": "Pengurangan",
+          "definition": "Mengambil sebagian dari suatu jumlah.",
+          "hint": "5 - 2 = 3",
+          "key": "fce7d8aaad640ba92a7b0bb37d7b577d371f0d6e3ba435f557d5d2a218947806"
+        },
+        {
+          "term": "Lingkaran",
+          "definition": "Bangun datar bundar yang tidak memiliki sudut.",
+          "hint": "Bentuk jam dinding",
+          "key": "70031d539b0fe4d6c6ab91c0d60e68d2ac6390b495bc6a38097f7ba831ae99c8"
+        },
+        {
+          "term": "Segitiga",
+          "definition": "Bangun datar dengan tiga sisi dan tiga sudut.",
+          "hint": "Atap rumah sering berbentuk segitiga",
+          "key": "984ab8ee5e80ccdd55c237b8f253ec4024181a281f97a32ce7ffb9a442480271"
+        },
+        {
+          "term": "Persegi",
+          "definition": "Bangun datar dengan empat sisi sama panjang.",
+          "hint": "Ubin berbentuk persegi",
+          "key": "f5e13391db6f86aeeb7dcf0cbb46f0758f633d50b56c24259db54938e065b9c7"
+        },
+        {
+          "term": "Pola",
+          "definition": "Susunan yang berulang menurut aturan tertentu.",
+          "hint": "Merah-biru-merah-biru",
+          "key": "f71ee75fe407cfbc8cd8be40a7bc3c13997c8d153315bb0853edddbea4f6c543"
+        }
+      ]
+    },
+    {
+      "slug": "kartu-bindo-sd1-kata",
+      "code": "bindo_sd1_kata",
+      "type": "flashcard",
+      "title": "Bahasa Indonesia Kelas 1 — Kata Pertamaku",
+      "description": "Kosakata sehari-hari, suku kata, dan lawan kata sederhana.",
+      "stage": "primary",
+      "items": [
+        {
+          "term": "Ibu",
+          "definition": "Orang tua perempuan dalam keluarga.",
+          "hint": "I-bu terdiri dari dua suku kata",
+          "key": "53aae51513ecd538e00aaeaf122fc5f7851f51dc3533d15305fd24a224dec170"
+        },
+        {
+          "term": "Buku",
+          "definition": "Kumpulan lembar berisi tulisan atau gambar untuk dibaca.",
+          "hint": "Bu-ku",
+          "key": "d7271b2ae5ca78a81c652470df17ec5c23195f045cfeb70803aeb7dcd6c53aba"
+        },
+        {
+          "term": "Sekolah",
+          "definition": "Tempat murid belajar bersama guru.",
+          "hint": "Se-ko-lah",
+          "key": "bf4950f20081957d93954c7dd4f7f15ce46d23a9e2713857e534d2412234f2d7"
+        },
+        {
+          "term": "Rajin",
+          "definition": "Suka bekerja atau belajar dengan sungguh-sungguh.",
+          "hint": "Lawan katanya malas",
+          "key": "04b5ee5573954c8a7db737da05b0f3e0d94ab455ee799394487bbf196553bf8d"
+        },
+        {
+          "term": "Tinggi",
+          "definition": "Memiliki jarak jauh dari bawah ke atas.",
+          "hint": "Lawan katanya rendah",
+          "key": "7f7f31c037e5d964471755f8ec3481e1361afbec92e2664ea4e70a72e66c3736"
+        },
+        {
+          "term": "Cepat",
+          "definition": "Bergerak atau berlangsung dalam waktu singkat.",
+          "hint": "Lawan katanya lambat",
+          "key": "de4ae6affe079f4336416d3a8ab420af5bad5b44f81144911b46bd6c0e4e0c63"
+        },
+        {
+          "term": "Kalimat",
+          "definition": "Susunan kata yang memiliki arti lengkap.",
+          "hint": "Dia membaca buku.",
+          "key": "916cfe84277a2f757d8364481ddb61f297c7951f0f3f364c7d8377b75ddee8f7"
+        },
+        {
+          "term": "Huruf vokal",
+          "definition": "Huruf a, i, u, e, dan o.",
+          "hint": "Ada lima huruf vokal",
+          "key": "d47c8ec93609fc35b25db2c977aa09768ba549f9c8cee4a324183ff8c5abdcc4"
+        },
+        {
+          "term": "Tanda titik",
+          "definition": "Tanda baca yang dipakai pada akhir kalimat berita.",
+          "hint": "Bentuknya .",
+          "key": "d8c9a99e2e1c961aa32c88573e794303183d4cff371627ae3f1ea9f3f7be2d18"
+        },
+        {
+          "term": "Bertanya",
+          "definition": "Meminta keterangan atau jawaban.",
+          "hint": "Kalimat tanya berakhir dengan ?",
+          "key": "26a5a47407704866c1375a620a9dec173ea18200fab9116619bdf7f93ec05fb2"
+        }
+      ]
+    },
+    {
+      "slug": "kartu-english-sd2-daily",
+      "code": "english_sd2_daily",
+      "type": "flashcard",
+      "title": "English Kelas 2 — My Daily World",
+      "description": "Kosakata Inggris tentang rumah, sekolah, warna, dan aktivitas.",
+      "stage": "primary",
+      "items": [
+        {
+          "term": "House",
+          "definition": "Rumah.",
+          "hint": "A place where a family lives",
+          "key": "67e1a2d9b228a2e90c5a79cfae8d4712c0e26b527f3cb76629ca1c70f331132d"
+        },
+        {
+          "term": "School",
+          "definition": "Sekolah.",
+          "hint": "A place to learn",
+          "key": "ff5453b7ccb8f54dbf553f548b4b52102cf5eb32a7511fec96d37b6b89ef6ef6"
+        },
+        {
+          "term": "Teacher",
+          "definition": "Guru.",
+          "hint": "A person who teaches students",
+          "key": "56b7c7ab6d97fc4ac0c7c22eda0de683a490215a72ed89bb53c54d1adb09ed45"
+        },
+        {
+          "term": "Blue",
+          "definition": "Biru.",
+          "hint": "The color of a clear sky",
+          "key": "e69f20bdb3ef19a25340a845fa889bc3b0d940d563dafbc44d39f74974a3e1f7"
+        },
+        {
+          "term": "Breakfast",
+          "definition": "Sarapan.",
+          "hint": "The first meal of the day",
+          "key": "c7f48fe0d05ff758ad22b4d6f4c6072095ee31ac70cd8dee5edd368f1b7b8bc4"
+        },
+        {
+          "term": "Read",
+          "definition": "Membaca.",
+          "hint": "You do this with a book",
+          "key": "35ee28f6a10f7090695ed4114b9ee29b2d7c72227754ac7e0152b95f232fdb65"
+        },
+        {
+          "term": "Write",
+          "definition": "Menulis.",
+          "hint": "You do this with a pencil",
+          "key": "c63c6166d93fb318929d49546d0d722716931b9602603c17730b08912c4e5b30"
+        },
+        {
+          "term": "Happy",
+          "definition": "Senang atau bahagia.",
+          "hint": "You smile when you feel this",
+          "key": "c43438caeda64461bc44d09fab8ba12e609056ce065a98f9e4cf697360080380"
+        },
+        {
+          "term": "Please",
+          "definition": "Tolong; kata sopan saat meminta sesuatu.",
+          "hint": "A polite word",
+          "key": "9d5f340d6dbae97a4b7f77410125a92b47e5aa6f24bf8b19cbd934b4d222593b"
+        },
+        {
+          "term": "Thank you",
+          "definition": "Terima kasih.",
+          "hint": "Say it after receiving help",
+          "key": "477768478bde968d152361f8e1a5e1c64799548670447bd8a8681491025c1325"
+        }
+      ]
+    },
+    {
+      "slug": "kartu-ipas-sd3-makhluk",
+      "code": "ipas_sd3_makhluk",
+      "type": "flashcard",
+      "title": "IPAS Kelas 3 — Makhluk Hidup",
+      "description": "Ciri, kebutuhan, pertumbuhan, dan lingkungan makhluk hidup.",
+      "stage": "primary",
+      "items": [
+        {
+          "term": "Bernapas",
+          "definition": "Proses mengambil oksigen dan mengeluarkan karbon dioksida.",
+          "hint": "Salah satu ciri makhluk hidup",
+          "key": "a3a6e4ac425620bf707af10955e13dd587d4b27c64e38156be66ac76fb0409eb"
+        },
+        {
+          "term": "Tumbuh",
+          "definition": "Bertambah ukuran, tinggi, atau berat.",
+          "hint": "Biji berkembang menjadi tanaman",
+          "key": "d4c2e5f85ff554360be65d5373df6a0c74ca18a1066ad92c7813ceedb8bc5e45"
+        },
+        {
+          "term": "Berkembang biak",
+          "definition": "Menghasilkan keturunan untuk menjaga kelestarian jenis.",
+          "hint": "Ayam bertelur",
+          "key": "ea2ad5816108d4109c71ad7d12ba788ff87cd1ff3f6b08a67ec5881aaa53d6d7"
+        },
+        {
+          "term": "Herbivora",
+          "definition": "Hewan pemakan tumbuhan.",
+          "hint": "Contoh: sapi",
+          "key": "4ee9dd255cc45fc75b568b06f84a1484c5189069c8ea3f28474d5be12d72b858"
+        },
+        {
+          "term": "Karnivora",
+          "definition": "Hewan pemakan daging.",
+          "hint": "Contoh: harimau",
+          "key": "401549fb14e55555201a2014b80062cbe0bc2b7966c6a783907f981c69a68aee"
+        },
+        {
+          "term": "Omnivora",
+          "definition": "Hewan pemakan tumbuhan dan daging.",
+          "hint": "Contoh: ayam",
+          "key": "03c7f2ea1b07d38b42237ae1ce86af1364c6d3b8c9d373e31fa23a1728109a87"
+        },
+        {
+          "term": "Akar",
+          "definition": "Bagian tumbuhan yang menyerap air dan menambatkan tumbuhan.",
+          "hint": "Biasanya berada di dalam tanah",
+          "key": "3beb19e5a7c5162ec592b5aaf4f2415b99c994ecdb03b44856c86975b6efbe55"
+        },
+        {
+          "term": "Batang",
+          "definition": "Bagian tumbuhan yang menopang dan mengangkut air.",
+          "hint": "Menghubungkan akar dan daun",
+          "key": "f984e44b3ac7df7e0e6feb2adda7bb3ba644b9e6d4578484dcfc247da452afb4"
+        },
+        {
+          "term": "Penyerbukan",
+          "definition": "Peristiwa jatuhnya serbuk sari ke kepala putik.",
+          "hint": "Membantu perkembangbiakan tumbuhan",
+          "key": "6b6ca341188726e0bea61053f7a3a0ac534fba888795662aee404571cd4073ac"
+        },
+        {
+          "term": "Lingkungan",
+          "definition": "Segala sesuatu di sekitar makhluk hidup.",
+          "hint": "Terdiri dari unsur hidup dan tak hidup",
+          "key": "72a0d327ae18cb762d9763cd66bef4426d22c9037b5d072e40b7e4d030b0bfa0"
+        }
+      ]
+    },
+    {
+      "slug": "kartu-mtk-sd4-pecahan",
+      "code": "mtk_sd4_pecahan",
+      "type": "flashcard",
+      "title": "Matematika Kelas 4 — Pecahan Explorer",
+      "description": "Pahami pecahan, pembilang, penyebut, dan bentuk senilai.",
+      "stage": "primary",
+      "items": [
+        {
+          "term": "Pembilang",
+          "definition": "Angka di atas garis pecahan yang menunjukkan bagian yang dipilih.",
+          "hint": "Pada 3/4, pembilangnya 3",
+          "key": "8f147ab6d36faacfd7eba1fa98ee8c35d8cb254bf406ee8d120eb878b9da4545"
+        },
+        {
+          "term": "Penyebut",
+          "definition": "Angka di bawah garis pecahan yang menunjukkan seluruh bagian sama besar.",
+          "hint": "Pada 3/4, penyebutnya 4",
+          "key": "d1448e5bef2618fdc6af285fb513464449bfe7905190c8f6424c87c001917ae0"
+        },
+        {
+          "term": "Pecahan senilai",
+          "definition": "Pecahan berbeda yang mempunyai nilai sama.",
+          "hint": "1/2 = 2/4",
+          "key": "73939e3194ba4ead76faa078adc4935694e1fa2baded7adc3b645d7d5fa905ca"
+        },
+        {
+          "term": "Pecahan biasa",
+          "definition": "Pecahan yang ditulis sebagai pembilang per penyebut.",
+          "hint": "Contoh 3/5",
+          "key": "92153e28b43663b940c0d77029b3ca2875cf5ba3f234f91c5a375c737074644a"
+        },
+        {
+          "term": "Pecahan campuran",
+          "definition": "Gabungan bilangan bulat dan pecahan biasa.",
+          "hint": "Contoh 1 1/2",
+          "key": "16675404e666c323dff70c198b1666508f6aad0bdb8dcf0c9f18d28925d20308"
+        },
+        {
+          "term": "Desimal",
+          "definition": "Cara menulis bagian bilangan menggunakan tanda koma.",
+          "hint": "1/2 = 0,5",
+          "key": "6515bab8a9bf8a3c08ccca5e77f732ececd1ab5d96d9a7555710afdc18687389"
+        },
+        {
+          "term": "Persen",
+          "definition": "Pecahan dengan penyebut seratus.",
+          "hint": "50% = 50/100",
+          "key": "ff2b6bc0720b38505bb1b3732914cf64e3baeaab258c8caf4dadecbcd6d4e529"
+        },
+        {
+          "term": "Seperempat",
+          "definition": "Satu dari empat bagian sama besar.",
+          "hint": "Ditulis 1/4",
+          "key": "8de924d6f7cca7c0a9d18cc56a885ded7b3adc829e61bad8400a5dc129dbfc02"
+        },
+        {
+          "term": "Setengah",
+          "definition": "Satu dari dua bagian sama besar.",
+          "hint": "Ditulis 1/2",
+          "key": "138e96f48178c9be72d6506d9502f7f685423930837ca0349e53a97194285ddb"
+        },
+        {
+          "term": "Garis bilangan",
+          "definition": "Garis yang menunjukkan urutan dan posisi bilangan.",
+          "hint": "Pecahan dapat diletakkan di antara 0 dan 1",
+          "key": "7fcf0de9eb341533731deea124520ccba53514e16bf4b90be7a5c795e8f3cad4"
+        }
+      ]
+    },
+    {
+      "slug": "kartu-bindo-sd4-bahasa",
+      "code": "bindo_sd4_bahasa",
+      "type": "flashcard",
+      "title": "Bahasa Indonesia Kelas 4 — Detektif Bahasa",
+      "description": "Gagasan pokok, kalimat, imbuhan, sinonim, dan antonim.",
+      "stage": "primary",
+      "items": [
+        {
+          "term": "Gagasan pokok",
+          "definition": "Ide utama yang dibahas dalam sebuah paragraf.",
+          "hint": "Dapat berada di awal atau akhir paragraf",
+          "key": "d8d45a2591cf825a5d7bb9aec8c1d5113fb3a91c6cda02780f918b9100c49568"
+        },
+        {
+          "term": "Kalimat utama",
+          "definition": "Kalimat yang memuat gagasan pokok paragraf.",
+          "hint": "Dijelaskan oleh kalimat penjelas",
+          "key": "2bd344cdcfb0cce5f5b0e3a5d97c14a66570274a201973d47984c38ee6b1eda2"
+        },
+        {
+          "term": "Kalimat penjelas",
+          "definition": "Kalimat yang merinci atau mendukung kalimat utama.",
+          "hint": "Berisi contoh atau alasan",
+          "key": "45d005a061cbeceb8c47cd66abfed81dbedd26932050b53392b4ac798c55fb19"
+        },
+        {
+          "term": "Sinonim",
+          "definition": "Kata yang memiliki arti sama atau mirip.",
+          "hint": "Bahagia bersinonim dengan senang",
+          "key": "fe4ced9abf2bb2ed8d961ed8995d850e07fa2ad3952cb24652fd98f27cbdd4b4"
+        },
+        {
+          "term": "Antonim",
+          "definition": "Kata yang berlawanan makna.",
+          "hint": "Panjang berantonim dengan pendek",
+          "key": "202bccb510b18e956e96baee741a43a85de398e1c6de967d236479a96448f1d7"
+        },
+        {
+          "term": "Imbuhan me-",
+          "definition": "Awalan yang umumnya membentuk kata kerja aktif.",
+          "hint": "Baca menjadi membaca",
+          "key": "37fbe4ffedf337e19fc770fcdaf08a109721dbee211a837e5af33e267bf0e6dd"
+        },
+        {
+          "term": "Kata baku",
+          "definition": "Kata yang penulisannya sesuai kaidah bahasa Indonesia.",
+          "hint": "Aktivitas adalah bentuk baku",
+          "key": "a3045309aacdc27a06d701e2762b3c3a9b807efee2deb355a430da5947e47e08"
+        },
+        {
+          "term": "Wawancara",
+          "definition": "Kegiatan tanya jawab untuk memperoleh informasi.",
+          "hint": "Dilakukan pewawancara dan narasumber",
+          "key": "0cc79dfdcec6497c9b6ee0b0688797a57aaea76f65cb5cfad7aa3712ff6292a9"
+        },
+        {
+          "term": "Majas personifikasi",
+          "definition": "Gaya bahasa yang memberi sifat manusia kepada benda.",
+          "hint": "Angin bernyanyi",
+          "key": "cdbea3053e83b138fbf3ba6cdc300027f038dca32af16cc2e90a83681f79c23c"
+        },
+        {
+          "term": "Ringkasan",
+          "definition": "Penyajian singkat yang memuat inti sebuah teks.",
+          "hint": "Ditulis dengan bahasa sendiri",
+          "key": "d020063de458251b13b4f21c2455b83e96c3cdc565f76e846837bb8242fdffe7"
+        }
+      ]
+    },
+    {
+      "slug": "kartu-english-sd5-adventure",
+      "code": "english_sd5_adventure",
+      "type": "flashcard",
+      "title": "English Kelas 5 — Adventure Words",
+      "description": "Kata kerja, arah, cuaca, perasaan, dan percakapan petualangan.",
+      "stage": "primary",
+      "items": [
+        {
+          "term": "Explore",
+          "definition": "Menjelajah untuk mengetahui suatu tempat.",
+          "hint": "We explore the hidden forest",
+          "key": "46a8cd615df1e3de7781f671bf5af028cd3a2201b7598f50a8347fc929adf796"
+        },
+        {
+          "term": "Courage",
+          "definition": "Keberanian.",
+          "hint": "A hero needs courage",
+          "key": "3e869c7ac54be409d8c276bd89f4553d5e1256396af73c518e35cfbfaf9b1446"
+        },
+        {
+          "term": "Turn left",
+          "definition": "Belok kiri.",
+          "hint": "A direction",
+          "key": "83ed6e1382c73330475278b143818ff8a9070798a6a443ef1265a3c49524533b"
+        },
+        {
+          "term": "Across from",
+          "definition": "Di seberang.",
+          "hint": "The inn is across from the market",
+          "key": "9319fcbed0dd8de34fe2eb6ddfc78b335017c441827e8d07afd71e439e8eb269"
+        },
+        {
+          "term": "Cloudy",
+          "definition": "Berawan.",
+          "hint": "The sky has many clouds",
+          "key": "3c80759871de7b962ea22b4d2dab56163808e840c3e459f845afce03700624a9"
+        },
+        {
+          "term": "Excited",
+          "definition": "Bersemangat atau sangat gembira.",
+          "hint": "How you feel before an adventure",
+          "key": "2e08ad3156b3e1d60f93b4e3ddb301bce9d707b3691d54d88ef70bb78a34e1d9"
+        },
+        {
+          "term": "Careful",
+          "definition": "Berhati-hati.",
+          "hint": "Be careful near the cliff",
+          "key": "3930a7cd22d08f2195d140c19a4a5cc6bd78d7b92e606f53df693d9125fa0314"
+        },
+        {
+          "term": "Borrow",
+          "definition": "Meminjam sesuatu untuk dikembalikan.",
+          "hint": "May I borrow your map?",
+          "key": "890081d9249b756967d2a7c050f88da3dbd0f3e9fa07dbd3dad7bc86bef67cb6"
+        },
+        {
+          "term": "Return",
+          "definition": "Mengembalikan atau kembali.",
+          "hint": "Return the key to its owner",
+          "key": "c4abd4672cc108421b81b8789ce3336a0134f60a7f0b55a767def0a331f41873"
+        },
+        {
+          "term": "I agree",
+          "definition": "Saya setuju.",
+          "hint": "Use it when accepting an idea",
+          "key": "5eaa2702975751c2dca548ee1199471a61954f54b66a95189f66883d6b8c8a8a"
+        }
+      ]
+    },
+    {
+      "slug": "kartu-pancasila-sd5",
+      "code": "pancasila_sd5",
+      "type": "flashcard",
+      "title": "Pancasila Kelas 5 — Warga Hebat",
+      "description": "Nilai Pancasila, hak, kewajiban, musyawarah, dan keberagaman.",
+      "stage": "primary",
+      "items": [
+        {
+          "term": "Gotong royong",
+          "definition": "Bekerja bersama secara sukarela untuk tujuan bersama.",
+          "hint": "Membuat pekerjaan berat menjadi ringan",
+          "key": "b586a528ebfb531226d5c66282bb28c1d1eb673e1d9a71b57aba98c815b4a4c6"
+        },
+        {
+          "term": "Musyawarah",
+          "definition": "Membahas masalah bersama untuk mencapai kesepakatan.",
+          "hint": "Mengutamakan kepentingan bersama",
+          "key": "82f41f6f20f15471d4abf9426b8f5b63f5d785e5d29be8b9d5f724022e324278"
+        },
+        {
+          "term": "Hak",
+          "definition": "Sesuatu yang patut diterima seseorang.",
+          "hint": "Anak berhak mendapat pendidikan",
+          "key": "d1fae6c0767243c8be5b79fbc6cb40f394267b86d403de4327306f7b26bcc04a"
+        },
+        {
+          "term": "Kewajiban",
+          "definition": "Sesuatu yang harus dilakukan dengan tanggung jawab.",
+          "hint": "Menjaga kebersihan kelas",
+          "key": "43b6fb9d9779a83577144adecebb037cb91b92aa1c2a416d27cd2de1ecba84f4"
+        },
+        {
+          "term": "Toleransi",
+          "definition": "Menghargai perbedaan orang lain.",
+          "hint": "Tetap rukun dalam keberagaman",
+          "key": "115100794b5becb4bf8df2f8752cf4f407969a8872718ab8078429fa5af4d779"
+        },
+        {
+          "term": "Bhinneka Tunggal Ika",
+          "definition": "Berbeda-beda tetapi tetap satu.",
+          "hint": "Semboyan bangsa Indonesia",
+          "key": "d39bc92b9a567d7a5ff15706f27c9e13d16a68e18a85aeb413a93ca831cbad0d"
+        },
+        {
+          "term": "Keadilan",
+          "definition": "Memperlakukan orang sesuai hak dan kebutuhannya.",
+          "hint": "Tidak pilih kasih",
+          "key": "062c826d4d47ae10b052c8f1fdc592c56574ffbaa5bb486616b5ae193a921636"
+        },
+        {
+          "term": "Tanggung jawab",
+          "definition": "Kesediaan menanggung akibat dan menyelesaikan kewajiban.",
+          "hint": "Mengembalikan barang pinjaman",
+          "key": "3969bb7ed6444f90e5ba6b1fac1befc137dd1fa95ec4e2043e03ebf89ff07c8e"
+        },
+        {
+          "term": "Norma",
+          "definition": "Aturan atau pedoman perilaku dalam masyarakat.",
+          "hint": "Membantu kehidupan menjadi tertib",
+          "key": "77768ee50bc1972c8f06eb198da6e65ef4f6c46e684ede1eea3122f4bd055e09"
+        },
+        {
+          "term": "Keberagaman",
+          "definition": "Keadaan masyarakat yang memiliki berbagai perbedaan.",
+          "hint": "Berbeda suku, bahasa, budaya, dan agama",
+          "key": "f713b6c17c36ee13be787e97f16ab5e8a55b6d6b8d8b72d2789c4326ebf4d698"
+        }
+      ]
+    },
+    {
+      "slug": "kartu-mtk-sd6-geometri",
+      "code": "mtk_sd6_geometri",
+      "type": "flashcard",
+      "title": "Matematika Kelas 6 — Geometri Quest",
+      "description": "Bangun datar, bangun ruang, luas, volume, dan koordinat.",
+      "stage": "primary",
+      "items": [
+        {
+          "term": "Keliling",
+          "definition": "Jumlah panjang seluruh sisi bangun datar.",
+          "hint": "Keliling persegi = 4 × sisi",
+          "key": "49ea5683f4bbe5c7b377b38205eb11774a5e986fa22b4161527cd12d806a0ec0"
+        },
+        {
+          "term": "Luas",
+          "definition": "Ukuran daerah yang ditempati bangun datar.",
+          "hint": "Luas persegi = sisi × sisi",
+          "key": "caacb8e61110aa5caa2c1b9d23ac070a4ccc4b582bc3b5a58879ede9703be7d3"
+        },
+        {
+          "term": "Volume",
+          "definition": "Ukuran ruang yang dapat ditempati dalam bangun ruang.",
+          "hint": "Volume kubus = sisi³",
+          "key": "a0f3164840e3d814c2e4aff290d1268b7eb94b40b344db9842507194267b3d07"
+        },
+        {
+          "term": "Kubus",
+          "definition": "Bangun ruang dengan enam sisi berbentuk persegi sama besar.",
+          "hint": "Memiliki 12 rusuk",
+          "key": "621ef5081f2c7547ce26d742f45e7e4dc9dac8e3dd4c24c8342d14d7e9ac4fe3"
+        },
+        {
+          "term": "Balok",
+          "definition": "Bangun ruang dengan enam sisi berbentuk persegi panjang.",
+          "hint": "Bentuk kotak sepatu",
+          "key": "f0404615515dbcf05fd22c9cf8f392e965ecca3fb9abf0dbd33caa6532b13078"
+        },
+        {
+          "term": "Jari-jari",
+          "definition": "Jarak dari titik pusat lingkaran ke tepinya.",
+          "hint": "Setengah diameter",
+          "key": "be8103c6eb0b09c2f4879c44db8bace9f5569287031a0a3689c7d110a7d3a29c"
+        },
+        {
+          "term": "Diameter",
+          "definition": "Garis melalui pusat yang menghubungkan dua titik pada lingkaran.",
+          "hint": "Dua kali jari-jari",
+          "key": "c0ff2c24fdc25ec7189c24f3f1d7b3c4adc22691e20a9b56329054cb1127943c"
+        },
+        {
+          "term": "Koordinat",
+          "definition": "Pasangan bilangan yang menunjukkan posisi titik.",
+          "hint": "Ditulis (x, y)",
+          "key": "d4154e934473aa45cde02a37ac9b441404d9ed2d66bb5905cf3c1d7caed9744d"
+        },
+        {
+          "term": "Prisma",
+          "definition": "Bangun ruang dengan dua bidang alas yang sejajar dan sama bentuk.",
+          "hint": "Prisma segitiga memiliki alas segitiga",
+          "key": "b162d9a4bcbc04c86c8374fca095b4a1b5acb078533a512bc5f6523043eccd15"
+        },
+        {
+          "term": "Skala",
+          "definition": "Perbandingan jarak pada gambar dengan jarak sebenarnya.",
+          "hint": "Digunakan pada peta",
+          "key": "f165c4747c8aafcac738019c2e4ad3abd5dc1aeffa559c18714bb1462e95dc11"
+        }
+      ]
+    },
+    {
+      "slug": "kartu-informatika-sd6",
+      "code": "informatika_sd6",
+      "type": "flashcard",
+      "title": "Informatika Kelas 6 — Digital Explorer",
+      "description": "Algoritma, data, internet aman, perangkat, dan berpikir komputasional.",
+      "stage": "primary",
+      "items": [
+        {
+          "term": "Algoritma",
+          "definition": "Urutan langkah logis dan sistematis untuk menyelesaikan masalah.",
+          "hint": "Seperti langkah membuat minuman",
+          "key": "881717dfb77e539dcded25a80514f376239101fd01b5d40fb5ed1d83204c3459"
+        },
+        {
+          "term": "Data",
+          "definition": "Fakta atau keterangan yang dapat diolah menjadi informasi.",
+          "hint": "Angka, teks, gambar, atau suara",
+          "key": "c79fa96c89d8297458ee2d0c474a2e46a4ff947b3dbbc5d01e902501d8b07028"
+        },
+        {
+          "term": "Perangkat keras",
+          "definition": "Bagian fisik komputer yang dapat dilihat dan disentuh.",
+          "hint": "Keyboard dan monitor",
+          "key": "6cb3d519f74de30bd057b0a09c816f61c18ec86c75b4c36e144e098fc44ae073"
+        },
+        {
+          "term": "Perangkat lunak",
+          "definition": "Program yang memberi instruksi kepada komputer.",
+          "hint": "Aplikasi pengolah kata",
+          "key": "7e98201f3fc561fbdff751a9f2440be224d8b9bbf69880455334a3640a05ac75"
+        },
+        {
+          "term": "Internet",
+          "definition": "Jaringan global yang menghubungkan banyak perangkat.",
+          "hint": "Digunakan untuk bertukar informasi",
+          "key": "625f19218fe1eeb8ab702dc77e0c2b7be37cb81899dd1d87dda0d83a87e7ed18"
+        },
+        {
+          "term": "Kata sandi kuat",
+          "definition": "Kata sandi panjang dan unik dengan kombinasi karakter.",
+          "hint": "Jangan memakai tanggal lahir",
+          "key": "40736c3885b6364762f69468cfd694c30612c5a61d9ed74df2b39aa2d6af090a"
+        },
+        {
+          "term": "Phishing",
+          "definition": "Upaya penipuan untuk mencuri data melalui pesan atau situs palsu.",
+          "hint": "Jangan klik tautan mencurigakan",
+          "key": "7d5a6f25912f8b461c76efb0efa81cb47cdf5b2b4f8cb21e08c718a8352bc581"
+        },
+        {
+          "term": "Dekomposisi",
+          "definition": "Memecah masalah besar menjadi bagian-bagian kecil.",
+          "hint": "Salah satu cara berpikir komputasional",
+          "key": "26087dbd6b81b0f80e4a5ec500dd766c21a8ce5260600061af20cf192b124a3d"
+        },
+        {
+          "term": "Pola",
+          "definition": "Kesamaan atau keteraturan yang dapat dikenali pada data.",
+          "hint": "Membantu membuat solusi lebih cepat",
+          "key": "9bec05e3cf4cd281046793a728e5c4a9164e382345982519dc46ffb5580dfaa6"
+        },
+        {
+          "term": "Debugging",
+          "definition": "Mencari dan memperbaiki kesalahan pada program atau langkah.",
+          "hint": "Memeriksa mengapa program tidak berjalan",
+          "key": "3ff87f0a352032ed4adcc708d992b0d22b0ff10883c019e014588ffcbdc1009e"
+        }
+      ]
+    },
+    {
+      "slug": "kartu-ipa-smp7-ekosistem",
+      "code": "ipa_smp7_ekosistem",
+      "type": "flashcard",
+      "title": "IPA Kelas 7 — Ekosistem & Klasifikasi",
+      "description": "Konsep organisme, klasifikasi, interaksi, dan lingkungan.",
+      "stage": "secondary",
+      "items": [
+        {
+          "term": "Organisme",
+          "definition": "Individu makhluk hidup, seperti seekor kucing atau satu pohon mangga.",
+          "hint": "Satuan tunggal makhluk hidup",
+          "key": "f4db897c29a6a4a1b59d8fa323813470a02ce647843d05150e249bd666121eb4"
+        },
+        {
+          "term": "Populasi",
+          "definition": "Sekumpulan organisme sejenis yang hidup di tempat dan waktu yang sama.",
+          "hint": "Sekumpulan ikan nila dalam satu kolam",
+          "key": "d327c1fda51af5032c6413f4711e138f27f26a53b7d7890e2581fb612496a3ed"
+        },
+        {
+          "term": "Komunitas",
+          "definition": "Seluruh populasi berbeda yang hidup bersama pada suatu wilayah.",
+          "hint": "Populasi tumbuhan, hewan, dan mikroba",
+          "key": "69093dd2442a6f6c75f534f8f4ad49a599e2e0749a553f5206a6faa696b81409"
+        },
+        {
+          "term": "Biotik",
+          "definition": "Komponen lingkungan yang berupa makhluk hidup.",
+          "hint": "Tumbuhan, hewan, manusia, mikroorganisme",
+          "key": "70731d9732db0ca714144137465ac7136a118abd2ec08e1e3db631976a7c6ffc"
+        },
+        {
+          "term": "Abiotik",
+          "definition": "Komponen tak hidup yang memengaruhi kehidupan.",
+          "hint": "Air, tanah, cahaya, suhu",
+          "key": "ce259d759db2d4de13ef8cfa9d85b429b667f7d646ef34a90b800ef21ef7fb5e"
+        },
+        {
+          "term": "Simbiosis mutualisme",
+          "definition": "Hubungan dua organisme yang keduanya memperoleh keuntungan.",
+          "hint": "Lebah dan bunga",
+          "key": "b56211aee658a547b3f2cd2c2321d7a98f6eb9ae073493243bb393ecb9b0b907"
+        },
+        {
+          "term": "Simbiosis komensalisme",
+          "definition": "Hubungan saat satu pihak untung dan pihak lain tidak dirugikan.",
+          "hint": "Anggrek menempel pada pohon",
+          "key": "592a50c695961986f4b95ee2e9a0328102eb2947f8f0eff884b1d77e7a4e7706"
+        },
+        {
+          "term": "Simbiosis parasitisme",
+          "definition": "Hubungan saat satu pihak untung sedangkan pihak lain dirugikan.",
+          "hint": "Benalu dan pohon inang",
+          "key": "c65cfef424a0e14014544e1b9af569047e5b5282f35514473e9ad5cc54a4651b"
+        },
+        {
+          "term": "Produsen",
+          "definition": "Organisme yang mampu membuat makanan sendiri.",
+          "hint": "Tumbuhan hijau",
+          "key": "6ec40cf755257553fdebd312720158dacd708c7d38ca13b3cb4907082c1157e4"
+        },
+        {
+          "term": "Konsumen",
+          "definition": "Organisme yang mendapatkan energi dengan memakan organisme lain.",
+          "hint": "Hewan dan manusia",
+          "key": "7e36ff7b4596d973c25b641fbda2526d29d203f471c86f0dd3eab3f67a2cd696"
+        },
+        {
+          "term": "Dekomposer",
+          "definition": "Organisme pengurai sisa makhluk hidup menjadi zat sederhana.",
+          "hint": "Jamur dan bakteri",
+          "key": "8ee22858300075723cb25eb54c952ef69199de3b3a9cfb05ed8b449e1dbcaf95"
+        },
+        {
+          "term": "Kunci determinasi",
+          "definition": "Panduan berpasangan untuk mengidentifikasi atau mengelompokkan makhluk hidup.",
+          "hint": "Memakai ciri yang berlawanan",
+          "key": "c4be488bcde0a33fef0c1fd6909b6d9a79d0360123311064138015eff1ccb7e1"
+        }
+      ]
+    },
+    {
+      "slug": "kartu-mtk-smp8-aljabar",
+      "code": "mtk_smp8_aljabar",
+      "type": "flashcard",
+      "title": "Matematika Kelas 8 — Aljabar & Relasi",
+      "description": "Variabel, persamaan, fungsi, gradien, dan pola bilangan.",
+      "stage": "secondary",
+      "items": [
+        {
+          "term": "Variabel",
+          "definition": "Lambang, biasanya huruf, yang mewakili nilai yang belum diketahui.",
+          "hint": "Contoh x pada 2x + 3",
+          "key": "83eb85e5a753d42d0a67d9f052238a7be80de20d21785828f27fb0f18f40f0b7"
+        },
+        {
+          "term": "Koefisien",
+          "definition": "Bilangan yang mengalikan variabel dalam bentuk aljabar.",
+          "hint": "Pada 5x, koefisiennya 5",
+          "key": "8a0c2b83e6aed4bb9e812f01836453c358cf2dd6161741069463360dac55c053"
+        },
+        {
+          "term": "Konstanta",
+          "definition": "Suku berupa bilangan yang tidak memiliki variabel.",
+          "hint": "Pada 2x + 7, konstantanya 7",
+          "key": "888c8cd927a888b797e3b57d5f6fbbea61d48f164e04ded03e0b03a24d873286"
+        },
+        {
+          "term": "Suku sejenis",
+          "definition": "Suku yang memiliki variabel dan pangkat variabel sama.",
+          "hint": "3x dan -5x",
+          "key": "9529c4e0e33171ffb4bb656e8c45663d4f14a471c972adbc84cd464b4c843b7f"
+        },
+        {
+          "term": "Persamaan linear",
+          "definition": "Persamaan dengan variabel berpangkat tertinggi satu.",
+          "hint": "2x + 3 = 9",
+          "key": "f3f5ef4c9d042a73105b57e032b2acfaa2343b9fa50adc5532cf1ae528d29230"
+        },
+        {
+          "term": "Relasi",
+          "definition": "Hubungan antara anggota suatu himpunan dengan himpunan lain.",
+          "hint": "Dapat disajikan dengan diagram panah",
+          "key": "565c7484088b0c4e2bc9fb39e2bdd2ab2214bf2b99a2f4620c4839abf95d32c1"
+        },
+        {
+          "term": "Fungsi",
+          "definition": "Relasi yang memasangkan setiap anggota domain tepat dengan satu anggota kodomain.",
+          "hint": "Setiap input punya satu output",
+          "key": "996cec5175ed3e107cabe361aa21c385256fad39894bff3fb65e7788ebb6fd91"
+        },
+        {
+          "term": "Domain",
+          "definition": "Himpunan semua nilai masukan pada sebuah fungsi.",
+          "hint": "Daerah asal",
+          "key": "78e3391a513286711fb6206d8fe141a26c97511f2ca162749cd0a8d8a54fa51a"
+        },
+        {
+          "term": "Range",
+          "definition": "Himpunan nilai keluaran yang benar-benar dihasilkan fungsi.",
+          "hint": "Daerah hasil",
+          "key": "3defeb7c0c9aef03aaed1d5f3c888aa00338c182003e30a06072d025812cdd18"
+        },
+        {
+          "term": "Gradien",
+          "definition": "Ukuran kemiringan suatu garis lurus.",
+          "hint": "Perubahan y dibagi perubahan x",
+          "key": "3bbf8ba615bf5464174aadc0344b7bb631810fbfa886f4d3b8ad668f4786ea84"
+        },
+        {
+          "term": "Teorema Pythagoras",
+          "definition": "Pada segitiga siku-siku, kuadrat sisi miring sama dengan jumlah kuadrat dua sisi lainnya.",
+          "hint": "a² + b² = c²",
+          "key": "eda2bb4feaf65e1758ad435501f3e88013c70d51cd7a9c31cd6c85d50ceac47e"
+        },
+        {
+          "term": "Pola bilangan",
+          "definition": "Susunan bilangan yang mengikuti aturan tertentu.",
+          "hint": "2, 4, 6, 8 adalah pola genap",
+          "key": "d177154cb1b4c1d255d9613350b0199144c89ef7c2cac57291a88867d7933e5d"
+        }
+      ]
+    },
+    {
+      "slug": "kartu-english-smp9-expression",
+      "code": "english_smp9_expression",
+      "type": "flashcard",
+      "title": "English Kelas 9 — Expressions & Texts",
+      "description": "Ungkapan, jenis teks, tata bahasa, dan kosakata kontekstual.",
+      "stage": "secondary",
+      "items": [
+        {
+          "term": "Congratulations!",
+          "definition": "Ungkapan untuk memberi selamat atas keberhasilan seseorang.",
+          "hint": "Say it when your friend wins",
+          "key": "b9f383ab38e8253a0d5a16accd16e52745a68e37e0ee6ccaf39cbe4fca5d7245"
+        },
+        {
+          "term": "I hope you recover soon.",
+          "definition": "Ungkapan harapan agar seseorang segera sembuh.",
+          "hint": "An expression of hope",
+          "key": "16863cde086dc4b1ee7fa34513861ef52073bfa705588d813fcd4814f346cd32"
+        },
+        {
+          "term": "You should take a rest.",
+          "definition": "Ungkapan memberikan saran untuk beristirahat.",
+          "hint": "Should is used for advice",
+          "key": "52996a1c7e6fc5e6b0d051b56ebb8d77bcdb8fdbd5a81099b220b9bdccdc3303"
+        },
+        {
+          "term": "Procedure text",
+          "definition": "A text that explains how to make or do something through ordered steps.",
+          "hint": "Goal, materials, steps",
+          "key": "c52537b0a43af1784844427a9f07abc8d126d6171b4c266ae6f70496e8113163"
+        },
+        {
+          "term": "Report text",
+          "definition": "A factual text describing a class of things in general.",
+          "hint": "General classification and description",
+          "key": "e1addc97a3d401f8614525e4877dbded2b86f83060555d7d113a01183394760a"
+        },
+        {
+          "term": "Narrative text",
+          "definition": "A story text intended to entertain, usually with a problem and resolution.",
+          "hint": "Orientation, complication, resolution",
+          "key": "cdeabe24e53835acb953e31d095862d11fc8ddf308a7ce8c8e0d9137e1bb6582"
+        },
+        {
+          "term": "Passive voice",
+          "definition": "A structure emphasizing the receiver of an action.",
+          "hint": "The cake is baked by Ana",
+          "key": "aca1fb6803d59376899899233308c197e9a1a8c15390cbd1d0dd6288e63a53b0"
+        },
+        {
+          "term": "Present perfect",
+          "definition": "A tense connecting a past action or experience with the present.",
+          "hint": "She has visited Bali",
+          "key": "48599ff05ec3871107f3c6d9dbbc062f07025380e2539dc85bc2914621739e56"
+        },
+        {
+          "term": "Unless",
+          "definition": "A conjunction meaning if not.",
+          "hint": "You cannot enter unless you have a ticket",
+          "key": "d4266b6f6b3f23d27f2a1a7e2d24d8eaa535156dcac33e73d6128c015fbea1f5"
+        },
+        {
+          "term": "Environment",
+          "definition": "The natural world and surroundings in which living things exist.",
+          "hint": "We must protect the environment",
+          "key": "c6a3b62d574c69453347bd44d11f7ba8cc280e25f05f57464ccc09979d17ff42"
+        },
+        {
+          "term": "Preserve",
+          "definition": "To protect something and keep it in good condition.",
+          "hint": "Preserve forests and local culture",
+          "key": "f778ee978ac887117b8a786c5709f0f6e909692cc7923869219a8f600e6be2ef"
+        },
+        {
+          "term": "In conclusion",
+          "definition": "A phrase used to introduce the final summary or judgment.",
+          "hint": "Often used at the end of a text",
+          "key": "bbb7d0f217667a30ecddb9edbc33f99a933b2e7770218d85899b3fbd463b1375"
+        }
+      ]
+    }
+  ]
+}

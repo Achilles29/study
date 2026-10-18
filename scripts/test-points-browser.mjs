@@ -1,0 +1,10 @@
+import assert from 'node:assert/strict';
+import {execFileSync} from 'node:child_process';
+import puppeteer from '/tmp/finance2-studio-work/node_modules/puppeteer-core/lib/esm/puppeteer/puppeteer-core.js';
+const db=process.env.STUDY_MONITOR_TEST_DB;assert.match(db||'',/^study_qa_monitor_[a-z0-9]+$/);
+const row=execFileSync('/www/server/mysql/bin/mysql',['--defaults-file=/etc/projectpintar/mariadb.cnf','-uroot','-N',db,'-e',"SELECT id,username FROM st_users WHERE username LIKE 'qacap_%' ORDER BY id DESC LIMIT 1"],{encoding:'utf8'}).trim().split('\t');
+const browser=await puppeteer.launch({executablePath:'/usr/bin/google-chrome',headless:true,args:['--no-sandbox','--disable-dev-shm-usage']}),errors=[];
+async function login(name,password){const c=await browser.createBrowserContext(),p=await c.newPage();p.on('pageerror',e=>errors.push(e.message));await p.goto('http://127.0.0.1:8097/masuk');await p.type('[name=identity]',name);await p.type('[name=password]',password);await Promise.all([p.waitForNavigation(),p.click('button[type=submit]')]);return p;}
+try{const root=await login('monitor1','Monitor-QA-Only-2026!'),child=await login(row[1],'Child-QA-Only-2026!');for(const width of [1280,360]){for(const p of [root,child])await p.setViewport({width,height:900});for(const [p,path] of [[root,'/kelola/pengaturan/poin'],[root,'/kelola/poin'],[root,'/kelola/poin/'+row[0]],[child,'/belajar/poin']]){const r=await p.goto('http://127.0.0.1:8097'+path);assert.equal(r.status(),200,path);assert.ok(!(await p.content()).includes('Severity:'));assert.ok(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),path);}
+ await child.screenshot({path:`/tmp/study-points-${width}.png`,fullPage:false});await child.focus('input[name=confirm]');await child.keyboard.press('Space');assert.equal(await child.$eval('input[name=confirm]',e=>e.checked),true);
+}assert.deepEqual(errors,[]);console.log('PASS points 1280/360: settings, monitoring/detail, child wallet/redemptions and keyboard, no overflow or JS errors.');}finally{await browser.close();}

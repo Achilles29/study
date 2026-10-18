@@ -1,0 +1,27 @@
+import assert from 'node:assert/strict';
+import {execFileSync} from 'node:child_process';
+import {randomBytes} from 'node:crypto';
+const db=process.env.STUDY_MONITOR_TEST_DB;assert.match(db||'',/^study_qa_monitor_[a-z0-9]+$/);
+const sql=q=>execFileSync('/www/server/mysql/bin/mysql',['--defaults-file=/etc/projectpintar/mariadb.cnf','-uroot','-N',db],{input:q,encoding:'utf8'}).trim();
+function client(port=8097){const jar=new Map();return async(path,data)=>{const r=await fetch(`http://127.0.0.1:${port}`+path,{redirect:'manual',method:data?'POST':'GET',headers:{Cookie:[...jar].map(([k,v])=>k+'='+v).join('; '),...(data?{'Content-Type':'application/x-www-form-urlencoded'}:{})},body:data?new URLSearchParams(data):undefined});for(const c of r.headers.getSetCookie()){const p=c.split(';')[0],i=p.indexOf('=');jar.set(p.slice(0,i),p.slice(i+1));}const body=await r.text();assert.ok(!/Severity:|Fatal error|Database Error/.test(body));return {status:r.status,body,location:r.headers.get('location')};};}
+const field=(b,n)=>{const m=b.match(new RegExp(`name="${n}" value="([^"]*)"`));assert.ok(m,n);return m[1];};
+async function login(id,port){const r=client(port),p=await r('/masuk');assert.equal((await r('/masuk',{identity:'monitor'+id,password:'Monitor-QA-Only-2026!',study_csrf_token:field(p.body,'study_csrf_token')})).status,303);return r;}
+async function post(r,path,data,status=303,from='/akun/kredit'){const p=await r(from);assert.equal(p.status,200,from);const out=await r(path,{...data,study_csrf_token:field(p.body,'study_csrf_token')});assert.equal(out.status,status,`${path}: ${out.status} vs ${status}`);return out;}
+const root=await login(1),adult=await login(19),parent=await login(2),second=await login(2,8098),other=await login(20);
+const voucher=sql("SELECT id FROM st_commerce_purchases WHERE owner_user_id=19 AND status='available' ORDER BY id DESC LIMIT 1");assert.ok(voucher);
+const data={confirm:'1',reason:'Kompensasi QA voucher belum digunakan',password:'Monitor-QA-Only-2026!'},path='/kelola/voucher/'+voucher+'/kompensasi';
+assert.equal((await other('/kelola/kredit/19')).status,403);await post(other,path,data,403);await post(root,path,{...data,password:'Wrong-Password-2026!'},403,'/kelola/kredit/19');
+const bal=()=>Number(sql("SELECT balance_credits FROM st_wallets WHERE owner_user_id=19 AND environment='sandbox'")),before=bal();
+sql("CREATE TRIGGER qa_compensate_fail BEFORE INSERT ON st_audit_events FOR EACH ROW SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='QA compensate failure'");try{await post(root,path,data,503,'/kelola/kredit/19');assert.equal(bal(),before);assert.equal(sql('SELECT status FROM st_commerce_purchases WHERE id='+voucher),'available');}finally{sql('DROP TRIGGER qa_compensate_fail');}
+await post(root,path,data,303,'/kelola/kredit/19');await post(root,path,data,303,'/kelola/kredit/19');assert.equal(bal(),before+40);await post(adult,'/akun/voucher/'+voucher+'/gunakan',{confirm:'1',learner_id:'19'},409);
+const pid=sql("SELECT MIN(id) FROM st_packages WHERE title='Paket QA Voucher'");
+const made=await post(root,'/kelola/produk/0',{title:'QA Paket Langsung',kind:'package',package_id:pid,price:'40',credit_amount:'0',access_days:'30',voucher_days:'0',status:'active',revision:'0',confirm:'1',reason:'Uji akses langsung tanpa voucher'},303,'/kelola/produk/0'),offer=Number(made.location.split('/').at(-1));
+const buy={revision:'1',package_revision:sql('SELECT revision FROM st_packages WHERE id='+pid),learner_id:'19',request_key:randomBytes(32).toString('hex'),confirm:'1'};
+sql("CREATE TRIGGER qa_buy_fail BEFORE INSERT ON st_audit_events FOR EACH ROW SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='QA buy failure'");try{await post(adult,'/akun/kredit/beli/'+offer,buy,503);assert.equal(bal(),before+40);}finally{sql('DROP TRIGGER qa_buy_fail');}
+await post(adult,'/akun/kredit/beli/'+offer,buy);assert.equal(bal(),before);assert.equal(sql(`SELECT COUNT(*) FROM st_commerce_grants g JOIN st_commerce_purchases p ON p.id=g.purchase_id WHERE p.owner_user_id=19 AND p.offer_id=${offer}`),'1');
+const count=()=>Number(sql("SELECT COUNT(*) FROM st_family_links l JOIN st_users u ON u.id=l.child_user_id WHERE l.parent_user_id=2 AND l.status='active' AND u.status='active'")),capacity=2+Number(sql('SELECT COUNT(*) FROM st_family_slots WHERE owner_user_id=2'));
+const childData=()=>{const suffix=randomBytes(5).toString('hex');return {username:'qacap_'+suffix,display_name:'Anak QA '+suffix,learning_stage:'primary',password:'Child-QA-Only-2026!',password_confirm:'Child-QA-Only-2026!'};};
+while(count()<capacity-1){await post(parent,'/keluarga/anak/tambah',childData(),303,'/keluarga/anak/tambah');}
+assert.equal(count(),capacity-1);const a=await parent('/keluarga/anak/tambah'),b=await second('/keluarga/anak/tambah');const race=await Promise.all([parent('/keluarga/anak/tambah',{...childData(),study_csrf_token:field(a.body,'study_csrf_token')}),second('/keluarga/anak/tambah',{...childData(),study_csrf_token:field(b.body,'study_csrf_token')})]);assert.equal(race.filter(r=>r.status===303).length,1);assert.equal(count(),capacity,'Purchased slot capacity cannot be exceeded concurrently');
+assert.equal(sql('SELECT COUNT(*) FROM st_wallets w WHERE w.balance_credits<>(SELECT COALESCE(SUM(e.delta_credits),0) FROM st_wallet_entries e WHERE e.wallet_id=w.id)'),'0');
+console.log('PASS compensation role/reauth/replay/rollback, no redeemed-after-refund, direct package debit/grant rollback, and two-worker last purchased child-slot race.');

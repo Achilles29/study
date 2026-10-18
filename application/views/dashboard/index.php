@@ -3,15 +3,21 @@ $has_learning_activity = isset($progress) && ($progress['completed_lessons'] > 0
 $has_resume_lessons = $current_user['account_kind'] !== 'parent' && ! empty($resume_lessons);
 $resume_unavailable = $current_user['account_kind'] !== 'parent' && isset($resume_lessons) && $resume_lessons === FALSE;
 ?>
-<section class="container page-section">
-	<div class="dashboard-welcome mb-4">
+<section class="container page-section dashboard-page">
+	<div class="dashboard-welcome learning-hero mb-4">
 		<div>
 			<p class="eyebrow">Ruang belajarmu</p>
 			<h1 class="h2 mb-2">Halo, <?php echo html_escape($current_user['display_name']); ?>!</h1>
-			<p class="text-secondary mb-0">Ayo pilih satu langkah kecil untuk hari ini.</p>
+			<p class="text-secondary mb-3">Ayo pilih satu langkah kecil untuk hari ini.</p>
+			<a class="btn btn-sun" href="<?php echo site_url('belajar/arena'); ?>"><i class="bi bi-controller me-2" aria-hidden="true"></i>Jelajahi Arena Belajar</a>
 		</div>
-		<span class="welcome-mark" aria-hidden="true"><i class="bi bi-sun"></i></span>
+		<img class="learning-hero-art" src="<?php echo base_url('assets/images/learning/hero-v1.webp'); ?>" width="768" height="512" alt="" aria-hidden="true">
 	</div>
+	<nav class="dashboard-shortcuts mb-4" aria-label="Pilihan kegiatan">
+		<a class="dashboard-shortcut shortcut-purple" href="<?php echo site_url('kursus'); ?>"><i class="bi bi-journal-richtext" aria-hidden="true"></i><span><strong>Materi belajar</strong><small>Temukan hal baru</small></span><i class="bi bi-arrow-right" aria-hidden="true"></i></a>
+		<a class="dashboard-shortcut shortcut-teal" href="<?php echo site_url('belajar/arena/riwayat'); ?>"><i class="bi bi-clock-history" aria-hidden="true"></i><span><strong>Riwayat Arena</strong><small>Lihat perjalananmu</small></span><i class="bi bi-arrow-right" aria-hidden="true"></i></a>
+		<a class="dashboard-shortcut shortcut-gold" href="<?php echo site_url($current_user['account_kind'] === 'parent' ? 'keluarga/latihan' : ($current_user['account_kind'] === 'child' ? 'latihan/keluarga' : 'latihan')); ?>"><i class="bi bi-pencil-square" aria-hidden="true"></i><span><strong><?php echo $current_user['account_kind'] === 'parent' ? 'Latihan anak' : ($current_user['account_kind'] === 'child' ? 'Latihan keluarga' : 'Riwayat latihan'); ?></strong><small><?php echo $current_user['account_kind'] === 'parent' ? 'Susun kegiatan bersama' : 'Belajar selangkah lagi'; ?></small></span><i class="bi bi-arrow-right" aria-hidden="true"></i></a>
+	</nav>
 
 	<?php if ($has_resume_lessons || $resume_unavailable): ?>
 		<section id="resume-learning" class="mb-5" aria-labelledby="resume-learning-heading">
@@ -35,10 +41,8 @@ $resume_unavailable = $current_user['account_kind'] !== 'parent' && isset($resum
 		</section>
 	<?php endif; ?>
 
-	<p class="d-flex flex-wrap gap-2"><a class="btn btn-outline-primary rounded-pill" href="<?php echo site_url('latihan'); ?>">Riwayat latihan saya</a><a class="btn btn-outline-primary rounded-pill" href="<?php echo site_url('permainan/riwayat'); ?>">Riwayat permainan saya</a></p>
-	<p><a href="<?php echo site_url('akun/keamanan'); ?>">Keamanan akun saya</a></p>
+	<div class="account-utility mb-4"><div><h2 class="h5 mb-1">Aktivitas & akunmu</h2><p class="small text-secondary mb-0">Riwayat tersimpan dan pengaturan pribadi.</p></div><div class="d-flex flex-wrap gap-2"><a class="btn btn-outline-primary" href="<?php echo site_url('latihan'); ?>"><i class="bi bi-journal-check me-1" aria-hidden="true"></i>Latihan</a><a class="btn btn-outline-secondary" href="<?php echo site_url('permainan/riwayat'); ?>"><i class="bi bi-controller me-1" aria-hidden="true"></i>Permainan kursus</a><?php if ($current_user['account_kind'] !== 'child'): ?><a class="btn btn-teal" href="<?php echo site_url('akun/kredit'); ?>"><i class="bi bi-wallet2 me-1" aria-hidden="true"></i>Paket & kredit</a><?php endif; ?><a class="btn btn-outline-primary" href="<?php echo site_url('akun/pengaturan'); ?>"><i class="bi bi-gear me-1" aria-hidden="true"></i>Pengaturan akun</a></div></div>
 	<?php if ($current_user['account_kind'] === 'parent'): ?>
-		<p><a class="btn btn-outline-primary rounded-pill" href="<?php echo site_url('keluarga/latihan'); ?>">Susun latihan anak</a></p>
 		<div class="d-flex flex-wrap justify-content-between align-items-end gap-3 mb-3">
 			<div><h2 class="h4 mb-1">Keluargamu</h2><p class="text-secondary mb-0">Akun anak yang terhubung dengan akunmu.</p></div>
 			<a class="btn btn-primary rounded-pill px-4" href="<?php echo site_url('keluarga/anak/tambah'); ?>"><i class="bi bi-plus-lg me-2" aria-hidden="true"></i>Tambah anak</a>
@@ -54,7 +58,7 @@ $resume_unavailable = $current_user['account_kind'] !== 'parent' && isset($resum
 							<p class="mt-3 mb-0"><a class="btn btn-sm btn-outline-primary rounded-pill" href="<?php echo site_url('keluarga/anak/'.$child['id'].'/latihan'); ?>">Laporan latihan <span class="visually-hidden"><?php echo html_escape($child['display_name']); ?></span></a></p>
 							<p class="mt-2 mb-0"><a class="btn btn-sm btn-outline-primary rounded-pill" href="<?php echo site_url('keluarga/anak/'.$child['id'].'/permainan'); ?>">Laporan permainan <span class="visually-hidden"><?php echo html_escape($child['display_name']); ?></span></a></p>
 						</div>
-						<span class="badge text-bg-success ms-auto">Terhubung</span>
+						<a class="btn btn-sm btn-outline-primary" href="<?php echo site_url('keluarga/anak/'.$child['id'].'/arena'); ?>">Progres Arena</a><span class="badge text-bg-success ms-auto">Terhubung</span>
 					</article></div>
 				<?php endforeach; ?>
 			</div>

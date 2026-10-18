@@ -95,8 +95,10 @@ class Family extends MY_Controller
 	{
 		$this->require_login(array('parent'));
 		$this->require_http_methods(array('GET', 'HEAD'));
+		$this->load->model('Commerce_access_model');
 		$this->render_page('family/children', array(
 			'page_title' => 'Akun anak',
+			'capacity' => 2 + $this->Commerce_access_model->extra_slots($this->current_user['id']),
 			'children' => $this->Account_model->get_children($this->current_user['id'])
 		));
 	}
@@ -105,6 +107,7 @@ class Family extends MY_Controller
 	{
 		$this->require_login(array('parent'));
 		$this->require_http_methods(array('GET', 'HEAD', 'POST'));
+		if ( ! $this->current_user['email_verified_at']) { $this->session->set_flashdata('notice', 'Verifikasi email orang tua sebelum membuat akun anak. Akun anak existing tetap dipertahankan.'); redirect('akun/email', 'location', 303); return; }
 		$errors = array();
 		$submit_error = NULL;
 		if ($this->input->method(TRUE) === 'POST')
@@ -125,7 +128,7 @@ class Family extends MY_Controller
 				$this->form_validation->set_rules('username', 'Nama pengguna anak', 'required|trim|min_length[4]|max_length[80]|alpha_dash|is_unique[st_users.username]');
 				$this->form_validation->set_rules('display_name', 'Nama panggilan', 'required|trim|min_length[2]|max_length[120]');
 				$this->form_validation->set_rules('learning_stage', 'Kelompok usia belajar', 'required|in_list[early_childhood,primary,secondary]');
-				$this->form_validation->set_rules('password', 'Kata sandi awal', 'required|min_length[10]|study_valid_password[10]');
+				$this->form_validation->set_rules('password', 'Kata sandi awal', 'required|study_valid_password['.study_child_password_minimum().']');
 				$this->form_validation->set_rules('password_confirm', 'Ulangi kata sandi', 'required|matches[password]');
 
 				if ($this->form_validation->run())
@@ -135,7 +138,8 @@ class Family extends MY_Controller
 						strtolower($this->input->post('username', TRUE)),
 						$this->input->post('display_name', TRUE),
 						$this->input->post('password', FALSE),
-						$this->input->post('learning_stage', TRUE)
+						$this->input->post('learning_stage', TRUE),
+						$this->current_user['auth_stamp']
 					);
 
 					if ($created)
@@ -145,7 +149,7 @@ class Family extends MY_Controller
 						return;
 					}
 
-					$submit_error = 'Akun anak belum dapat dibuat. Pastikan nama pengguna belum dipakai, lalu coba lagi.';
+					$submit_error = 'Akun anak belum dapat dibuat. Periksa kapasitas dua slot dasar + slot tambahan yang sah dan pastikan nama pengguna belum dipakai.';
 				}
 				else
 				{
@@ -178,7 +182,7 @@ class Family extends MY_Controller
 			return;
 		}
 
-		if ($this->Account_model->update_child_learning_stage($this->current_user['id'], $child_user_id, $stage))
+		if ($this->Account_model->update_child_learning_stage($this->current_user['id'], $child_user_id, $stage, $this->current_user['auth_stamp']))
 		{
 			$this->session->set_flashdata('success', 'Kelompok belajar anak berhasil diperbarui.');
 		}

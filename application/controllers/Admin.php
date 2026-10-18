@@ -44,9 +44,22 @@ class Admin extends MY_Controller
 			$counts[$key] = $this->db->count_all_results();
 		}
 
+		$learning_summary = NULL;
+		if (in_array('system_admin', $roles, TRUE))
+		{
+			$this->load->model('Learning_monitor_model');
+			$start = new DateTimeImmutable('today -29 days', new DateTimeZone('Asia/Jakarta'));
+			$end = new DateTimeImmutable('tomorrow', new DateTimeZone('Asia/Jakarta'));
+			$filters = array('from_utc' => $start->setTimezone(new DateTimeZone('UTC'))->format('Y-m-d H:i:s'), 'until_utc' => $end->setTimezone(new DateTimeZone('UTC'))->format('Y-m-d H:i:s'), 'modul' => '', 'status' => '', 'kursus' => '', 'paket' => '', 'jenjang' => '');
+			try { $learning_summary = $this->Learning_monitor_model->summary($filters); }
+			catch (RuntimeException $error) { $learning_summary = FALSE; }
+			$counts['review'] = $this->db->where('status', 'review')->count_all_results('st_courses');
+			$counts['pending'] = $this->db->where('status', 'pending')->count_all_results('st_payment_orders');
+		}
 		$this->render_page('admin/index', array(
 			'page_title' => 'Panel pengelola',
-			'counts' => $counts
+			'counts' => $counts,
+			'learning_summary' => $learning_summary
 		));
 	}
 
@@ -56,6 +69,7 @@ class Admin extends MY_Controller
 		$this->require_http_methods(array('GET', 'HEAD'));
 		$this->load->model('Content_model');
 		$filters = array(
+			'kelas' => study_grade_filter(),
 			'q' => $this->get_scalar_query_param('q', 100),
 			'status' => $this->get_scalar_query_param('status', 20)
 		);
@@ -92,7 +106,7 @@ class Admin extends MY_Controller
 		$submit_error = NULL;
 		if ($this->input->method(TRUE) === 'POST')
 		{
-			if ($this->post_contains_non_scalar(array('title','summary','learning_objectives','prerequisites','target_group','category_id','is_free','age_min','age_max','estimated_minutes','rights_status','source_note')))
+			if ($this->post_contains_non_scalar(array('title','summary','learning_objectives','prerequisites','target_group','grade_id','category_id','is_free','age_min','age_max','estimated_minutes','rights_status','source_note')))
 			{
 				show_error('Periksa kembali data yang diisi.', 400, 'Permintaan tidak valid');
 				return;
@@ -102,6 +116,7 @@ class Admin extends MY_Controller
 			$this->form_validation->set_rules('learning_objectives', 'Tujuan belajar', 'required|trim|min_length[5]|max_length[3000]');
 			$this->form_validation->set_rules('prerequisites', 'Prasyarat/persiapan', 'trim|max_length[2000]');
 			$this->form_validation->set_rules('target_group', 'Kelompok belajar', 'required|in_list[early_childhood,primary,secondary,adult,all_ages]');
+			$this->form_validation->set_rules('grade_id', 'Kelas', 'callback_valid_grade');
 			$this->form_validation->set_rules('category_id', 'Kategori', 'trim|callback_valid_category');
 			$this->form_validation->set_rules('is_free', 'Akses gratis', 'callback_valid_checkbox');
 			$this->form_validation->set_rules('age_min', 'Usia minimum', 'trim|callback_valid_optional_age');
@@ -120,6 +135,7 @@ class Admin extends MY_Controller
 				else
 				{
 					$course_id = $this->Content_model->create_course(array(
+						'grade_id' => $this->input->post('grade_id', FALSE) ?? (isset($course) ? (string)$course['grade_id'] : NULL),
 						'category_id' => (string) $this->input->post('category_id', TRUE),
 						'title' => $this->input->post('title', TRUE),
 						'summary' => $this->input->post('summary', TRUE),
@@ -180,7 +196,7 @@ class Admin extends MY_Controller
 		$submit_error = NULL;
 		if ($this->input->method(TRUE) === 'POST')
 		{
-			$fields = array('title','summary','learning_objectives','prerequisites','target_group','category_id','age_min','age_max','estimated_minutes','rights_status','source_note','is_free');
+			$fields = array('title','summary','learning_objectives','prerequisites','target_group','grade_id','category_id','age_min','age_max','estimated_minutes','rights_status','source_note','is_free');
 			foreach ($fields as $field)
 			{
 				$value = $this->input->post($field, FALSE);
@@ -197,7 +213,8 @@ class Admin extends MY_Controller
 				$this->form_validation->set_rules('learning_objectives', 'Tujuan belajar', 'required|trim|min_length[5]|max_length[3000]');
 				$this->form_validation->set_rules('prerequisites', 'Prasyarat/persiapan', 'trim|max_length[2000]');
 				$this->form_validation->set_rules('target_group', 'Kelompok belajar', 'required|in_list[early_childhood,primary,secondary,adult,all_ages]');
-				$this->form_validation->set_rules('category_id', 'Kategori', 'trim|callback_valid_category');
+				$this->form_validation->set_rules('grade_id', 'Kelas', 'callback_valid_grade');
+			$this->form_validation->set_rules('category_id', 'Kategori', 'trim|callback_valid_category');
 				$this->form_validation->set_rules('is_free', 'Akses gratis', 'callback_valid_checkbox');
 				$this->form_validation->set_rules('age_min', 'Usia minimum', 'trim|callback_valid_optional_age');
 				$this->form_validation->set_rules('age_max', 'Usia maksimum', 'trim|callback_valid_optional_age');
@@ -215,7 +232,8 @@ class Admin extends MY_Controller
 					else
 					{
 						$ok = $this->Content_model->update_course_draft($course_id, $this->current_user['id'], array(
-							'category_id' => (string) $this->input->post('category_id', TRUE),
+							'grade_id' => $this->input->post('grade_id', FALSE) ?? (isset($course) ? (string)$course['grade_id'] : NULL),
+						'category_id' => (string) $this->input->post('category_id', TRUE),
 							'title' => $this->input->post('title', TRUE),
 							'summary' => $this->input->post('summary', TRUE),
 							'learning_objectives' => $this->input->post('learning_objectives', TRUE),
@@ -276,6 +294,15 @@ class Admin extends MY_Controller
 		return FALSE;
 	}
 
+	public function valid_grade($value = NULL)
+	{
+		if ($this->router->fetch_method() === __FUNCTION__) { show_404(); return FALSE; }
+		$this->load->model('Content_model');
+		if ($this->Content_model->valid_grade($value, $this->input->post('target_group', FALSE))) { return TRUE; }
+		$this->form_validation->set_message('valid_grade', 'Pilih kelas yang sesuai kelompok belajar (SMA/SMK termasuk Remaja).');
+		return FALSE;
+	}
+
 	public function valid_category($value)
 	{
 		if ($this->router->fetch_method() === __FUNCTION__)
@@ -323,10 +350,36 @@ class Admin extends MY_Controller
 		$this->require_role(array('system_admin','content_editor'));
 		$this->require_http_methods(array('GET', 'HEAD'));
 		$this->load->model('Content_model');
-		$this->render_page('admin/categories', array(
-			'page_title' => 'Kategori belajar',
-			'categories' => $this->Content_model->list_categories(FALSE)
-		));
+		$tab = $this->input->get('tab', FALSE) ?? '';
+		if ( ! in_array($tab, array('', 'mapel', 'jenjang', 'permainan'), TRUE)) { show_error('Tab master tidak valid.', 400); return; }
+		$this->load->helper('study_arena');
+		$game = $this->input->get('jenis', FALSE) ?? ''; $stage = $this->input->get('jenjang', FALSE) ?? ''; $grade_code = $this->input->get('kelas', FALSE) ?? '';
+		$stages = array('early_childhood' => 'TK', 'primary' => 'SD', 'secondary' => 'SMP', 'upper_secondary' => 'SMA/SMK');
+		if ( ! is_string($game) || ! is_string($stage) || ! is_string($grade_code) || strlen($grade_code) > 40 || ($game !== '' && ($tab !== 'permainan' || ! isset(study_arena_games()[$game]))) || ($stage !== '' && (! isset($stages[$stage]) || ! in_array($tab, array('jenjang', 'permainan'), TRUE) || ($tab === 'permainan' && $game === ''))) || ($grade_code !== '' && $tab !== 'mapel' && ($tab !== 'permainan' || $game === '' || $stage === ''))) { show_error('Pilihan kelompok master tidak valid.', 400); return; }
+		$grades = $this->db->order_by('sort_order,id')->get('st_learning_grades')->result_array();
+		$all_games = $this->db->query("SELECT c.id,c.game_type,c.name,c.description,s.name subject_name,COALESCE(g.name,'Lintas kelas / berbasis level') grade_name,COALESCE(g.code,'lintas-kelas') grade_code,COALESCE(g.learning_stage,MIN(p.learning_stage)) learning_stage,COUNT(m.pack_id) pack_count FROM st_arena_categories c JOIN st_categories s ON s.id=c.category_id LEFT JOIN st_learning_grades g ON g.id=c.grade_id LEFT JOIN st_arena_pack_categories m ON m.arena_category_id=c.id LEFT JOIN st_arena_packs p ON p.id=m.pack_id GROUP BY c.id,c.game_type,c.name,c.description,s.name,g.name,g.code,g.learning_stage,g.sort_order ORDER BY c.game_type,COALESCE(g.sort_order,999),c.id")->result_array();
+		$game_groups = $stage_groups = $grade_groups = array(); $game_categories = array(); $selected_grade = NULL;
+		foreach ($all_games as $row)
+		{
+			$game_groups[$row['game_type']] = ($game_groups[$row['game_type']] ?? 0) + 1;
+			if ($row['game_type'] !== $game) { continue; }
+			$stage_groups[$row['learning_stage']] = ($stage_groups[$row['learning_stage']] ?? 0) + 1;
+			if ($row['learning_stage'] !== $stage) { continue; }
+			if ( ! isset($grade_groups[$row['grade_code']])) { $grade_groups[$row['grade_code']] = array('name' => $row['grade_name'], 'count' => 0); }
+			$grade_groups[$row['grade_code']]['count']++;
+			if ($row['grade_code'] === $grade_code) { $game_categories[] = $row; $selected_grade = $row['grade_name']; }
+		}
+		if ($tab === 'permainan' && (($game !== '' && ! isset($game_groups[$game])) || ($stage !== '' && ! isset($stage_groups[$stage])) || ($grade_code !== '' && ! isset($grade_groups[$grade_code])))) { show_error('Kelompok master tidak ditemukan.', 404); return; }
+		$categories = $this->Content_model->list_categories(FALSE);
+		if ($tab === 'mapel') {
+			$grade_code = study_grade_filter();
+			if ($grade_code !== '') {
+				$ids=array(); foreach($this->db->select('category_id,grade_id')->get('st_courses')->result_array() as $item){if(study_grade_match($item['grade_id'],$grade_code)){$ids[]=(int)$item['category_id'];}}
+				foreach($this->db->select('category_id,grade_id')->get('st_arena_categories')->result_array() as $item){if(study_grade_match($item['grade_id'],$grade_code)){$ids[]=(int)$item['category_id'];}}
+				$categories=array_values(array_filter($categories,static function($item)use($ids){return in_array((int)$item['id'],$ids,TRUE);}));
+			}
+		}
+		$this->render_page('admin/categories', compact('tab', 'game', 'stage', 'grade_code', 'stages', 'grades', 'all_games', 'game_groups', 'stage_groups', 'grade_groups', 'game_categories', 'selected_grade', 'categories') + array('page_title' => 'Data master pembelajaran'));
 	}
 
 	public function create_category()
@@ -345,7 +398,7 @@ class Admin extends MY_Controller
 				if ($this->Content_model->create_category($this->input->post('name', TRUE), $this->input->post('description', TRUE)))
 				{
 					$this->session->set_flashdata('success', 'Kategori berhasil ditambahkan.');
-					redirect('kelola/kategori');
+					redirect('kelola/kategori?tab=mapel');
 					return;
 				}
 				$submit_error = 'Kategori belum dapat ditambahkan. Nama kategori dengan slug tersebut mungkin sudah ada.';
@@ -396,6 +449,11 @@ class Admin extends MY_Controller
 				$flashcard_decks[$lesson_key]['cards'][] = array('id' => (int) $row['flashcard_id'], 'front_text' => $row['front_text'], 'back_text' => $row['back_text'], 'hint_text' => $row['hint_text']);
 			}
 		}
+		$this->load->model('Settings_model');
+		try { $review_settings = $this->Settings_model->get_section('pembelajaran'); }
+		catch (RuntimeException $error) { show_error('Aturan publikasi belum dapat dimuat.', 503); return; }
+		$self_review = (int) $course['author_user_id'] === (int) $this->current_user['id'];
+		$solo_review = $self_review && in_array('system_admin', $this->current_user['roles'], TRUE) && $review_settings['values']['solo_review'] === '1';
 		$this->render_page('admin/course', array(
 			'page_title' => $course['title'],
 			'course' => $course,
@@ -404,7 +462,9 @@ class Admin extends MY_Controller
 			'flashcard_decks' => $flashcard_decks,
 			'reviews' => $this->Content_model->get_reviews($course_id),
 			'can_edit' => $course['status'] === 'draft' && ((int) $course['author_user_id'] === (int) $this->current_user['id'] || in_array('system_admin', $this->current_user['roles'], TRUE)),
-			'can_review' => $course['status'] === 'review' && (int) $course['author_user_id'] !== (int) $this->current_user['id']
+			'solo_review' => $solo_review,
+			'review_settings_needed' => $course['status'] === 'review' && $self_review && !$solo_review && in_array('system_admin', $this->current_user['roles'], TRUE),
+			'can_review' => $course['status'] === 'review' && ( ! $self_review || $solo_review)
 		));
 	}
 
@@ -812,7 +872,8 @@ class Admin extends MY_Controller
 			redirect('kelola/kursus/'.$course_id);
 			return;
 		}
-		$result = $this->Content_model->review_course($course_id, $this->current_user['id'], $decision, $notes);
+		$quality_confirmed = $this->input->post('quality_content', FALSE) === '1' && $this->input->post('quality_rights', FALSE) === '1' && $this->input->post('quality_age', FALSE) === '1';
+		$result = $this->Content_model->review_course($course_id, $this->current_user['id'], $decision, $notes, $quality_confirmed);
 		if ($result['ok'])
 		{
 			$this->session->set_flashdata('success', 'Keputusan review berhasil dicatat.');

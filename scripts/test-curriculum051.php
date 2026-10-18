@@ -1,0 +1,8 @@
+<?php
+define('BASEPATH',dirname(__DIR__).'/system/');define('APPPATH',dirname(__DIR__).'/application/');
+require APPPATH.'libraries/Curriculum_batch.php';require BASEPATH.'core/Model.php';require APPPATH.'models/Question_model.php';
+$courses=(new Curriculum_batch())->load('051');$validator=new Question_model();$counts=array(0,0,0);$keys=array();
+foreach($courses as $c){if(count($c['sections'])!==4){throw new RuntimeException('Chapters');}foreach($c['sections'] as $s){foreach($s['lessons'] as $l){$counts[0]++;$counts[1]+=count($l['cards']);foreach($l['questions'] as $q){$counts[2]++;$keys[]=$q[1][$q[2]];if(!$validator->valid_data(array('prompt'=>$q[0],'options'=>$q[1],'correct'=>$q[2],'explanation'=>$q[3],'rights_status'=>'owned','source_note'=>$c['source']))){throw new RuntimeException('Question');}}}}}
+$expected=array('m','a, i, u','sapu','meja','ikan','rak','mengambil kertas','setelah membaca selesai','di bawah meja','Nara membantu menunjukkan pensil','Bolehkah aku meminjam bukumu?','mendengar lalu berbicara saat giliran','Nara membaca buku.','2','Nara','?','merah','Garuda Pancasila','bintang','ketiga','agar jalan aman dilalui','meminta bantuan pendamping','meminta izin lalu mengembalikannya','menjauh dan memberi tahu pendamping','menghargai dan mendengarkan ceritanya','meminta ia mengulangi dengan santun','mendengarkan alasan orang lain','bergiliran sesuai kesepakatan','perpustakaan','membuat denah lingkungan rekaan','anak menata buku ringan, pendamping mengangkat kotak berat','memeriksa hasil dan berterima kasih');
+if($counts!==array(16,32,32)||$keys!==$expected){throw new RuntimeException('Counts or reviewed answer key');}
+echo "PASS 2courses/8chapters/16lessons/32cards/32questions; application validation and reviewed answer key.\n";

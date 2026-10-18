@@ -1,0 +1,15 @@
+<section class="container page-section">
+	<?php if ($current_user['account_kind'] === 'child'): ?><p><a href="<?php echo site_url('belajar/poin'); ?>">Poin belajar & penukaran</a></p><?php endif; ?>
+	<div class="dashboard-welcome learning-hero mb-4"><div><p class="eyebrow"><i class="bi bi-stars me-2" aria-hidden="true"></i>Arena Belajar</p><h1 class="h2">Main seru.<br>Temukan hal baru.</h1><p class="text-secondary mb-0">Pilih permainan favoritmu. Tema, level, dan progres menunggumu di dalam.</p></div><img class="learning-hero-art" src="<?php echo base_url('assets/images/learning/hero-v1.webp'); ?>" width="768" height="512" alt="" aria-hidden="true"></div>
+	<p class="d-flex flex-wrap gap-2"><a class="btn btn-teal" href="<?php echo site_url('belajar/arena/riwayat'); ?>"><i class="bi bi-clock-history me-2" aria-hidden="true"></i>Riwayat saya</a><a class="btn btn-outline-secondary" href="<?php echo site_url('beranda'); ?>"><i class="bi bi-house-door me-2" aria-hidden="true"></i>Dashboard</a></p>
+	<?php if ($running): ?><div class="alert alert-info d-flex flex-wrap align-items-center gap-2"><span>Ada permainanmu yang belum selesai.</span><a class="btn btn-primary" href="<?php echo site_url('belajar/arena/main/'.$running['id']); ?>">Lanjutkan</a></div><?php endif; ?>
+	<?php if ($settings['enabled'] !== '1'): ?><div class="alert alert-warning">Arena sedang dijeda. Riwayatmu tetap tersimpan dan dapat dibaca.</div><?php else: ?>
+	<div class="row g-3 g-lg-4" aria-label="Pilihan permainan">
+		<?php foreach ($games as $type => $game): ?>
+	<div class="col-sm-6 col-xl-4"><a class="feature-card arena-game-card h-100 d-flex flex-column text-decoration-none text-body" href="<?php echo study_arena_game_url($type); ?>" data-arena-game="<?php echo html_escape($type); ?>">
+	<?php echo study_arena_art_tag($type, '', 'arena-card-art'); ?><div class="arena-card-copy"><h2 class="h4"><?php echo html_escape($game['title']); ?></h2><p class="text-secondary"><?php echo html_escape($game['description']); ?></p><span class="arena-card-action mt-auto"><i class="bi <?php echo html_escape($game['icon']); ?> me-2" aria-hidden="true"></i>Pilih permainan <i class="bi bi-arrow-right ms-1" aria-hidden="true"></i></span></div></a></div>
+	<?php endforeach; ?>
+	<div class="col-sm-6 col-xl-4"><a class="feature-card arena-game-card h-100 d-flex flex-column text-decoration-none text-body" href="<?php echo site_url('belajar/battle'); ?>" data-arena-game="battle"><?php echo study_arena_art_tag('battle', '', 'arena-card-art'); ?><div class="arena-card-copy"><h2 class="h4">Battle Belajar</h2><p class="text-secondary">Buat soal gratis, jelajahi battle komunitas, atau ikuti undangan lomba terjadwal.</p><span class="arena-card-action mt-auto"><i class="bi bi-flag me-2" aria-hidden="true"></i>Pilih permainan <i class="bi bi-arrow-right ms-1" aria-hidden="true"></i></span></div></a></div>
+	</div><?php endif; ?>
+	<p class="text-secondary small mt-4">Belajar sesuai ritmemu. Hasil permainan bukan nilai ujian sekolah.</p>
+</section>

@@ -1,4 +1,5 @@
 <section class="auth-shell container py-5">
+<p><a class="btn btn-outline-secondary" href="<?php echo site_url('akun/pengaturan'); ?>"><i class="bi bi-arrow-left me-2" aria-hidden="true"></i>Pengaturan akun</a></p>
 	<div class="auth-card mx-auto">
 		<a class="back-link" href="<?php echo site_url('beranda'); ?>">Kembali ke ruang belajar</a>
 		<div class="text-center mt-4 mb-4"><span class="feature-icon feature-green mx-auto mb-3"><i class="bi bi-shield-lock" aria-hidden="true"></i></span><p class="eyebrow justify-content-center">Lindungi akunmu</p><h1 class="h2">Ganti kata sandi</h1><p class="text-secondary">Untuk akunmu sendiri: <strong class="text-break"><?php echo html_escape($current_user['username']); ?></strong></p></div>

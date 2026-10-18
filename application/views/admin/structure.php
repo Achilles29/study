@@ -1,5 +1,5 @@
 <?php $structure_path = 'kelola/kursus/'.$course['id'].'/susunan'; $form_revision = $posted_fields['revision'] ?? $course['content_version']; $section_query = $selected_section ? '&bagian='.(int) $selected_section['id'] : ''; $section_ids = array_map('strval', array_column($sections, 'id')); ?>
-<section class="container page-section">
+<section class="container page-section course-workspace">
 	<a class="back-link" href="<?php echo site_url('kelola/kursus/'.$course['id']); ?>">Kembali ke kursus</a>
 	<div class="page-heading mt-3"><div><p class="eyebrow">Susunan draf · versi <?php echo (int) $course['content_version']; ?></p><h1 class="h2">Susun bagian dan pelajaran</h1><p class="text-secondary mb-0"><?php echo html_escape($course['title']); ?></p></div></div>
 	<p>Nomor lebih kecil tampil lebih dahulu. Jika nomornya sama, urutan mengikuti ID bagian lalu ID pelajaran. Perubahan tidak menghapus materi atau progres. Periksa susunan sebelum mengajukan review.</p>

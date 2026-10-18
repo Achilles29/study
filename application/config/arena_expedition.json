@@ -1,0 +1,1056 @@
+{
+  "version": 1,
+  "source": "Pustaka Math Expedition, adapted for Project Pintar; no session-exercise bank.",
+  "sources": [
+    {
+      "file": "2026-08-15a_math_expedition.sql",
+      "sha256": "8a929cb1ce57aac3d266dbbf84ced66ff7551683e3c84c0e41eb72b085b65f13"
+    }
+  ],
+  "packs": [
+    {
+      "slug": "ekspedisi-angka-ceria",
+      "type": "expedition",
+      "title": "Math Expedition 1: Angka Ceria",
+      "stage": "early_childhood",
+      "level": 1,
+      "subtitle": "Mengenal dan membandingkan angka 1–10",
+      "skill": "Mengenal bilangan",
+      "description": "Mulai dari pondasi: membaca angka, urutan, dan perbandingan sederhana.",
+      "items": [
+        {
+          "code": "angka-01",
+          "definition": "Angka manakah yang paling besar?",
+          "term": "B",
+          "options": {
+            "A": "4",
+            "B": "7",
+            "C": "5",
+            "D": "2"
+          },
+          "hint": "Bayangkan posisi angka pada garis bilangan.",
+          "hint_deeper": "Pada garis bilangan, angka yang paling jauh ke kanan nilainya paling besar.",
+          "explanation": "7 lebih besar daripada 5, 4, dan 2.",
+          "tip": "Saat membandingkan angka satu digit, lihat angka yang paling jauh ke kanan pada urutan 0–9."
+        },
+        {
+          "code": "angka-02",
+          "definition": "Angka yang tepat setelah 8 adalah ...",
+          "term": "B",
+          "options": {
+            "A": "7",
+            "B": "9",
+            "C": "10",
+            "D": "6"
+          },
+          "hint": "Ucapkan urutan angka: 6, 7, 8, ...",
+          "hint_deeper": "Tambahkan satu pada 8.",
+          "explanation": "Setelah 8 adalah 9.",
+          "tip": "Untuk mencari angka setelahnya, tambahkan 1."
+        },
+        {
+          "code": "angka-03",
+          "definition": "Manakah urutan dari kecil ke besar yang benar?",
+          "term": "A",
+          "options": {
+            "A": "3, 5, 8",
+            "B": "8, 5, 3",
+            "C": "5, 3, 8",
+            "D": "8, 3, 5"
+          },
+          "hint": "Mulailah dari angka yang nilainya paling kecil.",
+          "hint_deeper": "Bandingkan 3, 5, dan 8 satu per satu.",
+          "explanation": "3 lebih kecil dari 5, dan 5 lebih kecil dari 8; jadi urutannya 3, 5, 8.",
+          "tip": "Urutan naik berarti nilainya bertambah dari kiri ke kanan."
+        },
+        {
+          "code": "angka-04",
+          "definition": "Ada 6 bintang. Jika ditambah 1 bintang, jumlahnya menjadi ...",
+          "term": "C",
+          "options": {
+            "A": "5",
+            "B": "6",
+            "C": "7",
+            "D": "8"
+          },
+          "hint": "Tambahkan satu benda setelah enam.",
+          "hint_deeper": "Hitung: 6 lalu satu langkah lagi menjadi 7.",
+          "explanation": "6 ditambah 1 sama dengan 7.",
+          "tip": "Menambah 1 berarti maju satu langkah pada garis bilangan."
+        },
+        {
+          "code": "angka-05",
+          "definition": "Angka manakah yang berada di antara 4 dan 6?",
+          "term": "B",
+          "options": {
+            "A": "3",
+            "B": "5",
+            "C": "7",
+            "D": "8"
+          },
+          "hint": "Ucapkan urutan 4, ..., 6.",
+          "hint_deeper": "Hanya ada satu angka setelah 4 sebelum sampai 6.",
+          "explanation": "Angka di antara 4 dan 6 adalah 5.",
+          "tip": "Gunakan urutan bilangan untuk menemukan angka di tengah."
+        }
+      ]
+    },
+    {
+      "slug": "ekspedisi-tambah-ceria",
+      "type": "expedition",
+      "title": "Math Expedition 2: Tambah Ceria",
+      "stage": "early_childhood",
+      "level": 2,
+      "subtitle": "Penjumlahan sampai 10",
+      "skill": "Penjumlahan dasar",
+      "description": "Gabungkan dua kelompok dan temukan jumlahnya.",
+      "items": [
+        {
+          "code": "tambah-01",
+          "definition": "3 + 4 = ...",
+          "term": "B",
+          "options": {
+            "A": "6",
+            "B": "7",
+            "C": "8",
+            "D": "9"
+          },
+          "hint": "Mulai dari 3, lalu maju empat langkah.",
+          "hint_deeper": "3, lalu 4, 5, 6, 7.",
+          "explanation": "3 ditambah 4 sama dengan 7.",
+          "tip": "Untuk penjumlahan kecil, lanjutkan hitungan dari angka pertama."
+        },
+        {
+          "code": "tambah-02",
+          "definition": "Lani memiliki 5 pensil. Ia mendapat 2 pensil lagi. Berapa pensil Lani sekarang?",
+          "term": "B",
+          "options": {
+            "A": "6",
+            "B": "7",
+            "C": "8",
+            "D": "3"
+          },
+          "hint": "Kata “mendapat lagi” berarti jumlahnya bertambah.",
+          "hint_deeper": "Gabungkan 5 pensil dan 2 pensil.",
+          "explanation": "5 + 2 = 7, jadi Lani memiliki 7 pensil.",
+          "tip": "Cari kata petunjuk: mendapat, bertambah, dan digabung biasanya memakai penjumlahan."
+        },
+        {
+          "code": "tambah-03",
+          "definition": "6 + 3 = ...",
+          "term": "B",
+          "options": {
+            "A": "8",
+            "B": "9",
+            "C": "10",
+            "D": "7"
+          },
+          "hint": "Mulai dari 6 lalu maju tiga langkah.",
+          "hint_deeper": "Setelah 6: 7, 8, 9.",
+          "explanation": "6 + 3 = 9.",
+          "tip": "Pasangan angka yang jumlahnya 10 berguna dihafal; 6 membutuhkan 4, jadi tambah 3 menghasilkan 9."
+        },
+        {
+          "code": "tambah-04",
+          "definition": "Bilangan yang harus ditambahkan pada 4 agar menjadi 10 adalah ...",
+          "term": "B",
+          "options": {
+            "A": "5",
+            "B": "6",
+            "C": "7",
+            "D": "4"
+          },
+          "hint": "Tanyakan: 4 ditambah berapa hasilnya 10?",
+          "hint_deeper": "Dari 4 ke 10 ada enam langkah.",
+          "explanation": "4 + 6 = 10.",
+          "tip": "Mencari angka yang hilang dapat dibantu dengan menghitung jarak dari angka awal ke hasil."
+        },
+        {
+          "code": "tambah-05",
+          "definition": "2 + 5 + 1 = ...",
+          "term": "B",
+          "options": {
+            "A": "7",
+            "B": "8",
+            "C": "6",
+            "D": "9"
+          },
+          "hint": "Jumlahkan dua angka pertama terlebih dahulu.",
+          "hint_deeper": "2 + 5 = 7, lalu tambah 1.",
+          "explanation": "2 + 5 + 1 = 7 + 1 = 8.",
+          "tip": "Untuk tiga bilangan, kerjakan bertahap agar tidak tertukar."
+        }
+      ]
+    },
+    {
+      "slug": "ekspedisi-kurang-cermat",
+      "type": "expedition",
+      "title": "Math Expedition 3: Kurang Cermat",
+      "stage": "primary",
+      "level": 3,
+      "subtitle": "Pengurangan sampai 20",
+      "skill": "Pengurangan dasar",
+      "description": "Latih cara mengambil sebagian tanpa mengurangi ketelitian.",
+      "items": [
+        {
+          "code": "kurang-01",
+          "definition": "9 − 4 = ...",
+          "term": "B",
+          "options": {
+            "A": "4",
+            "B": "5",
+            "C": "6",
+            "D": "3"
+          },
+          "hint": "Mulai dari 9 dan mundur empat langkah.",
+          "hint_deeper": "9, lalu 8, 7, 6, 5.",
+          "explanation": "9 dikurangi 4 sama dengan 5.",
+          "tip": "Pengurangan bisa dibayangkan sebagai langkah mundur pada garis bilangan."
+        },
+        {
+          "code": "kurang-02",
+          "definition": "Ada 12 jeruk. Sebanyak 5 jeruk dimakan. Sisa jeruk adalah ...",
+          "term": "B",
+          "options": {
+            "A": "6",
+            "B": "7",
+            "C": "8",
+            "D": "17"
+          },
+          "hint": "Kata “sisa” menunjukkan ada yang diambil.",
+          "hint_deeper": "Kurangi 5 dari 12: 12, 11, 10, 9, 8, 7.",
+          "explanation": "12 − 5 = 7, jadi tersisa 7 jeruk.",
+          "tip": "Pada soal cerita, kata sisa, diambil, dan dimakan biasanya menunjukkan pengurangan."
+        },
+        {
+          "code": "kurang-03",
+          "definition": "15 − 6 = ...",
+          "term": "B",
+          "options": {
+            "A": "8",
+            "B": "9",
+            "C": "10",
+            "D": "11"
+          },
+          "hint": "Pecah 6 menjadi 5 dan 1.",
+          "hint_deeper": "15 − 5 = 10, kemudian 10 − 1 = 9.",
+          "explanation": "15 − 6 = 9.",
+          "tip": "Mengurangi sampai puluhan terdekat sering membuat hitungan lebih mudah."
+        },
+        {
+          "code": "kurang-04",
+          "definition": "Bilangan yang dikurangi dari 14 sehingga hasilnya 8 adalah ...",
+          "term": "B",
+          "options": {
+            "A": "5",
+            "B": "6",
+            "C": "7",
+            "D": "8"
+          },
+          "hint": "Ubah pertanyaan menjadi 8 + ... = 14.",
+          "hint_deeper": "Dari 8 menuju 14 bertambah 6.",
+          "explanation": "14 − 6 = 8.",
+          "tip": "Pengurangan dengan angka hilang dapat dicek kembali memakai penjumlahan."
+        },
+        {
+          "code": "kurang-05",
+          "definition": "20 − 9 = ...",
+          "term": "B",
+          "options": {
+            "A": "10",
+            "B": "11",
+            "C": "12",
+            "D": "9"
+          },
+          "hint": "Kurangi 10 terlebih dahulu, lalu kembalikan 1.",
+          "hint_deeper": "20 − 10 = 10. Karena yang dikurangi hanya 9, hasilnya 10 + 1.",
+          "explanation": "20 − 9 = 11.",
+          "tip": "Untuk mengurangi 9, kurangi 10 lalu tambah 1 kembali."
+        }
+      ]
+    },
+    {
+      "slug": "ekspedisi-puluhan-hebat",
+      "type": "expedition",
+      "title": "Math Expedition 4: Puluhan Hebat",
+      "stage": "primary",
+      "level": 4,
+      "subtitle": "Nilai tempat dan operasi sampai 100",
+      "skill": "Nilai tempat",
+      "description": "Pahami puluhan dan satuan agar berhitung lebih teratur.",
+      "items": [
+        {
+          "code": "puluhan-01",
+          "definition": "Nilai angka 5 pada bilangan 58 adalah ...",
+          "term": "B",
+          "options": {
+            "A": "5 satuan",
+            "B": "5 puluhan",
+            "C": "8 puluhan",
+            "D": "8 ratusan"
+          },
+          "hint": "Lihat letak angka 5: ia berada di sebelah kiri angka satuan.",
+          "hint_deeper": "Pada bilangan dua digit, angka kiri menunjukkan puluhan.",
+          "explanation": "Pada 58, angka 5 berarti 5 puluhan atau 50.",
+          "tip": "Bacalah bilangan dua digit sebagai puluhan + satuan."
+        },
+        {
+          "code": "puluhan-02",
+          "definition": "36 + 20 = ...",
+          "term": "B",
+          "options": {
+            "A": "46",
+            "B": "56",
+            "C": "66",
+            "D": "54"
+          },
+          "hint": "Tambahkan puluhan dengan puluhan.",
+          "hint_deeper": "36 adalah 3 puluhan 6 satuan. Tambah 2 puluhan menjadi 5 puluhan 6 satuan.",
+          "explanation": "36 + 20 = 56.",
+          "tip": "Saat menambah kelipatan 10, angka satuannya tetap."
+        },
+        {
+          "code": "puluhan-03",
+          "definition": "47 + 12 = ...",
+          "term": "A",
+          "options": {
+            "A": "59",
+            "B": "69",
+            "C": "58",
+            "D": "49"
+          },
+          "hint": "Pisahkan puluhan dan satuan.",
+          "hint_deeper": "40 + 10 = 50, sedangkan 7 + 2 = 9.",
+          "explanation": "50 + 9 = 59.",
+          "tip": "Memecah bilangan menjadi puluhan dan satuan membuat penjumlahan lebih rapi."
+        },
+        {
+          "code": "puluhan-04",
+          "definition": "Bilangan manakah yang terdiri dari 7 puluhan dan 3 satuan?",
+          "term": "B",
+          "options": {
+            "A": "37",
+            "B": "73",
+            "C": "70",
+            "D": "703"
+          },
+          "hint": "Tujuh puluhan berarti 70.",
+          "hint_deeper": "Tambahkan 3 satuan ke 70.",
+          "explanation": "7 puluhan + 3 satuan = 70 + 3 = 73.",
+          "tip": "Tuliskan puluhan di tempat kiri dan satuan di tempat kanan."
+        },
+        {
+          "code": "puluhan-05",
+          "definition": "82 − 30 = ...",
+          "term": "B",
+          "options": {
+            "A": "42",
+            "B": "52",
+            "C": "62",
+            "D": "79"
+          },
+          "hint": "Kurangi angka puluhannya saja.",
+          "hint_deeper": "82 adalah 8 puluhan 2 satuan. Jika dikurangi 3 puluhan, tersisa 5 puluhan 2 satuan.",
+          "explanation": "82 − 30 = 52.",
+          "tip": "Pada pengurangan puluhan bulat, angka satuan tidak berubah."
+        }
+      ]
+    },
+    {
+      "slug": "ekspedisi-kali-berani",
+      "type": "expedition",
+      "title": "Math Expedition 5: Kali Berani",
+      "stage": "primary",
+      "level": 5,
+      "subtitle": "Perkalian sebagai penjumlahan berulang",
+      "skill": "Perkalian dasar",
+      "description": "Kuasai kelompok-kelompok sama banyak dan fakta perkalian awal.",
+      "items": [
+        {
+          "code": "kali-01",
+          "definition": "Di kebun ada 3 bedeng. Setiap bedeng berisi 4 bunga. Jumlah bunganya adalah ...",
+          "term": "B",
+          "options": {
+            "A": "7",
+            "B": "12",
+            "C": "14",
+            "D": "10"
+          },
+          "hint": "Bayangkan 3 kelompok, masing-masing berisi 4.",
+          "hint_deeper": "4 + 4 + 4 = 12.",
+          "explanation": "Tiga bedeng berisi empat bunga berarti 3 × 4 = 12 bunga.",
+          "tip": "Perkalian adalah penjumlahan berulang."
+        },
+        {
+          "code": "kali-02",
+          "definition": "Ada 4 kantong. Setiap kantong berisi 5 kelereng. Jumlah kelereng seluruhnya adalah ...",
+          "term": "C",
+          "options": {
+            "A": "9",
+            "B": "15",
+            "C": "20",
+            "D": "25"
+          },
+          "hint": "Ada empat kelompok dengan isi sama.",
+          "hint_deeper": "Hitung 5 + 5 + 5 + 5.",
+          "explanation": "4 × 5 = 20, jadi ada 20 kelereng.",
+          "tip": "Jika banyaknya tiap kelompok sama, gunakan perkalian."
+        },
+        {
+          "code": "kali-03",
+          "definition": "Penjaga kebun menaruh 2 lebah pada masing-masing 6 bunga. Ada ... lebah semuanya.",
+          "term": "C",
+          "options": {
+            "A": "8",
+            "B": "10",
+            "C": "12",
+            "D": "14"
+          },
+          "hint": "Ada enam kelompok bunga, masing-masing berisi dua lebah.",
+          "hint_deeper": "2 + 2 + 2 + 2 + 2 + 2 = 12.",
+          "explanation": "6 × 2 = 12, jadi ada 12 lebah.",
+          "tip": "Perkalian boleh ditukar: 6 × 2 sama dengan 2 × 6."
+        },
+        {
+          "code": "kali-04",
+          "definition": "Lima pot masing-masing berisi 3 benih. Bentuk penjumlahan berulang yang tepat adalah ...",
+          "term": "B",
+          "options": {
+            "A": "5 + 3",
+            "B": "3 + 3 + 3 + 3 + 3",
+            "C": "5 + 5 + 5",
+            "D": "3 + 5 + 3"
+          },
+          "hint": "Angka pertama menunjukkan banyak kelompok.",
+          "hint_deeper": "Ada 5 pot, masing-masing berisi 3 benih.",
+          "explanation": "5 × 3 = 3 + 3 + 3 + 3 + 3.",
+          "tip": "Baca a × b sebagai “a kelompok, tiap kelompok b”."
+        },
+        {
+          "code": "kali-05",
+          "definition": "Satu keranjang panen berisi 7 apel. Jumlah apel pada 1 keranjang adalah ...",
+          "term": "C",
+          "options": {
+            "A": "1",
+            "B": "6",
+            "C": "7",
+            "D": "8"
+          },
+          "hint": "Hanya ada satu kelompok.",
+          "hint_deeper": "Satu kelompok berisi 7 menghasilkan 7.",
+          "explanation": "1 × 7 = 7; satu keranjang tetap berisi 7 apel.",
+          "tip": "Ingat aturan cepat: bilangan × 1 = bilangan itu sendiri."
+        }
+      ]
+    },
+    {
+      "slug": "ekspedisi-bagi-adil",
+      "type": "expedition",
+      "title": "Math Expedition 6: Bagi Adil",
+      "stage": "primary",
+      "level": 6,
+      "subtitle": "Pembagian dengan hasil bulat",
+      "skill": "Pembagian dasar",
+      "description": "Bagikan sama rata dan hubungan pembagian dengan perkalian.",
+      "items": [
+        {
+          "code": "bagi-01",
+          "definition": "Kapal membawa 12 bekal untuk 3 kru. Jika dibagi sama rata, setiap kru mendapat ... bekal.",
+          "term": "B",
+          "options": {
+            "A": "3",
+            "B": "4",
+            "C": "5",
+            "D": "6"
+          },
+          "hint": "Tanyakan: 3 dikali berapa hasilnya 12?",
+          "hint_deeper": "3 × 4 = 12.",
+          "explanation": "12 ÷ 3 = 4, jadi setiap kru mendapat 4 bekal.",
+          "tip": "Pembagian dapat dicek dengan perkalian: hasil bagi × pembagi = bilangan awal."
+        },
+        {
+          "code": "bagi-02",
+          "definition": "18 permen dibagikan sama rata kepada 6 anak. Setiap anak mendapat ... permen.",
+          "term": "B",
+          "options": {
+            "A": "2",
+            "B": "3",
+            "C": "4",
+            "D": "6"
+          },
+          "hint": "Pembagian sama rata berarti jumlah total dibagi banyak anak.",
+          "hint_deeper": "Cari bilangan yang jika dikali 6 hasilnya 18.",
+          "explanation": "18 ÷ 6 = 3, setiap anak mendapat 3 permen.",
+          "tip": "Gambarkan kelompok yang sama banyak jika soal pembagian terasa sulit."
+        },
+        {
+          "code": "bagi-03",
+          "definition": "Ada 20 bibit yang akan ditanam pada 5 pot secara sama rata. Setiap pot berisi ... bibit.",
+          "term": "B",
+          "options": {
+            "A": "3",
+            "B": "4",
+            "C": "5",
+            "D": "6"
+          },
+          "hint": "Gunakan fakta perkalian lima.",
+          "hint_deeper": "5 × 4 = 20.",
+          "explanation": "20 ÷ 5 = 4, jadi setiap pot berisi 4 bibit.",
+          "tip": "Hafalan perkalian membantu pembagian menjadi lebih cepat."
+        },
+        {
+          "code": "bagi-04",
+          "definition": "Sebanyak 24 pelampung dibagi ke 6 perahu dengan jumlah sama. Setiap perahu mendapat ... pelampung.",
+          "term": "B",
+          "options": {
+            "A": "3",
+            "B": "4",
+            "C": "5",
+            "D": "6"
+          },
+          "hint": "Cari pasangan perkalian untuk 6 dan 24.",
+          "hint_deeper": "6 × 4 = 24.",
+          "explanation": "24 ÷ 6 = 4, jadi setiap perahu mendapat 4 pelampung.",
+          "tip": "Jika ragu, kalikan kembali jawaban dengan pembagi."
+        },
+        {
+          "code": "bagi-05",
+          "definition": "Manakah kalimat pembagian yang benar untuk 4 kelompok, masing-masing berisi 3 bola?",
+          "term": "B",
+          "options": {
+            "A": "4 ÷ 3 = 12",
+            "B": "12 ÷ 4 = 3",
+            "C": "3 ÷ 4 = 12",
+            "D": "12 ÷ 3 = 3"
+          },
+          "hint": "Total bolanya 4 × 3.",
+          "hint_deeper": "Total 12 bola dibagi ke 4 kelompok menghasilkan 3 bola tiap kelompok.",
+          "explanation": "12 ÷ 4 = 3.",
+          "tip": "Tentukan dulu jumlah seluruh benda, lalu bagi dengan banyak kelompok."
+        }
+      ]
+    },
+    {
+      "slug": "ekspedisi-pecahan-dekat",
+      "type": "expedition",
+      "title": "Math Expedition 7: Pecahan Dekat",
+      "stage": "primary",
+      "level": 7,
+      "subtitle": "Pecahan dalam kehidupan sehari-hari",
+      "skill": "Pecahan dasar",
+      "description": "Gunakan gambar dan situasi nyata untuk membaca pecahan.",
+      "items": [
+        {
+          "code": "pecahan-01",
+          "definition": "Satu pizza dibagi menjadi 2 bagian sama besar. Jika diambil 1 bagian, pecahan yang diambil adalah ...",
+          "term": "A",
+          "options": {
+            "A": "1/2",
+            "B": "1/3",
+            "C": "2/1",
+            "D": "2/2"
+          },
+          "hint": "Penyebut menunjukkan jumlah bagian sama besar seluruhnya.",
+          "hint_deeper": "Ada 2 bagian total dan 1 bagian diambil.",
+          "explanation": "Pecahannya 1/2: satu dari dua bagian sama besar.",
+          "tip": "Pada pecahan, pembilang = bagian yang dipilih; penyebut = jumlah semua bagian sama besar."
+        },
+        {
+          "code": "pecahan-02",
+          "definition": "Di Kafe Pecahan, 3 dari 4 potong kue sama besar sudah disiapkan. Pecahan yang tepat adalah ...",
+          "term": "B",
+          "options": {
+            "A": "4/3",
+            "B": "3/4",
+            "C": "1/4",
+            "D": "3/3"
+          },
+          "hint": "Angka atas menyatakan bagian yang dipilih.",
+          "hint_deeper": "Pilih 3 sebagai pembilang dan 4 sebagai penyebut.",
+          "explanation": "Tiga dari empat bagian ditulis 3/4.",
+          "tip": "Baca pecahan dari atas ke bawah: pembilang per penyebut."
+        },
+        {
+          "code": "pecahan-03",
+          "definition": "Dua pizza sama besar: pizza pertama dibagi 4, pizza kedua dibagi 2. Manakah bagian yang lebih besar?",
+          "term": "B",
+          "options": {
+            "A": "1/4",
+            "B": "1/2",
+            "C": "Keduanya sama",
+            "D": "Tidak dapat dibandingkan"
+          },
+          "hint": "Bayangkan satu pizza dibagi 2 dan satu pizza dibagi 4.",
+          "hint_deeper": "Satu dari dua bagian lebih besar daripada satu dari empat bagian.",
+          "explanation": "1/2 lebih besar daripada 1/4.",
+          "tip": "Jika pembilang sama, penyebut lebih kecil berarti bagian lebih besar."
+        },
+        {
+          "code": "pecahan-04",
+          "definition": "Setengah loyang kue yang dipotong menjadi 4 bagian sama besar berarti 2/4. Pecahan yang senilai adalah ...",
+          "term": "A",
+          "options": {
+            "A": "1/2",
+            "B": "1/3",
+            "C": "2/3",
+            "D": "3/4"
+          },
+          "hint": "Bayangkan loyang dibagi menjadi 4 bagian sama besar.",
+          "hint_deeper": "Dua dari empat bagian sama dengan setengah loyang.",
+          "explanation": "2/4 = 1/2.",
+          "tip": "Pecahan senilai diperoleh dengan membagi atau mengalikan atas dan bawah dengan bilangan yang sama."
+        },
+        {
+          "code": "pecahan-05",
+          "definition": "Rina makan 1/4 bagian kue dan Bima makan 2/4 bagian kue. Siapa yang makan lebih banyak?",
+          "term": "B",
+          "options": {
+            "A": "Rina",
+            "B": "Bima",
+            "C": "Sama banyak",
+            "D": "Tidak dapat diketahui"
+          },
+          "hint": "Kedua pecahan memiliki penyebut yang sama.",
+          "hint_deeper": "Bandingkan angka atasnya: 2 lebih besar dari 1.",
+          "explanation": "2/4 lebih besar daripada 1/4, jadi Bima makan lebih banyak.",
+          "tip": "Jika penyebut sama, pecahan dengan pembilang lebih besar nilainya lebih besar."
+        }
+      ]
+    },
+    {
+      "slug": "ekspedisi-strategi-matematika",
+      "type": "expedition",
+      "title": "Math Expedition 8: Strategi Matematika",
+      "stage": "primary",
+      "level": 8,
+      "subtitle": "Pola, satuan, dan operasi campuran",
+      "skill": "Penalaran matematika",
+      "description": "Tutup ekspedisi dasar dengan strategi memilih operasi yang tepat.",
+      "items": [
+        {
+          "code": "strategi-01",
+          "definition": "Lampu taman menyala berurutan 2, 5, 8, 11, ... Menurut pola, lampu berikutnya bernomor ...",
+          "term": "C",
+          "options": {
+            "A": "12",
+            "B": "13",
+            "C": "14",
+            "D": "15"
+          },
+          "hint": "Perhatikan selisih antarangka.",
+          "hint_deeper": "Setiap angka bertambah 3.",
+          "explanation": "11 + 3 = 14.",
+          "tip": "Untuk pola bilangan, cek apakah selisihnya tetap."
+        },
+        {
+          "code": "strategi-02",
+          "definition": "Tiga kios menerima (4 + 2) kotak minuman masing-masing. Total kotak minuman adalah ...",
+          "term": "B",
+          "options": {
+            "A": "14",
+            "B": "18",
+            "C": "20",
+            "D": "24"
+          },
+          "hint": "Kerjakan yang berada dalam tanda kurung lebih dulu.",
+          "hint_deeper": "4 + 2 = 6 kotak per kios, kemudian ada 3 kios.",
+          "explanation": "3 × (4 + 2) = 3 × 6 = 18.",
+          "tip": "Dalam operasi campuran, tanda kurung dikerjakan terlebih dahulu."
+        },
+        {
+          "code": "strategi-03",
+          "definition": "Panjang pita untuk hiasan pasar adalah 2 meter. Panjang itu sama dengan ... sentimeter.",
+          "term": "C",
+          "options": {
+            "A": "20",
+            "B": "100",
+            "C": "200",
+            "D": "2000"
+          },
+          "hint": "Ingat hubungan meter dan sentimeter.",
+          "hint_deeper": "Satu meter sama dengan 100 sentimeter.",
+          "explanation": "2 × 100 = 200 sentimeter.",
+          "tip": "Tulis satuan sebelum menghitung agar konversi tidak tertukar."
+        },
+        {
+          "code": "strategi-04",
+          "definition": "Harga 3 buku masing-masing Rp4.000. Total harga buku adalah ...",
+          "term": "B",
+          "options": {
+            "A": "Rp7.000",
+            "B": "Rp12.000",
+            "C": "Rp16.000",
+            "D": "Rp40.000"
+          },
+          "hint": "Ada tiga harga yang sama.",
+          "hint_deeper": "3 × 4.000 = 12.000.",
+          "explanation": "Total harga adalah Rp12.000.",
+          "tip": "Untuk beberapa barang dengan harga sama, kalikan jumlah barang dengan harga satuannya."
+        },
+        {
+          "code": "strategi-05",
+          "definition": "Taman bermain berbentuk persegi dengan sisi 6 cm pada peta. Keliling taman itu adalah ...",
+          "term": "C",
+          "options": {
+            "A": "12 cm",
+            "B": "18 cm",
+            "C": "24 cm",
+            "D": "36 cm"
+          },
+          "hint": "Persegi memiliki empat sisi yang sama panjang.",
+          "hint_deeper": "Jumlahkan 6 cm sebanyak empat kali.",
+          "explanation": "Keliling = 4 × 6 cm = 24 cm.",
+          "tip": "Keliling berarti jumlah seluruh sisi bangun."
+        }
+      ]
+    },
+    {
+      "slug": "ekspedisi-jam-penjelajah",
+      "type": "expedition",
+      "title": "Math Expedition 9: Stasiun Waktu",
+      "stage": "primary",
+      "level": 9,
+      "subtitle": "Membaca jam dan menghitung durasi",
+      "skill": "Waktu dan durasi",
+      "description": "Bantu kereta hutan tiba tepat waktu dengan membaca jam dan selisih waktu.",
+      "items": [
+        {
+          "code": "waktu-01",
+          "definition": "Kereta Hutan berangkat pukul 07.00 dan tiba pukul 08.00. Lama perjalanannya adalah ...",
+          "term": "B",
+          "options": {
+            "A": "30 menit",
+            "B": "1 jam",
+            "C": "2 jam",
+            "D": "8 jam"
+          },
+          "hint": "Bandingkan angka jam saat berangkat dan tiba.",
+          "hint_deeper": "Dari angka 7 menuju angka 8 pada jam adalah satu putaran kecil.",
+          "explanation": "Dari 07.00 sampai 08.00 selisihnya 1 jam.",
+          "tip": "Untuk jam tepat, hitung selisih angka jamnya."
+        },
+        {
+          "code": "waktu-02",
+          "definition": "Jam di pos hutan menunjukkan jarum pendek di 3 dan jarum panjang di 12. Waktunya adalah ...",
+          "term": "A",
+          "options": {
+            "A": "03.00",
+            "B": "03.30",
+            "C": "12.15",
+            "D": "15.00"
+          },
+          "hint": "Jarum panjang di 12 menunjukkan menitnya nol.",
+          "hint_deeper": "Perhatikan angka yang ditunjuk jarum pendek.",
+          "explanation": "Jarum pendek di 3 dan jarum panjang di 12 menunjukkan pukul 03.00.",
+          "tip": "Baca jarum panjang dahulu untuk menit, lalu jarum pendek untuk jam."
+        },
+        {
+          "code": "waktu-03",
+          "definition": "Penjaga hutan mulai bertugas pukul 09.15 dan selesai pukul 09.45. Lama bertugas adalah ...",
+          "term": "B",
+          "options": {
+            "A": "15 menit",
+            "B": "30 menit",
+            "C": "45 menit",
+            "D": "1 jam"
+          },
+          "hint": "Kedua waktu masih pada jam 09.",
+          "hint_deeper": "Kurangi menit akhir dengan menit awal: 45 − 15.",
+          "explanation": "Dari 09.15 ke 09.45 ada 30 menit.",
+          "tip": "Jika jamnya sama, cukup bandingkan menitnya."
+        },
+        {
+          "code": "waktu-04",
+          "definition": "Pertunjukan kunang-kunang dimulai pukul 18.30. Jika berlangsung 1 jam, selesai pukul ...",
+          "term": "C",
+          "options": {
+            "A": "18.45",
+            "B": "19.00",
+            "C": "19.30",
+            "D": "20.30"
+          },
+          "hint": "Menambah satu jam tidak mengubah menitnya.",
+          "hint_deeper": "Dari jam 18 maju satu jam menjadi 19.",
+          "explanation": "18.30 ditambah 1 jam adalah 19.30.",
+          "tip": "Saat menambah jam bulat, bagian menit tetap."
+        },
+        {
+          "code": "waktu-05",
+          "definition": "Kereta berikutnya datang 20 menit setelah pukul 10.40. Kereta itu datang pukul ...",
+          "term": "B",
+          "options": {
+            "A": "10.50",
+            "B": "11.00",
+            "C": "11.20",
+            "D": "12.00"
+          },
+          "hint": "Hitung maju dari menit 40 hingga menit 60.",
+          "hint_deeper": "Dari 10.40 ke 11.00 tepat 20 menit.",
+          "explanation": "10.40 + 20 menit = 11.00.",
+          "tip": "Saat menit mencapai 60, jam bertambah satu."
+        }
+      ]
+    },
+    {
+      "slug": "ekspedisi-bengkel-bentuk",
+      "type": "expedition",
+      "title": "Math Expedition 10: Bengkel Bentuk",
+      "stage": "primary",
+      "level": 10,
+      "subtitle": "Bangun datar, keliling, dan sisi",
+      "skill": "Geometri",
+      "description": "Rakit jembatan hutan dari bentuk yang tepat dan ukur sisi-sisinya.",
+      "items": [
+        {
+          "code": "bentuk-01",
+          "definition": "Papan petunjuk berbentuk segitiga. Segitiga memiliki ... sisi.",
+          "term": "B",
+          "options": {
+            "A": "2",
+            "B": "3",
+            "C": "4",
+            "D": "5"
+          },
+          "hint": "Hitung garis lurus yang membentuk tepi segitiga.",
+          "hint_deeper": "Segitiga memiliki tiga sudut dan tiga sisi.",
+          "explanation": "Segitiga selalu memiliki 3 sisi.",
+          "tip": "Nama bangun sering membantu: segi tiga berarti tiga sisi."
+        },
+        {
+          "code": "bentuk-02",
+          "definition": "Jendela pos penjaga berbentuk persegi panjang. Bangun ini memiliki ... sisi.",
+          "term": "B",
+          "options": {
+            "A": "3",
+            "B": "4",
+            "C": "5",
+            "D": "6"
+          },
+          "hint": "Telusuri tepi jendela satu per satu.",
+          "hint_deeper": "Ada sisi atas, kanan, bawah, dan kiri.",
+          "explanation": "Persegi panjang memiliki 4 sisi.",
+          "tip": "Persegi dan persegi panjang sama-sama memiliki empat sisi."
+        },
+        {
+          "code": "bentuk-03",
+          "definition": "Jembatan berbentuk persegi memiliki panjang setiap sisi 5 meter. Keliling jembatan adalah ...",
+          "term": "C",
+          "options": {
+            "A": "10 meter",
+            "B": "15 meter",
+            "C": "20 meter",
+            "D": "25 meter"
+          },
+          "hint": "Persegi mempunyai empat sisi sama panjang.",
+          "hint_deeper": "Jumlahkan 5 meter sebanyak empat kali.",
+          "explanation": "Keliling = 4 × 5 meter = 20 meter.",
+          "tip": "Keliling adalah jumlah seluruh sisi di bagian luar bangun."
+        },
+        {
+          "code": "bentuk-04",
+          "definition": "Papan lantai berbentuk persegi panjang, panjangnya 8 cm dan lebarnya 3 cm. Kelilingnya adalah ...",
+          "term": "C",
+          "options": {
+            "A": "11 cm",
+            "B": "16 cm",
+            "C": "22 cm",
+            "D": "24 cm"
+          },
+          "hint": "Persegi panjang memiliki dua pasang sisi yang sama.",
+          "hint_deeper": "Jumlahkan 8 + 3 + 8 + 3.",
+          "explanation": "8 + 3 + 8 + 3 = 22 cm.",
+          "tip": "Gunakan rumus keliling persegi panjang: 2 × (panjang + lebar)."
+        },
+        {
+          "code": "bentuk-05",
+          "definition": "Roda gerobak berbentuk lingkaran. Lingkaran tidak memiliki ...",
+          "term": "A",
+          "options": {
+            "A": "sisi lurus",
+            "B": "warna",
+            "C": "titik tengah",
+            "D": "bentuk"
+          },
+          "hint": "Perhatikan tepi roda yang melengkung.",
+          "hint_deeper": "Tidak ada garis lurus di tepi lingkaran.",
+          "explanation": "Lingkaran tidak memiliki sisi lurus; tepinya melengkung.",
+          "tip": "Amati bentuk benda sekitar untuk mengingat ciri bangun datar."
+        }
+      ]
+    },
+    {
+      "slug": "ekspedisi-kebun-data",
+      "type": "expedition",
+      "title": "Math Expedition 11: Kebun Data",
+      "stage": "primary",
+      "level": 11,
+      "subtitle": "Membaca data dan membandingkan jumlah",
+      "skill": "Penyajian data",
+      "description": "Baca papan panen untuk menentukan pilihan terbaik di kebun penjelajah.",
+      "items": [
+        {
+          "code": "data-01",
+          "definition": "Papan panen menunjukkan: apel 8 keranjang, jeruk 5 keranjang, mangga 6 keranjang. Buah yang paling banyak dipanen adalah ...",
+          "term": "A",
+          "options": {
+            "A": "apel",
+            "B": "jeruk",
+            "C": "mangga",
+            "D": "sama banyak"
+          },
+          "hint": "Bandingkan angka 8, 5, dan 6.",
+          "hint_deeper": "Angka terbesar menunjukkan jumlah terbanyak.",
+          "explanation": "8 adalah angka terbesar, jadi apel paling banyak dipanen.",
+          "tip": "Saat membaca data, cari dulu angka terbesar atau terkecil sesuai pertanyaan."
+        },
+        {
+          "code": "data-02",
+          "definition": "Kebun A menghasilkan 7 pot bunga dan Kebun B menghasilkan 10 pot bunga. Selisih hasil keduanya adalah ... pot.",
+          "term": "B",
+          "options": {
+            "A": "2",
+            "B": "3",
+            "C": "7",
+            "D": "17"
+          },
+          "hint": "Cari selisih dengan mengurangkan jumlah lebih besar dan lebih kecil.",
+          "hint_deeper": "10 − 7 = 3.",
+          "explanation": "Selisih 10 pot dan 7 pot adalah 3 pot.",
+          "tip": "Selisih berarti jarak antara dua jumlah; gunakan pengurangan."
+        },
+        {
+          "code": "data-03",
+          "definition": "Catatan penjaga menunjukkan pengunjung hari Senin 12 orang, Selasa 15 orang, dan Rabu 9 orang. Jumlah pengunjung selama tiga hari adalah ...",
+          "term": "C",
+          "options": {
+            "A": "24",
+            "B": "27",
+            "C": "36",
+            "D": "45"
+          },
+          "hint": "Jumlahkan data tiap hari.",
+          "hint_deeper": "12 + 15 = 27, lalu tambah 9.",
+          "explanation": "12 + 15 + 9 = 36 orang.",
+          "tip": "Saat menjumlahkan banyak data, kerjakan dua angka dulu lalu lanjutkan."
+        },
+        {
+          "code": "data-04",
+          "definition": "Dari 20 bibit, 8 adalah bunga matahari. Banyak bibit yang bukan bunga matahari adalah ...",
+          "term": "C",
+          "options": {
+            "A": "8",
+            "B": "10",
+            "C": "12",
+            "D": "28"
+          },
+          "hint": "Jumlah seluruh bibit dikurangi bibit bunga matahari.",
+          "hint_deeper": "20 − 8 = 12.",
+          "explanation": "Bibit selain bunga matahari ada 12.",
+          "tip": "Jika ditanya “bukan”, kurangkan bagian yang disebut dari jumlah seluruhnya."
+        },
+        {
+          "code": "data-05",
+          "definition": "Papan panen menunjukkan tomat 14 keranjang dan cabai 14 keranjang. Pernyataan yang tepat adalah ...",
+          "term": "C",
+          "options": {
+            "A": "tomat lebih banyak",
+            "B": "cabai lebih banyak",
+            "C": "jumlahnya sama",
+            "D": "tidak dapat diketahui"
+          },
+          "hint": "Bandingkan kedua angka pada papan panen.",
+          "hint_deeper": "Keduanya tertulis 14.",
+          "explanation": "Tomat dan cabai sama-sama berjumlah 14 keranjang.",
+          "tip": "Jika dua data memiliki angka sama, berarti jumlahnya sama."
+        }
+      ]
+    },
+    {
+      "slug": "ekspedisi-menara-logika",
+      "type": "expedition",
+      "title": "Math Expedition 12: Menara Logika",
+      "stage": "primary",
+      "level": 12,
+      "subtitle": "Masalah bertahap dan strategi",
+      "skill": "Pemecahan masalah",
+      "description": "Naik ke menara terakhir dengan memilih informasi dan langkah yang paling tepat.",
+      "items": [
+        {
+          "code": "logika-01",
+          "definition": "Untuk membuka gerbang menara diperlukan 3 kunci merah dan 2 kunci biru. Jika sudah ada 3 kunci merah, kunci yang masih diperlukan adalah ...",
+          "term": "B",
+          "options": {
+            "A": "1 kunci merah",
+            "B": "2 kunci biru",
+            "C": "3 kunci biru",
+            "D": "5 kunci biru"
+          },
+          "hint": "Bandingkan kunci yang sudah ada dengan daftar kebutuhan.",
+          "hint_deeper": "Kunci merah sudah lengkap, sehingga tinggal memenuhi kunci biru.",
+          "explanation": "Masih diperlukan 2 kunci biru.",
+          "tip": "Pada masalah bertahap, tandai dahulu bagian yang sudah terpenuhi."
+        },
+        {
+          "code": "logika-02",
+          "definition": "Rute ke menara terdiri dari 4 langkah ke timur lalu 3 langkah ke utara. Jumlah langkah seluruhnya adalah ...",
+          "term": "B",
+          "options": {
+            "A": "1",
+            "B": "7",
+            "C": "12",
+            "D": "43"
+          },
+          "hint": "Jumlahkan semua langkah, walaupun arahnya berbeda.",
+          "hint_deeper": "4 + 3 = 7.",
+          "explanation": "Total langkah yang ditempuh adalah 7 langkah.",
+          "tip": "Jika ditanya total, gabungkan semua bagian yang disebut."
+        },
+        {
+          "code": "logika-03",
+          "definition": "Penjaga membawa 15 obor. Ia memasang 6 obor di jalan pertama dan 4 obor di jalan kedua. Obor yang tersisa adalah ...",
+          "term": "A",
+          "options": {
+            "A": "5",
+            "B": "9",
+            "C": "11",
+            "D": "25"
+          },
+          "hint": "Cari jumlah obor yang sudah dipasang lebih dahulu.",
+          "hint_deeper": "6 + 4 = 10 obor sudah dipasang, lalu kurangi dari 15.",
+          "explanation": "15 − 10 = 5 obor tersisa.",
+          "tip": "Untuk masalah dua langkah, selesaikan bagian pertama sebelum mencari sisa."
+        },
+        {
+          "code": "logika-04",
+          "definition": "Kamu punya Rp10.000. Membeli peta hutan seharga Rp4.000 dan bekal seharga Rp3.000. Uang yang tersisa adalah ...",
+          "term": "A",
+          "options": {
+            "A": "Rp3.000",
+            "B": "Rp4.000",
+            "C": "Rp7.000",
+            "D": "Rp13.000"
+          },
+          "hint": "Jumlahkan harga barang yang dibeli.",
+          "hint_deeper": "Rp4.000 + Rp3.000 = Rp7.000, lalu kurangi dari Rp10.000.",
+          "explanation": "Rp10.000 − Rp7.000 = Rp3.000.",
+          "tip": "Saat ada dua pembelian, jumlahkan pengeluaran dahulu sebelum menghitung sisa."
+        },
+        {
+          "code": "logika-05",
+          "definition": "Kode menara mengikuti pola 4, 8, 12, 16, ... Angka berikutnya untuk kode adalah ...",
+          "term": "C",
+          "options": {
+            "A": "18",
+            "B": "19",
+            "C": "20",
+            "D": "24"
+          },
+          "hint": "Perhatikan selisih setiap angka dalam kode.",
+          "hint_deeper": "Setiap angka bertambah 4.",
+          "explanation": "16 + 4 = 20.",
+          "tip": "Untuk pola berulang, temukan aturan perubahan dari satu angka ke angka berikutnya."
+        }
+      ]
+    }
+  ]
+}

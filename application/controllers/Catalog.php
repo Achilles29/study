@@ -13,6 +13,7 @@ class Catalog extends MY_Controller
 		$this->require_http_methods(array('GET', 'HEAD'));
 		$this->load->model('Content_model');
 		$filters = array(
+			'kelas' => study_grade_filter(),
 			'q' => $this->get_scalar_query_param('q', 100),
 			'category_id' => (int) $this->get_scalar_query_param('kategori', 10)
 		);
@@ -32,11 +33,11 @@ class Catalog extends MY_Controller
 			'categories' => $this->Content_model->list_categories(TRUE),
 			'filters' => $filters,
 			'total_rows' => $total_rows,
-			'has_filters' => $filters['q'] !== '' || $filters['category_id'] > 0,
+			'has_filters' => $filters['q'] !== '' || $filters['category_id'] > 0 || $filters['kelas'] !== '',
 			'target_group_labels' => $target_group_labels,
 			'page' => $page,
 			'page_count' => $page_count,
-			'pagination_query' => array_filter(array('q' => $filters['q'], 'kategori' => $filters['category_id']), static function ($value) {
+			'pagination_query' => array_filter(array('q' => $filters['q'], 'kategori' => $filters['category_id'], 'kelas' => $filters['kelas']), static function ($value) {
 				return $value !== '' && $value !== 0;
 			})
 		));
@@ -91,7 +92,7 @@ class Catalog extends MY_Controller
 		}
 		if ( ! $this->Content_model->can_access_lesson($this->current_user ? $this->current_user['id'] : 0, $lesson))
 		{
-			$this->session->set_flashdata('notice', 'Materi ini belum terbuka. Paket belajar dan pembayaran belum tersedia pada tahap awal.');
+			$this->session->set_flashdata('notice', 'Materi ini memerlukan akses kursus. Periksa hak akses atau paket yang tersedia; akun anak dapat meminta bantuan orang tua.');
 			redirect('kursus/'.$lesson['course_slug']);
 			return;
 		}

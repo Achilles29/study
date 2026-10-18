@@ -244,3 +244,9 @@ body.theme-child-early, body.theme-child-primary, body.theme-child-secondary { -
 .saved-matching-choice:focus-within { outline: 3px solid var(--focus-ring); outline-offset: 2px; }
 @keyframes matching-pop { from { transform: scale(.97); } to { transform: scale(1); } }
 @media (max-width: 575.98px) { .matching-columns { gap: .65rem; } .matching-choice { padding: .65rem; } }
+/* Google Identity light button; official logo kept unmodified on white. */
+.google-signin-button { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 44px; padding: 10px 12px; background: #fff; color: #1f1f1f; border: 1px solid #747775; border-radius: 4px; font: 500 14px/20px Arial, sans-serif; }
+.google-signin-button img { flex: 0 0 20px; object-fit: contain; }
+.google-signin-button:hover:not(:disabled) { background: #f8f9fa; }
+.google-signin-button:focus-visible { outline: 3px solid var(--primary-dark); outline-offset: 3px; }
+.google-signin-button:disabled { cursor: not-allowed; color: #747775; }

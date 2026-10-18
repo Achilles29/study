@@ -1,0 +1,1473 @@
+{
+  "version": 1,
+  "source": "Pustaka mini games; adopted for Project Pintar, 2026-10-16. No exercise-session bank or personal data.",
+  "sources": [
+    {
+      "file": "2026-08-12k_word_scramble_seed.sql",
+      "sha256": "75fb586afca142b514c13cced9bb1ff81ec52941ad302d4d7dfacddce668e712"
+    },
+    {
+      "file": "2026-08-12j_memory_match_seed.sql",
+      "sha256": "405140a4dbf43304197d36ef8f97c202d815b8eb2ee18e3ce26e000ca5611bd0"
+    },
+    {
+      "file": "2026-08-13e_word_scramble_sd_sma.sql",
+      "sha256": "13eb0f6d595518b9bf383e0caa61349e7b770959fbf47541e90cacd348322138"
+    },
+    {
+      "file": "2026-08-13f_memory_match_sd_sma.sql",
+      "sha256": "ec0f65f480e15489dfc41ff20d9e303de5dd2c19c9e8dfb290cdef8e06c3c3af"
+    }
+  ],
+  "packs": [
+    {
+      "slug": "kata-dasar-1",
+      "type": "word",
+      "title": "Benda di Sekitarku",
+      "stage": "early_childhood",
+      "items": [
+        {
+          "term": "BOLA",
+          "definition": "Mainan berbentuk bulat"
+        },
+        {
+          "term": "BUKU",
+          "definition": "Dibaca untuk memperoleh cerita atau ilmu"
+        },
+        {
+          "term": "MEJA",
+          "definition": "Perabot untuk meletakkan barang"
+        },
+        {
+          "term": "KURSI",
+          "definition": "Tempat duduk"
+        },
+        {
+          "term": "TOPI",
+          "definition": "Penutup kepala"
+        },
+        {
+          "term": "TAS",
+          "definition": "Tempat membawa barang"
+        },
+        {
+          "term": "IKAN",
+          "definition": "Hewan yang hidup di air"
+        },
+        {
+          "term": "AYAM",
+          "definition": "Hewan unggas; pejantannya berkokok"
+        },
+        {
+          "term": "SUSU",
+          "definition": "Minuman berwarna putih yang bergizi"
+        },
+        {
+          "term": "MATA",
+          "definition": "Bagian tubuh untuk melihat"
+        }
+      ]
+    },
+    {
+      "slug": "kata-dasar-2",
+      "type": "word",
+      "title": "Aku di Sekolah",
+      "stage": "primary",
+      "items": [
+        {
+          "term": "SEKOLAH",
+          "definition": "Tempat belajar bersama guru dan teman"
+        },
+        {
+          "term": "GURU",
+          "definition": "Orang yang mengajar di kelas"
+        },
+        {
+          "term": "TEMAN",
+          "definition": "Orang yang belajar atau bermain bersama"
+        },
+        {
+          "term": "PENSIL",
+          "definition": "Alat untuk menulis"
+        },
+        {
+          "term": "PENGHAPUS",
+          "definition": "Alat untuk menghapus tulisan pensil"
+        },
+        {
+          "term": "KELAS",
+          "definition": "Ruang untuk belajar di sekolah"
+        },
+        {
+          "term": "BELAJAR",
+          "definition": "Kegiatan untuk memperoleh pengetahuan"
+        },
+        {
+          "term": "MEMBACA",
+          "definition": "Kegiatan memahami tulisan"
+        },
+        {
+          "term": "MENULIS",
+          "definition": "Kegiatan membuat huruf atau kata"
+        },
+        {
+          "term": "ISTIRAHAT",
+          "definition": "Waktu berhenti sejenak dari belajar"
+        }
+      ]
+    },
+    {
+      "slug": "kata-dasar-3",
+      "type": "word",
+      "title": "Kata Matematika",
+      "stage": "primary",
+      "items": [
+        {
+          "term": "ANGKA",
+          "definition": "Lambang untuk menyatakan bilangan"
+        },
+        {
+          "term": "BILANGAN",
+          "definition": "Konsep untuk menyatakan banyaknya benda"
+        },
+        {
+          "term": "TAMBAH",
+          "definition": "Operasi menggabungkan dua bilangan atau lebih"
+        },
+        {
+          "term": "KURANG",
+          "definition": "Operasi mengambil sebagian dari suatu bilangan"
+        },
+        {
+          "term": "KALI",
+          "definition": "Operasi penjumlahan berulang"
+        },
+        {
+          "term": "BAGI",
+          "definition": "Operasi membagi sama banyak"
+        },
+        {
+          "term": "GENAP",
+          "definition": "Bilangan yang habis dibagi dua"
+        },
+        {
+          "term": "GANJIL",
+          "definition": "Bilangan yang tidak habis dibagi dua"
+        },
+        {
+          "term": "WAKTU",
+          "definition": "Ukuran berlangsungnya suatu kejadian"
+        },
+        {
+          "term": "BENTUK",
+          "definition": "Rupa atau wujud suatu benda"
+        }
+      ]
+    },
+    {
+      "slug": "kata-dasar-4",
+      "type": "word",
+      "title": "Tumbuhan dan Lingkungan",
+      "stage": "primary",
+      "items": [
+        {
+          "term": "AKAR",
+          "definition": "Bagian tumbuhan yang menyerap air dari tanah"
+        },
+        {
+          "term": "BATANG",
+          "definition": "Bagian tumbuhan yang menopang tubuh tumbuhan"
+        },
+        {
+          "term": "DAUN",
+          "definition": "Bagian tumbuhan tempat membuat makanan"
+        },
+        {
+          "term": "BUNGA",
+          "definition": "Bagian tumbuhan untuk perkembangbiakan"
+        },
+        {
+          "term": "BUAH",
+          "definition": "Bagian yang melindungi biji"
+        },
+        {
+          "term": "BIJI",
+          "definition": "Bagian yang dapat tumbuh menjadi tumbuhan baru"
+        },
+        {
+          "term": "TANAH",
+          "definition": "Tempat banyak tumbuhan tumbuh"
+        },
+        {
+          "term": "HUJAN",
+          "definition": "Air yang turun dari awan"
+        },
+        {
+          "term": "AWAN",
+          "definition": "Kumpulan titik air di langit"
+        },
+        {
+          "term": "ANGIN",
+          "definition": "Udara yang bergerak"
+        }
+      ]
+    },
+    {
+      "slug": "kata-dasar-5",
+      "type": "word",
+      "title": "Sains di Sekitar Kita",
+      "stage": "secondary",
+      "items": [
+        {
+          "term": "SEL",
+          "definition": "Unit terkecil penyusun makhluk hidup"
+        },
+        {
+          "term": "ORGAN",
+          "definition": "Bagian tubuh yang memiliki fungsi tertentu"
+        },
+        {
+          "term": "ENERGI",
+          "definition": "Kemampuan untuk melakukan kerja"
+        },
+        {
+          "term": "GAYA",
+          "definition": "Tarikan atau dorongan pada benda"
+        },
+        {
+          "term": "SUHU",
+          "definition": "Ukuran panas atau dingin suatu benda"
+        },
+        {
+          "term": "MASSA",
+          "definition": "Ukuran banyaknya materi dalam benda"
+        },
+        {
+          "term": "VOLUME",
+          "definition": "Ukuran ruang yang ditempati benda"
+        },
+        {
+          "term": "EKOSISTEM",
+          "definition": "Hubungan makhluk hidup dan lingkungannya"
+        },
+        {
+          "term": "POPULASI",
+          "definition": "Kumpulan makhluk hidup sejenis di suatu tempat"
+        },
+        {
+          "term": "HABITAT",
+          "definition": "Tempat hidup alami suatu makhluk hidup"
+        }
+      ]
+    },
+    {
+      "slug": "pasangan-dasar-1",
+      "type": "memory",
+      "title": "Kenali Hewan",
+      "stage": "early_childhood",
+      "items": [
+        {
+          "term": "Kucing",
+          "definition": "Meong"
+        },
+        {
+          "term": "Ayam",
+          "definition": "Kukuruyuk"
+        },
+        {
+          "term": "Sapi",
+          "definition": "Moo"
+        },
+        {
+          "term": "Kambing",
+          "definition": "Mbek"
+        },
+        {
+          "term": "Bebek",
+          "definition": "Kwek kwek"
+        },
+        {
+          "term": "Anjing",
+          "definition": "Guk guk"
+        },
+        {
+          "term": "Burung",
+          "definition": "Cuit cuit"
+        },
+        {
+          "term": "Kuda",
+          "definition": "Ringkik"
+        }
+      ]
+    },
+    {
+      "slug": "pasangan-dasar-2",
+      "type": "memory",
+      "title": "Kata di Rumah dan Sekolah",
+      "stage": "primary",
+      "items": [
+        {
+          "term": "Buku",
+          "definition": "Dibaca untuk menambah pengetahuan"
+        },
+        {
+          "term": "Pensil",
+          "definition": "Digunakan untuk menulis"
+        },
+        {
+          "term": "Meja",
+          "definition": "Tempat meletakkan barang"
+        },
+        {
+          "term": "Kursi",
+          "definition": "Tempat untuk duduk"
+        },
+        {
+          "term": "Pintu",
+          "definition": "Jalan masuk dan keluar ruangan"
+        },
+        {
+          "term": "Jendela",
+          "definition": "Tempat masuk cahaya dan udara"
+        },
+        {
+          "term": "Tas",
+          "definition": "Tempat membawa perlengkapan"
+        },
+        {
+          "term": "Papan tulis",
+          "definition": "Tempat guru menulis di kelas"
+        }
+      ]
+    },
+    {
+      "slug": "pasangan-dasar-3",
+      "type": "memory",
+      "title": "Hitung Sampai 20",
+      "stage": "primary",
+      "items": [
+        {
+          "term": "3 + 4",
+          "definition": "7"
+        },
+        {
+          "term": "5 + 6",
+          "definition": "11"
+        },
+        {
+          "term": "9 - 3",
+          "definition": "6"
+        },
+        {
+          "term": "12 - 5",
+          "definition": "7"
+        },
+        {
+          "term": "8 + 7",
+          "definition": "15"
+        },
+        {
+          "term": "14 - 4",
+          "definition": "10"
+        },
+        {
+          "term": "10 + 9",
+          "definition": "19"
+        },
+        {
+          "term": "20 - 8",
+          "definition": "12"
+        }
+      ]
+    },
+    {
+      "slug": "pasangan-dasar-4",
+      "type": "memory",
+      "title": "Fungsi Bagian Tumbuhan",
+      "stage": "primary",
+      "items": [
+        {
+          "term": "Akar",
+          "definition": "Menyerap air dan mineral dari tanah"
+        },
+        {
+          "term": "Batang",
+          "definition": "Menopang tumbuhan dan menyalurkan air"
+        },
+        {
+          "term": "Daun",
+          "definition": "Tempat membuat makanan dengan bantuan cahaya"
+        },
+        {
+          "term": "Bunga",
+          "definition": "Alat perkembangbiakan tumbuhan"
+        },
+        {
+          "term": "Buah",
+          "definition": "Melindungi biji dan dapat menjadi makanan"
+        },
+        {
+          "term": "Biji",
+          "definition": "Calon tumbuhan baru"
+        },
+        {
+          "term": "Klorofil",
+          "definition": "Zat hijau daun yang menangkap cahaya"
+        },
+        {
+          "term": "Fotosintesis",
+          "definition": "Proses tumbuhan membuat makanan"
+        }
+      ]
+    },
+    {
+      "slug": "pasangan-dasar-5",
+      "type": "memory",
+      "title": "Sumber dan Manfaat Energi",
+      "stage": "primary",
+      "items": [
+        {
+          "term": "Matahari",
+          "definition": "Sumber energi cahaya dan panas"
+        },
+        {
+          "term": "Angin",
+          "definition": "Dapat menggerakkan kincir angin"
+        },
+        {
+          "term": "Air mengalir",
+          "definition": "Dapat memutar turbin pembangkit listrik"
+        },
+        {
+          "term": "Baterai",
+          "definition": "Menyimpan energi listrik untuk alat kecil"
+        },
+        {
+          "term": "Makanan",
+          "definition": "Sumber energi bagi tubuh manusia"
+        },
+        {
+          "term": "Bensin",
+          "definition": "Bahan bakar kendaraan bermotor"
+        },
+        {
+          "term": "Panel surya",
+          "definition": "Mengubah cahaya matahari menjadi listrik"
+        },
+        {
+          "term": "Hemat energi",
+          "definition": "Menggunakan energi seperlunya"
+        }
+      ]
+    },
+    {
+      "slug": "pasangan-dasar-6",
+      "type": "memory",
+      "title": "Konsep Sains Kelas 7",
+      "stage": "secondary",
+      "items": [
+        {
+          "term": "Sel",
+          "definition": "Unit struktural dan fungsional terkecil makhluk hidup"
+        },
+        {
+          "term": "Organisme",
+          "definition": "Makhluk hidup tunggal yang dapat menjalankan fungsi kehidupan"
+        },
+        {
+          "term": "Populasi",
+          "definition": "Kumpulan makhluk hidup sejenis di tempat dan waktu tertentu"
+        },
+        {
+          "term": "Ekosistem",
+          "definition": "Interaksi makhluk hidup dengan lingkungannya"
+        },
+        {
+          "term": "Massa",
+          "definition": "Ukuran banyaknya materi dalam benda"
+        },
+        {
+          "term": "Gaya",
+          "definition": "Tarikan atau dorongan pada benda"
+        },
+        {
+          "term": "Suhu",
+          "definition": "Ukuran derajat panas atau dingin benda"
+        },
+        {
+          "term": "Daur air",
+          "definition": "Peredaran air dari bumi ke atmosfer dan kembali lagi"
+        }
+      ]
+    },
+    {
+      "slug": "word-sd-1",
+      "type": "word",
+      "title": "Susun Kata SD kelas 1",
+      "stage": "primary",
+      "items": [
+        {
+          "term": "BUKU",
+          "definition": "Dibaca untuk mendapat ilmu"
+        },
+        {
+          "term": "PENSIL",
+          "definition": "Alat untuk menulis"
+        },
+        {
+          "term": "SEKOLAH",
+          "definition": "Tempat belajar bersama"
+        },
+        {
+          "term": "TEMAN",
+          "definition": "Orang yang bermain bersama"
+        },
+        {
+          "term": "BELAJAR",
+          "definition": "Kegiatan memperoleh pengetahuan"
+        },
+        {
+          "term": "MEMBACA",
+          "definition": "Kegiatan memahami tulisan"
+        },
+        {
+          "term": "MENULIS",
+          "definition": "Kegiatan membuat kata"
+        },
+        {
+          "term": "CERITA",
+          "definition": "Kisah yang dibaca"
+        },
+        {
+          "term": "GEMBIRA",
+          "definition": "Perasaan senang"
+        },
+        {
+          "term": "BERBAGI",
+          "definition": "Memberikan milik kepada orang lain"
+        }
+      ]
+    },
+    {
+      "slug": "memory-sd-1",
+      "type": "memory",
+      "title": "Pasangan SD kelas 1",
+      "stage": "primary",
+      "items": [
+        {
+          "term": "BUKU",
+          "definition": "Dibaca untuk mendapat ilmu"
+        },
+        {
+          "term": "PENSIL",
+          "definition": "Alat untuk menulis"
+        },
+        {
+          "term": "SEKOLAH",
+          "definition": "Tempat belajar bersama"
+        },
+        {
+          "term": "TEMAN",
+          "definition": "Orang yang bermain bersama"
+        },
+        {
+          "term": "BELAJAR",
+          "definition": "Kegiatan memperoleh pengetahuan"
+        },
+        {
+          "term": "MEMBACA",
+          "definition": "Kegiatan memahami tulisan"
+        },
+        {
+          "term": "MENULIS",
+          "definition": "Kegiatan membuat kata"
+        },
+        {
+          "term": "CERITA",
+          "definition": "Kisah yang dibaca"
+        },
+        {
+          "term": "GEMBIRA",
+          "definition": "Perasaan senang"
+        },
+        {
+          "term": "BERBAGI",
+          "definition": "Memberikan milik kepada orang lain"
+        }
+      ]
+    },
+    {
+      "slug": "word-sd-2",
+      "type": "word",
+      "title": "Susun Kata SD kelas 2",
+      "stage": "primary",
+      "items": [
+        {
+          "term": "FAMILY",
+          "definition": "Keluarga dalam bahasa Inggris"
+        },
+        {
+          "term": "MOTHER",
+          "definition": "Ibu dalam bahasa Inggris"
+        },
+        {
+          "term": "FATHER",
+          "definition": "Ayah dalam bahasa Inggris"
+        },
+        {
+          "term": "SISTER",
+          "definition": "Saudara perempuan"
+        },
+        {
+          "term": "BROTHER",
+          "definition": "Saudara laki-laki"
+        },
+        {
+          "term": "SCHOOL",
+          "definition": "Sekolah dalam bahasa Inggris"
+        },
+        {
+          "term": "TEACHER",
+          "definition": "Orang yang mengajar"
+        },
+        {
+          "term": "STUDENT",
+          "definition": "Orang yang belajar"
+        },
+        {
+          "term": "YELLOW",
+          "definition": "Warna kuning"
+        },
+        {
+          "term": "PURPLE",
+          "definition": "Warna ungu"
+        }
+      ]
+    },
+    {
+      "slug": "memory-sd-2",
+      "type": "memory",
+      "title": "Pasangan SD kelas 2",
+      "stage": "primary",
+      "items": [
+        {
+          "term": "FAMILY",
+          "definition": "Keluarga dalam bahasa Inggris"
+        },
+        {
+          "term": "MOTHER",
+          "definition": "Ibu dalam bahasa Inggris"
+        },
+        {
+          "term": "FATHER",
+          "definition": "Ayah dalam bahasa Inggris"
+        },
+        {
+          "term": "SISTER",
+          "definition": "Saudara perempuan"
+        },
+        {
+          "term": "BROTHER",
+          "definition": "Saudara laki-laki"
+        },
+        {
+          "term": "SCHOOL",
+          "definition": "Sekolah dalam bahasa Inggris"
+        },
+        {
+          "term": "TEACHER",
+          "definition": "Orang yang mengajar"
+        },
+        {
+          "term": "STUDENT",
+          "definition": "Orang yang belajar"
+        },
+        {
+          "term": "YELLOW",
+          "definition": "Warna kuning"
+        },
+        {
+          "term": "PURPLE",
+          "definition": "Warna ungu"
+        }
+      ]
+    },
+    {
+      "slug": "word-sd-3",
+      "type": "word",
+      "title": "Susun Kata SD kelas 3",
+      "stage": "primary",
+      "items": [
+        {
+          "term": "TUMBUH",
+          "definition": "Bertambah ukuran"
+        },
+        {
+          "term": "BERNAPAS",
+          "definition": "Mengambil oksigen"
+        },
+        {
+          "term": "AKAR",
+          "definition": "Menyerap air dari tanah"
+        },
+        {
+          "term": "BATANG",
+          "definition": "Menopang tumbuhan"
+        },
+        {
+          "term": "DAUN",
+          "definition": "Tempat fotosintesis"
+        },
+        {
+          "term": "BUNGA",
+          "definition": "Alat perkembangbiakan tumbuhan"
+        },
+        {
+          "term": "HEWAN",
+          "definition": "Makhluk hidup yang bergerak"
+        },
+        {
+          "term": "HABITAT",
+          "definition": "Tempat hidup alami"
+        },
+        {
+          "term": "MAKANAN",
+          "definition": "Sumber energi makhluk hidup"
+        },
+        {
+          "term": "LINGKUNGAN",
+          "definition": "Segala sesuatu di sekitar kita"
+        }
+      ]
+    },
+    {
+      "slug": "memory-sd-3",
+      "type": "memory",
+      "title": "Pasangan SD kelas 3",
+      "stage": "primary",
+      "items": [
+        {
+          "term": "TUMBUH",
+          "definition": "Bertambah ukuran"
+        },
+        {
+          "term": "BERNAPAS",
+          "definition": "Mengambil oksigen"
+        },
+        {
+          "term": "AKAR",
+          "definition": "Menyerap air dari tanah"
+        },
+        {
+          "term": "BATANG",
+          "definition": "Menopang tumbuhan"
+        },
+        {
+          "term": "DAUN",
+          "definition": "Tempat fotosintesis"
+        },
+        {
+          "term": "BUNGA",
+          "definition": "Alat perkembangbiakan tumbuhan"
+        },
+        {
+          "term": "HEWAN",
+          "definition": "Makhluk hidup yang bergerak"
+        },
+        {
+          "term": "HABITAT",
+          "definition": "Tempat hidup alami"
+        },
+        {
+          "term": "MAKANAN",
+          "definition": "Sumber energi makhluk hidup"
+        },
+        {
+          "term": "LINGKUNGAN",
+          "definition": "Segala sesuatu di sekitar kita"
+        }
+      ]
+    },
+    {
+      "slug": "word-sd-4",
+      "type": "word",
+      "title": "Susun Kata SD kelas 4",
+      "stage": "primary",
+      "items": [
+        {
+          "term": "PECAHAN",
+          "definition": "Bagian dari keseluruhan"
+        },
+        {
+          "term": "PENYEBUT",
+          "definition": "Angka bawah pecahan"
+        },
+        {
+          "term": "PEMBILANG",
+          "definition": "Angka atas pecahan"
+        },
+        {
+          "term": "KELILING",
+          "definition": "Jumlah panjang sisi"
+        },
+        {
+          "term": "LUAS",
+          "definition": "Ukuran permukaan"
+        },
+        {
+          "term": "SEJAJAR",
+          "definition": "Dua garis yang tidak berpotongan"
+        },
+        {
+          "term": "SUDUT",
+          "definition": "Daerah pertemuan dua garis"
+        },
+        {
+          "term": "DESIMAL",
+          "definition": "Bilangan memakai tanda koma"
+        },
+        {
+          "term": "PERSEN",
+          "definition": "Pecahan per seratus"
+        },
+        {
+          "term": "DIAMETER",
+          "definition": "Dua kali jari-jari"
+        }
+      ]
+    },
+    {
+      "slug": "memory-sd-4",
+      "type": "memory",
+      "title": "Pasangan SD kelas 4",
+      "stage": "primary",
+      "items": [
+        {
+          "term": "PECAHAN",
+          "definition": "Bagian dari keseluruhan"
+        },
+        {
+          "term": "PENYEBUT",
+          "definition": "Angka bawah pecahan"
+        },
+        {
+          "term": "PEMBILANG",
+          "definition": "Angka atas pecahan"
+        },
+        {
+          "term": "KELILING",
+          "definition": "Jumlah panjang sisi"
+        },
+        {
+          "term": "LUAS",
+          "definition": "Ukuran permukaan"
+        },
+        {
+          "term": "SEJAJAR",
+          "definition": "Dua garis yang tidak berpotongan"
+        },
+        {
+          "term": "SUDUT",
+          "definition": "Daerah pertemuan dua garis"
+        },
+        {
+          "term": "DESIMAL",
+          "definition": "Bilangan memakai tanda koma"
+        },
+        {
+          "term": "PERSEN",
+          "definition": "Pecahan per seratus"
+        },
+        {
+          "term": "DIAMETER",
+          "definition": "Dua kali jari-jari"
+        }
+      ]
+    },
+    {
+      "slug": "word-sd-5",
+      "type": "word",
+      "title": "Susun Kata SD kelas 5",
+      "stage": "primary",
+      "items": [
+        {
+          "term": "ENERGI",
+          "definition": "Kemampuan melakukan kerja"
+        },
+        {
+          "term": "GRAVITASI",
+          "definition": "Gaya tarik bumi"
+        },
+        {
+          "term": "EKOSISTEM",
+          "definition": "Hubungan makhluk hidup dan lingkungan"
+        },
+        {
+          "term": "ADAPTASI",
+          "definition": "Penyesuaian diri"
+        },
+        {
+          "term": "KONDUKTOR",
+          "definition": "Penghantar panas yang baik"
+        },
+        {
+          "term": "ISOLATOR",
+          "definition": "Penghambat panas"
+        },
+        {
+          "term": "EVAPORASI",
+          "definition": "Perubahan cair menjadi gas"
+        },
+        {
+          "term": "KONDENSASI",
+          "definition": "Perubahan gas menjadi cair"
+        },
+        {
+          "term": "ORGAN",
+          "definition": "Bagian tubuh dengan fungsi khusus"
+        },
+        {
+          "term": "JARINGAN",
+          "definition": "Kumpulan sel sejenis"
+        }
+      ]
+    },
+    {
+      "slug": "memory-sd-5",
+      "type": "memory",
+      "title": "Pasangan SD kelas 5",
+      "stage": "primary",
+      "items": [
+        {
+          "term": "ENERGI",
+          "definition": "Kemampuan melakukan kerja"
+        },
+        {
+          "term": "GRAVITASI",
+          "definition": "Gaya tarik bumi"
+        },
+        {
+          "term": "EKOSISTEM",
+          "definition": "Hubungan makhluk hidup dan lingkungan"
+        },
+        {
+          "term": "ADAPTASI",
+          "definition": "Penyesuaian diri"
+        },
+        {
+          "term": "KONDUKTOR",
+          "definition": "Penghantar panas yang baik"
+        },
+        {
+          "term": "ISOLATOR",
+          "definition": "Penghambat panas"
+        },
+        {
+          "term": "EVAPORASI",
+          "definition": "Perubahan cair menjadi gas"
+        },
+        {
+          "term": "KONDENSASI",
+          "definition": "Perubahan gas menjadi cair"
+        },
+        {
+          "term": "ORGAN",
+          "definition": "Bagian tubuh dengan fungsi khusus"
+        },
+        {
+          "term": "JARINGAN",
+          "definition": "Kumpulan sel sejenis"
+        }
+      ]
+    },
+    {
+      "slug": "word-sd-6",
+      "type": "word",
+      "title": "Susun Kata SD kelas 6",
+      "stage": "primary",
+      "items": [
+        {
+          "term": "ALGORITMA",
+          "definition": "Urutan langkah pemecahan masalah"
+        },
+        {
+          "term": "INTERNET",
+          "definition": "Jaringan global"
+        },
+        {
+          "term": "PERANGKAT",
+          "definition": "Alat fisik komputer"
+        },
+        {
+          "term": "PROGRAM",
+          "definition": "Kumpulan instruksi komputer"
+        },
+        {
+          "term": "DATA",
+          "definition": "Fakta yang dapat diolah"
+        },
+        {
+          "term": "PRIVASI",
+          "definition": "Perlindungan informasi pribadi"
+        },
+        {
+          "term": "SANDI",
+          "definition": "Kunci untuk masuk akun"
+        },
+        {
+          "term": "PHISHING",
+          "definition": "Penipuan melalui pesan palsu"
+        },
+        {
+          "term": "DEKOMPOSISI",
+          "definition": "Memecah masalah besar"
+        },
+        {
+          "term": "DEBUGGING",
+          "definition": "Mencari kesalahan program"
+        }
+      ]
+    },
+    {
+      "slug": "memory-sd-6",
+      "type": "memory",
+      "title": "Pasangan SD kelas 6",
+      "stage": "primary",
+      "items": [
+        {
+          "term": "ALGORITMA",
+          "definition": "Urutan langkah pemecahan masalah"
+        },
+        {
+          "term": "INTERNET",
+          "definition": "Jaringan global"
+        },
+        {
+          "term": "PERANGKAT",
+          "definition": "Alat fisik komputer"
+        },
+        {
+          "term": "PROGRAM",
+          "definition": "Kumpulan instruksi komputer"
+        },
+        {
+          "term": "DATA",
+          "definition": "Fakta yang dapat diolah"
+        },
+        {
+          "term": "PRIVASI",
+          "definition": "Perlindungan informasi pribadi"
+        },
+        {
+          "term": "SANDI",
+          "definition": "Kunci untuk masuk akun"
+        },
+        {
+          "term": "PHISHING",
+          "definition": "Penipuan melalui pesan palsu"
+        },
+        {
+          "term": "DEKOMPOSISI",
+          "definition": "Memecah masalah besar"
+        },
+        {
+          "term": "DEBUGGING",
+          "definition": "Mencari kesalahan program"
+        }
+      ]
+    },
+    {
+      "slug": "word-smp-1",
+      "type": "word",
+      "title": "Susun Kata SMP kelas 1",
+      "stage": "secondary",
+      "items": [
+        {
+          "term": "POPULASI",
+          "definition": "Organisme sejenis di satu tempat"
+        },
+        {
+          "term": "KOMUNITAS",
+          "definition": "Kumpulan berbagai populasi"
+        },
+        {
+          "term": "BIOTIK",
+          "definition": "Komponen hidup"
+        },
+        {
+          "term": "ABIOTIK",
+          "definition": "Komponen tak hidup"
+        },
+        {
+          "term": "PRODUSEN",
+          "definition": "Pembuat makanan sendiri"
+        },
+        {
+          "term": "KONSUMEN",
+          "definition": "Pemakan organisme lain"
+        },
+        {
+          "term": "DEKOMPOSER",
+          "definition": "Pengurai sisa makhluk hidup"
+        },
+        {
+          "term": "KLASIFIKASI",
+          "definition": "Pengelompokan berdasarkan ciri"
+        },
+        {
+          "term": "SIMBIOSIS",
+          "definition": "Hubungan erat antarorganisme"
+        },
+        {
+          "term": "ORGANISME",
+          "definition": "Individu makhluk hidup"
+        }
+      ]
+    },
+    {
+      "slug": "memory-smp-1",
+      "type": "memory",
+      "title": "Pasangan SMP kelas 1",
+      "stage": "secondary",
+      "items": [
+        {
+          "term": "POPULASI",
+          "definition": "Organisme sejenis di satu tempat"
+        },
+        {
+          "term": "KOMUNITAS",
+          "definition": "Kumpulan berbagai populasi"
+        },
+        {
+          "term": "BIOTIK",
+          "definition": "Komponen hidup"
+        },
+        {
+          "term": "ABIOTIK",
+          "definition": "Komponen tak hidup"
+        },
+        {
+          "term": "PRODUSEN",
+          "definition": "Pembuat makanan sendiri"
+        },
+        {
+          "term": "KONSUMEN",
+          "definition": "Pemakan organisme lain"
+        },
+        {
+          "term": "DEKOMPOSER",
+          "definition": "Pengurai sisa makhluk hidup"
+        },
+        {
+          "term": "KLASIFIKASI",
+          "definition": "Pengelompokan berdasarkan ciri"
+        },
+        {
+          "term": "SIMBIOSIS",
+          "definition": "Hubungan erat antarorganisme"
+        },
+        {
+          "term": "ORGANISME",
+          "definition": "Individu makhluk hidup"
+        }
+      ]
+    },
+    {
+      "slug": "word-smp-2",
+      "type": "word",
+      "title": "Susun Kata SMP kelas 2",
+      "stage": "secondary",
+      "items": [
+        {
+          "term": "VARIABEL",
+          "definition": "Huruf pengganti nilai"
+        },
+        {
+          "term": "KOEFISIEN",
+          "definition": "Bilangan pengali variabel"
+        },
+        {
+          "term": "KONSTANTA",
+          "definition": "Bilangan tanpa variabel"
+        },
+        {
+          "term": "PERSAMAAN",
+          "definition": "Kalimat matematika dengan tanda sama"
+        },
+        {
+          "term": "FUNGSI",
+          "definition": "Relasi satu input satu output"
+        },
+        {
+          "term": "DOMAIN",
+          "definition": "Himpunan masukan"
+        },
+        {
+          "term": "RANGE",
+          "definition": "Himpunan keluaran"
+        },
+        {
+          "term": "GRADIEN",
+          "definition": "Kemiringan garis"
+        },
+        {
+          "term": "RELASI",
+          "definition": "Hubungan dua himpunan"
+        },
+        {
+          "term": "PYTHAGORAS",
+          "definition": "Teorema segitiga siku-siku"
+        }
+      ]
+    },
+    {
+      "slug": "memory-smp-2",
+      "type": "memory",
+      "title": "Pasangan SMP kelas 2",
+      "stage": "secondary",
+      "items": [
+        {
+          "term": "VARIABEL",
+          "definition": "Huruf pengganti nilai"
+        },
+        {
+          "term": "KOEFISIEN",
+          "definition": "Bilangan pengali variabel"
+        },
+        {
+          "term": "KONSTANTA",
+          "definition": "Bilangan tanpa variabel"
+        },
+        {
+          "term": "PERSAMAAN",
+          "definition": "Kalimat matematika dengan tanda sama"
+        },
+        {
+          "term": "FUNGSI",
+          "definition": "Relasi satu input satu output"
+        },
+        {
+          "term": "DOMAIN",
+          "definition": "Himpunan masukan"
+        },
+        {
+          "term": "RANGE",
+          "definition": "Himpunan keluaran"
+        },
+        {
+          "term": "GRADIEN",
+          "definition": "Kemiringan garis"
+        },
+        {
+          "term": "RELASI",
+          "definition": "Hubungan dua himpunan"
+        },
+        {
+          "term": "PYTHAGORAS",
+          "definition": "Teorema segitiga siku-siku"
+        }
+      ]
+    },
+    {
+      "slug": "word-smp-3",
+      "type": "word",
+      "title": "Susun Kata SMP kelas 3",
+      "stage": "secondary",
+      "items": [
+        {
+          "term": "CONGRATULATIONS",
+          "definition": "Ungkapan memberi selamat"
+        },
+        {
+          "term": "ENVIRONMENT",
+          "definition": "Lingkungan dalam bahasa Inggris"
+        },
+        {
+          "term": "PRESERVE",
+          "definition": "Melindungi agar tetap baik"
+        },
+        {
+          "term": "NARRATIVE",
+          "definition": "Teks cerita yang menghibur"
+        },
+        {
+          "term": "PROCEDURE",
+          "definition": "Teks berisi langkah"
+        },
+        {
+          "term": "PASSIVE",
+          "definition": "Kalimat yang menekankan penerima aksi"
+        },
+        {
+          "term": "CONCLUSION",
+          "definition": "Bagian akhir rangkuman"
+        },
+        {
+          "term": "SUGGESTION",
+          "definition": "Ungkapan memberi saran"
+        },
+        {
+          "term": "AGREEMENT",
+          "definition": "Ungkapan menyatakan setuju"
+        },
+        {
+          "term": "EXPRESSION",
+          "definition": "Ungkapan dalam bahasa Inggris"
+        }
+      ]
+    },
+    {
+      "slug": "memory-smp-3",
+      "type": "memory",
+      "title": "Pasangan SMP kelas 3",
+      "stage": "secondary",
+      "items": [
+        {
+          "term": "CONGRATULATIONS",
+          "definition": "Ungkapan memberi selamat"
+        },
+        {
+          "term": "ENVIRONMENT",
+          "definition": "Lingkungan dalam bahasa Inggris"
+        },
+        {
+          "term": "PRESERVE",
+          "definition": "Melindungi agar tetap baik"
+        },
+        {
+          "term": "NARRATIVE",
+          "definition": "Teks cerita yang menghibur"
+        },
+        {
+          "term": "PROCEDURE",
+          "definition": "Teks berisi langkah"
+        },
+        {
+          "term": "PASSIVE",
+          "definition": "Kalimat yang menekankan penerima aksi"
+        },
+        {
+          "term": "CONCLUSION",
+          "definition": "Bagian akhir rangkuman"
+        },
+        {
+          "term": "SUGGESTION",
+          "definition": "Ungkapan memberi saran"
+        },
+        {
+          "term": "AGREEMENT",
+          "definition": "Ungkapan menyatakan setuju"
+        },
+        {
+          "term": "EXPRESSION",
+          "definition": "Ungkapan dalam bahasa Inggris"
+        }
+      ]
+    },
+    {
+      "slug": "hitung-1",
+      "type": "math",
+      "title": "Hitung Cepat 1: Pemanasan",
+      "stage": "primary",
+      "level": 1,
+      "duration": 60,
+      "operators": [
+        "+"
+      ],
+      "max": 10
+    },
+    {
+      "slug": "hitung-2",
+      "type": "math",
+      "title": "Hitung Cepat 2: Pelari Angka",
+      "stage": "primary",
+      "level": 2,
+      "duration": 60,
+      "operators": [
+        "+",
+        "-"
+      ],
+      "max": 20
+    },
+    {
+      "slug": "hitung-3",
+      "type": "math",
+      "title": "Hitung Cepat 3: Penakluk Puluhan",
+      "stage": "primary",
+      "level": 3,
+      "duration": 60,
+      "operators": [
+        "+",
+        "-"
+      ],
+      "max": 50
+    },
+    {
+      "slug": "hitung-4",
+      "type": "math",
+      "title": "Hitung Cepat 4: Master Perkalian",
+      "stage": "primary",
+      "level": 4,
+      "duration": 60,
+      "operators": [
+        "*"
+      ],
+      "max": 10
+    },
+    {
+      "slug": "hitung-5",
+      "type": "math",
+      "title": "Hitung Cepat 5: Pembagi Andal",
+      "stage": "primary",
+      "level": 5,
+      "duration": 65,
+      "operators": [
+        "/"
+      ],
+      "max": 100
+    },
+    {
+      "slug": "hitung-6",
+      "type": "math",
+      "title": "Hitung Cepat 6: Operasi Campuran",
+      "stage": "secondary",
+      "level": 6,
+      "duration": 75,
+      "operators": [
+        "+",
+        "-",
+        "*",
+        "/"
+      ],
+      "max": 50
+    },
+    {
+      "slug": "hitung-7",
+      "type": "math",
+      "title": "Hitung Cepat 7: Arena Ratusan",
+      "stage": "secondary",
+      "level": 7,
+      "duration": 75,
+      "operators": [
+        "+",
+        "-"
+      ],
+      "max": 500
+    },
+    {
+      "slug": "hitung-8",
+      "type": "math",
+      "title": "Hitung Cepat 8: Grandmaster",
+      "stage": "secondary",
+      "level": 8,
+      "duration": 90,
+      "operators": [
+        "+",
+        "-",
+        "*",
+        "/"
+      ],
+      "max": 1000
+    }
+  ]
+}

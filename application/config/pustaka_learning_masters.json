@@ -1,0 +1,508 @@
+{
+  "version": 1,
+  "source": "Pustaka local database, read-only master snapshot 2026-10-17. No users, questions, progress or transactions.",
+  "subjects": [
+    {
+      "id": "1",
+      "code": "matematika",
+      "name": "Matematika",
+      "sort_order": "1"
+    },
+    {
+      "id": "38",
+      "code": "paud_terpadu",
+      "name": "PAUD Terpadu",
+      "sort_order": "1"
+    },
+    {
+      "id": "2",
+      "code": "bahasa_indonesia",
+      "name": "Bahasa Indonesia",
+      "sort_order": "2"
+    },
+    {
+      "id": "3",
+      "code": "bahasa_inggris",
+      "name": "Bahasa Inggris",
+      "sort_order": "3"
+    },
+    {
+      "id": "4",
+      "code": "ipa",
+      "name": "IPA / Sains",
+      "sort_order": "4"
+    },
+    {
+      "id": "5",
+      "code": "ips",
+      "name": "IPS / Sosial",
+      "sort_order": "5"
+    },
+    {
+      "id": "39",
+      "code": "ipas",
+      "name": "IPAS",
+      "sort_order": "5"
+    },
+    {
+      "id": "6",
+      "code": "ppkn",
+      "name": "Pendidikan Pancasila",
+      "sort_order": "6"
+    },
+    {
+      "id": "7",
+      "code": "agama",
+      "name": "Pendidikan Agama",
+      "sort_order": "7"
+    },
+    {
+      "id": "8",
+      "code": "seni_budaya",
+      "name": "Seni Budaya",
+      "sort_order": "8"
+    },
+    {
+      "id": "9",
+      "code": "penjaskes",
+      "name": "PJOK",
+      "sort_order": "9"
+    },
+    {
+      "id": "10",
+      "code": "tik",
+      "name": "Informatika",
+      "sort_order": "10"
+    },
+    {
+      "id": "11",
+      "code": "sejarah",
+      "name": "Sejarah",
+      "sort_order": "11"
+    },
+    {
+      "id": "12",
+      "code": "geografi",
+      "name": "Geografi",
+      "sort_order": "12"
+    },
+    {
+      "id": "13",
+      "code": "ekonomi",
+      "name": "Ekonomi",
+      "sort_order": "13"
+    },
+    {
+      "id": "14",
+      "code": "biologi",
+      "name": "Biologi",
+      "sort_order": "14"
+    },
+    {
+      "id": "15",
+      "code": "fisika",
+      "name": "Fisika",
+      "sort_order": "15"
+    },
+    {
+      "id": "16",
+      "code": "kimia",
+      "name": "Kimia",
+      "sort_order": "16"
+    },
+    {
+      "id": "17",
+      "code": "logika",
+      "name": "Logika & Berpikir Kritis",
+      "sort_order": "17"
+    },
+    {
+      "id": "18",
+      "code": "umum",
+      "name": "Umum / Campuran",
+      "sort_order": "18"
+    }
+  ],
+  "grades": [
+    {
+      "id": "1",
+      "code": "tk_a",
+      "name": "TK – Kelompok A",
+      "education_level": "tk",
+      "grade_number": null,
+      "sort_order": "1"
+    },
+    {
+      "id": "2",
+      "code": "tk_b",
+      "name": "TK – Kelompok B",
+      "education_level": "tk",
+      "grade_number": null,
+      "sort_order": "2"
+    },
+    {
+      "id": "3",
+      "code": "sd_1",
+      "name": "SD Kelas 1",
+      "education_level": "sd",
+      "grade_number": "1",
+      "sort_order": "3"
+    },
+    {
+      "id": "4",
+      "code": "sd_2",
+      "name": "SD Kelas 2",
+      "education_level": "sd",
+      "grade_number": "2",
+      "sort_order": "4"
+    },
+    {
+      "id": "5",
+      "code": "sd_3",
+      "name": "SD Kelas 3",
+      "education_level": "sd",
+      "grade_number": "3",
+      "sort_order": "5"
+    },
+    {
+      "id": "6",
+      "code": "sd_4",
+      "name": "SD Kelas 4",
+      "education_level": "sd",
+      "grade_number": "4",
+      "sort_order": "6"
+    },
+    {
+      "id": "7",
+      "code": "sd_5",
+      "name": "SD Kelas 5",
+      "education_level": "sd",
+      "grade_number": "5",
+      "sort_order": "7"
+    },
+    {
+      "id": "8",
+      "code": "sd_6",
+      "name": "SD Kelas 6",
+      "education_level": "sd",
+      "grade_number": "6",
+      "sort_order": "8"
+    },
+    {
+      "id": "9",
+      "code": "smp_7",
+      "name": "SMP Kelas 7",
+      "education_level": "smp",
+      "grade_number": "7",
+      "sort_order": "9"
+    },
+    {
+      "id": "10",
+      "code": "smp_8",
+      "name": "SMP Kelas 8",
+      "education_level": "smp",
+      "grade_number": "8",
+      "sort_order": "10"
+    },
+    {
+      "id": "11",
+      "code": "smp_9",
+      "name": "SMP Kelas 9",
+      "education_level": "smp",
+      "grade_number": "9",
+      "sort_order": "11"
+    }
+  ],
+  "game_categories": [
+    {
+      "id": "1",
+      "game_code": "memory_match",
+      "name": "Hewan dan Suaranya",
+      "description": "Mencocokkan hewan dengan bunyi yang dikenalnya.",
+      "subject_code": "paud_terpadu",
+      "grade_code": "tk_b",
+      "game_type": "memory",
+      "pack_slug": "pasangan-dasar-1"
+    },
+    {
+      "id": "2",
+      "game_code": "memory_match",
+      "name": "Kosakata Sehari-hari",
+      "description": "Mencocokkan kata dengan makna sederhana.",
+      "subject_code": "bahasa_indonesia",
+      "grade_code": "sd_1",
+      "game_type": "memory",
+      "pack_slug": "pasangan-dasar-2"
+    },
+    {
+      "id": "3",
+      "game_code": "memory_match",
+      "name": "Berhitung Dasar",
+      "description": "Mencocokkan operasi hitung dengan hasilnya.",
+      "subject_code": "matematika",
+      "grade_code": "sd_2",
+      "game_type": "memory",
+      "pack_slug": "pasangan-dasar-3"
+    },
+    {
+      "id": "4",
+      "game_code": "memory_match",
+      "name": "Bagian Tumbuhan",
+      "description": "Mencocokkan bagian tumbuhan dengan fungsinya.",
+      "subject_code": "ipas",
+      "grade_code": "sd_3",
+      "game_type": "memory",
+      "pack_slug": "pasangan-dasar-4"
+    },
+    {
+      "id": "5",
+      "game_code": "memory_match",
+      "name": "Energi di Sekitar Kita",
+      "description": "Mencocokkan sumber energi dengan pemanfaatannya.",
+      "subject_code": "ipas",
+      "grade_code": "sd_4",
+      "game_type": "memory",
+      "pack_slug": "pasangan-dasar-5"
+    },
+    {
+      "id": "6",
+      "game_code": "memory_match",
+      "name": "Sains Dasar",
+      "description": "Mencocokkan konsep sains dengan pengertiannya.",
+      "subject_code": "ipa",
+      "grade_code": "smp_7",
+      "game_type": "memory",
+      "pack_slug": "pasangan-dasar-6"
+    },
+    {
+      "id": "7",
+      "game_code": "word_scramble",
+      "name": "Kata Benda Anak",
+      "description": "Menyusun kata benda sederhana di sekitar anak.",
+      "subject_code": "paud_terpadu",
+      "grade_code": "tk_b",
+      "game_type": "word",
+      "pack_slug": "kata-dasar-1"
+    },
+    {
+      "id": "8",
+      "game_code": "word_scramble",
+      "name": "Kosakata Sekolah",
+      "description": "Menyusun kosakata yang sering dipakai di sekolah.",
+      "subject_code": "bahasa_indonesia",
+      "grade_code": "sd_1",
+      "game_type": "word",
+      "pack_slug": "kata-dasar-2"
+    },
+    {
+      "id": "9",
+      "game_code": "word_scramble",
+      "name": "Istilah Matematika Dasar",
+      "description": "Menyusun istilah matematika sederhana.",
+      "subject_code": "matematika",
+      "grade_code": "sd_2",
+      "game_type": "word",
+      "pack_slug": "kata-dasar-3"
+    },
+    {
+      "id": "10",
+      "game_code": "word_scramble",
+      "name": "Alam dan Tumbuhan",
+      "description": "Menyusun kosakata IPAS tentang alam dan tumbuhan.",
+      "subject_code": "ipas",
+      "grade_code": "sd_3",
+      "game_type": "word",
+      "pack_slug": "kata-dasar-4"
+    },
+    {
+      "id": "11",
+      "game_code": "word_scramble",
+      "name": "Istilah Sains Kelas 7",
+      "description": "Menyusun istilah sains dasar dengan petunjuk singkat.",
+      "subject_code": "ipa",
+      "grade_code": "smp_7",
+      "game_type": "word",
+      "pack_slug": "kata-dasar-5"
+    },
+    {
+      "id": "12",
+      "game_code": "word_scramble",
+      "name": "Susun Kata — SD Kelas 1",
+      "description": "Kosakata terkurasi untuk SD Kelas 1.",
+      "subject_code": "bahasa_indonesia",
+      "grade_code": "sd_1",
+      "game_type": "word",
+      "pack_slug": "word-sd-1"
+    },
+    {
+      "id": "13",
+      "game_code": "word_scramble",
+      "name": "Susun Kata — SD Kelas 2",
+      "description": "Kosakata terkurasi untuk SD Kelas 2.",
+      "subject_code": "bahasa_inggris",
+      "grade_code": "sd_2",
+      "game_type": "word",
+      "pack_slug": "word-sd-2"
+    },
+    {
+      "id": "14",
+      "game_code": "word_scramble",
+      "name": "Susun Kata — SD Kelas 3",
+      "description": "Kosakata terkurasi untuk SD Kelas 3.",
+      "subject_code": "ipas",
+      "grade_code": "sd_3",
+      "game_type": "word",
+      "pack_slug": "word-sd-3"
+    },
+    {
+      "id": "15",
+      "game_code": "word_scramble",
+      "name": "Susun Kata — SD Kelas 4",
+      "description": "Kosakata terkurasi untuk SD Kelas 4.",
+      "subject_code": "matematika",
+      "grade_code": "sd_4",
+      "game_type": "word",
+      "pack_slug": "word-sd-4"
+    },
+    {
+      "id": "16",
+      "game_code": "word_scramble",
+      "name": "Susun Kata — SD Kelas 5",
+      "description": "Kosakata terkurasi untuk SD Kelas 5.",
+      "subject_code": "ipa",
+      "grade_code": "sd_5",
+      "game_type": "word",
+      "pack_slug": "word-sd-5"
+    },
+    {
+      "id": "17",
+      "game_code": "word_scramble",
+      "name": "Susun Kata — SD Kelas 6",
+      "description": "Kosakata terkurasi untuk SD Kelas 6.",
+      "subject_code": "tik",
+      "grade_code": "sd_6",
+      "game_type": "word",
+      "pack_slug": "word-sd-6"
+    },
+    {
+      "id": "18",
+      "game_code": "word_scramble",
+      "name": "Susun Kata — SMP Kelas 7",
+      "description": "Kosakata terkurasi untuk SMP Kelas 7.",
+      "subject_code": "ipa",
+      "grade_code": "smp_7",
+      "game_type": "word",
+      "pack_slug": "word-smp-1"
+    },
+    {
+      "id": "19",
+      "game_code": "word_scramble",
+      "name": "Susun Kata — SMP Kelas 8",
+      "description": "Kosakata terkurasi untuk SMP Kelas 8.",
+      "subject_code": "matematika",
+      "grade_code": "smp_8",
+      "game_type": "word",
+      "pack_slug": "word-smp-2"
+    },
+    {
+      "id": "20",
+      "game_code": "word_scramble",
+      "name": "Susun Kata — SMP Kelas 9",
+      "description": "Kosakata terkurasi untuk SMP Kelas 9.",
+      "subject_code": "bahasa_inggris",
+      "grade_code": "smp_9",
+      "game_type": "word",
+      "pack_slug": "word-smp-3"
+    },
+    {
+      "id": "24",
+      "game_code": "memory_match",
+      "name": "Memory — SD Kelas 1",
+      "description": "Cocokkan istilah dan pengertian untuk SD Kelas 1.",
+      "subject_code": "bahasa_indonesia",
+      "grade_code": "sd_1",
+      "game_type": "memory",
+      "pack_slug": "memory-sd-1"
+    },
+    {
+      "id": "25",
+      "game_code": "memory_match",
+      "name": "Memory — SD Kelas 2",
+      "description": "Cocokkan istilah dan pengertian untuk SD Kelas 2.",
+      "subject_code": "bahasa_inggris",
+      "grade_code": "sd_2",
+      "game_type": "memory",
+      "pack_slug": "memory-sd-2"
+    },
+    {
+      "id": "26",
+      "game_code": "memory_match",
+      "name": "Memory — SD Kelas 3",
+      "description": "Cocokkan istilah dan pengertian untuk SD Kelas 3.",
+      "subject_code": "ipas",
+      "grade_code": "sd_3",
+      "game_type": "memory",
+      "pack_slug": "memory-sd-3"
+    },
+    {
+      "id": "27",
+      "game_code": "memory_match",
+      "name": "Memory — SD Kelas 4",
+      "description": "Cocokkan istilah dan pengertian untuk SD Kelas 4.",
+      "subject_code": "matematika",
+      "grade_code": "sd_4",
+      "game_type": "memory",
+      "pack_slug": "memory-sd-4"
+    },
+    {
+      "id": "28",
+      "game_code": "memory_match",
+      "name": "Memory — SD Kelas 5",
+      "description": "Cocokkan istilah dan pengertian untuk SD Kelas 5.",
+      "subject_code": "ipa",
+      "grade_code": "sd_5",
+      "game_type": "memory",
+      "pack_slug": "memory-sd-5"
+    },
+    {
+      "id": "29",
+      "game_code": "memory_match",
+      "name": "Memory — SD Kelas 6",
+      "description": "Cocokkan istilah dan pengertian untuk SD Kelas 6.",
+      "subject_code": "tik",
+      "grade_code": "sd_6",
+      "game_type": "memory",
+      "pack_slug": "memory-sd-6"
+    },
+    {
+      "id": "30",
+      "game_code": "memory_match",
+      "name": "Memory — SMP Kelas 7",
+      "description": "Cocokkan istilah dan pengertian untuk SMP Kelas 7.",
+      "subject_code": "ipa",
+      "grade_code": "smp_7",
+      "game_type": "memory",
+      "pack_slug": "memory-smp-1"
+    },
+    {
+      "id": "31",
+      "game_code": "memory_match",
+      "name": "Memory — SMP Kelas 8",
+      "description": "Cocokkan istilah dan pengertian untuk SMP Kelas 8.",
+      "subject_code": "matematika",
+      "grade_code": "smp_8",
+      "game_type": "memory",
+      "pack_slug": "memory-smp-2"
+    },
+    {
+      "id": "32",
+      "game_code": "memory_match",
+      "name": "Memory — SMP Kelas 9",
+      "description": "Cocokkan istilah dan pengertian untuk SMP Kelas 9.",
+      "subject_code": "bahasa_inggris",
+      "grade_code": "smp_9",
+      "game_type": "memory",
+      "pack_slug": "memory-smp-3"
+    }
+  ]
+}

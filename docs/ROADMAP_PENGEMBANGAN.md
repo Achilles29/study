@@ -1,5 +1,335 @@
 # Roadmap Pengembangan Aplikasi Pembelajaran
 
+## Status terkini konten SD — selesai rangkaian061/062 (18 Oktober 2026)
+
+- [x] Rangkaian materi original kelas1–6 (tanpa Agama/muatan lokal) sudah diisi dan **published**:41kursus,332bagian/bab,364pelajaran,734kartu,728soal berpembahasan. Per kelas jumlah pelajaran:62,48,62,64,64,64. Inggris kelas1–2 pengayaan; IPAS mulai kelas3; seni lintas cabang. [Rincian, bukti dan URL](TASK_HANDOVER_SERVER.md#penutupan-rangkaian-materi-kelas16--061062-18-oktober-2026).
+- [x] Semua unit050–062 lulus; audit read-only membandingkan seluruh40kursus baru dengan manifest serta kunci/SHA sumber. QA seluruh batch diuji akses/pratinjau/katalog/sitemap dan desktop/mobile; milestone peserta membaca→kartu→24soal→hasil→rapor lulus, tanpa transaksi atau akun nyata. Filter kelas1–6 produksi200 dan kelas asing400.
+- [x] Checklist penulisan/publikasi rangkaian di bawah diperbarui menurut bukti, bukan berdasarkan jumlah menu. Tidak mereset ID/data; fingerprint22tabel terlindungi tetap sama pada setiap rilis.
+- [ ] **Akses komersial belum diputuskan:** kursus2–41 non-gratis tanpa preview dan belum ditautkan paket jual. Perlu keputusan gratis atau cakupan paket/harga/durasi; published tidak sama dengan bisa dibeli/dibaca seluruh pengguna.
+- [ ] **Batas pedagogis/media:** belum review pendidik independen, belum pemetaan penuh terhadap semua bab buku/ATP sekolah tertentu, belum audio/video/demonstrasi pendamping dan asesmen praktik penuh. Seni merupakan pengayaan lintas cabang; kuis tidak menggantikan praktik PJOK/musik/tari/teater atau pertolongan cedera. Jangan centang seluruh CP atau seluruh roadmap aplikasi hanya karena rangkaian ini tayang.
+
+Bagian batch berikut adalah riwayat. Catatan sisa pekerjaan pada tanggal batch lama dibaca bersama status terkini di atas.
+
+## Materi lanjutan kelas5 — 060 (18 Oktober 2026)
+
+- [x] IPAS/Pancasila/PJOK/seni kelas5:36bab/pelajaran,72kartu,72soal published; kunci/QA/HTTP/akses/desktop/mobile lulus. Total34kursus/300pelajaran; kelas5 lengkap7kursus untuk rangkaian yang ditulis. [Bukti060](TASK_HANDOVER_SERVER.md#materi-lanjutan-kelas5--060-18-oktober-2026).
+- [ ] Kelas6,audit cakupan/media,review pendidik independen serta keputusan akses/paket dilanjutkan; bukan klaim semua CP/praktik tuntas.
+
+## Materi awal kelas5 — 059 (18 Oktober 2026)
+
+- [x] Matematika/Indonesia/Inggris kelas5:28bab/pelajaran,56kartu,56soal original published; validasi kunci,QA/HTTP/akses/desktop/mobile lulus. Total30kursus/264pelajaran. [Bukti059](TASK_HANDOVER_SERVER.md#materi-awal-kelas5--059-18-oktober-2026).
+- [ ] Empat mapel kelas5,kelas6,audit cakupan/media,review pendidik dan keputusan akses/paket masih dilanjutkan.
+
+## Materi lanjutan kelas4 — 058 (18 Oktober 2026)
+
+- [x] IPAS/Pancasila/PJOK/seni kelas4 published:36bab/pelajaran,72kartu,72soal; validasi kunci,QA import/review,HTTP/status/akses,desktop/mobile lulus. Total27kursus/236pelajaran; kelas4 memiliki7kursus/64pelajaran. [Bukti058](TASK_HANDOVER_SERVER.md#materi-lanjutan-kelas4--058-18-oktober-2026).
+- [ ] Kelas5–6,audit cakupan/media,review pendidik independen,keputusan akses/paket belum selesai. Jangan menandai seluruh SD/roadmap selesai.
+
+## Materi awal kelas4 — 057 (18 Oktober 2026)
+
+- [x] Matematika/Indonesia/Inggris kelas4 published:28bab/pelajaran,56kartu,56soal original. Kunci/validasi,QA import/review,HTTP/status/akses dan desktop/mobile lulus. [Bukti057](TASK_HANDOVER_SERVER.md#materi-awal-kelas4--057-18-oktober-2026).
+- [ ] Empat mapel lanjutan kelas4,kelas5–6,audit cakupan/media,review pendidik dan keputusan akses/paket belum selesai. Total23kursus/200pelajaran bukan seluruh kurikulum selesai.
+
+## Materi lanjutan kelas3 — 056 (18 Oktober 2026)
+
+- [x] IPAS/Pancasila/PJOK/seni kelas3 published:36bab/pelajaran,72kartu,72soal original. Validasi/kunci,import/review,seluruh pratinjau,status/akses,desktop/mobile lulus. Total20kursus/172pelajaran; kelas3 mempunyai7kursus dengan62pelajaran. [Bukti056](TASK_HANDOVER_SERVER.md#materi-lanjutan-kelas3--056-18-oktober-2026).
+- [ ] Kelas4–6, audit cakupan akhir, media/demonstrasi yang diperlukan, keputusan akses/paket dan tinjauan pedagogis independen belum selesai. Tidak menyamakan semua kursus published dengan semua kurikulum selesai.
+
+## Materi awal kelas3 — 055 (18 Oktober 2026)
+
+- [x] Matematika/Indonesia/Inggris kelas3 tayang:26bab/26pelajaran/52kartu/52soal original; validasi kunci, QA import/publikasi, HTTP/status/akses dan desktop/mobile/keyboard lulus. [Bukti055](TASK_HANDOVER_SERVER.md#materi-awal-kelas3--055-18-oktober-2026).
+- [ ] IPAS/Pancasila/PJOK/seni kelas3, kelas4–6, pemeriksaan cakupan akhir serta keputusan akses/paket masih tersisa. Total16kursus/136pelajaran bukan seluruh SD selesai.
+
+## Materi kelas2 — 053/054 (18 Oktober 2026)
+
+- [x] Enam kursus kelas2: Matematika, Indonesia, Inggris pengayaan, Pancasila, PJOK dan seni lintas cabang;48bab/48pelajaran/96kartu/96soal original sudah tayang melalui review. Validasi isi/kunci, import/publikasi, hakakses/role, seluruh pratinjau, desktop/mobile/keyboard lulus. [Bukti dan URL053/054](TASK_HANDOVER_SERVER.md#materi-kelas2--053054-18-oktober-2026).
+- [ ] Kelas3–6, pemeriksaan cakupan akhir seluruh CP, kebutuhan media/pendampingan dan keputusan akses/paket belum selesai. Total produksi13kursus/110pelajaran/226kartu/220soal bukan klaim seluruh SD selesai.
+
+## Materi052 (18 Oktober 2026)
+
+- [x] PJOK dan seni kelas1 berisi8bab/16pelajaran/32kartu/32soal telah tayang setelah pemeriksaan isi, validasi, import/review, HTTP dan desktop/mobile. Total7kursus/62pelajaran/130kartu/124soal. [Bukti052](TASK_HANDOVER_SERVER.md#materi-pjok-dan-seni--052-18-oktober-2026).
+- [ ] Materi kelas2–6, pemeriksaan keseluruhan cakupan dan keputusan akses/paket belum selesai. Seni kelas1 adalah pengenalan lintas cabang; bukan klaim seluruh cabang seni satu tahun selesai.
+
+## Materi dan penerbitan051 (18 Oktober 2026)
+
+- [x] Pemilik mengizinkan tayang setelah diperiksa. Batch051 menambah Bahasa Indonesia/Pancasila kelas1:2kursus/8bab/16pelajaran/32kartu/32soal. Batch050+051 diterbitkan viareview resmi dan audit; guard versiusang ditambahkan. Total produksi5kursus/46pelajaran/98kartu/92soal, seluruhnya lingkup kelas1 yang telah ditulis.
+- [x] Validasi/kunci, penolakan publikasi usang/settings-off, rollbackreview, replay, sinkronstatus, akses/CSRF/progresQA, sitemap dan Chrome1280/360 lulus. [Bukti dan batasan051](TASK_HANDOVER_SERVER.md#materi-dan-penerbitan--051-18-oktober-2026).
+- [ ] Cakupan seluruh kelas1 belum selesai: PJOK/seni dan pemeriksaan kelengkapan capaian masih tersisa. Kelas2–6 belum dibuat; jangan menyatakan proyek konten SD selesai.
+- [ ] Materi2–5 tayang di katalog tetapi akses tetapberbayar dan belum tertaut paket aktif. Kebijakan gratis/preview atau paket baru perlu keputusan pemilik; harga/akses paket topik lama tidak otomatis diperluas. Ini tidak menghalangi penulisan materi berikutnya.
+
+## Materi SD kelas1–6 — mulai batch050 (18 Oktober 2026)
+
+- [x] Cakupan pemilik dikonfirmasi: mapel umum termasuk Bahasa Inggris; **Pendidikan Agama dan muatan lokal tidak dibuat**. Materi baru draf, sumber hak tercatat, publikasi melalui review; tidak menetapkan harga baru atau memperluas paket terjual.
+- [x] Batch050 Matematika lanjutan kelas1 dan pengenalan Bahasa Inggris kelas1 telah masuk sebagai2 draf berisi12 bab/24 pelajaran/48 kartu/48 soal berpembahasan. Uji isi/validasi/impor atomik/idempotensi/akses/desktop-mobile lulus. [Bukti dan URL](TASK_HANDOVER_SERVER.md#pengembangan-materi-sd--batch-050-18-oktober-2026).
+- [x] Kelas1: rangkaian Matematika, Indonesia, Pancasila, Inggris pengenalan, PJOK dan seni lintas cabang sudah diisi serta published melalui047/050–052;7kursus/30bagian/62pelajaran termasuk contoh lama. Bukan klaim seluruh cabang seni/semua buku selesai.
+- [x] Kelas2: rangkaian enam mapel053/054 sudah diisi dan published;6kursus/48bagian/48pelajaran, dengan kartu/soal/pembahasan original.
+- [x] Kelas3–4: rangkaian tujuh mapel FaseB055–058 sudah diisi dan published, termasuk IPAS; masing-masing7kursus dengan62 dan64pelajaran.
+- [x] Kelas5–6: rangkaian tujuh mapel FaseC059–062 sudah diisi dan published; masing-masing7kursus/64bagian/64pelajaran. Mapel pilihan tidak diklaim sebagai cakupan wajib.
+- [x] Sumber per kursus tercatat, audit struktur/isi/kunci/status aktual lulus, publikasi atas instruksi pemilik melalui review resmi aplikasi. Urutan bab Project Pintar berbasis panduan fase, bukan salinan buku.
+- [ ] Pemetaan lengkap terhadap buku/ATP yang dipilih, tinjauan pedagogis independen, media/demonstrasi dan penetapan cakupan/harga paket masih terbuka. **Penulisan rangkaian selesai; seluruh cakupan pedagogis/komersial belum.**
+
+## Hierarki teks materi — 049 (18 Oktober 2026)
+
+- [x] Subjudul seluruh materi contoh dibuat tebal dan bertingkat melalui renderer bersama; paragraf, jarak bagian dan kontras dibenahi untuk peserta/pratinjau. Penanda subjudul untuk materi baru dijelaskan pada form. Tanpa mengubah data isi atau progres.
+- [x] Lint, preservasi isi6 materi, escaping HTML, pratinjau desktop/mobile dan navigasi keyboard lulus. [Bukti dan URL049](TASK_HANDOVER_SERVER.md#hierarki-teks-materi--049-18-oktober-2026).
+
+## Filter kelas dan perapian kursus — 048 (18 Oktober 2026)
+
+- [x] Penyebab review sendiri tertahan dijelaskan pada kursus dengan langkah pengaturan/checklist; tidak menerbitkan otomatis atau melewati aturan review.
+- [x] Kelas kursus tersimpan melalui FK master existing, contoh bilangan1–20 terpetakan SD1. Filter TK–SMA/lintas kelas pada katalog/pengelola kursus, master mapel, Arena pengelola dan8 daftar game. Pemilih kursus dalam paket memiliki filter tanpa kehilangan pilihan. Kelas belum ditentukan tidak ditebak.
+- [x] Tombol kursus/materi/soal/kartu/gambar/susunan tidak lagi pill; teks membungkus dan target sentuh dipertahankan. Kondisi kosong filter Inggris diperbaiki.
+- [x] QA validasi/izin/CSRF/rollback/filter/pagination/pilihan paket/review dan Chrome1280/360 lulus; publik produksi berfilter200 dan kelas asing400, status kursus tetapreview. Skema43/68 tabel; pembayaran dan progres tidak berubah. [Bukti dan panduan048](TASK_HANDOVER_SERVER.md#filter-kelas-petunjuk-review-dan-tombol-kursus--048-18-oktober-2026).
+
+## Contoh materi kelas 1 — 047 (18 Oktober 2026)
+
+- [x] Satu topik lengkap **Mengenal Bilangan 1–20** tersedia sebagai draft produksi: dua bagian/enam pelajaran, enam diagram hitung, 18 latihan terbimbing dengan jawaban, 18 kartu belajar, 12 soal evaluasi berpembahasan. Bukan seluruh materi kelas1/SD.
+- [x] Kursus1 tersambung paket SD2; penawaran akses3/voucher4 memiliki judul/cakupan yang sesuai. Harga/durasi/poin dan status draft/live approval tidak diubah; tidak menambah transaksi atau menerbitkan penawaran.
+- [x] QA impor atomik/rollback/idempotensi, izin draft, review, progres6 pelajaran/18 kartu, simpan-lanjut evaluasi12 soal, skor10/12=83,33%, laporan keluarga dan monitoring admin lulus. Browser1280/360 kursus/soal/paket/enam pratinjau lulus setelah perbaikan pembungkusan sumber panjang. Pembacaan gambar6/6 dibuktikan pada FPM produksi; unit open_basedir/path/symlink/hash/magic lulus. Tidak mengulang seluruh pengujian pembayaran.
+- [ ] Tinjauan pemilik/pendidik, penerbitan konten dan pengesahan harga/durasi masih menunggu; seluruh kurikulum belum dibuat. Unggah gambar baru masih membutuhkan fileinfo; gambar contoh yang telah disiapkan berfungsi.
+- URL, bukti, batas pengujian dan kebutuhan backup media: [handover konten047](TASK_HANDOVER_SERVER.md#contoh-materi-matematika-kelas-1--047-18-oktober-2026).
+
+## Sandi anak sederhana — 046 (18 Oktober 2026)
+
+- [x] Atas permintaan pemilik, sandi anak tidak lagi minimal10: cukup tidak kosong (minimum1 karakter), tanpa kewajiban kombinasi huruf/angka/simbol. Helper bersama dipakai tambah, ganti sendiri dan pemulihan oleh orang tua; minimal dewasa/orang tua12 dan Superadmin16 tetap. Hash bcrypt, maksimum72byte, validasi tipe/UTF8/NUL, konfirmasi sandi dan throttle login dipertahankan. Sandi pendek lebih mudah ditebak; ini pilihan kemudahan pemilik, bukan klaim kekuatan setara sandi panjang.
+- [x] Keterangan di bawah kolom sandi tambah anak dihapus, atribut minimum10 dibuang; pemulihan anak konsisten. Keterangan usang pembayaran belum dibuka pada halaman tambah anak dihapus tanpa menerbitkan produk slot draft.
+- [x] QA terisolasi scripts/test-child-password046.mjs lulus: tambah/login angka satu digit dan huruf saja, reset/self-change, parent minimum, kosong/array/konfirmasi/byte limits, CSRF/role/antar-keluarga/kuota, rollback audit, revisi reset dan pencabutan sesi. Chrome1280/360, keyboard, tanpa overflow/JS error; screenshot mobile ditinjau. Unit helper mempertahankan batas akun dewasa/pengelola. Tidak mengulang seluruh suite historis.
+- [x] Perubahan source produksi tanpa migration/reset sandi atau data akun lama. Cadangan berkas privat /www/backup/projectpintar-child046-deaSTLKn. URL mencoba: /keluarga/anak/tambah (orang tua terverifikasi). Pembayaran/Google/Finance/Pustaka tidak diubah.
+
+## Aktivasi checkout Live dan perbaikan probe — 045 (18 Oktober 2026)
+
+- [x] Instruksi eksplisit pemilik untuk mengaktifkan pembayaran Live dilaksanakan melalui operator server privat, bukan sesi login palsu/perubahan sandi atau bypass HTTP. Profil Production baru **ID2**, `probe_result=status_api_reached`, `checkout_enabled=1`; Merchant ID, Server Key dan Client Key identik dengan versi sebelumnya. Versi lama tetap tersedia untuk pesanan historis. Audit permintaan operator serta probe/simpan tercatat.
+- [x] Akar masalah: endpoint Midtrans nyata mengembalikan HTTP200 dengan JSON status_code404 untuk order probe acak; pemeriksa lama hanya menerima HTTP404/JSON404. Parser kini menerima dua kombinasi tepat tersebut, tetap menolak respons kosong/palsu/redirect/server error dan autentikasi401/403. Uji negatif menggunakan kunci acak nyata menghasilkan HTTP401/JSON401. Tidak ada credential dicetak atau diganti.
+- [x] 18 kasus parser lulus, lint PHP berubah lulus, probe produksi berhasil, aktivasi melalui model berversi/audit berhasil, smoke publik donasi/login/daftar200 dan pengaturan privat307. Pesan UI tidak lagi menampilkan sukses untuk probe gagal. Skema tetap42; nol pesanan/charge produksi selama pekerjaan ini. Backup sumber/SQL privat: /www/backup/projectpintar-live045-6PDtVXWB.
+- [x] Donasi aktif dan gateway Live terbuka; halaman tamu kini menampilkan Masuk untuk berdonasi, bukan penerimaan sedang disiapkan. **13 produk masih draft/live_approved0**, tidak mengesahkan harga/durasi atau menjual materi belum siap. Finance/Pustaka, callback global, verifikasi nominal/signature/status settlement tidak diubah.
+- [ ] QRIS/settlement/callback uang nyata tetap perlu dicoba pemilik dengan nominal pilihannya. Probe status membuktikan koneksi dan penerimaan kunci, bukan bahwa semua kanal merchant sudah diaktifkan atau dana telah diterima. Uji QRIS tanpa pembayaran juga belum dilakukan pada akun merchant nyata.
+- Acuan status provider: [Get Status API Midtrans](https://docs.midtrans.com/docs/get-status-api-requests). Status HTTP200/API404 di atas dibuktikan langsung pada server ini, bukan asumsi bahwa semua HTTP200 adalah sukses.
+
+## Navbar member dan nominal donasi — UI044 (18 Oktober 2026)
+
+- [x] Header member sticky, badge emas Donasi/Seikhlasnya menuju /donasi, selalu terlihat di ponsel saat menu tertutup; akun anak tidak menerima CTA pembayaran. Menu ponsel tetap dapat digunakan, overflow tinggi dibatasi dan fallback tanpa JS dipertahankan; shell pengelola tidak diubah.
+- [x] Form menjelaskan nominal ketik sendiri → konfirmasi Buat QRIS → QRIS senilai nominal tersebut. Mesin pembayaran/validasi/aktivasi tidak diubah. Uji terarah QA nominal Rp13.789 cocok pada database dan payload provider sintetis, QR tampil setelah status fixture terverifikasi, kredit nol.
+- [x] Chrome 1280/1024/360/320: dewasa/orang tua/Superadmin dalam tampilan member/anak, sticky saat scroll, menu mobile, tautan keyboard, tanpa JS dan tanpa overflow/JS error lulus. Lint PHP dan smoke publik donasi/login 200. Skrip: scripts/test-navbar044.mjs. Skema tetap42, nol pesanan produksi; tidak melakukan charge nyata.
+- [x] Penjelasan folder QA versus media privat serta kebutuhan salinan saat pindah server ditambahkan pada PANDUAN_LINGKUNGAN_DAN_DEPLOYMENT.md. Backup berkas sebelum edit: /www/backup/projectpintar-navbar044-bAeq0Vrd. Pengujian tidak memerlukan atau menyalin folder QA sebagai dependensi produksi.
+- Pembayaran nyata tetap menunggu uji dan aktivasi Midtrans oleh pemilik. Status konfigurasi dapat berubah saat pemilik menguji; jangan menimpa hasil/credential atau menganggap uji sintetis membuktikan merchant nyata.
+
+## Donasi sukarela QRIS — rilis 043 (18 Oktober 2026)
+
+- [x] Diterapkan ke produksi: 26 berkas terarah, skema **42 / 68 tabel**, satu pengaturan donasi baru, nol pesanan/charge produksi. Fingerprint data tabel existing, pengaturan selain donasi dan konfigurasi Google/Midtrans cocok sebelum/sesudah. Smoke HTTP, perlindungan route admin/sumber privat dan Chrome publik 1280/360 lulus; layanan aktif, nol error PHP/database baru. Midtrans tetap belum diuji/checkout nonaktif; tidak membuat sesi Superadmin palsu.
+
+- [x] Nominal pilihan pengguna, QRIS per pesanan, konfirmasi, riwayat/status pribadi, laporan Superadmin terpisah Live/Sandbox, filter dan pengaturan aktif/jeda/batas nominal. Akun dewasa/orang tua terverifikasi saja; anak ditolak. Donasi tidak memberi kredit, paket, slot, poin atau keuntungan belajar.
+- [x] QA pembayaran terisolasi lulus: nominal/CSRF/otorisasi, callback palsu, replay/race, settlement otoritatif tepat sekali, rollback audit, timeout/rekonsiliasi, refund-review, config lama dan regresi top up biasa. Browser 1280/360, keyboard, pause/resume pengaturan, tanpa JS/overflow/error lulus. Seluruh pembayaran sintetis, bukan uang nyata.
+- Migration aditif **042 / 68 tabel**, tujuan pesanan lama tetap commerce; tidak reset data/ID atau mengganti callback Finance/Pustaka. Backup privat sebelum deploy: `/www/backup/projectpintar-donation043-fGccimme`. [Alur, bukti, aktivasi dan batas](DONASI_QRIS_043.md).
+- [ ] Uji penerimaan uang nyata oleh pemilik belum dilakukan. Profil Production terakhir masih belum diuji dan checkout nonaktif; modul tidak melewati pengamanan ini. Uji status API dan aktivasi memerlukan sandi Superadmin melalui panel pembayaran. Tidak menerbitkan produk/harga draft.
+
+## Monitoring operasional aktif — rilis 042 (18 Oktober 2026)
+
+- [x] Produksi aktif: skema **41 / 68 tabel**, monitoring **1**, analitik opsional/anak **0/0**, kebijakan **2026-10-18-v2**. Tiga request smoke berlabel bot tercatat dari domain publik dengan IP non-loopback dan kode negara dari bridge Cloudflare. HTTP publik/policy/daftar/masuk 200; laporan tamu diarahkan login, sumber privat ditolak. Retensi service sukses, nol kegagalan operasional/PHP baru, fingerprint akun/Google/pembayaran/progres cocok sebelum/sesudah. Dashboard berdata diuji di QA; tidak membuat sesi/akun pengelola palsu di produksi.
+
+- [x] Monitoring otomatis first-party terpisah dari analitik opsional: Ringkasan, Per Halaman, Per Pengguna dan Log Akses Superadmin. Detail IP/waktu/kelompok halaman, perangkat/browser/OS, negara bila tersedia; akun dewasa yang login, tamu tanpa tebakan identitas. Tanpa cookie pelacak; akun anak/pengelola dan halaman sensitif dikecualikan.
+- [x] Toggle khusus, kebijakan publik versi 2026-10-18-v2, notice privasi terpisah, retensi detail 7 hari dengan worker existing per jam, audit pembukaan detail, fail-open pencatatan/fail-closed audit. Analitik opsional dan anak tetap nonaktif. Tidak mengubah pembayaran/SSO.
+- [x] QA klasifikasi/proxy, akses/CSRF/metode/filter, pengecualian anak, audit/write failure, retensi dan browser 1280/360 lulus; regresi Google sintetis lulus. Bug CRLF pada textarea pengaturan diperbaiki dan uji simpan browser off/on lulus.
+- Migration aditif **041** (dua tabel; target 68 tabel), bukan pengulangan migrasi lama. Backup privat `/www/backup/projectpintar-traffic042-i3eIJWOQ`. [Cakupan, bukti uji, retensi dan batas](MONITORING_OPERASIONAL_042.md). Klaim seluruh roadmap/UAT atau kepatuhan hukum menyeluruh tidak dibuat.
+
+
+## Penyempurnaan antarmuka — 18 Oktober 2026 (UI041; skema tetap 40)
+
+- [x] Login/daftar bergaya pembelajaran, responsif; panduan sandi sesuai validator (minimal 12 karakter, maksimal 72 byte), tombol mata berlabel untuk sandi dan pengulangan. Checkbox persetujuan dipersingkat; penjelasan data Google, akun anak melalui orang tua, serta pengecualian iklan/analitik tetap ada. Kebijakan, hash persetujuan, dan pemeriksaan server tidak diubah.
+- [x] Superadmin setelah login sandi maupun Google menuju `/kelola`. Akun biasa/anak tetap `/beranda`; pengelola boleh membuka tampilan peserta secara sengaja.
+- [x] Beranda dengan hero lebih kuat, kartu pintasan dan baris paket/kredit yang terkelompok. Email/Google dipindahkan ke `/akun/pengaturan` (baca-saja, login wajib, GET/HEAD, private no-store); perubahan memakai alur keamanan yang sudah ada. Tidak mengasumsikan semua akun lama sudah terverifikasi; status aktual tetap terlihat di pengaturan. Anak tidak mendapat kontrol email/Google/pembayaran.
+- [x] Arena tetap 9 kategori dahulu, baru tema/detail. **24 ilustrasi original** dibuat dengan built-in image_gen dan dioptimalkan menjadi WebP 768 px, sekitar 1,2 MB total; pemetaan tema memakai allowlist/fallback lokal. Judul, kunci, akses, progres, timer dan reward tidak diubah. Aset dan prompt: [Ilustrasi pembelajaran](ILUSTRASI_PEMBELAJARAN_041.md).
+- [x] Tombol riwayat/dashboard/kembali lebih jelas, hero indigo/teal dominan, warna teks kontras. Lapisan bersama `experience.css` dimuat setelah CSS aplikasi/admin; CSS/JS memakai versi mtime.
+- [x] QA terisolasi: `test-experience041.mjs` lulus Chrome 1280/360 px, gambar kategori/tema, peran admin/parent/adult/child, tujuan login, keyboard tombol mata, sampel kontras teks, tanpa overflow/JS error. `test-login-routing041.mjs` lulus Google Superadmin sintetis, redirect akun aktif, pembatasan metode/akses pengaturan. Regresi pendaftaran `test-google-registration039.mjs` dan `test-google-registration-browser039.mjs` lulus (provider sintetis, 1280/768/360). Pemeriksaan tambahan login tanpa JavaScript, menu ponsel 320/768, tautan pengaturan dan mulai/lanjut babak nyata di QA lulus. Lint PHP berubah, JS syntax, dan CI3 naming lulus.
+- Tidak ada migration, reset data/ID, instalasi ulang, perubahan credential, harga atau callback Midtrans. Backup privat: `/www/backup/projectpintar-ui041-2iAmlxsx`. Pengujian kontras adalah sampling terarah, bukan audit aksesibilitas penuh. Penyelesaian onboarding oleh Google nyata baru/UAT pemilik tetap belum dibuktikan seperti catatan rilis 040.
+- [x] Diterapkan ke produksi: 60 berkas terarah, arsip sumber/SQL privat terverifikasi; fingerprint akun/role/keluarga/progres, Google, pembayaran dan pengaturan cocok sebelum/sesudah smoke. Skema **40**, **66 tabel**, Google **1/1 revisi 4** tetap. HTTP publik beranda/masuk/daftar/bantuan/privasi 200, 24 WebP 200, route privat mengarah login, source/docs/scripts ditolak. Chrome publik 1280/360 lulus gambar/logo, tombol mata dan menu ponsel, tanpa overflow/JS error; tidak ada PHP/database error baru selama smoke. Halaman privat diuji pada QA terisolasi, bukan dengan menyamar sebagai akun produksi.
+
+
+## Bantuan privat dan pembukaan pendaftaran — 18 Oktober 2026 (rilis 040)
+
+Pemilik menyetujui kanal Bantuan di situs sebagai kontak publik, meminta agen menentukan penyesuaian privasi, dan melanjutkan sampai pendaftaran dapat digunakan. Ini bukan persetujuan harga draft, aktivasi analitik/iklan, atau klaim seluruh roadmap selesai.
+
+- [x] `/bantuan`: kirim pesan akun/privasi/belajar/pembayaran, persetujuan orang dewasa/wali, riwayat akun, kode rahasia untuk pesan tanpa login, baca/balas percakapan. Kode dikirim melalui POST, tidak melalui URL, dan hanya hash yang disimpan pada tabel tiket. Kode yang hilang tidak dapat ditampilkan kembali dari perangkat lain; pengunjung wajib menyimpannya.
+- [x] `/kelola/bantuan`: menu sidebar/drawer Superadmin, filter status, pagination, percakapan privat, balasan dan tutup/buka kembali dengan pesan penjelasan, revisi konflik dan jejak audit pembukaan/balasan. Pengirim tanpa akun ditandai belum terverifikasi; tiket bukan bukti kepemilikan akun atau kewenangan terhadap anak/pembayaran.
+- [x] Akun anak tidak mengirim/membaca melalui endpoint Bantuan; diarahkan meminta orang tua/wali. Pemilik akun dan grant tamu diperiksa server; editor/dukungan/keuangan tidak otomatis memperoleh inbox. Tidak ada unggahan, chat antarpengguna, pemberitahuan email, atau penghapusan akun otomatis.
+- [x] CSRF, validasi tipe/panjang, escaping, honeypot, batas kiriman per alamat (hash), balasan per tiket, pemulihan kode terbatas, idempotensi, konflik paralel, status tertutup, transaksi dan rollback audit. Log kegagalan SQL tabel Bantuan disamarkan melalui `MY_Log`; isi pesan tidak disalin ke audit. Ini bukan audit seluruh logger lama.
+- [x] Kebijakan/syarat versi **2026-10-18-v1** dipublikasikan dengan kontak Bantuan, proses permintaan data manual dan keterangan keterbatasan layanan. Trafik/analitik anak tetap **0/0**; Gmail/SMTP tidak diaktifkan dan alamat email palsu tidak diterbitkan.
+- [x] Google login dan pendaftaran produksi **1/1**, revisi konfigurasi **4**, mempertahankan Client ID/secret dan bukti probe nyata **17 Oktober 2026 21:59:24 WIB**. Privasi revisi **3**, approved **1**. Formulir Google, logo dan callback HTTPS teruji; tidak membuka pendaftaran email/sandi tanpa verifikasi.
+- [x] Migration **040**, **66 tabel**, hanya empat tabel Bantuan baru. Data akun/role/keluarga dan konfigurasi/pesanan pembayaran cocok dengan fingerprint sebelum rilis. Satu akun produksi tetap, nol tiket uji produksi; tidak mereset ID, mengulang instalasi, atau mengubah Finance/Pustaka.
+- [x] QA `study_qa_monitor_sso039` terisolasi: `scripts/test-help040.mjs` lulus kirim/pulihkan/balas, privasi antar-akun, child/role/CSRF/metode/tipe/XSS, replay, race dua sesi, tutup/buka, rollback audit/insert pesan, redaksi log, pagination dan throttle. `scripts/test-help-browser040.mjs` lulus 1280/360 px, submit keyboard, pemulihan kode, inbox/balasan, tanpa overflow/JS error; screenshot formulir mobile dan detail desktop ditinjau.
+- [x] Regresi `test-google-registration039.mjs` dan `test-google-registration-browser039.mjs` lulus memakai provider sintetis, termasuk onboarding dan login berikutnya. Lint 15 PHP terdampak serta naming 350 source lulus. Smoke produksi: Bantuan/privasi/daftar/masuk HTTP 200 + no-store, Google aktif/logo termuat, 1280/360 px, akses admin tamu ditolak, mulai pendaftaran mengarah ke Google dengan callback HTTPS dan PKCE.
+- [ ] Penyelesaian pendaftaran oleh **akun Google nyata baru** dan UAT pemilik belum dijalankan agen. Status **Audience / In production** di Google Cloud tidak dapat dibuktikan dari server; jika masih Testing, hanya test users yang diperbolehkan Google. Probe nyata yang ada bukan bukti seluruh pengguna umum sudah bisa melewati consent Google.
+- [ ] Pengelola perlu memeriksa Kotak Bantuan berkala dan menangani permintaan data sesuai kewenangan/kewajiban; balasan belum dikirim lewat email. Tidak mengklaim penghapusan otomatis, SLA terjamin, atau kepatuhan hukum menyeluruh.
+
+Cadangan sebelum rilis: `/www/backup/projectpintar-help040-lsIKWhWX/before040.sql` dan `before040-source.tar.gz` (privat; arsip terbaca). Skema baru aditif; jangan rollback dengan menghapus korespondensi. CLI schema memakai akun root socket, bukan mengubah kredensial runtime produksi. Skrip aktivasi/QA dan teks kebijakan yang diterbitkan tersimpan privat di `/www/study-private/release040-ds66wZh8/`; **jangan menyalin override config development atau fixture QA ke produksi**.
+
+Acuan hak/permintaan data: [UU 27/2022 pada JDIH Kemkomdigi](https://jdih.komdigi.go.id/produk_hukum/view/id/832/t/crc32/). Kebijakan aplikasi menjelaskan proses yang tersedia, bukan menggantikan kewajiban hukum.
+
+## Pendaftaran Google SSO — 17 Oktober 2026 (rilis 039)
+
+Catatan rilis 039: saat implementasi awal Client ID/secret dan kebijakan belum siap. **Status ini telah diperbarui oleh rilis 040 di atas:** kredensial diisi pemilik, probe nyata berhasil, kebijakan dipublikasikan dan pendaftaran dibuka. Pengujian sintetis tetap dibedakan dari penyelesaian onboarding Google nyata.
+
+- [x] Halaman /daftar produksi tersedia, tombol **Daftar dengan Google** dan **Masuk dengan Google** memakai logo resmi lokal; tombol tetap terlihat dengan status belum aktif jika konfigurasi belum siap. Login sandi lokal dipertahankan. Pendaftaran email/sandi langsung produksi tetap ditolak.
+- [x] Google terverifikasi → formulir penyelesaian dewasa/orang tua → akun aktif dan identitas Google tertaut secara atomik. Username/nama/jenis akun dan sandi Project Pintar (bukan sandi Google) diisi pengguna. Sandi cadangan mendukung reautentikasi, unlink dan login lokal. Tidak membuat anak, role admin, saldo atau pembelian otomatis.
+- [x] Email/sub hanya dari ID token RS256 yang diverifikasi server. Pendaftaran baru menerima Gmail atau Google Workspace dengan email_verified dan hd; email Google pihak ketiga belum didukung tanpa verifikasi tambahan. Tidak mengambil foto/kontak atau akses Gmail. Scope openid email. Email lama/subject tertaut tidak digabung otomatis: pengguna masuk lokal lalu tautkan Google.
+- [x] Toggle pendaftaran terpisah dari login; memerlukan uji Google dan persetujuan kebijakan privasi/syarat existing. Formulir mengikat hash kebijakan terkini dan mencatat versi persetujuan, bukan menyetujui analitik/iklan. Perubahan config/kebijakan, expired flow, session lain, replay, CSRF, field array, role/jenis anak, sandi lemah/kelebihan byte, honeypot ditolak.
+- [x] Pending identitas terikat session/state/config selama 10 menit sejak mulai, email dan hash subject terenkripsi, tanpa token dalam URL formulir. Cipher dihapus setelah selesai; payload kedaluwarsa dibersihkan secara lazy pada awal flow baru. Tidak mengklaim pembersihan terjadwal tepat 10 menit bila situs tidak digunakan.
+- [x] Migration 039 aditif, tidak membuat akun produksi/reset ID/mengubah kredensial Google atau pembayaran. QA Google existing link/login/unlink + token palsu/claims, onboarding berhasil/gagal/audit rollback dan race dua proses lulus. Akun hasil daftar dapat login dengan Google dan sandi; orang tua dapat membuka keluarga, peserta dewasa tidak mendapat fungsi orang tua.
+- [x] Browser 1280/768/360 px: logo aktif/nonaktif, login/daftar/penyelesaian/settings, keyboard mulai Google dan submit, tanpa overflow/JS error. Screenshot login dan penyelesaian 360 px ditinjau. Lint/naming relevan lulus.
+- [x] Kredensial Google diisi dan probe nyata berhasil; kebijakan dipublikasikan serta toggle pendaftaran dibuka pada rilis 040 atas arahan pemilik. UAT onboarding Google nyata baru dan pemulihan email tetap belum dibuktikan; lihat batas rilis 040.
+
+### Langkah aktivasi pemilik
+
+1. Google Cloud Console → pilih/buat proyek **Project Pintar** → **Google Auth Platform**.
+2. **Branding**: nama aplikasi, email dukungan/kontak, authorized domain `projectpintar.com`, homepage `https://www.projectpintar.com/`, privacy policy dan terms `https://www.projectpintar.com/privasi`. Isi/tinjau halaman kebijakan sebelum publik; verifikasi domain/branding bila diminta Google.
+3. **Audience → External**. Saat Testing tambahkan email penguji. Setelah siap publik pilih **In production / Publish app**; mengikuti proses/permintaan verifikasi Google yang tampil.
+4. **Clients → Create client → Web application**. Authorized JavaScript origins: `https://www.projectpintar.com`. Authorized redirect URIs harus persis **`https://www.projectpintar.com/auth/google/callback`**, tanpa index.php/slash tambahan. Aplikasi memakai redirect server-side, bukan popup GIS.
+5. **Data Access**: scope `openid` dan `email` cukup; tidak perlu Gmail API/Drive/kontak.
+6. Buka `/kelola/pengaturan/google`: isi Client ID/Client secret; Ketersediaan Nonaktif dan Pendaftaran Ditutup; sandi Superadmin + konfirmasi → Simpan.
+7. Jalankan **Uji dengan Google** pada halaman yang sama. Uji tidak menautkan akun pemilik atau membuat user. Setelah callback berhasil, hasil uji tampil.
+8. `/kelola/pengaturan/privasi`: isi teks privasi dan syarat yang benar, versi bukan draft, lalu persetujuan pemilik. Trafik dan iklan tetap dapat nonaktif; tidak perlu mengaktifkannya untuk SSO.
+9. Kembali ke Google settings: Ketersediaan Aktif, Pendaftaran Dibuka; **kosongkan secret** agar mempertahankan kunci teruji. Sandi Superadmin + konfirmasi → Simpan.
+10. Jendela privat → `/daftar` → Google baru → lengkapi formulir → dashboard; keluar dan coba `/masuk` dengan Google. Akun lama memakai sandi lokal lalu `/akun/google` untuk tautan eksplisit.
+
+Bukti: `test-google-auth.mjs`, `test-google-registration039.mjs`, `test-google-registration-browser039.mjs`, `test-google-registration-race039.mjs`; seluruh fixture di database QA terisolasi. Cadangan sebelum rilis `/www/backup/projectpintar-deploy-20261017/before-google039.sql` dan `before-google039-source.tar.gz`. Logo resmi Google disimpan di `assets/images/google-g.png`, sumber [Google Identity branding](https://developers.google.com/identity/branding-guidelines); panduan [setup](https://developers.google.com/identity/gsi/web/guides/get-google-api-clientid), [OpenID Connect](https://developers.google.com/identity/openid-connect/openid-connect) dan [otoritas email/token](https://developers.google.com/identity/gsi/web/guides/verify-google-id-token).
+
+## Pembayaran Live dan rancangan produk — 17 Oktober 2026 (rilis 038)
+
+Instruksi terbaru pemilik menyetujui **penyiapan pembayaran nyata**, mengungguli larangan live pada catatan historis di bawah. Harga/durasi tetap **draft untuk verifikasi pemilik**, bukan otomatis disahkan. Tidak mengulang instalasi/migrasi awal, mengubah Finance/Pustaka, atau membuat bank soal massal.
+
+- [x] Profil Midtrans Live/Sandbox terpisah; validasi prefix kunci, secret terenkripsi terikat lingkungan, versi immutable, sandi ulang Superadmin, CSRF/audit/konflik edit. Simpan/rotasi kunci harus checkout nonaktif; uji status API lalu konfirmasi aktivasi terpisah. Uji status bukan bukti merchant/QRIS benar-benar aktif.
+- [x] QRIS Production memakai endpoint Production dan kode PP-LIVE; callback khusus Study per transaksi tanpa mengganti callback global Finance. Saldo, ledger, pembelian, voucher, Platinum, slot dan monitoring mencatat lingkungan; hak Sandbox tidak berlaku pada layanan Live. Pergantian kunci/jeda checkout tidak memutus rekonsiliasi pesanan lama.
+- [x] Persetujuan live per produk serta kesiapan isi diperiksa server pada katalog/checkout. Paket latihan tanpa soal terbit lengkap tidak dapat diterbitkan/dijual. Platinum tidak dijual sebelum tersedia paket resmi siap. Harga/ketentuan transaksi tetap snapshot; tidak mengubah transaksi lama.
+- [x] Migration tambahan 037–038: perluasan kolom dan insert-only **4 paket kosong + 13 produk draft**, seluruh live_approved=0. Tidak mengubah saldo, pengguna, ID lama, progres atau master. Pengulangan import draft tidak menimpa revisi pemilik.
+- [x] QA terisolasi: live config/reauth/role/CSRF, enkripsi lintas lingkungan, key rotation/pause, status independen, signature/merchant/nominal/metode/currency salah, notifikasi paralel/duplikat/terlambat, timeout, audit rollback, refund-review freeze, ledger/hak/slot tepat sekali, voucher/kompensasi, isolasi keluarga dan hak sandbox. Regresi formulir sandbox lulus.
+- [x] Chrome 1280/768/360 px, formulir dan daftar pengelola/pengguna, draft tersembunyi, secret tidak ditampilkan, keyboard pindah tab/Back/checkout, tanpa overflow/error JavaScript. Label nominal/status live dibedakan dari simulasi. Lint/naming PHP terdampak lulus.
+- [ ] Kredensial merchant Production belum tersimpan pada pemeriksaan rilis. Checkout nyata belum diaktifkan; **belum ada transaksi/settlement/callback merchant nyata yang dibuktikan**. Semua tes pembayaran memakai transport sintetis QA, tidak membebankan uang.
+- [ ] Pemilik memverifikasi harga/durasi/cakupan/refund, mengisi kunci Production melalui panel privat, serta memeriksa kesiapan QRIS merchant. Materi latihan tetap ditunda. Ini bukan penutupan seluruh roadmap, UAT, atau jaminan nol bug.
+
+### Rancangan harga tersimpan — belum untuk dijual
+
+| Produk | Harga usulan | Ketentuan draft |
+| --- | --- | --- |
+| Top up 200 / 500 / 1.000 kredit | Rp20.000 / Rp50.000 / Rp100.000 | Rp100 per kredit, tanpa bonus |
+| Paket topik latihan TK / SD / SMP / SMA-SMK | 40 / 60 / 80 / 100 kredit | Satu penerima, akses 365 hari; bukan seluruh kurikulum |
+| Voucher paket masing-masing jenjang | Sama dengan kredit paket terkait | Digunakan dalam 30 hari; akses 365 hari sejak ditukar |
+| Platinum keluarga | Rp300.000 | 365 hari, paket resmi saat ini/berikutnya, tanpa auto-renew |
+| Slot anak tambahan | Rp10.000 | Satu kapasitas tambahan, sekali bayar; bukan otomatis akses paket |
+
+Usulan penukaran poin TK/SD/SMP/SMA: 500/750/1.000/1.250 poin untuk 365 hari; terpisah dari kredit berbayar, reward tidak diaktifkan. Arena dan Battle yang gratis tetap gratis. TK–SMA adalah rancangan paket topik, bukan klaim materi atau profil SMA lengkap telah tersedia. Voucher internal tidak dapat dicairkan/ditransfer antar keluarga; refund uang belum otomatis.
+
+Lokasi: `/kelola/pengaturan/pembayaran?environment=production`, `/kelola/paket`, `/kelola/pesanan?environment=production`, `/kelola/kredit?environment=production`; peserta `/akun/kredit`. Isi harga di editor produk adalah sumber checkout; field harga paket legacy tidak menjadi sumber tagihan kedua.
+
+Bukti skrip: `test-live-commerce037.mjs`, `test-live-access037.php`, `test-live-browser037.mjs`, `test-payment-secrets.php`, `test-payment-settings-http.mjs`. Cadangan sebelum rilis: `/www/backup/projectpintar-deploy-20261017/before-live037.sql` dan `before-live037-source.tar.gz`. Bukti restore 032 di dashboard masih historis sampai restore rilis baru diverifikasi. Referensi kontrak [QRIS Midtrans](https://docs.midtrans.com/reference/qris), [notifikasi per transaksi](https://docs.midtrans.com/docs/https-notification-webhooks), [status server](https://docs.midtrans.com/reference/get-transaction-status).
+
+## Penyatuan master Arena dan validasi Midtrans — 17 Oktober 2026
+
+Permintaan pemilik setelah mencoba 035: kategori master harus mencakup seluruh Arena, dan pesan merah Midtrans harus menjelaskan kesalahan sebenarnya. Produksi **036/62 tabel**, seluruh 190 set existing dipertahankan.
+
+- [x] Seluruh **8 jenis / 190 set Arena** terhubung ke **97 kategori master**. Tambahan 62 kategori/161 relasi memakai metadata snapshot katalog adopsi lokal, bukan menyalin soal atau membaca Pustaka saat runtime. 35 kategori dan 29 relasi lama tetap. Jenjang tetap 14 kelas TK–SMA; enam kategori SMA belum memiliki konten.
+- [x] Hierarki jenis → jenjang → kelas/kelompok → kategori → set berlaku untuk semua jenis. Kelas Inggris dikelompokkan menurut bab/evaluasi, Quest menurut season, flashcard menurut deck/kosakata Quest, ekspedisi menurut keterampilan/level, dan Story menurut kelas sumber. Kolom grade boleh kosong untuk aktivitas lintas kelas/berbasis level; tidak mengarang kelas atau mengubah jenjang peserta. Battle mempunyai penjelasan/tautan pengelolaan tersendiri, bukan menduplikasi ruang/soal privat sebagai set master. Tautan balik Master kategori tersedia di Arena pengelola.
+- [x] Midtrans: kesalahan spesifik Merchant ID/Server Key/Client Key, terhubung ke kontrol dengan ARIA; Merchant ID valid dipertahankan saat gagal, kunci tidak dipantulkan. Clipboard padding dibersihkan, token sandbox menerima karakter token umum, kunci Production/tertukar/non-scalar/whitespace internal tetap ditolak. Simpan pertama wajib Server Key, Client Key opsional, blank pada merchant sama mempertahankan kunci. Panduan Access Keys dan label checkout sandbox diperjelas. Tidak mengubah gateway/callback atau menyalakan pembayaran live.
+- [x] `test-master-connected036.mjs`: seluruh 97 kategori/190 tautan set, hierarki tanpa rincian dini, keyboard/Back, peran/parameter invalid, desktop 1280 dan ponsel 360, smoke Arena/trafik serta error inline Midtrans. Screenshot desktop/ponsel ditinjau; tidak overflow/error JavaScript.
+- [x] `test-arena-masters036.php`: import ulang checksum sama, semua set terpetakan, ID/master/konten/progres lama tetap. Simulasi kegagalan INSERT pada clone produksi membatalkan seluruh DML (tetap 35 kategori/29 relasi/versi 35); DDL additive yang sudah berhasil aman untuk retry. Retry lalu berhasil.
+- [x] `test-payment-settings-http.mjs` diperluas: sandbox-only, izin, CSRF, array, kolom tertukar, secret masking, blank preservation, immutable rotation, konflik dan rollback audit. `test-payment-first036.php` pada clone kosong membuktikan Merchant ID saja ditolak dengan error Server Key, penyimpanan pertama dengan key sintetis berhasil, isi dekripsi tepat setelah normalisasi, versi lama tetap utuh. Tidak memanggil merchant nyata atau membuat tagihan.
+- [x] Produksi naik 035→036 setelah backup. Checksum sebelum/sesudah `st_arena_packs`, `st_arena_runs`, `st_users`, `st_learning_grades`, `st_categories` dan `st_payment_configs` identik; 190/190 set tertaut. Lint file PHP terkait/diff whitespace dan HTTPS beranda/login lulus; akses anonim master diarahkan ke login. Bukan pengujian ulang seluruh suite/zoom/lintas browser.
+
+URL: `/kelola/kategori?tab=permainan`, `/kelola/arena`, `/kelola/pengaturan/pembayaran`. Pada pemeriksaan akhir **belum ada konfigurasi Midtrans produksi tersimpan**: pesan umum sebelumnya tidak membuktikan Merchant ID salah; payload gagal tidak disimpan/dicatat. Pemilik perlu memasukkan kembali Merchant ID dan Server Key **Sandbox** di panel lalu probe. Integrasi/QRIS merchant nyata belum dibuktikan. Finance/Pustaka tidak diubah.
+
+Cadangan pra-deploy terbaru: `/www/backup/projectpintar-deploy-20261017/before-arena-master036-final.sql`. QA terisolasi `study_qa_monitor_master036` dan `study_qa_monitor_payment036`; tidak ada fixture masuk `db_study`. Ini penyelesaian irisan tugas 036, bukan seluruh roadmap.
+
+## Master bertingkat hingga SMA — 17 Oktober 2026
+
+Instruksi terbaru memperluas **master** sampai SMA, bukan otomatis membuka kurikulum/game SMA atau mengubah jenjang akun. Produksi **035/62 tabel**, tetap satu ngadmin ID 1 dan 190 set Arena.
+
+- [x] Halaman Data master dimulai dari 3 kelompok: mata pelajaran, jenjang, kategori permainan. Jenjang menampilkan TK/SD/SMP/SMA dahulu; kelas baru muncul setelah dipilih. Kategori permainan mengikuti **jenis permainan → jenjang → kelas/kelompok → kategori materi**. Breadcrumb, browser Back dan keyboard bekerja; hanya cabang terpilih yang dirender, bukan menyembunyikan seluruh rincian di halaman awal. Keterangan tambahan memakai disclosure.
+- [x] Snapshot Pustaka SMA dibaca read-only, ditambah lewat migration 035 insert-only/transaksional: **3 kelas SMA/SMK 10–12 dan 6 kategori permainan**. Total menjadi 20 mata pelajaran, 14 kelas/kelompok, 35 kategori permainan. 29 relasi set existing tidak berubah; 6 kategori baru tanpa set menampilkan status master-saja, tanpa tautan aktivitas kosong. Soal/isi game, akun, transaksi dan progres tidak diimpor. Perguruan tinggi tidak termasuk.
+- [x] Uji `test-master-hierarchy035.mjs`: 1280/768/360, jumlah kartu tiap tingkat, tidak merender anak sebelum dipilih, seluruh 35 kategori pada cabang yang benar, SMA tanpa tautan mati, keyboard/Back, tautan aktivitas lama, role editor/peserta, array/filter salah dan pasangan jenjang–kelas salah. Smoke Arena/trafik lulus. Visual desktop/ponsel ditinjau, tidak overflow/error JavaScript.
+- [x] `test-sma-masters035.php`: import ulang tidak mengubah checksum, ID/master/konten/progres existing cocok dengan snapshot QA 034; hanya waktu login QA dikecualikan pada perbandingan akun lintas fixture. Lint PHP file terkait dan diff whitespace lulus. Tes ini menggantikan asumsi tampilan/jumlah master 034, bukan mengklaim seluruh suite lama diulang.
+
+Cadangan sebelum perubahan: `/www/backup/projectpintar-deploy-20261017/before-master-hierarchy035.sql`. Tidak ada perubahan Finance/Pustaka, harga, pembayaran, SMTP, DNS atau layanan mail server.
+
+## Perapian pengelola & master Pustaka — 17 Oktober 2026
+
+Permintaan pemilik: kartu pengelola, Arena kategori-dulu, perbaikan trafik dan adopsi master. Produksi **034/62 tabel**, `db_study` mandiri; satu ngadmin ID 1 dan 190 set Arena tetap. Tidak menginstal mail server atau mengubah Finance/Pustaka.
+
+- [x] Kartu pengelola berlatar putih, jarak konsisten, tanpa efek bergerak saat hover. Dashboard menampilkan ringkasan dan kelompok menu berbasis izin sidebar; menu tambahan melalui disclosure native/keyboard agar kartu tidak terlalu tinggi.
+- [x] `/kelola/arena` menampilkan 9 kategori (8 jenis aktivitas + Battle), tanpa rincian set/form toggle pada halaman awal. Pilih kategori untuk membuka set, filter jenjang/kategori materi, pagination dan toggle existing; filter tetap setelah simpan. Snapshot/progres tidak berubah.
+- [x] Trafik kosong tidak lagi 503: `max(1, ...[])` pada grafik diganti array tidak kosong. Filter periode/audiens/halaman/jenjang satu formulir, statistik sama tinggi, grafik baris ringkas tanpa kartu kosong. Tiga tab, kondisi kosong/terisi dan filter lintas tab diuji; pencatatan produksi tidak diaktifkan.
+- [x] Master aktual Pustaka dibaca dalam transaksi read-only: **20 mata pelajaran, 11 jenjang TK–SMP, 29 kategori permainan**. Snapshot lokal `pustaka_learning_masters.json`, migration 034 insert-only/idempotent, tanpa overwrite kategori existing atau reset ID. Mata pelajaran dapat dipakai pada formulir kursus; 29 relasi kategori ke set memory/word existing memakai pemetaan sumber adopsi. Tidak mengubah jenjang akun anak.
+- [x] `/kelola/kategori` menjadi Data master: tab Mata pelajaran/Jenjang/Kategori permainan dengan tautan aktivitas sesuai izin. Tidak mengimpor SMA/PT, master perpustakaan tak relevan, pengguna, soal latihan, progres, transaksi atau harga. Runtime hanya membaca `db_study`.
+- [x] Chrome 1280/768/360, keyboard, kategori-dulu/drill-down/filter/toggle lalu restore, tab master, trafik kosong/terisi dan izin diuji lewat `test-admin-layout034.mjs`. Spot-check kartu pengaturan/paket/email/operasional/monitoring pada desktop/ponsel lulus. `test-admin034-guards.mjs`: CSRF, stale revision, rollback audit, authoring kategori, Arena peserta dan filter trafik. `test-learning-masters034.php`: jumlah/mapping dan checksum sesudah import ulang, tanpa perubahan ID/user/progres/konten. PHP lint file terdampak dan diff whitespace lulus; bukan seluruh suite historis/native zoom/lintas semua browser.
+
+Cadangan sebelum perubahan `/www/backup/projectpintar-deploy-20261017/before-admin-master034.sql`. Bukti restore 032 masih historis (dashboard menandai beda versi), bukan klaim restore 034. Harga, live payment, SMTP dan iklan tidak diubah.
+
+## Dua penyedia email — 16 Oktober 2026
+
+Tambahan pemilik: Gmail atau mail server/email domain, dipilih salah satu. Produksi **033/59 tabel**, tetap `db_study`, satu ngadmin ID 1; tidak menginstal mail server, mengubah DNS, atau mengulang migrasi lama.
+
+- [x] Dua profil tersimpan terpisah pada `/kelola/pengaturan/email`; GET pemilihan tab tidak mengganti layanan. Simpan memilih satu penyedia, blank password mempertahankan secret profil tersebut. Konfigurasi Gmail lama disalin tanpa mengganti ciphertext; kredensial SMTP terenkripsi dengan mekanisme existing. Pergantian penyedia/koneksi wajib nonaktif, uji ulang, lalu konfirmasi inbox sebelum aktif. Tidak ada fallback otomatis yang bisa menggandakan kiriman.
+- [x] SMTP domain menggunakan username/pengirim terpisah, 587 STARTTLS wajib atau 465 TLS langsung, sertifikat diverifikasi, hostname IPv4 publik dan DNS dipin pada koneksi; menolak localhost/IP privat/reserved/metadata/port bebas. Tidak mendukung SMTP tanpa TLS, IPv6-only atau sertifikat self-signed. Email domain boleh dihosting penyedia lain, tidak harus di server aplikasi.
+- [x] Alur verifikasi/reset, token sekali pakai, masa berlaku dan throttle bersama dipertahankan. Audit/reauth/role/CSRF, revisi stale, rollback kedua profil+konfigurasi saat audit gagal, secret tidak bocor, uji gagal, aktivasi tanpa probe, token terkirim sebelum pergantian provider, reset/replay/pencabutan sesi lulus melalui `test-domain-mail.mjs`. Probe yang selesai setelah provider diganti tidak menandai konfigurasi baru teruji (`test-domain-mail-probe-race.php`). IP khusus/loopback ditolak pada `test-domain-mail-rules.php`.
+- [x] Chrome 1280/768/360 px untuk kedua profil, secret tetap kosong, tidak overflow/error JavaScript dan simpan melalui keyboard lulus (`test-domain-mail-browser.mjs`); tampilan 360 px ditinjau visual. Lint PHP file terdampak dan smoke HTTPS produksi lulus.
+- [ ] Pengiriman/inbox nyata Gmail atau SMTP domain masih memerlukan kredensial pemilik; produksi tetap nonaktif. Tes pengiriman menggunakan capture QA terisolasi, bukan bukti penerimaan email/sertifikat/reputasi provider nyata. Mail server sendiri/DNS/MX/SPF/DKIM/DMARC/PTR belum diinstal atau diubah. Bukti restore 032 tetap berlabel versi lama sampai uji restore rilis baru dilakukan; ini tidak mengklaim seluruh roadmap selesai.
+
+## Kelanjutan mandiri akun, live battle dan Google — 16 Oktober 2026
+
+Pemilik menyetujui kelanjutan pekerjaan yang tidak memerlukan kredensial atau keputusan bisnis. Keadaan aktif kini migration **032/58 tabel**; ini mengungguli status belum tersedia pada snapshot 029 di bawah. Tidak mengulang instalasi, menghapus data/ID, membuat materi kurikulum, atau mengubah Finance/Pustaka.
+
+- [x] Orang tua tertaut dan terverifikasi dapat memulihkan sandi anak, dengan konfirmasi sandi sendiri, minimum/batas byte, versi formulir, pembatasan percobaan, audit dan pembatalan sesi anak lama. Role/keluarga/CSRF, email belum terverifikasi, rollback audit, replay dan dua proses reset bersamaan diuji.
+  - [x] Pembuatan anak kini juga mewajibkan email orang tua terverifikasi dan stamp kredensial terkini di dalam lock; perubahan jenjang menolak stamp lama. Uji stale/verified/unverified serta pembuatan saat slot tersedia lulus; akun anak lama tidak dinonaktifkan oleh penerapan aturan ini.
+- [x] Superadmin menangguhkan/memulihkan akun aktif/suspended dengan alasan dan reautentikasi. Akun Superadmin/self dilindungi; akun pending/closed tidak diaktifkan melalui jalan ini. Sesi lama tidak hidup kembali setelah pemulihan, password tidak diganti, saldo/progres tidak dihapus. Pemulihan anak memeriksa kuota keluarga di bawah lock yang sama dengan pembuatan anak.
+- [x] Pembatasan per kursus untuk akun, termasuk akses aktivitas/pratinjau saat login; versi, alasan, audit dan pemulihan tanpa pemberian paket baru. Kursus gratis tetap publik untuk tamu. Ini bukan blokir Arena/battle/latihan privat keluarga, penghapusan akun, atau manajemen peran. Direktori dan monitoring terhubung ke halaman kontrol.
+- [x] Battle live gratis: draf/publikasi/moderasi memakai alur existing; lobby, host terverifikasi, mulai sekali, hitung mundur 5 detik, soal serentak dan deadline server, penolakan masuk terlambat, sambung ulang, soal terlewat, hasil privat serta finalisasi saat arsip. Tidak ada bonus kecepatan, poin penukaran, chat atau iklan. Pengaturan ketersediaan dan 20/30/60 detik per soal tersimpan per ruang; batas existing 10/20/50 peserta bukan janji kapasitas setelah uji beban. Tes HTTP state/replay/rollback/soal masa depan/kunci tersembunyi lulus; browser membuktikan polling berganti ronde dan submit jawaban, bukan hanya halaman statis.
+- [x] Google Sign-in untuk akun dewasa/orang tua existing: konfigurasi terenkripsi, reauth, uji sebelum aktivasi, explicit link dengan login sandi lokal, login dari subject provider, unlink dan pencabutan sesi. Tidak auto-merge berdasarkan email, mengubah kontak, atau membuat akun baru. Authorization code + PKCE, state terikat sesi sekali pakai 10 menit, nonce, signature RS256, issuer/audience/azp/expiry/iat/verified claims diperiksa memakai `firebase/php-jwt` **7.2.1** (MIT, lockfile terisolasi). Kredensial/Google nyata belum diisi; produksi nonaktif.
+- [x] Uji Google memakai penyedia sintetis hanya pada environment development/database QA dengan direktori privat; token tetap benar-benar ditandatangani dan diverifikasi. Settings/aktivasi, CSRF, reauth, browser/state, replay, nonce/issuer/audience/expiry/signature palsu, subject ganda, akun tidak dikenal, rotasi konfigurasi, throttle, login/unlink/sesi diuji. Ini bukan klaim consent screen atau callback Google merchant nyata berhasil.
+  - [x] Callback produksi dengan marker sintetis diuji lewat browser: redirect ke login tidak membawa Referer, dan marker tidak masuk log request/Referer origin. Perilaku CI redirect yang melewati header antrean ditangani dengan header langsung serta pengamanan khusus callback pada Nginx.
+- [x] Halaman kesehatan operasional: pesanan sandbox pending/lama/review, selisih ledger kredit/poin, kesiapan Gmail/Google/Midtrans, retensi/gangguan trafik, laporan battle, dan bukti restore yang bisa kedaluwarsa. Hanya Superadmin, tanpa secret/log mentah atau perbaikan saldo otomatis.
+- [x] Cadangan produksi 032 dipulihkan ke database terisolasi: **58 tabel** dengan struktur dan checksum seluruh isi cocok; arsip kode/media lolos integritas gzip. Media privat produksi saat ini **0 berkas**, sehingga ini bukan bukti restore gambar terisi/unggah multipart. Produksi hanya dibaca saat verifikasi; bukti metadata root-owned/read-only PHP tersedia pada dashboard operasional. Snapshot ini bukan otomatisasi backup berkala atau persetujuan RPO/RTO.
+- [x] Browser 1280/768/360 px dan keyboard: kontrol akun, pemulihan anak, pengaturan/akun Google, operasional dan live. Perbaikan ringkasan live di ponsel mendahulukan waktu/soal; aturan panjang dapat dibuka. Regresi hak paket/Platinum/slot/monitoring, stamp kredensial sesudah pencabutan pada mail/commerce/points, serta larangan akses kursus/pratinjau diuji. Peringatan PHP 8.4 pada tujuan belajar NULL ditemukan dan diperbaiki.
+- [ ] Aktivasi/tes layanan nyata Google OAuth, Gmail dan Midtrans sandbox tetap membutuhkan pengisian pemilik melalui panel. Pendaftaran publik, harga/durasi/refund, kebijakan privasi, live payment dan iklan tetap tidak dibuka. Alur baru tidak menutup gerbang onboarding, penutupan akun/data, beban 50 peserta serentak, seluruh browser/zoom/pembaca layar, pilot dan UAT yang belum dibuktikan.
+
+Skrip bukti terarah: `test-account-controls.mjs`, `test-controls-access.php`, `test-family-credential-guards.php`, `test-live-battle.mjs`, `test-google-auth.mjs`, `test-release-controls-guards.mjs`, `test-account-release-browser.mjs`, dan CLI root-only `verify-release-restore.php`. Cadangan berada di `/www/backup/projectpintar-deploy-20261016/`, bukti restore privat `/www/study-private/operations/restore-evidence.json`. Tidak ada panduan/daftar tes pemilik baru pada tahap ini, sesuai permintaan menundanya.
+
+## Kelanjutan voucher, pengaturan dan transaksi — 16 Oktober 2026
+
+Status aktual server: migration **029**, **54 tabel**, database mandiri `db_study`; akun `ngadmin` ID 1 dan data/ID lama dipertahankan. Bagian ini mengungguli status belum dibuat pada snapshot historis di bawah. Sesuai permintaan terbaru pemilik, panduan penggunaan dan daftar tes pemilik belum dibuat; ini hanya checklist implementasi dan bukti internal, bukan pernyataan semua roadmap selesai.
+
+- [x] Pengaturan paket dan produk: isi kursus, status draf/terbit/arsip, paket resmi, kemampuan latihan keluarga, harga/durasi, top up, Platinum, slot anak dan voucher. Validasi server, versi edit, konfirmasi aktivasi dan audit; tidak menyisipkan harga usulan sebagai produk produksi.
+- [x] Tukar kredit uji dengan voucher akses paket; inventori milik pembeli, penerima diri sendiri/anak tertaut, sekali pakai dan batas penggunaan. Harga/isi/durasi tersimpan snapshot; revisi isi paket yang berubah menolak kutipan pembelian lama. Tidak menyediakan transfer antar-keluarga atau pencairan. Bentuk voucher akses internal ini asumsi implementasi konservatif, bukan persetujuan voucher hadiah/barang pihak ketiga.
+- [x] Ledger kredit sandbox terpisah dari saldo lama; debit dan akses atomik, request idempotent, penolakan saldo kurang/IDOR/CSRF, kegagalan audit rollback. Kompensasi voucher belum digunakan membuat mutasi baru dengan reautentikasi dan alasan; bukan edit saldo atau refund uang otomatis.
+- [x] QRIS sandbox: order dan snapshot server, callback tersendiri, signature serta pemeriksaan status server independen, nominal/merchant/metode cocok, rekonsiliasi, retry notifikasi tanpa kredit ganda. Callback palsu/duplikat/paralel/terlambat, timeout dan kegagalan simpan diuji dengan transport sintetis. Refund/sengketa ditandai untuk pemeriksaan dan membekukan pembelanjaan/pemakaian voucher baru; tidak menghapus progres atau anak.
+- [x] Hak akses paket per penerima, Platinum keluarga untuk paket resmi saat ini/berikutnya, masa berlaku/perpanjangan, dan kapasitas dua anak + slot. Tes isolasi keluarga, kedaluwarsa, akses dicabut, laporan/resume dan dua proses berebut slot lulus. Di produksi transaksi/hak sandbox dibatasi pengelola/keluarga ujinya, bukan penjualan publik.
+- [x] Poin belajar anak terpisah: aturan hadiah/ambang/kuota harian, satu hadiah per set yang memenuhi syarat, snapshot aturan, penukaran paket atomik, ledger dan laporan keluarga/pengelola. Battle komunitas, iklan, latihan privat, serta aktivitas tanpa penilaian tidak mencetak poin. Reward produksi tetap mati sampai aturan disetujui.
+- [x] Trafik first-party: tab Ringkasan/Per Halaman/Per Pengguna, filter/periode WIB/pagination, detail akun dan tautan monitoring. GET dokumen sukses saja, identitas pseudonim terpisah saat login/logout, pengecualian pengelola/bot, tanpa URL/token/jawaban/IP mentah. Persetujuan sendiri/orang tua dan versi kebijakan diperiksa server; gangguan pencatatan tidak memutus belajar.
+- [x] Pengaturan privasi dan preferensi analitik, kedaluwarsa sesuai kontrak saat event dibuat, agregasi tanpa identitas dan retensi terjadwal khusus Study. Preview, versi persetujuan salah, rollback audit, batas hari WIB dan replay batch diuji; service/timer produksi berhasil. Pencatatan produksi tetap mati dan teks kebijakan belum disahkan.
+- [x] Rilis gabungan: database QA baru dari snapshot 025 berhasil naik 026–029; suite commerce HTTP/guards/access/browser, checkout, points engine/HTTP/browser, traffic HTTP/retention/browser lulus. Tes tambahan revisi paket, batas pagination, pembekuan voucher saat review dan allowlist URL QR lulus. Browser 1280/360 px, keyboard, overflow dan error JavaScript diperiksa; lint 246 file PHP aplikasi serta naming 302 file lulus. Bukan uji native zoom 200%, lintas semua browser, atau merchant/inbox nyata.
+- [ ] Integrasi nyata: Gmail/App Password dan penerimaan email, kredensial merchant Midtrans **sandbox** dan transaksi/status/callback nyata. Tidak ada secret nyata diisi oleh agen; Finance/Pustaka maupun callback mereka tidak diubah.
+- [ ] Keputusan produk: harga/durasi, cakupan voucher, refund uang, aturan hadiah poin, kebijakan privasi/retensi dan layanan. Tidak mengaktifkan pembayaran live, analitik anak, pendaftaran publik atau reward untuk menutup checklist.
+- [ ] Sisa lintas tahap: Google SSO/onboarding dan pemulihan anak, operasi lifecycle akun/hak, live battle/iklan bila disetujui, pengujian operasional/lintas browser dan UAT/pilot. Materi kurikulum/bank soal sesi latihan tetap ditunda oleh pemilik. Checklist besar di bawah tidak otomatis menjadi selesai karena backend sandbox tersedia.
+
+Bukti dapat diulang lewat `scripts/test-commerce-*.mjs`, `test-commerce-access.php`, `test-checkout-http.mjs`, `test-payment-qr-actions.mjs`, `test-points-*` dan `test-traffic-*`. Semua mutasi pengujian memakai database QA terpisah, bukan `db_study`. Cadangan privat sebelum migrasi 026/028/029 dan bukti QA disimpan di `/www/backup/projectpintar-deploy-20261016/`; jangan menaruh dump/credential pada webroot.
+
+## Tambahan Arena Belajar server — 16 Oktober 2026
+
+Instruksi baru pemilik mencakup isi permainan Pustaka, kecuali bank soal sesi latihan. [Bukti, URL, sumber, dan batas implementasi](ARENA_BELAJAR_SERVER.md). Ini status irisan fitur, bukan penyelesaian seluruh roadmap atau persetujuan rilis publik.
+
+- [x] Hub Arena di dashboard pengguna; tiga mini game dengan konten TK–SMP: 15 set Cocokkan Pasangan, 14 set Susun Kata, 8 level Hitung Cepat. Server menghitung hasil, menyimpan snapshot/resume/riwayat; replay, CSRF, isolasi, tab lama dan rollback diuji.
+- [x] Math Expedition: 12 level/60 tantangan, petunjuk/pembahasan, urutan level server dan ambang tersimpan; seluruh level dijalankan pada QA, termasuk penolakan level terkunci dan ambang berubah.
+- [x] Story Quiz: 22 bacaan unik/101 pertanyaan dari katalog aktif SD–SMP Pustaka; duplikasi bacaan/pertanyaan disisihkan. Seluruh bacaan dimainkan, snapshot lama dipertahankan; tidak memasukkan pertanyaan ke bank sesi latihan.
+- [x] Pengaturan Arena/per-set, audit/conflict, monitoring dan rapor lintas pengguna serta versi keluarga; desktop/ponsel/keyboard dan akses langsung diuji. Data produksi/ID lama tidak direset, Finance/Pustaka tidak diubah.
+- [x] Tata ulang Arena: halaman utama sembilan judul permainan/aktivitas; rincian setelah memilih. Set biasa berfilter/pagination, Inggris memakai bab, Quest memakai episode, battle memakai ruang privat. Browser 1280/360 px dan keyboard diuji.
+- [x] Flashcard mandiri Pustaka: 14 set SD–SMP/151 kartu sumber, buka sisi belakang lalu “Sudah paham/Perlu diulang”, resume dan progres unik per kartu/versi. Pengaturan 5/10/15 kartu (TK 5), audit ketersediaan, monitoring/rapor termasuk keluarga; seluruh kartu dimainkan pada QA, CSRF/IDOR/replay/rollback/revokasi dan jumlah laporan diuji. Migration tambahan 019 tidak mereset data/ID.
+- [x] Kelas Inggris Stage 1: 60 pelajaran/600 langkah, 12 checkpoint, 2 review dan final (214 pertanyaan evaluasi); pengaturan, penguncian evaluasi server, resume, umpan balik, monitoring terpisah pelajaran/evaluasi. Seluruh 75 aktivitas diuji HTTP, ambang tepat 75% dan privasi jawaban bebas diuji.
+- [x] English Quest: 15 episode aktif/225 adegan dan 15 deck kosakata/225 kartu; pilihan dialog/cerita, susun kalimat, bantuan dengar lokal, jurnal dan koleksi kosmetik berbasis progres. Urutan, pengaturan jeda, snapshot, hasil, desktop/ponsel diuji. Tidak menyalin akun/nyawa/toko/inventori sumber; bukan klaim seluruh mekanika RPG identik.
+- [x] Tinjauan katalog Story aktif: 45 entri SD–SMP menjadi 22 bacaan unik; 9 pertanyaan berulang disisihkan. Migration tambahan 022 mempertahankan ID/ketersediaan dan menolak menimpa konten lama yang sudah berubah.
+- [x] Backend battle privat terjadwal: draf/edit soal/jadwal, pratinjau, publikasi terverifikasi, persetujuan orang tua, alias, batas kapasitas, penilaian server, hasil setelah jadwal, moderasi/audit, monitoring dan rapor. QA dua proses membuktikan satu slot tidak terisi ganda; isolasi/CSRF/replay/rollback diuji. [Bukti dan batas produksi](ADOPSI_LANJUTAN_SERVER.md).
+- [x] Halaman Gmail `/kelola/pengaturan/email`, rahasia terenkripsi, reauth/CSRF/audit/revisi, probe ke pengirim dan aktivasi setelah cek inbox. Verifikasi email 30 menit dan pemulihan dewasa/orang tua 15 menit, token hash sekali pakai, batas kirim, reset membatalkan sesi lama; HTTP/browser/race/rollback diuji di QA. [Bukti dan langkah operator](EMAIL_DAN_BATTLE_PUBLIK_SERVER.md).
+- [x] Katalog battle untuk semua member gratis, pengajuan penyelenggara, persetujuan/reject/hide/withdraw dengan checklist/audit, pratinjau hanya soal yang diajukan, filter/pagination dan join tanpa Platinum. Uji alur nyata QA desktop/ponsel serta isolasi anak/role/CSRF/rollback lulus.
+- [ ] Aktivasi email nyata: pemilik mengisi Gmail/App Password dan tes inbox, verifikasi/reset sebelum pendaftaran publik. Produksi pengiriman nonaktif; status verified akun existing dipertahankan, bukan klaim SMTP pernah diuji.
+- [ ] Battle live dan iklan sesuai gerbang handover; harga/durasi tetap draft, tidak diaktifkan diam-diam. Backend reward poin/penukaran kini tersedia sebagaimana status 029 di atas; aktivasi menunggu keputusan.
+- [ ] UAT pemilik untuk alur Arena dan keputusan produk yang belum final. Implementasi trafik tersedia pada 029, aktivasi privasi belum disetujui; B3 keseluruhan, onboarding dan gerbang C–F belum ditutup.
+
+---
+
 > **JEDA MIGRASI — 16 Oktober 2026:** pengembangan otomatis lokal dihentikan atas permintaan pemilik. Mulai kelanjutan dari [TASK_HANDOVER_SERVER](TASK_HANDOVER_SERVER.md). Keputusan terbaru: Project Pintar/www.projectpintar.com, TK–SD–SMP, dua anak + slot berbayar, Superadmin operator tunggal, Google SSO/verifikasi kontak, QRIS/kredit/Platinum, poin penukaran dan battle gratis. Fitur tersebut belum otomatis selesai karena dicatat. Harga/durasi usulan dan pola pengujian hemat ada di handover; ini mengungguli asumsi lama yang bertentangan. Akun uji superadmin sekarang ada, sehingga asumsi historis DB kosong tidak lagi berlaku. Layanan Apache/MySQL bersama tidak dimatikan.
 
 **Status:** Dokumen kerja; centang hanya setelah ada bukti dan pemeriksaan selesai  
@@ -310,7 +640,8 @@ Dokumen acuan:
 - [ ] Implementasikan pendaftaran, verifikasi kontak/email bila dipilih, login, logout, lupa/reset kata sandi, masa berlaku sesi, dan throttling percobaan login.
 - [x] Bagian awal yang sudah diuji: daftar dev/test, login/logout, regenerasi ID sesi saat login, cookie HttpOnly, CSRF, pembatasan percobaan login, dan otorisasi keluarga anak/orang tua.
 - [x] Login sukses kini memperbarui `last_login_at` dan menulis event `auth.login` tanpa menyimpan identitas kata sandi/rahasia; logout mencatat `auth.logout` sebelum sesi dihancurkan. Uji HTTP memeriksa rotasi ID sesi, atribut cookie `HttpOnly`/`SameSite=Lax`, penolakan CSRF salah, audit login/logout, serta dashboard yang kembali terlindungi setelah logout. Uji `admin-input-check.ps1` lulus pada Apache dan server PHP 8.1, dan seluruh fixture/audit QA kembali bersih.
-- [ ] Masih diperlukan: verifikasi email, lupa/reset sandi, kebijakan sesi kedaluwarsa yang disepakati, pemulihan akun, dan pengujian role lengkap.
+- [x] Backend verifikasi email dan lupa/reset sandi dewasa/orang tua tersedia (server migration 024), termasuk token sekali pakai, expiry, delivery failure, reauth/rate limit dan pencabutan sesi; uji terarah tercatat di [email dan battle publik](EMAIL_DAN_BATTLE_PUBLIK_SERVER.md).
+- [ ] Masih diperlukan: uji pengiriman/pemulihan Gmail nyata, Google SSO, kebijakan sesi kedaluwarsa yang disepakati, pemulihan anak/operasional, dan UAT onboarding. Pendaftaran production tetap tertutup.
 - [ ] Pisahkan peran peserta dewasa, orang tua, anak, pengelola konten, admin sistem; validasi izin di server untuk setiap route dan aksi.
 - [x] Uji batas awal route dan ringkasan pengelola untuk system admin, editor konten, keuangan, dukungan, serta akun biasa; hitungan paket/pesanan/kursus disembunyikan sesuai role. Ini belum menggantikan matriks lengkap semua aksi/route dan role orang tua/anak.
 - [ ] Rancang tautan orang tua-anak melalui undangan/kode sekali pakai, kedaluwarsa, dan alur persetujuan sesuai kebijakan keluarga.
@@ -460,9 +791,11 @@ Dokumen acuan:
 
 Pembaruan kebutuhan pemilik setelah mencoba panel: panel saat ini memang untuk pengelola, tetapi belum lengkap. [Handover bagian 3A](TASK_HANDOVER_SERVER.md#3a-tambahan-permintaan-pemilik-panel-admin-lengkap-dan-monitoring) menjadi spesifikasi tambahan wajib di server; pengembangan lokal tetap dijeda.
 
-- [ ] Pisahkan shell admin sidebar desktop/drawer mobile dari ruang belajar pengguna; Superadmin mendapat seluruh menu pengelolaan yang sudah berfungsi, bukan hanya tiga tautan awal.
-- [ ] Adopsi pola Pembelajaran Pustaka: monitoring lintas pengguna, detail bertab per modul, progres per konten/sesi dan rapor, dengan hak akses/privasi Study. Reset/aksi akses harus aman dan diaudit, bukan menyalin penghapusan histori.
+- [x] Pisahkan shell admin sidebar desktop/drawer mobile dari ruang belajar pengguna; Superadmin mendapat seluruh menu pengelolaan yang sudah berfungsi, bukan hanya tiga tautan awal. Server 16 Oktober 2026: desktop collapse, drawer/fokus/Escape, menu sesuai peran, fallback tanpa JavaScript dan logout teruji.
+- [x] Adopsi pola Pembelajaran Pustaka tahap hanya-baca: monitoring lintas pengguna, detail bertab per modul existing, peserta per konten/sesi, akses paket dan rapor pengelola/keluarga dengan hak akses/privasi Study. Hitungan dataset terisolasi, filter/WIB/pagination, akses langsung, CSRF/pencarian, privasi keluarga dan browser diuji. [Bukti/batas dan URL](PANEL_MONITORING_SERVER.md).
+- [ ] Tambahkan reset/aksi akses dengan alasan, konfirmasi dan audit tanpa menghapus histori atau menggandakan hadiah. Tambahkan battle/poin dan tautan trafik setelah backend masing-masing siap; bukan bagian klaim monitoring existing selesai.
 - [ ] Implementasikan pusat pengaturan umum, akun/keluarga, aturan belajar/poin, pembayaran/paket dan privasi/operasional. Pengaturan Midtrans selesai bersama Tahap 11; menu placeholder tidak dihitung selesai.
+  - [x] Server 16 Oktober 2026: pengaturan identitas/SEO/kontak dan review operator tunggal sudah berfungsi, versioned, diaudit dan diuji. Konfigurasi Midtrans sandbox terenkripsi beserta probe API tersedia; transaksi QRIS/ledger belum diimplementasikan. Kuota dasar dua anak sudah diuji paralel dan rollback; slot berbayar/verifikasi/persetujuan belum selesai. [Bukti dan batas](PUSAT_PENGATURAN_SERVER.md).
 - [ ] Bangun trafik first-party dengan tab Ringkasan, Per Halaman dan Per Pengguna, detail/filter/pagination serta definisi view/sesi/unik. Pisahkan trafik dari progres belajar, tamu anonim dari akun, dan admin/bot/test dari pengguna; jangan menyimpan token/URL sensitif atau merekam layar anak.
 - [ ] Verifikasi alur pemilik dari monitoring pengguna ke progres modul dan trafik akun, serta penyimpanan pengaturan sandbox; cocokkan hitungan menggunakan dataset kecil. Pengujian mengikuti risiko, bukan mengulang seluruh matriks.
 

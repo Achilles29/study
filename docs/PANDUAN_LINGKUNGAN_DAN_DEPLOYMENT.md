@@ -1,5 +1,21 @@
 # Panduan Lingkungan dan Deployment
 
+## Lokasi produksi dan berkas saat pindah server — 18 Oktober 2026
+
+Situs aktif memakai `/www/wwwroot/study`. Folder kerja QA seperti `/www/study-private/donation043-...` hanya salinan untuk pengujian dengan database terisolasi; bukan sumber runtime produksi dan tidak wajib dipindahkan. Jangan menyalin fixture/seed/kredensial sintetis QA ke produksi.
+
+Namun **tidak semua isi study-private adalah pengujian**: konfigurasi runtime saat ini menunjuk `STUDY_MEDIA_ROOT=/www/study-private/lesson-images`. Folder media tersebut harus dicadangkan/dipulihkan berpasangan dengan database, walaupun berada di luar document root. Biarkan media privat di luar akses web langsung.
+
+Set migrasi yang perlu disiapkan (bukan instruksi menjalankan migrasi ulang sekarang):
+
+1. Folder situs `/www/wwwroot/study`, termasuk aset dan source terbaru.
+2. Dump terbaru database `db_study`, bukan database QA dan bukan hanya menyalin folder source.
+3. Media privat `STUDY_MEDIA_ROOT` di atas, termasuk bila lokasinya diubah kemudian.
+4. Konfigurasi rahasia `/etc/projectpintar/` secara privat, terutama kunci enkripsi aplikasi yang sama agar credential terenkripsi Google/Midtrans/email tetap dapat dibuka. Jangan mempublikasikan atau menaruhnya dalam Git/document root. Sesuaikan koneksi database/path pada server tujuan tanpa mereset kunci/data secara sembarang.
+5. Konfigurasi aaPanel/Nginx/PHP-FPM/TLS, service/worker terjadwal dan DNS yang diperlukan. Buat ulang pada server tujuan sesuai path/versi yang tersedia; salin konfigurasi secara terkontrol, bukan menjalankan instalasi lama untuk menimpa data.
+
+Database, media dan konfigurasi harus dicadangkan konsisten; uji login, akses media, callback HTTPS dan tugas retensi sebelum perpindahan trafik. Backup `/www/backup/projectpintar-*` adalah cadangan pemulihan, bukan dependensi runtime. Tidak perlu memindahkan seluruh folder pengujian atau data aplikasi Finance/Pustaka agar Study berjalan.
+
 > **Handover 16 Oktober 2026:** pengembangan lokal dijeda; domain tujuan https://www.projectpintar.com/. Baca [TASK_HANDOVER_SERVER](TASK_HANDOVER_SERVER.md) untuk urutan migrasi, akun admin uji, keputusan baru dan batas pekerjaan. Domain/DNS/TLS belum dikonfigurasi; jangan hardcode URL produksi pada instalasi localhost. Kredensial privat lokal tidak ikut deployment. Apache/MySQL bersama tidak dimatikan.
 
 ## Gambar pendamping pelajaran: lingkungan dan batas bukti
@@ -322,6 +338,22 @@ Jalankan `node scripts/browser-viewport-check.mjs --base-url http://localhost/st
 
 ## Ubuntu + Nginx + PHP-FPM + aaPanel
 
+### Konfigurasi server Project Pintar — 16 Oktober 2026
+
+Pembaruan fitur setelah deployment awal: migration tambahan 014–015 sudah diterapkan tanpa mengulang migrasi awal; sekarang `db_study` versi 15/35 tabel. Pengaturan umum, review operator tunggal, konfigurasi Midtrans sandbox dan pengaman kuota keluarga dijelaskan di [pusat pengaturan server](PUSAT_PENGATURAN_SERVER.md). Angka 13/33 pada catatan pemindahan berikut adalah snapshot deployment awal, bukan versi terkini.
+
+- Source: `/www/wwwroot/study`; URL kanonis: `https://www.projectpintar.com/`.
+- Database aktif adalah `db_study`, berisi 33 tabel, migration 13, dan akun `ngadmin` ID 1. Sesuai keputusan pemilik, database berjalan mandiri di server ini pada `127.0.0.1:3308`, tanpa koneksi replikasi atau ketergantungan server database lain. Seluruh baris dari database impor `study` telah dibandingkan dan cocok sebelum aplikasi dialihkan; akun dan hash sandi ikut dipindahkan. Tidak ada kursus pada pemeriksaan deployment.
+- MariaDB khusus ini memakai service `projectpintar-mariadb`, konfigurasi `/etc/projectpintar/mariadb.cnf`, datadir `/www/server/data-study`, socket `/tmp/mysql-study.sock`, dan binary MariaDB aaPanel. Service aktif otomatis saat boot, hanya mendengarkan loopback, serta memakai `read_only=0`. Administrasi lokal oleh root: `/www/server/mysql/bin/mysql --defaults-file=/etc/projectpintar/mariadb.cnf -uroot db_study`. Ini instance terpisah dari MariaDB bawaan aaPanel di port 3306; pilih port 3308 saat menghubungkannya ke alat pengelolaan database.
+- Runtime situs memakai PHP 8.4 aaPanel dalam service terpisah `projectpintar-php-fpm`, socket `/tmp/php-cgi-study.sock`. Konfigurasi berada di `/etc/projectpintar/php-fpm.conf`; environment produksi dan rahasia berada di `/etc/projectpintar/environment.conf`, hanya dapat dibaca root. `DB_DATABASE=db_study`, `DB_HOST=127.0.0.1`, dan `DB_PORT=3308`. Akun database `study_runtime` hanya memiliki SELECT/INSERT/UPDATE/DELETE pada `db_study`, tanpa hak admin global. Konfigurasi aplikasi mendukung `DB_PORT` dan tetap memakai 3306 jika tidak disetel.
+- Sesi dan temporary upload berada di `/www/study-private/sessions` dan `/www/study-private/tmp`; folder media disiapkan di `/www/study-private/lesson-images`. Ekstensi `fileinfo` belum tersedia pada runtime, sehingga unggah gambar belum siap digunakan dan belum diuji.
+- Vhost aaPanel `www.projectpintar.com.conf` menunjuk ke folder Study, meneruskan hanya front controller ke PHP, dan menolak source/config/dokumentasi internal. Vhost `projectpintar.com.conf` mengarahkan domain tanpa www ke URL kanonis. Salinan konfigurasi sebelum perubahan ada di `/www/backup/projectpintar-deploy-20261016/`.
+- Cloudflare Tunnel harus memakai **HTTP** ke port 8080. Pemilik sudah mengubah service menjadi `http://localhost:8080`; alamat ini berfungsi dan tidak perlu diganti ke `127.0.0.1`. Beranda dan halaman masuk HTTPS publik terverifikasi HTTP 200. Bridge lokal port 8080 tidak melayani TLS.
+- MariaDB bersama di port 3306 tetap `read_only=1`, dengan thread replikasi IO/SQL aktif setelah pemindahan. Database `study` lama tetap disimpan. Dump sebelum pemindahan: `/www/backup/projectpintar-deploy-20261016/study-before-db-study.sql`; salinan environment lama: `environment-before-db-study.conf` di direktori yang sama. Keduanya privat dan tidak berada dalam document root. Reset kata sandi akun ID 1 atas permintaan pemilik tercatat dalam audit; kata sandi tidak disimpan dalam dokumentasi.
+- Validasi origin melalui bridge: beranda, masuk, katalog, CSS/font HTTP 200; route privat mengarah ke login; file internal HTTP 404; POST tanpa CSRF HTTP 403; cookie sesi Secure/HttpOnly. Konfigurasi Nginx/PHP-FPM valid, lint PHP 8.4 tanpa syntax error, tes environment/timezone/session credentials lulus. Setelah perpindahan, login `ngadmin` melalui HTTPS berhasil; beranda akun, panel pengelola, direktori pengguna dan daftar kursus HTTP 200. Sesi verifikasi sudah logout, dan audit login/logout tersimpan di `db_study`. Upload media dan alur belajar privat belum diuji.
+- Pendaftaran publik tetap ditutup oleh guard produksi bawaan aplikasi. Jangan mengubah environment ke development untuk membukanya.
+- Setelah mengubah konfigurasi, jalankan `/www/server/php/84/sbin/php-fpm -t -y /etc/projectpintar/php-fpm.conf` sebelum `systemctl reload projectpintar-php-fpm`, serta `/www/server/nginx/sbin/nginx -t` sebelum reload Nginx. Pertahankan socket khusus ini bila mengubah pengaturan PHP situs melalui aaPanel.
+
 Direktori pengguna `kelola/pengguna` tidak memerlukan migration baru. `scripts/user-directory-check.ps1` memakai fixture lokal untuk peran, pencarian POST/CSRF dengan konteks sesi, batas konteks, literal search, sort/filter/paging, privasi, revokasi dan pembacaan tanpa mutasi akun. Skrip sudah masuk `qa-local.ps1`; `-ChromePath` menguji daftar biasa/tersaring pada tiga lebar, dan `-CaptureScreenshots` menyimpan capture sementara. Jangan menjalankannya pada produksi. Pada deployment, sesi harus tetap privat dan tidak dibagikan antarpengguna; kehilangan sesi membuat token pencarian tidak berlaku dan pengguna perlu mencari ulang. Direktori tidak memberi akses ekspor, perubahan akun, atau data belajar anak.
 
 - Untuk tahap pengembangan yang disepakati, samakan PHP 8.1 di lokal dan server uji. Karena cabang 8.1 sudah EOL, jangan jadikan ini konfigurasi publik produksi; sebelum peluncuran, naikkan setelah uji kompatibilitas ke PHP yang masih mendapat pembaruan keamanan. Aktifkan sekurangnya `mysqli`, `mbstring`, `openssl`, `curl`, `fileinfo`, `json`, dan `session`; unggah gambar pendamping juga wajib memakai `gd` dengan PNG/JPEG, bukan sekadar Imagick. Periksa `xml` bila diperlukan oleh alat pengujian.
@@ -342,7 +374,7 @@ Direktori pengguna `kelola/pengguna` tidak memerlukan migration baru. `scripts/u
 - Cookie aman hanya aktif jika `APP_COOKIE_SECURE=1`; gunakan nilai itu hanya di situs HTTPS.
 - Kunci `APP_ENCRYPTION_KEY` bawaan hanya untuk pengembangan lokal dan wajib diganti sebelum staging/produksi. Jangan mengganti kunci setelah aplikasi menyimpan data terenkripsi tanpa rencana migrasi.
 - `application/config/database.php` membaca variabel `DB_*` dan menyediakan nilai bawaan untuk XAMPP. Jangan menyimpan kata sandi produksi ke file yang ikut dibagikan.
-- `index_page` untuk saat ini masih `index.php` supaya URL bekerja tanpa rewrite di XAMPP. URL cantik tanpa `index.php` dapat diaktifkan nanti setelah aturan rewrite Apache dan Nginx sama-sama diuji.
+- `index_page` sekarang kosong: URL publik tanpa `index.php` telah diuji di Nginx server Project Pintar pada 16 Oktober 2026. Redirect kompatibilitas hanya GET/HEAD; POST tidak dialihkan. Pola dan bukti ada di [panel monitoring server](PANEL_MONITORING_SERVER.md#url-bersih-branding-dan-seo). Contoh perintah XAMPP/Windows di atas adalah bukti historis; Apache perlu rewrite sebelum memakai konfigurasi URL bersih ini, dan belum diuji ulang pada perubahan server ini.
 - `.htaccess` di root proyek menonaktifkan directory listing dan menolak akses Apache ke `docs`, `scripts`, `sql`, `.git`, file dokumentasi/arsip/konfigurasi tertentu, dan manifest dependency. Smoke test membuktikan empat contoh path mendapat 403 sedangkan aplikasi dan CSS tetap 200 pada XAMPP. Aturan ini tidak berlaku di server PHP bawaan atau Nginx; server bawaan development hanya bind ke loopback, dan Nginx tetap wajib memiliki deny rules sendiri yang diuji dari HTTP.
 
 ## Gerbang sebelum rilis

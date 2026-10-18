@@ -10,6 +10,8 @@ function study_php_ci3_name_issues($source, $file_name)
 		'__sleep', '__wakeup', '__serialize', '__unserialize', '__toString', '__invoke', '__set_state',
 		'__clone', '__debugInfo'
 	);
+	// CI3 dispatches this exact controller hook name (system/core/CodeIgniter.php).
+	$framework_methods = array('_remap');
 
 	for ($index = 0; $index < $token_count; $index++)
 	{
@@ -47,7 +49,7 @@ function study_php_ci3_name_issues($source, $file_name)
 		}
 
 		$function_name = $tokens[$name_index][1];
-		if (in_array($function_name, $allowed_magic_methods, TRUE) || preg_match('/\A[a-z][a-z0-9]*(?:_[a-z0-9]+)*\z/', $function_name))
+		if (in_array($function_name, $allowed_magic_methods, TRUE) || in_array($function_name, $framework_methods, TRUE) || preg_match('/\A[a-z][a-z0-9]*(?:_[a-z0-9]+)*\z/', $function_name))
 		{
 			continue;
 		}
@@ -155,6 +157,7 @@ class Study_model
 		return $_SERVER;
 	}
 	public function __toString() {}
+	public function _remap($method, $params = array()) {}
 }
 function study_helper() {}
 function &get_course_reference() {}
@@ -200,6 +203,8 @@ foreach (array('application', 'scripts') as $source_directory)
 		}
 
 		$relative_path = str_replace(DIRECTORY_SEPARATOR, '/', substr($file_info->getPathname(), strlen($project_root) + 1));
+		// Composer-owned upstream code follows its own public API naming contract.
+		if (strpos($relative_path, 'application/third_party/google_auth/vendor/') === 0) { continue; }
 		$file_issues = study_php_ci3_name_issues(file_get_contents($file_info->getPathname()), $relative_path);
 		$file_source = file_get_contents($file_info->getPathname());
 		$file_issues = array_merge($file_issues, study_php_ci3_variable_issues($file_source, $relative_path), study_php_ci3_class_issues($file_source, $relative_path));

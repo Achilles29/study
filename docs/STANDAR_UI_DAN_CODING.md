@@ -1,5 +1,21 @@
 # Standar Antarmuka dan Coding Aplikasi Belajar
 
+## Monitoring operasional dan analitik opsional — rilis 042
+
+Pisahkan status/sumber monitoring otomatis dari analitik berbasis persetujuan. Monitoring menampilkan empat tab Ringkasan, Per Halaman, Per Pengguna, Log Akses; filter konsisten, pagination 20, kartu mobile, nama kelompok halaman dan metadata ter-escape. Jangan melabeli IP sebagai orang atau sesi; negara/perangkat/browser adalah perkiraan. Tamu tidak ditebak identitasnya; akun anak dan pengelola dikecualikan dari log operasional. Tampilkan batas 7 hari, cakupan allowlist dan keadaan kosong/kegagalan secara jujur. Detail IP hanya Superadmin, no-store/noindex dan pembukaan diaudit sebelum respons.
+
+Form textarea pengaturan menormalkan CRLF/CR menjadi LF sebelum validasi karakter kontrol. Jangan menormalisasi sandi atau mengendurkan penolakan NUL/karakter kontrol pada field lain. Perubahan kebijakan tetap berversi dan diperiksa terhadap revisi terkini. Acuan: [monitoring operasional](MONITORING_OPERASIONAL_042.md).
+
+## Lapisan pengalaman belajar — UI041 (18 Oktober 2026)
+
+Gunakan `assets/css/experience.css` setelah stylesheet aplikasi/pengelola untuk tombol berwarna, hero dominan dan teks kontras. Indigo adalah aksi utama; teal untuk riwayat/utilitas dan biru muda untuk kembali. Jangan mengganti makna sukses/peringatan/bahaya hanya demi dekorasi. Target sentuh tombol umum minimal 44 px; fokus keyboard tetap tampak. Kontras minimal 4,5:1 untuk teks biasa dan 3:1 untuk teks besar; pengujian terarah bukan klaim audit WCAG penuh.
+
+Login/daftar memakai `auth/learning_panel`, dua kolom desktop dan header ilustrasi ringkas di ponsel; formulir penyelesaian Google menyembunyikan panel dekoratif pada ponsel agar input mudah dijangkau. Logo Google resmi tetap terpisah dari ilustrasi buatan AI. Panduan sandi tidak mengarang kewajiban huruf besar/angka/simbol jika validator hanya membatasi panjang. Batas byte tersedia dalam detail. `password-visibility.js` menambahkan tombol type=button dengan aria-controls/pressed/label, tidak menyimpan nilai dan menyembunyikan sandi kembali saat submit/pagehide; tanpa JS formulir biasa tetap berfungsi.
+
+Beranda tidak menumpuk tautan email/Google: tempatkan pada `/akun/pengaturan`, tampilkan status verifikasi aktual di sana, dan pertahankan reautentikasi/verifikasi ketika mengubah akun. Pengaturan bukan jalan pintas melewati izin server; anak tidak ditawari kontrol akun dewasa atau pembayaran.
+
+Arena menampilkan kartu kategori dengan ilustrasi dahulu; set/episode/tema tampil setelah kategori dipilih. Ilustrasi tema boleh dipakai ulang untuk konten relevan; gambar dekoratif memakai alt kosong karena judul sudah tersedia, dimensi eksplisit dan lazy loading. Aset WebP lokal berversi, daftar prompt serta asal pembuatan dicatat di [manifest ilustrasi](ILUSTRASI_PEMBELAJARAN_041.md). Gambar bukan jawaban atau indikator progres.
+
 > **Pola kerja terbaru, 16 Oktober 2026:** ikuti bagian 13 [handover server](TASK_HANDOVER_SERVER.md) untuk pengujian berbasis risiko dan penghematan waktu/token. Jangan mengulang seluruh matriks untuk perubahan dokumentasi/UI kecil; regresi luas dilakukan pada milestone/rilis. Pengujian uang, otorisasi, privasi anak, idempotensi dan kegagalan simpan tetap wajib. Tidak ada klaim kode pasti bebas bug hanya dari pemeriksaan logika.
 
 ## Tambahan layout pengelola dan analitik
@@ -10,7 +26,7 @@ Tab laporan Ringkasan/Per Halaman/Per Pengguna harus mempertahankan filter perio
 
 ## Batas kata sandi sesuai algoritma
 
-Selama menggunakan `PASSWORD_DEFAULT` yang saat ini bcrypt, server wajib menolak kata sandi lebih dari 72 byte, bukan memotongnya. Minimum tetap 12 karakter UTF-8 untuk peserta dewasa/orang tua, 10 untuk akun anak dan 16 untuk bootstrap admin; minimum dihitung sebagai karakter, maksimum sebagai byte. Formulir menjelaskan bahwa aksen/emoji bisa memakai beberapa byte. `maxlength` browser hanya bantuan, bukan pengganti validasi server. Helper `study_valid_password` dipakai formulir, model dan CLI; nilai tidak di-trim, di-hash ulang sebelum bcrypt, atau dipantulkan dalam pesan. Model menolak input non-string, UTF-8 tidak valid dan NUL sebelum hashing. Pengolahan input HTTP tetap mengikuti CI3; ini bukan klaim dukungan karakter kontrol dalam kata sandi.
+Selama menggunakan `PASSWORD_DEFAULT` yang saat ini bcrypt, server wajib menolak kata sandi lebih dari 72 byte, bukan memotongnya. Minimum tetap 12 karakter UTF-8 untuk peserta dewasa/orang tua, 1 (wajib diisi, tanpa kombinasi karakter) untuk akun anak dan 16 untuk bootstrap admin; minimum dihitung sebagai karakter, maksimum sebagai byte. Formulir menjelaskan bahwa aksen/emoji bisa memakai beberapa byte. `maxlength` browser hanya bantuan, bukan pengganti validasi server. Helper `study_valid_password` dipakai formulir, model dan CLI; nilai tidak di-trim, di-hash ulang sebelum bcrypt, atau dipantulkan dalam pesan. Model menolak input non-string, UTF-8 tidak valid dan NUL sebelum hashing. Pengolahan input HTTP tetap mengikuti CI3; ini bukan klaim dukungan karakter kontrol dalam kata sandi.
 
 Validasi saat login juga menolak kelebihan byte agar akhiran yang diabaikan bcrypt tidak diterima. Tidak ada akun nyata yang perlu dikonversi pada saat perbaikan lokal ini. Untuk migrasi sistem yang sudah berpengguna, jangan memotong kata sandi atau menebak bentuk aslinya dari hash; perlu alur pemulihan dan rencana algoritma tersendiri. Acuan: [PHP password_hash](https://www.php.net/manual/en/function.password-hash.php).
 
@@ -391,6 +407,7 @@ Aturan data dan layanan:
 
 - Nama route publik ditulis pendek, huruf kecil, dan memakai tanda hubung, misalnya `/paket-belajar`.
 - Nama metode mengikuti gaya framework dan pola proyek; satu istilah harus ditulis sama di route, controller, menu, dan dokumentasi.
+- Hook controller CI3 `_remap` dikecualikan secara spesifik dari aturan snake_case tanpa awalan garis bawah, karena dispatcher framework memerlukan nama tersebut. Tetap batasi metode tujuan dengan allowlist dan periksa izin/metode HTTP server-side; pengecualian ini bukan izin melewati otorisasi.
 - Nama tabel memakai awalan atau kelompok yang konsisten per fitur agar tabel belajar, kredit, transaksi, dan keluarga mudah dikenali.
 - Perubahan struktur database dibuat sebagai berkas perubahan yang berurutan dan dapat ditinjau. Jangan mengubah skema produksi tanpa catatan perubahan.
 - Hindari singkatan yang hanya dipahami pembuatnya. Nama variabel, fungsi, kolom, dan tombol harus menjelaskan maksudnya.

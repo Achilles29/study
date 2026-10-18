@@ -1,0 +1,83 @@
+{
+  "version": 1,
+  "source": "Read-only Pustaka master snapshot 2026-10-17; SMA/SMK grades and category metadata only, no questions or game content.",
+  "grades": [
+    {
+      "id": "12",
+      "code": "sma_10",
+      "name": "SMA/SMK Kelas 10",
+      "grade_number": "10",
+      "sort_order": "12"
+    },
+    {
+      "id": "13",
+      "code": "sma_11",
+      "name": "SMA/SMK Kelas 11",
+      "grade_number": "11",
+      "sort_order": "13"
+    },
+    {
+      "id": "14",
+      "code": "sma_12",
+      "name": "SMA/SMK Kelas 12",
+      "grade_number": "12",
+      "sort_order": "14"
+    }
+  ],
+  "game_categories": [
+    {
+      "id": "21",
+      "game_code": "word_scramble",
+      "name": "Susun Kata — SMA/SMK Kelas 10",
+      "description": "Kosakata terkurasi untuk SMA/SMK Kelas 10.",
+      "subject_code": "fisika",
+      "subject_name": "Fisika",
+      "grade_code": "sma_10"
+    },
+    {
+      "id": "22",
+      "game_code": "word_scramble",
+      "name": "Susun Kata — SMA/SMK Kelas 11",
+      "description": "Kosakata terkurasi untuk SMA/SMK Kelas 11.",
+      "subject_code": "biologi",
+      "subject_name": "Biologi",
+      "grade_code": "sma_11"
+    },
+    {
+      "id": "23",
+      "game_code": "word_scramble",
+      "name": "Susun Kata — SMA/SMK Kelas 12",
+      "description": "Kosakata terkurasi untuk SMA/SMK Kelas 12.",
+      "subject_code": "kimia",
+      "subject_name": "Kimia",
+      "grade_code": "sma_12"
+    },
+    {
+      "id": "33",
+      "game_code": "memory_match",
+      "name": "Memory — SMA/SMK Kelas 10",
+      "description": "Cocokkan istilah dan pengertian untuk SMA/SMK Kelas 10.",
+      "subject_code": "fisika",
+      "subject_name": "Fisika",
+      "grade_code": "sma_10"
+    },
+    {
+      "id": "34",
+      "game_code": "memory_match",
+      "name": "Memory — SMA/SMK Kelas 11",
+      "description": "Cocokkan istilah dan pengertian untuk SMA/SMK Kelas 11.",
+      "subject_code": "biologi",
+      "subject_name": "Biologi",
+      "grade_code": "sma_11"
+    },
+    {
+      "id": "35",
+      "game_code": "memory_match",
+      "name": "Memory — SMA/SMK Kelas 12",
+      "description": "Cocokkan istilah dan pengertian untuk SMA/SMK Kelas 12.",
+      "subject_code": "kimia",
+      "subject_name": "Kimia",
+      "grade_code": "sma_12"
+    }
+  ]
+}

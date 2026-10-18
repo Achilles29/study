@@ -72,7 +72,7 @@ $stamp = str_repeat('a', 64);
 foreach (array(NULL, array('invalid'), str_repeat('b', 64), $stamp) as $stored)
 {
 	$GLOBALS['probe_session'] = new Session_probe();
-	$GLOBALS['probe_session']->data = array('user_id' => 1, 'auth_stamp' => $stored, 'directory_searches' => array('private'));
+	$GLOBALS['probe_session']->data = array('user_id' => 1, 'auth_stamp' => $stored, 'directory_searches' => array('private'), 'monitor_searches' => array('private'));
 	$GLOBALS['probe_account'] = new Account_probe();
 	$GLOBALS['probe_account']->user = array('auth_stamp' => $stamp);
 	$rejected = FALSE;

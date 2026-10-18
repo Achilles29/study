@@ -1,5 +1,24 @@
 # Peta Adopsi Modul Arena Belajar Pustaka
 
+## Pembaruan instruksi dan implementasi server — 16 Oktober 2026
+
+Pemilik kini secara eksplisit meminta **isi permainan** ikut diadopsi, kecuali soal sesi latihan. Larangan seed konten dalam catatan historis di bawah tidak lagi berlaku untuk konten permainan yang dipilih, ditinjau dan disebutkan pada [Arena Belajar server](ARENA_BELAJAR_SERVER.md). Data akun/anggota, hasil, secret dan konfigurasi Pustaka tetap tidak disalin; Pustaka tidak diubah.
+
+| Area lobby Pustaka | Status Project Pintar saat ini |
+| --- | --- |
+| Mini games: Memory Match, Word Scramble, Speed Math | Ketiganya berfungsi dengan 29 set teks TK–SMP dan 8 level hitung; pengaturan, snapshot, resume, hasil serta monitoring/keluarga diuji |
+| Pilih aktivitas: Math Expedition | 12 level/60 tantangan lengkap dengan petunjuk dan pembahasan; urutan level dan ambang snapshot ditegakkan server |
+| Pilih aktivitas: Story Quiz | 22 bacaan unik/101 pertanyaan dari 45 entri aktif SD–SMP; teks/pertanyaan duplikat disisihkan, ID dan snapshot lama dipertahankan |
+| Pilih aktivitas: Flashcard | 29 set/376 kartu: 14 set dasar/151 kartu + 15 deck kosakata Quest/225 kartu; progres unik per kartu/versi, bukan skor ujian |
+| Pilih aktivitas: Kelas Bahasa Inggris | Stage 1: 60 pelajaran/600 langkah, 12 checkpoint, 2 review, 1 final/214 pertanyaan evaluasi; pengaturan dan laporan pelajaran/evaluasi terpisah |
+| Pilih aktivitas: English Quest | Seluruh 15 episode aktif Season 1/225 adegan, dialog/pilihan/susun kalimat/dengar lokal, jurnal, koleksi kosmetik dan urutan episode; Season 2 kosong tidak ditampilkan. Bukan salinan toko/equip/nyawa/reward sumber |
+| Pilih aktivitas: Battle | Gratis untuk semua member: undangan privat dan katalog hasil review, pembuatan soal/sesi, persetujuan anak, kapasitas/hasil/rapor, pengajuan/approve/reject/hide/withdraw. Gmail/verifikasi tersedia tetapi kredensial/inbox nyata menunggu operator. Tidak membawa soal privat/peserta sumber; live/chat/iklan belum aktif. [Bukti 024–025](EMAIL_DAN_BATTLE_PUBLIK_SERVER.md) |
+| Sesi latihan | Tidak diisi sesuai instruksi pemilik; tidak ada pertanyaan game dimasukkan ke bank sesi latihan |
+
+Halaman utama Arena menampilkan sembilan judul aktivitas, bukan daftar seluruh set. Rincian/progres muncul setelah dipilih; battle menuju `/belajar/battle`. Total **190 katalog** setelah migration 023 (41 tabel); runtime hanya memakai `db_study`. [Bukti adopsi lanjutan dan batasnya](ADOPSI_LANJUTAN_SERVER.md). Semua kelompok aktivitas lobby memiliki padanan; bukan berarti seluruh roadmap, mekanika sumber, atau aktivasi battle produksi sudah selesai.
+
+Bagian berikut mempertahankan bukti historis sebelum tambahan permintaan ini; status terbaru menggunakan tabel di atas dan dokumen Arena.
+
 Dokumen ini menghubungkan modul yang benar-benar ditemukan di `C:\xampp\htdocs\pustaka` dengan rancangan Study. Tujuannya mengambil perilaku belajar yang terbukti berguna sambil mempertahankan aturan akun, keluarga, akses paket, tema, dan keamanan Study. Dokumen ini bukan persetujuan untuk menerbitkan konten contoh Pustaka atau menyalin source code secara langsung.
 
 ## Inventaris sumber
@@ -20,6 +39,20 @@ Dokumen ini menghubungkan modul yang benar-benar ditemukan di `C:\xampp\htdocs\p
 | Laporan, progres modul, notifikasi | `Learn_reports.php`, `Learn_report_model.php`, `Learn_module_progress_model.php`, `Learn_notifications.php` | Gunakan ringkasan progres Study yang sudah ada; orang tua hanya membaca data anak dari tautan aktif; notifikasi harus bisa diatur | Progres kursus/flashcard dan laporan latihan mandiri keluarga sudah tersedia: jumlah percobaan, riwayat berhalaman, hasil serta snapshot pembahasan selesai yang hanya dapat dibaca. Analisis per topik, notifikasi, dan retensi belum ada |
 
 Inventaris route/model di atas diverifikasi baca-saja terhadap source Pustaka pada 15 Oktober 2026. Audit ini tidak menjalankan migration, membuka data Pustaka, atau mengubah proyek Pustaka.
+
+## Adaptasi panel dan monitoring server — 16 Oktober 2026
+
+Pemeriksaan baca-saja di `/www/wwwroot/pustaka` mencakup `application/controllers/Learn_progress.php`, `Learn_reports.php`, model progres/scope dan registrasi grup `sql/2026-08-04c_sidebar_quiz_learn.sql`. Tidak ada file, konfigurasi, database atau callback Pustaka/Finance yang diubah.
+
+| Pola sumber | Implementasi Project Pintar | Batas |
+| --- | --- | --- |
+| Grup sidebar Pembelajaran | `study_admin_helper.php` dan `layouts/admin_navigation.php`: kursus/kategori, progres pengguna/modul dan rapor | Menu hanya menuju backend yang sudah tersedia; izin rute tetap diperiksa di server |
+| Progres lintas pengguna dan detail bertab | `Learning_monitor.php` + `Learning_monitor_model.php`, tab ringkasan/materi/latihan/flashcard/permainan/akses | Memakai tabel `st_*` existing, bukan menyalin akun, skema atau isi Pustaka |
+| Scope konten/sesi dan peserta | Ringkasan per lesson/session/deck, filter peserta `modul` + `konten`, drill-down pengguna dan aktivitas | Agregat tidak menyatukan pembagi/unit berbeda menjadi skor penguasaan |
+| Rapor periode | `/kelola/rapor/{id}` dan `/keluarga/anak/{id}/rapor`, ringkasan kursus berhalaman dan cetak browser | Keluarga hanya tautan aktif; tanpa isi soal, jawaban, snapshot game atau judul latihan privat |
+| Reset/akses, RPG/English khusus, battle dan poin | Ditunda sesuai roadmap | Tidak menyalin bypass superadmin, penghapusan histori atau reward; fitur belum tersedia tidak diberi angka/menu palsu |
+
+Uji terarah dan definisi sumber/tanggal laporan tercatat di [panel monitoring server](PANEL_MONITORING_SERVER.md). Ini adaptasi perilaku dan navigasi, bukan klaim kesetaraan seluruh fitur Pustaka.
 
 ## Yang diadaptasi, bukan disalin
 

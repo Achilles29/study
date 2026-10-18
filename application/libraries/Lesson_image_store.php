@@ -45,9 +45,27 @@ class Lesson_image_store
 		clearstatcache(TRUE, $path);
 		$resolved = realpath($path);
 		if ($resolved === FALSE || is_link($path) || $this->normalized_path($resolved) !== $this->normalized_path($path)) { return FALSE; }
-		// Checking each ancestor also rejects symlinks/junction aliases to an otherwise valid root.
+		// realpath equality above rejects aliases in the complete path. Also check
+		// ancestors within PHP's permitted trees, but do not probe /www or / when
+		// open_basedir forbids them: its warning would incorrectly reject valid media.
+		$permitted = array();
+		$basedir = (string) ini_get('open_basedir');
+		if ($basedir !== '')
+		{
+			foreach (explode(PATH_SEPARATOR, $basedir) as $directory)
+			{
+				$boundary = realpath($directory);
+				if ($boundary !== FALSE) { $permitted[] = $this->normalized_path($boundary); }
+			}
+		}
 		$ancestor = $resolved;
 		do {
+			if ($basedir !== '')
+			{
+				$inside = FALSE;
+				foreach ($permitted as $boundary) { if ($this->within($this->normalized_path($ancestor), $boundary)) { $inside = TRUE; break; } }
+				if ( ! $inside) { break; }
+			}
 			if (is_link($ancestor)) { return FALSE; }
 			$parent = dirname($ancestor);
 			if ($parent === $ancestor) { break; }

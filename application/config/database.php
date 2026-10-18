@@ -109,6 +109,7 @@ $database_environment_value = function ($name, $local_key, $default) use ($local
 $db['default'] = array(
 	'dsn'	=> '',
 	'hostname' => $database_environment_value('DB_HOST', 'hostname', '127.0.0.1'),
+	'port' => (int) $database_environment_value('DB_PORT', 'port', 3306),
 	'username' => $database_environment_value('DB_USERNAME', 'username', 'study_app'),
 	'password' => $database_environment_value('DB_PASSWORD', 'password', ''),
 	'database' => $database_environment_value('DB_DATABASE', 'database', 'db_study'),

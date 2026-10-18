@@ -46,7 +46,7 @@ $config['base_url'] = $app_base_url ?: 'http://localhost/study/';
 | variable so that it is blank.
 |
 */
-$config['index_page'] = 'index.php';
+$config['index_page'] = '';
 
 /*
 |--------------------------------------------------------------------------
@@ -473,7 +473,7 @@ $config['csrf_token_name'] = 'study_csrf_token';
 $config['csrf_cookie_name'] = 'study_csrf_cookie';
 $config['csrf_expire'] = 7200;
 $config['csrf_regenerate'] = TRUE;
-$config['csrf_exclude_uris'] = array();
+$config['csrf_exclude_uris'] = array('pembayaran/notifikasi');
 
 /*
 |--------------------------------------------------------------------------

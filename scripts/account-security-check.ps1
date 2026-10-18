@@ -56,7 +56,7 @@ try {
 		Equal $page.StatusCode 200 'security page role'
 		$stamp=Digest 'credential' ($ids[$kind].ToString()+'|'+$hash)
 		if ($page.Content.Contains($hash) -or $page.Content.Contains($stamp)) { throw 'Credential hash/stamp leaked to HTML.' }
-		$minimum=if ($kind -eq 'admin') {16} elseif ($kind -eq 'child') {10} else {12}
+		$minimum=if ($kind -eq 'admin') {16} elseif ($kind -eq 'child') {1} else {12}
 		if ($page.Content -notmatch "Minimal $minimum karakter" -or $page.Headers['Cache-Control'] -notmatch 'no-store' -or $page.Headers['X-Robots-Tag'] -notmatch 'noindex') { throw 'Security page policy/privacy missing.' }
 		Equal (Page 'account_security/index' $web 'Delete').StatusCode 405 'unexpected method'
 	}

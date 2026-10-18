@@ -8,7 +8,7 @@ class User_directory extends MY_Controller
 		return array(
 			'jenis' => array('adult' => 'Dewasa', 'parent' => 'Orang tua', 'child' => 'Anak'),
 			'status' => array('pending' => 'Menunggu aktivasi', 'active' => 'Aktif', 'suspended' => 'Ditangguhkan', 'closed' => 'Ditutup'),
-			'peran' => array('system_admin' => 'Admin sistem', 'content_editor' => 'Pengelola konten', 'finance_operator' => 'Keuangan', 'support_agent' => 'Dukungan', 'none' => 'Tanpa peran internal'),
+			'peran' => array('system_admin' => 'Superadmin', 'content_editor' => 'Pengelola konten', 'finance_operator' => 'Keuangan', 'support_agent' => 'Dukungan', 'none' => 'Tanpa peran internal'),
 			'urutan' => array('newest' => 'Terbaru', 'oldest' => 'Terlama', 'username' => 'Nama pengguna A–Z')
 		);
 	}

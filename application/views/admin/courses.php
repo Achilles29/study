@@ -1,4 +1,4 @@
-<section class="container page-section">
+<section class="container page-section course-workspace">
 	<div class="page-heading">
 		<div>
 			<p class="eyebrow">Panel pengelola · Konten</p>
@@ -12,7 +12,7 @@
 
 	<div class="feature-card mb-4">
 		<form method="get" action="<?php echo site_url('kelola/kursus'); ?>" class="row g-3 align-items-end">
-			<div class="col-md-6">
+			<div class="col-md-3">
 				<label class="form-label" for="q">Cari kursus</label>
 				<input class="form-control" type="search" name="q" id="q" value="<?php echo html_escape($filters['q']); ?>" maxlength="100" placeholder="Ketik judul atau ringkasan">
 			</div>
@@ -25,7 +25,8 @@
 					<?php endforeach; ?>
 				</select>
 			</div>
-			<div class="col-md-3 d-flex gap-2">
+			<div class="col-md-3"><?php echo study_grade_select($filters['kelas']); ?></div>
+			<div class="col-12 d-flex flex-wrap gap-2">
 				<button class="btn btn-outline-primary rounded-pill flex-grow-1" type="submit">Terapkan</button>
 				<a class="btn btn-light rounded-pill" href="<?php echo site_url('kelola/kursus'); ?>">Atur ulang</a>
 			</div>
@@ -44,7 +45,7 @@
 					<div class="d-flex align-items-start justify-content-between gap-3 mb-3">
 						<div class="min-w-0">
 							<h2 class="h6 mb-1"><a class="fw-semibold" href="<?php echo site_url('kelola/kursus/'.$course['id']); ?>"><?php echo html_escape($course['title']); ?></a></h2>
-							<p class="small text-secondary mb-0"><?php echo html_escape($course['category_name'] ?: 'Tanpa kategori'); ?> · <?php echo html_escape($course['author_name'] ?: 'Pengelola'); ?></p>
+							<p class="small text-secondary mb-0"><?php echo html_escape(($course['category_name'] ?: 'Tanpa kategori').' · '.study_grade_label($course['grade_id'])); ?> · <?php echo html_escape($course['author_name'] ?: 'Pengelola'); ?></p>
 						</div>
 						<span class="badge rounded-pill flex-shrink-0 <?php echo $course['status'] === 'published' ? 'text-bg-success' : ($course['status'] === 'review' ? 'text-bg-warning' : 'text-bg-secondary'); ?>">
 							<?php echo html_escape(study_course_status_label($course['status'])); ?>
@@ -76,7 +77,7 @@
 						<tr>
 							<td>
 								<a class="fw-semibold" href="<?php echo site_url('kelola/kursus/'.$course['id']); ?>"><?php echo html_escape($course['title']); ?></a>
-								<div class="small text-secondary"><?php echo html_escape($course['category_name'] ?: 'Tanpa kategori'); ?> · <?php echo html_escape($course['author_name'] ?: 'Pengelola'); ?></div>
+								<div class="small text-secondary"><?php echo html_escape(($course['category_name'] ?: 'Tanpa kategori').' · '.study_grade_label($course['grade_id'])); ?> · <?php echo html_escape($course['author_name'] ?: 'Pengelola'); ?></div>
 							</td>
 							<td><?php echo html_escape(study_target_group_label($course['target_group'])); ?></td>
 							<td>
@@ -92,7 +93,7 @@
 				</tbody>
 			</table>
 		</div>
-	<?php elseif ($filters['q'] !== '' || $filters['status'] !== ''): ?>
+	<?php elseif ($filters['q'] !== '' || $filters['status'] !== '' || $filters['kelas'] !== ''): ?>
 		<div class="empty-card">
 			<span class="empty-icon"><i class="bi bi-search" aria-hidden="true"></i></span>
 			<h2 class="h5">Tidak ada kursus yang cocok</h2>

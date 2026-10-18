@@ -16,7 +16,7 @@ class Account_model extends CI_Model
 
 	public function find_active_user($user_id)
 	{
-		$this->db->select('id, username, email, display_name, account_kind, learning_stage, status, password_hash');
+		$this->db->select('id, username, email, email_verified_at, display_name, account_kind, learning_stage, status, auth_version, password_hash');
 		$this->db->from('st_users');
 		$this->db->where('id', (int) $user_id);
 		$this->db->where('status', 'active');
@@ -26,7 +26,7 @@ class Account_model extends CI_Model
 			return NULL;
 		}
 
-		$user['auth_stamp'] = $this->digest('credential', $user['id'].'|'.$user['password_hash']);
+		$user['auth_stamp'] = study_credential_stamp($user);
 		unset($user['password_hash']);
 		$this->db->select('r.role_code');
 		$this->db->from('st_user_roles ur');
@@ -136,7 +136,7 @@ class Account_model extends CI_Model
 			return array('ok' => FALSE, 'throttled' => TRUE);
 		}
 
-		$this->db->select('id, username, email, password_hash, display_name, account_kind, status');
+		$this->db->select('id, username, email, auth_version, password_hash, display_name, account_kind, status');
 		$this->db->from('st_users');
 		$this->db->group_start()->where('username', $identity)->or_where('email', $identity)->group_end();
 		$user = $this->db->get()->row_array();
@@ -169,7 +169,7 @@ class Account_model extends CI_Model
 				return array('ok' => FALSE, 'throttled' => FALSE);
 			}
 			$this->db->trans_commit();
-			$user['auth_stamp'] = $this->digest('credential', $user['id'].'|'.$user['password_hash']);
+			$user['auth_stamp'] = study_credential_stamp($user);
 			unset($user['password_hash']);
 			return array('ok' => TRUE, 'user' => $user);
 		}
@@ -208,8 +208,8 @@ class Account_model extends CI_Model
 			return 'invalid';
 		}
 		$this->db->trans_begin();
-		$row = $this->db->query('SELECT id, password_hash FROM st_users WHERE id = ? AND status = ? FOR UPDATE', array((int) $user_id, 'active'))->row_array();
-		if ( ! $row || ! hash_equals($this->digest('credential', $row['id'].'|'.$row['password_hash']), $stamp))
+		$row = $this->db->query('SELECT id, auth_version, password_hash FROM st_users WHERE id = ? AND status = ? FOR UPDATE', array((int) $user_id, 'active'))->row_array();
+		if ( ! $row || ! hash_equals(study_credential_stamp($row), $stamp))
 		{
 			$this->db->trans_rollback();
 			return 'stale';
@@ -266,15 +266,17 @@ class Account_model extends CI_Model
 		return $this->db->get()->result_array();
 	}
 
-	public function update_child_learning_stage($parent_user_id, $child_user_id, $learning_stage)
+	public function update_child_learning_stage($parent_user_id, $child_user_id, $learning_stage, $stamp = NULL)
 	{
 		$allowed_stages = array('early_childhood', 'primary', 'secondary');
-		if ( ! in_array($learning_stage, $allowed_stages, TRUE))
+		if ( ! is_string($stamp) || ! in_array($learning_stage, $allowed_stages, TRUE))
 		{
 			return FALSE;
 		}
 
 		$this->db->trans_begin();
+		$guardian = $this->db->query("SELECT * FROM st_users WHERE id=? AND account_kind='parent' AND status='active' FOR UPDATE", array($parent_user_id))->row_array();
+		if ( ! $guardian || ! hash_equals(study_credential_stamp($guardian), $stamp)) { $this->db->trans_rollback(); return FALSE; }
 		$child = $this->db->query(
 			"SELECT u.id, u.learning_stage FROM st_family_links l
 			JOIN st_users u ON u.id = l.child_user_id
@@ -311,41 +313,49 @@ class Account_model extends CI_Model
 		return TRUE;
 	}
 
-	public function create_child($parent_user_id, $username, $display_name, $password, $learning_stage)
+	public function create_child($parent_user_id, $username, $display_name, $password, $learning_stage, $stamp = NULL)
 	{
-		if ( ! study_valid_password($password, 10))
+		if ( ! study_valid_password($password, study_child_password_minimum()) || ! is_string($username) || ! preg_match('/\A[a-zA-Z0-9_-]{4,80}\z/', $username) || ! is_string($display_name) || ! mb_check_encoding($display_name, 'UTF-8') || mb_strlen(trim($display_name), 'UTF-8') < 2 || mb_strlen(trim($display_name), 'UTF-8') > 120)
 		{
 			return FALSE;
 		}
 		$parent = $this->find_active_user($parent_user_id);
 		$allowed_stages = array('early_childhood', 'primary', 'secondary');
-		if ( ! $parent || $parent['account_kind'] !== 'parent' || ! in_array($learning_stage, $allowed_stages, TRUE) || $this->identity_exists(strtolower(trim($username))))
+		if ( ! $parent || ! is_string($stamp) || ! $parent['email_verified_at'] || ! hash_equals($parent['auth_stamp'], $stamp) || $parent['account_kind'] !== 'parent' || ! in_array($learning_stage, $allowed_stages, TRUE) || $this->identity_exists(strtolower(trim($username))))
 		{
 			return FALSE;
 		}
 
 		$now = $this->now_utc();
-		$this->db->trans_begin();
-		$this->db->insert('st_users', array(
+		$this->load->library('study_transaction');
+		$password_hash = password_hash($password, PASSWORD_DEFAULT);
+		$result = $this->study_transaction->run($this->db, function () use ($parent_user_id, $username, $display_name, $password_hash, $learning_stage, $now, $stamp) {
+			$parent = $this->db->query("SELECT * FROM st_users WHERE id=? AND account_kind='parent' AND status='active' FOR UPDATE", array($parent_user_id))->row_array();
+			if ( ! $parent || ! $parent['email_verified_at'] || ! hash_equals(study_credential_stamp($parent), $stamp)) { return array('ok' => FALSE, 'code' => 403); }
+			// Parent lock serializes parallel creation; current reads see the latest committed links.
+			$children = $this->db->query("SELECT l.id FROM st_family_links l JOIN st_users u ON u.id=l.child_user_id WHERE l.parent_user_id=? AND l.status='active' AND u.status='active' AND u.account_kind='child' FOR UPDATE", array($parent_user_id))->result_array();
+			$this->load->model('Commerce_access_model');
+			if (count($children) >= 2 + $this->Commerce_access_model->extra_slots($parent_user_id, TRUE)) { return array('ok' => FALSE, 'code' => 409); }
+			$this->db->insert('st_users', array(
 			'username' => strtolower(trim($username)),
 			'email' => NULL,
-			'password_hash' => password_hash($password, PASSWORD_DEFAULT),
+			'password_hash' => $password_hash,
 			'display_name' => trim($display_name),
 			'account_kind' => 'child',
 			'learning_stage' => $learning_stage,
 			'status' => 'active',
 			'created_at' => $now,
 			'updated_at' => $now
-		));
-		$child_user_id = (int) $this->db->insert_id();
-		$this->db->insert('st_family_links', array(
+			));
+			$child_user_id = (int) $this->db->insert_id();
+			$this->db->insert('st_family_links', array(
 			'parent_user_id' => (int) $parent_user_id,
 			'child_user_id' => $child_user_id,
 			'status' => 'active',
 			'created_at' => $now,
 			'updated_at' => $now
-		));
-		$this->db->insert('st_audit_events', array(
+			));
+			$this->db->insert('st_audit_events', array(
 			'actor_user_id' => (int) $parent_user_id,
 			'event_type' => 'family.child_created',
 			'entity_type' => 'user',
@@ -353,15 +363,10 @@ class Account_model extends CI_Model
 			'correlation_id' => NULL,
 			'details_json' => json_encode(array('family_linked' => TRUE, 'learning_stage' => $learning_stage)),
 			'created_at' => $now
-		));
+			));
 
-		if ($this->db->trans_status() === FALSE)
-		{
-			$this->db->trans_rollback();
-			return FALSE;
-		}
-
-		$this->db->trans_commit();
-		return TRUE;
+			return array('ok' => TRUE);
+		});
+		return $result['ok'];
 	}
 }
