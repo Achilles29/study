@@ -1,5 +1,7 @@
 # Monitoring operasional — rilis 042, 18 Oktober 2026
 
+Pembaruan20Oktober: [rilis072](TRAFIK_072.md) menambahkan kelompok tamu perIP, perujuk tersanitasi, pathaman dan tabel tetap. Catatan042 di bawah adalah riwayat; versi kebijakan kini2026-10-20-v3, schema51. Retensi dan pengecualian akun tetap.
+
 ## Penggunaan
 
 - Buka `/kelola/trafik` sebagai Superadmin. Tab: Ringkasan, Per Halaman, Per Pengguna, Log Akses. Filter tanggal WIB (7 hari), kelompok halaman, tamu/dewasa/orang tua, perangkat dan bot. Rincian halaman/pengguna menautkan Log Akses terfilter; pagination 20.

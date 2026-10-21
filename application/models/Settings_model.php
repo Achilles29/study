@@ -28,16 +28,19 @@ class Settings_model extends CI_Model
 		return $row;
 	}
 
-	public function save_section($section, $input, $revision, $actor_id)
+	public function save_section($section, $input, $revision, $actor_id, $auth_stamp = NULL)
 	{
 		$this->load->library(array('site_settings', 'study_transaction'));
 		if ( ! isset($this->site_settings->definitions()[$section])) { return array('ok' => FALSE, 'code' => 400); }
 		$validated = $this->site_settings->validate($section, $input);
 		if ($validated['errors']) { return array('ok' => FALSE, 'code' => 400); }
-		return $this->study_transaction->run($this->db, function () use ($section, $validated, $revision, $actor_id) {
-			$actor = $this->db->query("SELECT u.id FROM st_users u JOIN st_user_roles ur ON ur.user_id=u.id JOIN st_roles r ON r.id=ur.role_id WHERE u.id=? AND u.status='active' AND r.role_code='system_admin' FOR UPDATE", array($actor_id));
+		return $this->study_transaction->run($this->db, function () use ($section, $validated, $revision, $actor_id, $auth_stamp) {
+			$actor = $this->db->query("SELECT u.* FROM st_users u JOIN st_user_roles ur ON ur.user_id=u.id JOIN st_roles r ON r.id=ur.role_id WHERE u.id=? AND u.status='active' AND r.role_code='system_admin' FOR UPDATE", array($actor_id));
 			if ($actor === FALSE) { throw new RuntimeException('Actor unavailable.'); }
 			if ( ! $actor->num_rows()) { return array('ok' => FALSE, 'code' => 403); }
+			// HTTP callers must pass the credential stamp checked at request entry.
+			// CLI maintenance remains role-checked without a browser session.
+			if (($auth_stamp !== NULL || PHP_SAPI !== 'cli') && (!is_string($auth_stamp) || !hash_equals(study_credential_stamp($actor->row_array()),$auth_stamp))) { return array('ok'=>FALSE,'code'=>403); }
 			$query = $this->db->query('SELECT * FROM st_site_settings WHERE section=? FOR UPDATE', array($section));
 			if ($query === FALSE || ! ($row = $query->row_array())) { throw new RuntimeException('Settings unavailable.'); }
 			if ((string) $row['revision'] !== (string) $revision) { return array('ok' => FALSE, 'code' => 409); }

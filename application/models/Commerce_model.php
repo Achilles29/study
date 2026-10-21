@@ -31,11 +31,16 @@ class Commerce_model extends CI_Model
 	private function live_offer_ready($offer)
 	{
 		if ( ! $offer['live_approved'] || $offer['status'] !== 'active') { return FALSE; }
-		if ($offer['package_id']) { return $this->package_ready($offer['package_id']); }
+		if ($offer['package_id']) {
+			// Courses are now free. A legacy course-only package is not a paid standalone bank product.
+			$p=$this->rows('SELECT family_practice_enabled FROM st_packages WHERE id=?',array($offer['package_id']))[0]??NULL;
+			return $p && (int)$p['family_practice_enabled']===1 && $this->package_ready($offer['package_id']);
+		}
 		if ($offer['kind'] === 'platinum')
 		{
-			foreach ($this->rows("SELECT id FROM st_packages WHERE is_official=1 AND status='published'") as $p) { if ($this->package_ready($p['id'])) { return TRUE; } }
-			return FALSE;
+			// Do not sell an old fixed-term offer as the requested permanent all-feature product.
+			// This gate affects new sales only, never settlement of an already-created order.
+			return !empty($offer['is_lifetime']) && (int)$offer['access_days']===0;
 		}
 		return TRUE;
 	}
@@ -121,20 +126,24 @@ class Commerce_model extends CI_Model
 		return $this->rows('SELECT * FROM st_commerce_offers WHERE id=?', array($id))[0] ?? NULL; }
 	public function save_offer($actor, $stamp, $id, $v)
 	{
+		$v['is_lifetime']=$v['is_lifetime']??'0';
+		if(!in_array($v['is_lifetime'],array('0','1'),TRUE)||($v['is_lifetime']==='1'&&(($v['kind']??'')!=='platinum'||($v['access_days']??'')!=='0'))){return array('ok'=>FALSE,'code'=>400);}
 		if ( ! in_array($v['live_approved'] ?? '0', array('0','1'), TRUE)) { return array('ok' => FALSE, 'code' => 400); }
 		if ( ! $this->valid_text($v['title'] ?? NULL, 3, 180) || ! in_array($v['kind'] ?? NULL, array('package','voucher','topup','platinum','slot'), TRUE) || ! in_array($v['status'] ?? NULL, array('draft','active','paused'), TRUE)) { return array('ok' => FALSE, 'code' => 400); }
 		foreach (array('revision','package_id','price','credit_amount','access_days','voucher_days') as $f) { if ( ! $this->number($v[$f] ?? NULL)) { return array('ok' => FALSE, 'code' => 400); } }
 		$kind = $v['kind']; $pack = in_array($kind, array('package','voucher'), TRUE);
-		if ((int) $v['price'] < 1 || (int) $v['price'] > ($pack ? 1000000 : 10000000) || ($pack !== ((int) $v['package_id'] > 0)) || (($pack || $kind === 'platinum') ? ((int) $v['access_days'] < 1 || (int) $v['access_days'] > 3660) : (int) $v['access_days'] !== 0) || ($kind === 'voucher' ? ((int) $v['voucher_days'] < 1 || (int) $v['voucher_days'] > 366) : (int) $v['voucher_days'] !== 0) || ($kind === 'topup' ? ((int) $v['credit_amount'] < 1 || (int) $v['credit_amount'] > 1000000) : (int) $v['credit_amount'] !== 0) || ($v['status'] === 'active' && ($v['confirm'] ?? '') !== '1') || ! $this->valid_text($v['reason'] ?? NULL, 10, 300)) { return array('ok' => FALSE, 'code' => 400); }
+		if ((int) $v['price'] < 1 || (int) $v['price'] > ($pack ? 1000000 : 10000000) || ($pack !== ((int) $v['package_id'] > 0)) || (($pack || ($kind === 'platinum' && $v['is_lifetime']==='0')) ? ((int) $v['access_days'] < 1 || (int) $v['access_days'] > 3660) : (int) $v['access_days'] !== 0) || ($kind === 'voucher' ? ((int) $v['voucher_days'] < 1 || (int) $v['voucher_days'] > 366) : (int) $v['voucher_days'] !== 0) || ($kind === 'topup' ? ((int) $v['credit_amount'] < 1 || (int) $v['credit_amount'] > 1000000) : (int) $v['credit_amount'] !== 0) || ($v['status'] === 'active' && ($v['confirm'] ?? '') !== '1') || ! $this->valid_text($v['reason'] ?? NULL, 10, 300)) { return array('ok' => FALSE, 'code' => 400); }
 		$this->load->library('study_transaction');
 		return $this->study_transaction->run($this->db, function () use ($actor, $stamp, $id, $v, $pack) {
 			if ( ! $this->actor($actor, $stamp, TRUE)) { return array('ok' => FALSE, 'code' => 403); }
 			$old = $id ? ($this->rows('SELECT * FROM st_commerce_offers WHERE id=? FOR UPDATE', array($id))[0] ?? NULL) : NULL;
 			if (($id && ! $old) || (int) $v['revision'] !== (int) ($old['revision'] ?? 0) || ($old && $old['kind'] !== $v['kind'])) { return array('ok' => FALSE, 'code' => 409); }
+			if($old&&(int)$old['is_lifetime']!==(int)$v['is_lifetime']){return array('ok'=>FALSE,'code'=>409,'message'=>'Jenis masa akses tidak dapat diganti. Buat produk baru agar ketentuan lama tetap jelas.');}
 			if ($pack) { $p = $this->rows('SELECT status FROM st_packages WHERE id=? FOR UPDATE', array((int) $v['package_id']))[0] ?? NULL; if ( ! $p || ($v['status'] === 'active' && $p['status'] !== 'published')) { return array('ok' => FALSE, 'code' => 400); } }
 			$now = gmdate('Y-m-d H:i:s'); $data = array('title' => trim($v['title']), 'kind' => $v['kind'], 'status' => $v['status'], 'package_id' => $pack ? (int) $v['package_id'] : NULL, 'price' => (int) $v['price'], 'credit_amount' => (int) $v['credit_amount'], 'access_days' => (int) $v['access_days'], 'voucher_days' => (int) $v['voucher_days'], 'revision' => (int) $v['revision'] + 1, 'updated_at' => $now);
 			$data['live_approved'] = (int) ($v['live_approved'] ?? '0');
-			if ($data['live_approved'] && (($v['confirm'] ?? '') !== '1' || ! $this->live_offer_ready($data))) { return array('ok' => FALSE, 'code' => 400, 'message' => 'Persetujuan live membutuhkan produk aktif, ketentuan disetujui, dan isi paket terbit yang siap digunakan. Paket latihan tanpa soal serta Platinum tanpa paket resmi siap tidak dapat dijual.'); }
+			$data['is_lifetime']=(int)$v['is_lifetime'];
+			if ($data['live_approved'] && (($v['confirm'] ?? '') !== '1' || ! $this->live_offer_ready($data))) { return array('ok' => FALSE, 'code' => 400, 'message' => 'Live memerlukan produk aktif dan ketentuan disetujui. Kursus kini gratis: paket lama harus memiliki manfaat latihan keluarga privat yang siap. Latihan Mandiri/Simulasi Ujian diatur pada modul baru. Platinum live harus berjenis selamanya, durasi 0 hari, untuk orang tua dan dua anak tertaut.'); }
 			if ($old) { $this->db->where('id', $id)->update('st_commerce_offers', $data); } else { $this->db->insert('st_commerce_offers', $data + array('created_at' => $now)); $id = (int) $this->db->insert_id(); }
 			$this->audit($actor, 'commerce.offer_saved', 'offer', $id, array('before' => $old, 'after' => $data, 'reason' => trim($v['reason'])));
 			return array('ok' => TRUE, 'id' => $id);
@@ -296,6 +305,11 @@ class Commerce_model extends CI_Model
 			$o = $this->rows("SELECT * FROM st_commerce_offers WHERE id=? AND status='active' FOR UPDATE", array($offer))[0] ?? NULL;
 			if ( ! $o || (int) $o['revision'] !== (int) $revision || ($this->environment === 'production' && ! $this->live_offer_ready($o)) || ! in_array($o['kind'], array('topup','platinum','slot'), TRUE)) { return array('ok' => FALSE, 'code' => 409); }
 			if ($o['kind'] !== 'topup' && $u['account_kind'] !== 'parent') { return array('ok' => FALSE, 'code' => 403); }
+			if(!empty($o['is_lifetime'])){
+				$owned=$this->rows("SELECT id FROM st_commerce_grants WHERE owner_user_id=? AND environment=? AND is_lifetime=1 AND status='active' AND ends_at IS NULL LIMIT 1 FOR UPDATE",array($actor,$this->environment));
+				$pending=$this->rows("SELECT id FROM st_payment_orders WHERE user_id=? AND environment=? AND status IN('created','pending') AND JSON_UNQUOTE(JSON_EXTRACT(snapshot_json,'$.is_lifetime'))='1' LIMIT 1 FOR UPDATE",array($actor,$this->environment));
+				if($owned||$pending){return array('ok'=>FALSE,'code'=>409,'message'=>$owned?'Paket selamanya sudah dimiliki. Tidak perlu membeli lagi.':'Pesanan akses selamanya masih menunggu kepastian. Periksa pesanan sebelumnya dahulu.');}
+			}
 			$c = $this->rows('SELECT * FROM st_payment_configs WHERE environment=? ORDER BY id DESC LIMIT 1 FOR UPDATE', array($this->environment))[0] ?? NULL;
 			if ( ! $c || $c['environment'] !== $this->environment || $c['probe_result'] !== 'status_api_reached' || ($this->environment === 'production' && ! $c['checkout_enabled'])) { return array('ok' => FALSE, 'code' => 409, 'message' => 'Kunci pada lingkungan ini belum teruji atau checkout live belum diaktifkan pengelola.'); }
 			$recent = $this->rows("SELECT id FROM st_payment_orders WHERE user_id=? AND created_at>UTC_TIMESTAMP()-INTERVAL 1 HOUR FOR UPDATE", array($actor));
@@ -329,14 +343,17 @@ class Commerce_model extends CI_Model
 		$rows = $this->rows('SELECT o.id,o.amount_idr,o.status,o.review_required,o.created_at,o.paid_at,o.order_code,u.display_name'.$where.' ORDER BY o.id DESC LIMIT 20 OFFSET '.(((int) $page - 1) * 20), $args);
 		return compact('summary','rows');
 	}
-	public function donate($actor, $stamp, $amount, $revision, $key)
+	public function donate($actor, $stamp, $amount, $revision, $key, $message = '')
 	{
 		if ( ! $this->transaction_allowed($actor)) { return array('ok' => FALSE, 'code' => 403); }
+		if (!is_string($message) || !mb_check_encoding($message, 'UTF-8') || mb_strlen($message, 'UTF-8') > 1000 || preg_match('/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/', $message)) { return array('ok'=>FALSE,'code'=>400,'message'=>'Pesan donasi maksimal 1.000 karakter berupa teks.'); }
+		$message = trim(str_replace(array("\r\n", "\r"), "\n", $message));
 		if ( ! $this->number($amount, 1, 10000000) || ! $this->number($revision, 1) || ! is_string($key) || ! preg_match('/\A[a-f0-9]{64}\z/', $key)) { return array('ok' => FALSE, 'code' => 400, 'message' => 'Masukkan nominal Rupiah bulat dalam batas yang ditampilkan.'); }
 		$this->load->library(array('study_transaction','payment_secrets','midtrans_gateway'));
-		$r = $this->study_transaction->run($this->db, function () use ($actor, $stamp, $amount, $revision, $key) {
+		$r = $this->study_transaction->run($this->db, function () use ($actor, $stamp, $amount, $revision, $key, $message) {
 			$u = $this->actor($actor, $stamp); if ( ! $u || ! $u['email_verified_at']) { return array('ok' => FALSE, 'code' => 403); }
-			$hash = hash('sha256', 'donation|'.$amount.'|'.$revision);
+			// Empty messages retain the old intent digest: existing orders remain retryable.
+			$hash = hash('sha256', 'donation|'.$amount.'|'.$revision.($message === '' ? '' : '|message:'.$message));
 			$old = $this->rows('SELECT id,request_hash,environment,purpose FROM st_payment_orders WHERE user_id=? AND request_key=? FOR UPDATE', array($actor, $key))[0] ?? NULL;
 			if ($old) { return $old['purpose'] === 'donation' && $old['environment'] === $this->environment && hash_equals($old['request_hash'], $hash) ? array('ok' => TRUE, 'id' => (int) $old['id'], 'existing' => TRUE) : array('ok' => FALSE, 'code' => 409); }
 			if ($this->rows('SELECT id FROM st_payment_orders WHERE user_id=? AND environment=? AND review_required=1 LIMIT 1 FOR UPDATE', array($actor, $this->environment))) { return array('ok' => FALSE, 'code' => 409, 'message' => 'Selesaikan peninjauan transaksi sebelumnya sebelum membuat donasi baru.'); }
@@ -348,6 +365,7 @@ class Commerce_model extends CI_Model
 			if (count($recent) >= 10) { return array('ok' => FALSE, 'code' => 409, 'message' => 'Maksimal 10 pesanan per jam. Periksa riwayat sebelum membuat yang baru.'); }
 			$w = $this->payment_wallet($actor); $now = gmdate('Y-m-d H:i:s'); $code = ($this->environment === 'sandbox' ? 'PP-SB-' : 'PP-LIVE-').bin2hex(random_bytes(16));
 			$snapshot = array('kind' => 'donation', 'title' => 'Donasi pengembangan Project Pintar', 'amount_idr' => (int) $amount, 'environment' => $this->environment, 'settings_revision' => (int) $revision, 'notice_version' => 'donation-043', 'no_rewards' => TRUE);
+			$snapshot['message'] = $message;
 			$this->db->insert('st_payment_orders', array('user_id' => $actor, 'wallet_id' => $w['id'], 'purpose' => 'donation', 'order_code' => $code, 'provider_order_id' => $code, 'amount_idr' => (int) $amount, 'credit_amount' => 0, 'status' => 'created', 'environment' => $this->environment, 'offer_id' => NULL, 'config_id' => $c['id'], 'request_key' => $key, 'request_hash' => $hash, 'snapshot_json' => json_encode($snapshot), 'created_at' => $now, 'updated_at' => $now));
 			$id = (int) $this->db->insert_id(); $this->audit($actor, 'donation.created', 'payment_order', $id, array('amount_idr' => (int) $amount, 'environment' => $this->environment, 'notice_version' => 'donation-043'));
 			return array('ok' => TRUE, 'id' => $id, 'code' => $code, 'amount' => (int) $amount, 'key' => $this->payment_secrets->open($c['credentials_cipher'], $c['environment'])['server_key']);
@@ -454,6 +472,10 @@ class Commerce_model extends CI_Model
 		$this->db->insert('st_commerce_purchases', array('environment' => $o['environment'], 'owner_user_id' => $actor, 'offer_id' => $o['offer_id'], 'request_key' => hash('sha256', 'payment:'.$o['id']), 'request_hash' => hash('sha256', $o['order_code']), 'snapshot_json' => $o['snapshot_json'], 'status' => 'fulfilled', 'learner_user_id' => $actor, 'payment_order_id' => $o['id'], 'created_at' => $now)); $purchase = (int) $this->db->insert_id();
 		if ($s['kind'] === 'slot') { $this->db->insert('st_family_slots', array('environment' => $o['environment'], 'owner_user_id' => $actor, 'purchase_id' => $purchase, 'created_at' => $now)); return; }
 		if ($s['kind'] !== 'platinum') { throw new RuntimeException('Unknown purchase type.'); }
+		if(!empty($s['is_lifetime'])){
+			if((int)$s['access_days']!==0||(int)$s['price']!==(int)$o['amount_idr']||(int)$o['credit_amount']!==0){throw new RuntimeException('Lifetime snapshot invalid.');}
+			$this->db->insert('st_commerce_grants',array('environment'=>$o['environment'],'purchase_id'=>$purchase,'owner_user_id'=>$actor,'learner_user_id'=>$actor,'kind'=>'platinum','course_ids_json'=>'[]','family_practice_enabled'=>1,'is_lifetime'=>1,'starts_at'=>$now,'ends_at'=>NULL));return;
+		}
 		$last = $this->rows("SELECT ends_at FROM st_commerce_grants WHERE owner_user_id=? AND kind='platinum' AND environment=? AND status='active' AND ends_at>UTC_TIMESTAMP() ORDER BY ends_at DESC LIMIT 1 FOR UPDATE", array($actor, $o['environment'])); $start = $last ? $last[0]['ends_at'] : $now;
 		$this->db->insert('st_commerce_grants', array('environment' => $o['environment'], 'purchase_id' => $purchase, 'owner_user_id' => $actor, 'learner_user_id' => $actor, 'kind' => 'platinum', 'course_ids_json' => '[]', 'family_practice_enabled' => 1, 'starts_at' => $start, 'ends_at' => gmdate('Y-m-d H:i:s', strtotime($start.' UTC') + (int) $s['access_days'] * 86400)));
 	}

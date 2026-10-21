@@ -45,6 +45,7 @@ class Admin extends MY_Controller
 		}
 
 		$learning_summary = NULL;
+		$traffic_live = NULL;
 		if (in_array('system_admin', $roles, TRUE))
 		{
 			$this->load->model('Learning_monitor_model');
@@ -55,11 +56,16 @@ class Admin extends MY_Controller
 			catch (RuntimeException $error) { $learning_summary = FALSE; }
 			$counts['review'] = $this->db->where('status', 'review')->count_all_results('st_courses');
 			$counts['pending'] = $this->db->where('status', 'pending')->count_all_results('st_payment_orders');
+			$this->load->model('Operational_traffic_model');
+			try { $traffic_live=$this->Operational_traffic_model->live_summary($this->current_user['id']); }
+			catch (Throwable $error) { $traffic_live=FALSE; }
 		}
 		$this->render_page('admin/index', array(
 			'page_title' => 'Panel pengelola',
 			'counts' => $counts,
-			'learning_summary' => $learning_summary
+			'learning_summary' => $learning_summary,
+			'traffic_live' => $traffic_live,
+			'load_traffic_live_script' => in_array('system_admin',$roles,TRUE)
 		));
 	}
 

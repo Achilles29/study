@@ -1,6 +1,46 @@
 # Standar Antarmuka dan Coding Aplikasi Belajar
 
+## Lembar soal dan fokus — 080
+
+Pembaruan082/083: Ledger default/pilihan pertama, Per soal kedua, tanpa menimpa snapshot atau template tersimpan. Navigasi ponsel sticky berupa satu baris nomor horizontal, offset mengikuti tinggi navbar dan scroll-margin soal; tombol submit/konfirmasi tidak boleh tertutup navigasi. Halaman Nilai terpisah dari pembahasan: tampilkan nilai tersimpan dan rumus equal-weight existing, benar/salah/kosong serta durasi termasuk jeda; jangan mengarang status lulus. Pembahasan hanya setelah graded, izin pemilik/read-only dipertahankan. Hero memiliki warna teks eksplisit agar gaya paragraf kartu tidak menurunkan kontras. [Bukti082/083](LEMBAR_SOAL_082_083.md).
+
+Gunakan engine dan view bersama untuk Mandiri, ujian dan kursus. Status dijawab harus berbeda dari status tersimpan; navigasi tidak mengubah ID/urutan opsi snapshot. Mode per soal menyembunyikan dengan JS saja agar fallback native tetap dapat digunakan; ledger menggulir dan menghormati reduced-motion. Radio/nomor dapat dipakai dengan keyboard; jangan menutupi konten dengan bar transparan.
+
+Aturan sesi harus tersalin server saat mulai; jangan percaya mode/ambang dari POST jawaban. Autosave mempertahankan CSRF/revision/ownership dan tidak menyimpan isi jawaban anak ke Web Storage. Event fokus token unik, dihitung atomik dan dedup blur/hidden; reload tidak menghitung ulang. Jangan melabeli kehilangan fokus sebagai bukti kecurangan atau menjanjikan deteksi sleep sempurna. [Kontrak080](LEMBAR_SOAL_080.md).
+
+## Pencocokan lampiran otomatis — 079
+
+Nama `soalN.ext` mengikuti nomor sumber dan tampil di atas teks, bukan mengikuti urutan upload atau ID bank. Banyak gambar diurutkan numerik dengan gambar utama tanpa suffix lebih dahulu. Referensi eksplisit di soal/opsi/galeri didahulukan dan tidak digandakan. Nama yang ambigu atau nomor ganda/tidak ada harus diperbaiki sebelum commit; jangan menebak berdasarkan isi gambar. Tampilkan hasil pencocokan pada pratinjau, bukan menambah panduan panjang yang terbuka default. [Kontrak079](GAMBAR_OTOMATIS_079.md).
+
+## Penanda gambar soal dan jawaban — 077
+
+Gunakan `[GAMBAR: nama.png]` di soal/opsi, dengan pratinjau posisi sebenarnya dan nama persis. Jangan merender HTML atau URL luar dari dokumen. Indeks media privat tidak boleh membocorkan storage key/nama/kunci peserta. Pilihan bergambar tetap radio berlabel, dapat diklik/dinavigasi keyboard dan membungkus di ponsel. Gambar yang sudah ditempatkan tidak digandakan di galeri. Form editor menjelaskan perbedaan versi tersimpan dan edit yang belum disimpan. [Kontrak dan pengujian077](GAMBAR_POSISI_DAN_JAWABAN_077.md).
+
+## Impor bank soal — 075
+
+Pembaruan076: hubungan gambar memakai nama berkas persis, bukan urutan memilih upload. Daftar GAMBAR dipisahkan `|`; tampilkan nomor/nama pada admin, hanya nomor pada peserta. Validasi semua referensi, nama ganda/unused dan total ukuran/resolusi; jangan memotong berkas diam-diam. Batas aplikasi/PHP/Nginx harus selaras. URL gambar pertama dan snapshot lama tetap kompatibel; galeri baru masuk fingerprint tanpa mengubah ID existing. [Ketentuan076](GAMBAR_IMPOR_076.md).
+
+TXT naskah dan template berlabel/tabel harus dibedakan dengan jelas. Judul bukan klasifikasi otomatis. Analisis menampilkan nomor/baris asal, status, isi lengkap yang bisa dibuka, dan perbaikan spesifik; jangan menebak kunci atau menghilangkan kata/opsi tak didukung. Pertahankan isian formulir saat gagal; dokumen/lampiran harus dipilih ulang. Batch bermasalah tidak memperoleh token commit. Pratinjau lengkap tetap membutuhkan konfirmasi server/CSRF, hak penggunaan dan transaksi dedup. Pembahasan bank boleh kosong dengan catatan jujur, bukan teks buatan untuk meloloskan validator. “Struktur lengkap” tidak sama dengan “materi/kunci sudah benar”. Rincian075 di [panduan impor](IMPOR_TXT_075.md).
+
+## SEO halaman publik — 073
+
+Pembaruan074: satu hierarki pusat latihan→kelas→mapel→materi existing; jangan menggandakan materi menjadi halaman keyword tipis. Eligibility sitemap harus sama dengan noindex/halaman: published, gratis, hak jelas, kategori/kelas sesuai, isi substantif. Contoh soal hanya shared/published/non-target-anak/reviewed dengan satu kunci; tidak query attempt. BreadcrumbList harus sesuai breadcrumb terlihat, judul/deskripsi di-escape, akun/login/preview tetap noindex. Navigasi publik anonim ringan wajib diuji tanpa JS, keyboard, Escape, aria-expanded serta stabilitas layout; runtime member/admin tetap terpisah. Label SearchConsole membedakan “tag terpasang” dari verifikasi Google; pengukuran lab bukan CWVlapangan. [Bukti074](SEO_074.md).
+
+Gunakan istilah pencarian secara alami pada judul, heading, deskripsi dan konten yang benar-benar tersedia; jangan menumpuk daftar keyword tersembunyi atau menjanjikan bank/sesi kosong. Judul beranda dari Pengaturan Umum ditambah nama situs otomatis; judul/ringkasan kursus tetap sumber metadata kursus. Cuplikan HTML/entities dinormalisasi menjadi teks dan dipotong pada batas kata normal; template tetap melakukan escaping. Perubahan metadata tidak mengubah noindex halaman privat/filter, canonical, hak akses, review atau hasil belajar. Klaim ranking/volume/organik memerlukan data, bukan hanya kunjungan crawler. [Pemetaan dan bukti073](SEO_073.md).
+
+## Latihan dan transaksi fitur — 063–070
+
+Pembaruan071: bedakan **Platinum Selamanya** dari Platinum berjangka. Tampilkan sekali bayar, dua slot anak termasuk (bukan tambahan), penerima berdasarkan urutan tautan aktif, dan tanpa kuota harian; jangan tampilkan durasi0 sebagai “0hari akses”. Gunakan ends_atNULL + flag eksplisit, bukan tanggal arbitrer. Label tanpa kuota harus sama pada server/form/ujian; pemakaian tetap dicatat. Badge keluarga wajib wrap di ponsel. Termasuk akses tidak berarti saldo kredit gratis, slot tak terbatas, atau hilangnya timer/prasyarat. [Ketentuan071](PAKET_SELAMANYA_071.md).
+
+Bedakan label **Latihan kursus gratis**, **Latihan Mandiri** (acak bank) dan **Simulasi Ujian** (susunan pengelola). Jangan memakai “Latihan mandiri” untuk kuis kursus lagi. Pengaturan kelas anak menjadi default filter, bukan pembatasan akses kelas lain. Pada form bank, nyatakan klasifikasi bersama, deduplikasi, hak penggunaan, pratinjau seluruh baris, dan snapshot historis. Gambar embedded Word/Excel yang tidak didukung wajib ditolak jelas, tidak dihilangkan diam-diam.
+
+Harga/penerima/masa berlaku/cakupan ditampilkan sebelum konfirmasi penukaran. Anak tidak diberi tombol pemotongan saldo. Quote berversi, saldo production terpisah dari sandbox, transaksi+ledger+audit atomik, replay/race serta refund-review wajib diuji. Harga draft bukan janji produk sudah dijual. Level akses Arena tanpa level bawaan bukan klaim tingkat kesulitan; grouped category→level→set dahulu.
+
+Pengecualian dari pola kartu mobile lama: **Log Akses trafik menggunakan tabel/baris juga di ponsel**, dalam wrapper scroll horizontal berlabel, agar efisien sesuai permintaan pemilik. Form/hero latihan memakai aksen indigo/teal/emas, gambar lokal existing, teks kontras dan hover ringan hanya ketika reduced-motion tidak diminta. Tidak mengklaim audit WCAG penuh dari sampel viewport.
+
 ## Monitoring operasional dan analitik opsional — rilis 042
+
+Pembaruan072: akun dan IPtamu pada PerPengguna tidak dikaitkan sebelum login. Audit kedua tab yang membukaIP; no-store/noindex/no-referrer. Tabel memakai stickythead dan pagination di luar area gulir. Tautan wajib same-site/allowlist; perujuk luar hanya host, internal hanya pathaman, tanpa query/token/privateID. Data lama tidak ditebak. “Belum terindikasi” bukan “manusia”; “Langsung/tidak diketahui” bukan bukti organik. [Detail072](TRAFIK_072.md).
 
 Pisahkan status/sumber monitoring otomatis dari analitik berbasis persetujuan. Monitoring menampilkan empat tab Ringkasan, Per Halaman, Per Pengguna, Log Akses; filter konsisten, pagination 20, kartu mobile, nama kelompok halaman dan metadata ter-escape. Jangan melabeli IP sebagai orang atau sesi; negara/perangkat/browser adalah perkiraan. Tamu tidak ditebak identitasnya; akun anak dan pengelola dikecualikan dari log operasional. Tampilkan batas 7 hari, cakupan allowlist dan keadaan kosong/kegagalan secara jujur. Detail IP hanya Superadmin, no-store/noindex dan pembukaan diaudit sebelum respons.
 

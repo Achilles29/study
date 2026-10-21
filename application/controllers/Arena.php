@@ -69,6 +69,7 @@ class Arena extends MY_Controller
 	public function choose($slug = '')
 	{
 		$pack = $this->arena->pack($slug); if ( ! $pack) { show_404(); return; }
+		$this->load->model('Arena_credit_model');$credit_access=$this->Arena_credit_model->access($this->current_user['id'],$pack['id']);
 		$settings = $this->arena->settings(); $error = '';
 		$unlocked = $pack['game_type'] !== 'expedition' || $this->arena->expedition_open($this->current_user['id'], $pack['id']);
 		if ($pack['game_type'] === 'english')
@@ -92,8 +93,9 @@ class Arena extends MY_Controller
 				redirect('belajar/arena/main/'.$result['id'], 'location', 303); return;
 			}
 			$error = $this->error_message($result);
+			if(!empty($result['credit_locked'])){$error='Akses level ini belum dibuka. Minta orang tua atau gunakan kredit melalui tombol akses di bawah.';}
 		}
-		$this->render_page('arena/choose', compact('pack', 'settings', 'error', 'unlocked') + array('page_title' => $pack['title'], 'start_token' => $this->start_token($slug, bin2hex(random_bytes(16)))));
+		$this->render_page('arena/choose', compact('pack', 'settings', 'error', 'unlocked','credit_access') + array('page_title' => $pack['title'], 'start_token' => $this->start_token($slug, bin2hex(random_bytes(16)))));
 	}
 
 	public function run($id = '')

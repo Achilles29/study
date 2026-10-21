@@ -10,7 +10,7 @@ class Commerce extends MY_Controller
 		$this->require_login(array('adult','parent'));
 		if (in_array($method, array('admin','package','offer','orders','wallets','ledger','compensate'), TRUE)) { $this->require_role(array('system_admin')); }
 		$this->output->set_header('Cache-Control: private, no-store')->set_header('Referrer-Policy: no-referrer');
-		$this->load->model('Commerce_model');
+		$this->load->model(array('Commerce_model','Lifetime_model'));
 		$this->commerce_environment = $this->input->post('environment', FALSE) ?? $this->input->get('environment', FALSE) ?? (ENVIRONMENT === 'development' ? 'sandbox' : 'production');
 		if ( ! in_array($this->commerce_environment, array('sandbox','production'), TRUE)) { show_error('Lingkungan transaksi tidak valid.', 400); return; }
 		$can_sandbox = $this->Commerce_model->sandbox_allowed($this->current_user['id']);
@@ -85,7 +85,7 @@ class Commerce extends MY_Controller
 		if ( ! $record) { show_404(); return; }
 		if ($this->input->method(TRUE) === 'POST')
 		{
-			$v = $this->values(array('title','kind','package_id','price','credit_amount','access_days','voucher_days','status','revision','confirm','reason','live_approved'));
+			$v = $this->values(array('title','kind','package_id','price','credit_amount','access_days','voucher_days','status','revision','confirm','reason','live_approved','is_lifetime'));
 			$v['live_approved'] = $v['live_approved'] ?? '0';
 			$r = $this->Commerce_model->save_offer($this->current_user['id'], $this->current_user['auth_stamp'], (int) $id, $v);
 			if ( ! $r['ok']) { $this->failure($r); return; }

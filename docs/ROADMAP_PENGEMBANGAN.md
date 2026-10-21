@@ -1,5 +1,103 @@
 # Roadmap Pengembangan Aplikasi Pembelajaran
 
+## Ulasan087 — pratinjau tampilan berisi 1.000 contoh
+
+- [x] Tombol pratinjau di moderasi; tampilan publik bersama, 900 bintang5/100 bintang4, tanggal2025, 20 kartu ×50 halaman. Data contoh dibentuk dalam memori, tidak masuk akun/tabel ulasan/rating publik.
+- [x] Akses khusus Superadmin dan no-store/noindex; label simulasi tetap terlihat. Tes dataset, HTTP izin/metode, paginasi/keyboard, desktop1280/ponsel360 dan preservasi ulasan QA lulus21 Oktober2026. URL `/kelola/ulasan/pratinjau`; rincian [handover087](TASK_HANDOVER_SERVER.md#ulasan087--pratinjau-1000-contoh-21-oktober-2026).
+
+## Trafik086 — grafik harian live
+
+- [x] Grafik pada beranda pengelola `/kelola` untuk Superadmin:7hari harian +hari ini perjam, WIB, pemisahan bot/non-bot, angka hariini dan5menit terakhir, tabel rincian dan laporan lengkap.
+- [x] Pembaruan otomatis30detik/manual, jeda tab tersembunyi, gagal memuat tidak menjadi angka0, keadaan recordingoff/empty, mobile/desktop/keyboard dan fallbacktanpaJS.
+- [x] Endpoint agregat privat, role controller/model, tanpa identitas, tidak menghitung polling sendiri, cutoff/retensi/tengahmalam tervalidasi; QA HTTP/browser dan pemeriksaan DBproduksi read-only selesai. Tanpa migrasi/reset data atau perubahan privasi. Rincian/bukti pada bagianTrafik086 di handover.
+
+## Simulasi085 — alur bertahap, jadwal dan jumlah soal
+
+- [x] Pengaturan disimpan dahulu, dilanjutkan pilihan bank/impor/pratinjau/konfirmasi lalu aktivasi; kelas otomatis, deduplikasi dan tautan ID bank, pagination pilihan, desktop/mobile/keyboard diuji.
+- [x] Jangka aktif opsional WIB→UTC, kosong tanpa batas tanggal; berlaku untuk sesi baru/pembelian akses, tidak mengubah sesi berjalan. Validasi tanggal/batas jadwal, quote dan transaksi kredit diuji.
+- [x] Simulasi tanpa batas jumlah bisnis (template kosong dapat disimpan, tetapi belum bisa dikerjakan/dibeli); uji1.100soal dan1.100jawaban sampai nilai100. Mandiri1–50, semua tingkat/soal tertaut ujian tetap eligible sesuai mapel/kelas, uji50diterima/51ditolak.
+- [x] Koreksi nomor8,17,18 disetujui dan diterapkan dengan backup/audit/versi. Semua30soal unggahan memiliki pembahasan, snapshot/nilai lama tidak diubah.
+- [x] Produksi `db_study`3306 schema53 aditif; preservasi14tabel, regresi tiga jenis latihan, pengamanan akun/anak/kredit dan smoke HTTP. Detail/batas pengujian pada [handover085](TASK_HANDOVER_SERVER.md#simulasi085--pengaturan--soal--aktifkan-21-oktober-2026). Tidak menyatakan seluruh suite historis lulus; satu stub transaksi lama juga gagal pada baseline dan dicatat di handover.
+
+## Konten084 — pembahasan bank unggahan
+
+- [x] Isi29 pembahasan kosong, verifikasi matematika/gambar dan render aktif/graded, backup/audit/versi; tidak mengubah kunci, opsi, status atau snapshot sesi lama. [Bukti084](PEMBAHASAN_UNGGAHAN_084.md).
+- [x] Ditutup pada085 setelah persetujuan pemilik: nomor8 diperjelas dan diberi pembahasan; teks soal/opsi17–18 dibersihkan. Snapshot dan nilai lama tetap dipertahankan.
+
+## Pembaruan082/083 — navigasi ringkas dan halaman Nilai
+
+- [x] Navigasi sticky mobile dengan nomor horizontal/status, offset navbar anak/orang tua, tidak menutup konfirmasi submit; desktop tetap sidebar. Ledger default/pilihan pertama, aturan sesi/template existing dipertahankan.
+- [x] Hasil Mandiri/kursus/simulasi menjadi halaman Nilai dengan rincian/rumus dan tombol pembahasan terpisah, latihan lagi/pilih simulasi, riwayat, Arena; kontras hero diperbaiki tanpa menghitung ulang hasil.
+- [x] QA browser360/1280 dan tiga jenis latihan, mode/keyboard/autosave, nilai0/33,33/100, owner-only/graded-only/GET-only, 85izin/20render/pembulatan lulus; dipasang ke produksi tanpa migrasi/reset. [Bukti082/083](LEMBAR_SOAL_082_083.md).
+
+## Penyesuaian server081 — database aaPanel3306
+
+- [x] Pindahkan db_study existing ke3306 sesuai permintaan, tanpa reset ID/data;85tabel cocok struktur/baris/checksum/AUTO_INCREMENT sebelum membuka situs.
+- [x] Runtime least-privilege, environment/job/service dialihkan, aaPanel terdaftar, situs kembali aktif;3308 hanya cadangan read-only/QA.
+- [x] Filter replikasi db_finance dipasang tanpa mengganti sumber/posisi. Masalah IOConnecting/error2003 yang sudah ada sebelumnya dilaporkan, **tidak dinyatakan selesai**. [Bukti081](DATABASE_PORT_081.md).
+
+## Pembaruan080 — lembar soal terpadu
+
+- [x] Mandiri/ujian/kursus: navigasi terjawab/belum, per soal atau ledger, autosave, navigasi keyboard/mobile, ledger otomatis ke soal berikutnya.
+- [x] Pengaturan tampilan/pantau fokus sebelum sesi; admin menentukan aturan ujian; snapshot, hitungan server idempotent dan selesai pada ambang; aturan lama/hasil tetap.
+- [x] Mandiri tanpa pemisahan akses Dasar/Lanjutan; kuota harian/kredit tambahan dan Platinum dipertahankan; pembelian akses lanjutan baru dihentikan tanpa menghapus histori.
+- [x] Tes targeted server/browser, offline/replay/stale/CSRF/owner, timeout/legacy, gambar privat/inline, 20render dan85akses lulus. [Bukti dan cara mencoba080](LEMBAR_SOAL_080.md).
+
+## Pembaruan079 — deteksi otomatis lampiran soal
+
+- [x] Nama `soalN`/`soalN-urutan` terhubung otomatis ke nomor sumber, tampil di atas teks; penanda posisi khusus tetap diprioritaskan.
+- [x] Pemetaan jelas di pratinjau, nama/nomor ambigu diblokir, dedup/urutan/pengerjaan tetap konsisten.108unit + HTTP contoh pemilik dan alur sintetis penilaian/akses/desktop/mobile lulus. Tidak memasukkan contoh pemilik ke bank produksi. [Bukti079](GAMBAR_OTOMATIS_079.md).
+
+## Pembaruan077 — gambar pada posisi soal dan pilihan jawaban
+
+- [x] Penanda nama berkas di teks soal/opsi A–D, gambar saja/jamak, galeri lama tetap kompatibel; contoh dan template unduhan baru.
+- [x] Pratinjau, editor multi-lampiran, pengerjaan dan hasil terhubung; ID pilihan, pengacakan, dedup dan snapshot historis dipertahankan.
+- [x] Uji terarah posisi/format/validasi/escaping, multipart/akses anak/penilaian100/snapshot, desktop/mobile/keyboard dan regresi068 lulus. Tidak mengimpor soal dummy produksi. [Bukti077](GAMBAR_POSISI_DAN_JAWABAN_077.md).
+
+## Pembaruan076 — galeri soal dan kapasitas impor gambar
+
+- [x] Pengaitan nama per soal, beberapa gambar melalui `|`, galeri admin/peserta, snapshot historis dan identitas dedup menyertakan seluruh gambar.
+- [x] Panduan/contoh dan penghitung lampiran; batas500/32MiB dengan validasi nama/ukuran/resolusi serta runtime selaras.
+- [x] QA500 gambar/body>8MiB, penolakan>32MiB, akses privat, snapshot, grading, desktop/mobile dan probe FPM produksi lulus. Tidak ada impor dummy produksi. [Bukti076](GAMBAR_IMPOR_076.md).
+
+## Pembaruan075 — kompatibilitas TXT naskah dan kesiapan impor
+
+- [x] TXT naskah seperti Pustaka: judul, nomor/pilihan dan kunci akhir; klasifikasi melalui formulir, tanpa menebak kelas dari level.
+- [x] Analisis seluruh nomor sebelum commit; kunci hilang/duplikat, pilihan, metadata, jumlah dan kebutuhan gambar; tidak menyimpan sebagian. Pembahasan opsional dengan catatan.
+- [x] Pratinjau, konfirmasi, dedup/ID bersama, gambar privat dan alur peserta diuji; format lama tetap lulus. Rilis075 dipasang tanpa migrasi/data produksi berubah. [Bukti075](IMPOR_TXT_075.md).
+- [ ] Pemilik melengkapi kunci/gambar contoh serta meninjau isi dan hak penggunaan sebelum menerbitkan. Pemeriksaan format tidak menjamin jawaban benar.
+
+## Pembaruan074 — SEO kelas/mapel/topik
+
+- [x] Pusat latihan,6kelas,40kombinasi mapel/kelas; contoh publik berpembahasan dari kursus eligible, tanpa membaca soal privat/attempt/bank.
+- [x] Materi eligible364 mendapat metadata kelas/topik, breadcrumb dan hubungan materi; sumber/tanggal/batas review jelas; sitemap454URL produksi.
+- [x] Navigasi anonim lebih ringan, pengukuran lab sebelum/sesudah; UI1280/360/keyboard/no-JS serta guard published/free/rights/target anak diuji.
+- [x] Kolom verifikasi dan panduan Search Console berfungsi dengan token QA; simpan/CSRF/validasi/role/tag diuji. [Bukti dan URL074](SEO_074.md).
+- [ ] Verifikasi kepemilikan Google/submit sitemap via akun, hasil kueri/ranking/volume dan CWVlapangan memerlukan akses/data pemilik. Tidak menandai seluruh SEO/roadmap selesai.
+
+## Pembaruan073 — SEO latihan soal
+
+- [x] Frasa latihan soal online/SD/kelas/mapel diterapkan alami pada judul, deskripsi dan konten beranda/katalog/kursus; pilihan kelas dan penjelasan latihan kursus nyata.
+- [x] Judul beranda dapat diedit pada Pengaturan Umum, dengan panduan lokasi keyword; deskripsi kursus tidak memotong kata normal dan tidak mempromosikan soal kosong.
+- [x] QA26unit+HTTP/form/escaping/desktop/mobile dan smoke produksi; sitemap/canonical/noindex serta data akun/keuangan/konten dipertahankan. [Bukti dan panduan073](SEO_073.md).
+- [ ] Search Console, riset volume/persaingan, hasil indeks/peringkat dan Core Web Vitals belum diverifikasi. Ini bukan penutupan seluruh roadmap atau klaim trafik organik meningkat.
+
+## Pembaruan072 — monitoring trafik
+
+- [x] PerPengguna mencakup akun dan tamu perIP, filterIPv4/IPv6 serta detail sesuai pengelompokan.
+- [x] LogAkses: tautan aman, perujuk tanpa query/token, kolom gabungan dan kepala tabel/footer tetap. Data lama/tidak diketahui diberi label jujur; IP bukan jumlah orang.
+- [x] QA unit/HTTP/izin/audit/anak/desktop/mobile, smoke produksi dan preservasi akun/keuangan. [Bukti dan analisis072](TRAFIK_072.md).
+
+## Pembaruan071 — harga disetujui dan Platinum Selamanya
+
+- [x] Lima top-up harga final pemilik aktif live (ID14–18).
+- [x] Rp300.000 selamanya, orang tua + dua anak aktif tertaut, tanpa kuota harian latihan, hak tanpa tanggal akhir (produk19). Snapshot/idempotensi/rollback/race/isolasi keluarga serta UI desktop/mobile diuji. [Bukti dan batas071](PAKET_SELAMANYA_071.md).
+- [ ] Gate harga kredit per fitur, isi bank/simulasi, Telegram nyata, pembayaran nyata dan UAT pemilik tetap terpisah; jangan menandai seluruh roadmap selesai.
+
+## Riwayat prioritas063–070
+
+Lihat [checklist permintaan terbaru](RELEASE_063_PERMINTAAN_LANJUTAN.md) dan [bank/latihan/kredit070](BANK_LATIHAN_KREDIT_070.md). Kursus gratis, kelas anak/filter, tabel trafik, pesan donasi, notifikasi, ulasan asli, bank/import bergambar, Latihan Mandiri, Simulasi Ujian, kuota, unlock Arena dan sinkronisasi rapor telah diuji/dipasang. Harga top-up dan fitur tetap draft/nonaktif. **Lifetime Rp300.000, persetujuan harga/pemetaan akses, aktivasi Telegram nyata, isi bank baru, dan UAT pemilik belum selesai.** Simulasi1000 ulasan hanya QA dan tidak masuk statistik publik. Tidak ada reset data/ID, materi massal baru, atau perubahan callback Finance/Pustaka.
+
 ## Status terkini konten SD — selesai rangkaian061/062 (18 Oktober 2026)
 
 - [x] Rangkaian materi original kelas1–6 (tanpa Agama/muatan lokal) sudah diisi dan **published**:41kursus,332bagian/bab,364pelajaran,734kartu,728soal berpembahasan. Per kelas jumlah pelajaran:62,48,62,64,64,64. Inggris kelas1–2 pengayaan; IPAS mulai kelas3; seni lintas cabang. [Rincian, bukti dan URL](TASK_HANDOVER_SERVER.md#penutupan-rangkaian-materi-kelas16--061062-18-oktober-2026).

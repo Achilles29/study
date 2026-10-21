@@ -1,5 +1,6 @@
 <section class="container page-section">
 <div class="page-heading"><div><p class="eyebrow">Ruang kerja internal</p><h1 class="h2">Dashboard pengelola</h1><p class="text-secondary mb-0">Ringkasan dan akses kerja sesuai wewenang akun Anda.</p></div></div>
+<?php if(isset($traffic_live)): $this->load->view('admin/traffic_live',array('traffic_live'=>$traffic_live)); endif; ?>
 <?php if (is_array($learning_summary)): ?>
 <div class="feature-card mb-4"><div class="d-flex flex-wrap justify-content-between gap-3"><div><p class="eyebrow">Pembelajaran · 30 hari terakhir</p><h2 class="h4"><?php echo (int) $learning_summary['learners']; ?> pengguna aktif belajar</h2><p class="mb-0 small">Diperbarui <?php echo html_escape((new DateTimeImmutable('now', new DateTimeZone('Asia/Jakarta')))->format('d/m/Y H:i')); ?> WIB · <?php echo (int) $counts['review']; ?> kursus menunggu review · <?php echo (int) $counts['pending']; ?> pesanan pending</p></div><a class="btn btn-primary align-self-center" href="<?php echo site_url('kelola/pembelajaran'); ?>">Buka monitoring</a></div></div>
 <?php elseif ($learning_summary === FALSE): ?><div class="alert alert-warning">Ringkasan belajar belum dapat dimuat. Coba buka monitoring kembali.</div><?php endif; ?>

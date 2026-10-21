@@ -17,6 +17,21 @@ class Practice extends MY_Controller
 		return hash_hmac('sha256', $this->current_user['id'].':'.(int) $course_id.':'.$nonce, $this->config->item('encryption_key'));
 	}
 
+	public function catalog()
+	{
+		$this->require_http_methods(array('GET', 'HEAD'));
+		$filters = array('kelas' => study_learner_grade_filter($this->current_user), 'q' => $this->get_scalar_query_param('q', 100), 'category_id' => 0);
+		$total = $this->Content_model->count_courses($filters, TRUE);
+		$page_count = max(1, (int)ceil($total / 12));
+		$page = min($page_count, $this->get_positive_query_int('halaman'));
+		$courses = $this->Content_model->list_courses($filters, 12, ($page - 1) * 12, TRUE);
+		$counts = array();
+		if ($courses) {
+			$counts = array_column($this->db->select('course_id, COUNT(*) AS total', FALSE)->where_in('course_id', array_column($courses, 'id'))->where('visibility', 'shared')->where('target_child_user_id', NULL)->where('status', 'published')->group_by('course_id')->get('st_questions')->result_array(), 'total', 'course_id');
+		}
+		$this->render_page('practice/catalog', compact('courses','counts','filters','page','page_count','total') + array('page_title' => 'Latihan kursus gratis'));
+	}
+
 	private function recover_transaction($result, $path)
 	{
 		$this->output->set_status_header(503);
@@ -90,7 +105,9 @@ class Practice extends MY_Controller
 				show_error('Muat ulang halaman latihan lalu coba lagi.', 400, 'Permintaan tidak valid');
 				return;
 			}
-			$result = $this->Practice_model->start($course_id, $this->current_user['id'], hash('sha256', $token));
+			$sheet=array();
+			foreach(Practice_sheet::defaults() as $k=>$default){$sheet[$k]=$this->input->post($k,FALSE)??$default;}
+			$result = $this->Practice_model->start($course_id, $this->current_user['id'], hash('sha256', $token), $sheet);
 			if ( ! $result['ok'])
 			{
 				if ($result['code'] === 503) { $this->recover_transaction($result, 'latihan/kursus/'.(int) $course_id); return; }
@@ -101,42 +118,60 @@ class Practice extends MY_Controller
 			return;
 		}
 		$nonce = bin2hex(random_bytes(16));
-		$this->render_page('practice/course', array('page_title' => 'Latihan mandiri', 'course' => $course, 'can_start' => $can_start, 'question_count' => $question_count, 'start_token' => $nonce.'.'.$this->start_signature($course_id, $nonce)));
+		$this->render_page('practice/course', array('page_title' => 'Latihan kursus gratis', 'course' => $course, 'can_start' => $can_start, 'question_count' => $question_count, 'start_token' => $nonce.'.'.$this->start_signature($course_id, $nonce)));
 	}
 
-	public function attempt($attempt_id = 0)
+	public function attempt($attempt_id = 0, $view = 'result')
 	{
-		$this->require_http_methods(array('GET', 'HEAD', 'POST'));
+		if (!in_array($view, array('result', 'review'), TRUE)) { show_404(); return; }
+		$this->require_http_methods($view === 'review' ? array('GET', 'HEAD') : array('GET', 'HEAD', 'POST'));
 		$attempt = $this->Practice_model->find_attempt($attempt_id, $this->current_user['id']);
 		if ( ! $attempt)
 		{
 			show_404();
 			return;
 		}
+		if ($view === 'review' && $attempt['status'] !== 'graded') { show_404(); return; }
 		if ( ! $this->Practice_model->can_read_attempt($attempt, $this->current_user['id']))
 		{
 			show_error('Akses atau jadwal latihan telah berubah. Jawaban yang sudah disimpan tetap tersimpan; minta bantuan orang tua atau pengelola untuk memeriksa akses.', 403, 'Latihan belum dapat dilanjutkan');
 			return;
 		}
+		if ($this->input->method(TRUE)==='GET' && $this->input->get('sheet_state')==='1') {
+			$this->sheet_response($attempt);
+			return;
+		}
 		$error = NULL;
 		if ($this->input->method(TRUE) === 'POST')
 		{
-			$answers = $this->input->post('answers');
+			$answers = $this->input->post('answers', FALSE);
+			$json = $this->input->post('answers_json', FALSE);
+			if ($json !== NULL) {
+				$answers = is_string($json) ? json_decode($json, TRUE, 4) : FALSE;
+				if (!is_array($answers)) { show_error('Format jawaban tidak valid. Jawaban sebelumnya tidak berubah.', 400); return; }
+			} elseif ($this->input->post('answers_form_start', FALSE) !== NULL && $this->input->post('answers_form_end', FALSE) !== '1') {
+				show_error('Jawaban belum diterima lengkap. Aktifkan JavaScript dan kirim ulang; jawaban sebelumnya tidak berubah.', 400); return;
+			}
 			$revision = $this->input->post('revision');
 			$action = $this->input->post('action');
 			if ($answers === NULL)
 			{
 				$answers = array();
 			}
-			if ( ! is_array($answers) || count($answers) > 50 || ! is_string($revision) || ! preg_match('/\A(?:0|[1-9][0-9]{0,8})\z/', $revision) || ! in_array($action, array('save', 'finish'), TRUE))
+			if ( ! is_array($answers) || count($answers) > (int)$attempt['question_count'] || ! is_string($revision) || ! preg_match('/\A(?:0|[1-9][0-9]{0,8})\z/', $revision) || ! in_array($action, array('save', 'finish'), TRUE))
 			{
 				show_error('Format jawaban tidak valid.', 400, 'Permintaan tidak valid');
 				return;
 			}
-			$result = $this->Practice_model->save_answers($attempt_id, $this->current_user['id'], (int) $revision, $answers, $action === 'finish');
+			$result = $this->Practice_model->save_answers($attempt_id, $this->current_user['id'], (int) $revision, $answers, $action === 'finish', $this->input->post('focus_events',FALSE)??array());
+			if ($this->input->post('sheet_ajax')==='1') {
+				$fresh=$this->Practice_model->find_attempt($attempt_id,$this->current_user['id']);
+				$this->sheet_response($fresh,$result);
+				return;
+			}
 			if ($result['ok'])
 			{
-				$this->session->set_flashdata('success', $result['status'] === 'graded' ? 'Latihan selesai. Yuk, lihat pembahasannya.' : 'Jawaban tersimpan. Kamu bisa melanjutkan latihan nanti.');
+				$this->session->set_flashdata('success', $result['status'] === 'graded' ? 'Latihan selesai. Nilai dan rincian hasilmu sudah tersedia.' : 'Jawaban tersimpan. Kamu bisa melanjutkan latihan nanti.');
 				redirect('latihan/percobaan/'.$result['id'], 'location', 303);
 				return;
 			}
@@ -157,14 +192,55 @@ class Practice extends MY_Controller
 			return;
 		}
 		$can_retry = $attempt['session_type'] === 'course_quiz' && $this->Practice_model->course_access($this->current_user['id'], $this->Content_model->get_course($attempt['course_id']));
-		$this->render_page('practice/attempt', array(
-			'page_title' => $attempt['status'] === 'graded' ? 'Hasil latihan' : 'Kerjakan latihan',
+		$result_page = $attempt['status'] === 'graded' && $view !== 'review';
+		$this->render_page($result_page ? 'practice/result' : 'practice/attempt', array(
+			'page_title' => $attempt['status'] === 'graded' ? ($result_page ? 'Nilai latihan' : 'Pembahasan latihan') : 'Kerjakan latihan',
 			'attempt' => $attempt,
 			'questions' => $questions,
 			'submit_error' => $error,
 			'can_retry' => $can_retry,
-			'load_unsaved_form_script' => $attempt['status'] === 'in_progress'
+			'review_view' => $view === 'review',
+			'deadline' => $this->Practice_model->deadline($attempt),
+			'sheet' => $this->Practice_model->sheet_state($attempt),
+			'load_practice_sheet_script' => !$result_page,
+			'load_unsaved_form_script' => FALSE
 		));
+	}
+
+	private function sheet_response($attempt, $result = array('ok'=>TRUE))
+	{
+		if (!$attempt) { show_404(); return; }
+		$this->output->set_status_header($result['ok']?200:($result['code']??503));
+		$this->output->set_content_type('application/json')->set_output(json_encode(array(
+			'ok'=>(bool)$result['ok'],'conflict'=>!empty($result['conflict']),
+			'status'=>$attempt['status'],'revision'=>(int)$attempt['answer_revision'],
+			'focus_count'=>$this->Practice_model->focus_count($attempt['id']),
+			'csrf_name'=>$this->security->get_csrf_token_name(),'csrf_token'=>$this->security->get_csrf_hash(),
+			'server_time'=>time()
+		),JSON_THROW_ON_ERROR));
+	}
+
+	public function image($attempt_id=0,$question_id=0,$image_index='0')
+	{
+		$this->require_http_methods(array('GET','HEAD'));
+		$attempt=$this->Practice_model->find_attempt($attempt_id,$this->current_user['id']);
+		if($attempt && !$this->Practice_model->can_read_attempt($attempt,$this->current_user['id'])){$attempt=NULL;}
+		if(!$attempt && $this->current_user['account_kind']==='parent'){
+			$this->load->model('Family_practice_model');
+			$owner=$this->db->select('learner_user_id')->where('id',(int)$attempt_id)->get('st_practice_attempts')->row_array();
+			if($owner){$attempt=$this->Family_practice_model->result($this->current_user['id'],$owner['learner_user_id'],$attempt_id);}
+		}
+		if(!$attempt && in_array('system_admin',$this->current_user['roles'],TRUE)){
+			$owner=$this->db->select('learner_user_id')->where('id',(int)$attempt_id)->get('st_practice_attempts')->row_array();
+			if($owner){$candidate=$this->Practice_model->find_attempt($attempt_id,$owner['learner_user_id']);if($candidate&&$candidate['status']==='graded'&&in_array($candidate['session_type'],array('self_practice','assessment'),TRUE)){
+				if($this->db->insert('st_audit_events',array('actor_user_id'=>$this->current_user['id'],'event_type'=>'learning.image_read','entity_type'=>'practice_attempt','entity_id'=>$attempt_id,'details_json'=>'{}','created_at'=>gmdate('Y-m-d H:i:s')))){$attempt=$candidate;}
+			}}
+		}
+		$image=$attempt?$this->Practice_model->snapshot_image($attempt,$question_id):NULL;
+		$this->load->model('Bank_model');
+		$image=$this->Bank_model->image_at($image,$image_index);
+		if(!$image){show_404();return;}$this->load->library('lesson_image_store');$bytes=$this->lesson_image_store->read($image);if($bytes===FALSE){show_404();return;}
+		$this->output->set_header('X-Content-Type-Options: nosniff')->set_header('X-Robots-Tag: noindex, nofollow')->set_content_type($image['mime_type'])->set_output($bytes);
 	}
 
 	public function index()

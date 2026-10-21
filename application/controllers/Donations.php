@@ -27,19 +27,22 @@ class Donations extends MY_Controller
 	public function index()
 	{
 		$this->require_http_methods(array('GET','HEAD','POST')); $page = $this->page(); $settings = $this->Commerce_model->donation_settings(); $error = ''; $amount = ''; $request_key = bin2hex(random_bytes(32));
+		$message = '';
 		if ($this->input->method(TRUE) === 'POST')
 		{
 			$amount = $this->input->post('amount', FALSE); $request_key = $this->input->post('request_key', FALSE);
-			$r = $this->input->post('confirm') === '1' ? $this->Commerce_model->donate($this->current_user['id'], $this->current_user['auth_stamp'], $amount, $this->input->post('revision', FALSE), $request_key) : array('ok' => FALSE, 'code' => 400, 'message' => 'Konfirmasi bahwa donasi bersifat sukarela.');
+			$message = $this->input->post('message', FALSE) ?? '';
+			$r = $this->input->post('confirm') === '1' ? $this->Commerce_model->donate($this->current_user['id'], $this->current_user['auth_stamp'], $amount, $this->input->post('revision', FALSE), $request_key, $message) : array('ok' => FALSE, 'code' => 400, 'message' => 'Konfirmasi bahwa donasi bersifat sukarela.');
 			if ($r['ok']) { redirect('donasi/pesanan/'.$r['id'].'?environment='.$this->environment, 'location', 303); return; }
 			$error = $r['message'] ?? (($r['code'] ?? 503) === 403 ? 'Masuk dengan akun dewasa/orang tua aktif dan email terverifikasi.' : 'Donasi belum dapat dipastikan. Periksa riwayat; jangan langsung mengulangi pembayaran.');
 			$this->output->set_status_header($r['code'] ?? 503);
 			$amount = is_string($amount) && preg_match('/\A[0-9]{1,9}\z/', $amount) ? $amount : '';
+			$message = is_string($message) && mb_check_encoding($message, 'UTF-8') ? mb_substr($message, 0, 1000, 'UTF-8') : '';
 			// Keep a valid request key on uncertainty: retry refers to the same intent, never auto-recharge.
 			if ( ! is_string($request_key) || ! preg_match('/\A[a-f0-9]{64}\z/', $request_key)) { $request_key = bin2hex(random_bytes(32)); }
 		}
 		$report = $this->current_user ? $this->Commerce_model->donation_report($this->current_user['id'], $page) : NULL;
-		$this->render_page('donations/index', compact('settings','report','page','error','amount','request_key') + array('page_title' => 'Donasi sukarela'));
+		$this->render_page('donations/index', compact('settings','report','page','error','amount','request_key','message') + array('page_title' => 'Donasi sukarela'));
 	}
 	public function order($id = '0')
 	{

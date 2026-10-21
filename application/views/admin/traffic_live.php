@@ -1,0 +1,19 @@
+<?php $live=is_array($traffic_live)?$traffic_live:NULL; ?>
+<section class="feature-card traffic-live mb-4" id="traffic-live" data-endpoint="<?php echo site_url('kelola/trafik/live'); ?>" aria-labelledby="traffic-live-title">
+ <div class="traffic-live-heading"><div><p class="eyebrow"><i class="bi bi-bar-chart-line me-2" aria-hidden="true"></i>Aktivitas situs · WIB</p><h2 class="h4" id="traffic-live-title">Trafik kunjungan harian</h2><p class="mb-0">Pantau tayangan halaman, termasuk pengunjung tanpa akun.</p></div><span class="traffic-live-badge" data-live-badge><?php echo $live?($live['enabled']?'Pembaruan 30 detik':'Pencatatan nonaktif'):'Data belum tersedia'; ?></span></div>
+ <div class="traffic-live-metrics mt-3">
+ <?php foreach(array('views'=>'Tayangan hari ini','non_bot'=>'Non-bot terdeteksi','bots'=>'Bot / alat hari ini','recent_views'=>'Tayangan 5 menit terakhir') as $key=>$label): ?><div><span><?php echo $label; ?></span><strong data-live-metric="<?php echo $key; ?>"><?php echo $live?number_format($live['summary'][$key],0,',','.'):'—'; ?></strong></div><?php endforeach; ?>
+ </div>
+ <div class="d-flex flex-wrap justify-content-between gap-2 my-3"><div class="d-flex flex-wrap gap-2" role="group" aria-label="Rentang grafik"><button type="button" class="btn btn-sm btn-primary" data-live-range="daily" aria-pressed="true">7 hari terakhir</button><button type="button" class="btn btn-sm btn-outline-primary" data-live-range="hourly" aria-pressed="false">Hari ini · per jam</button></div><button type="button" class="btn btn-sm btn-teal" data-live-refresh><i class="bi bi-arrow-clockwise me-1" aria-hidden="true"></i>Perbarui</button></div>
+ <div class="traffic-live-legend mb-2"><span><i class="traffic-live-swatch non-bot" aria-hidden="true"></i>Non-bot terdeteksi</span><span><i class="traffic-live-swatch bot" aria-hidden="true"></i>Bot / alat</span></div>
+ <p class="small mb-2" data-live-scale></p>
+ <div class="traffic-live-scroll" tabindex="0" role="region" aria-label="Grafik tayangan halaman; rincian angka tersedia di bawah"><div class="traffic-live-chart" data-live-chart></div></div>
+ <p class="small mt-3 mb-1" data-live-status role="status"><?php echo $live?'Diperbarui '.html_escape($live['updated_label']):'Data belum dapat dimuat. Bukan berarti kunjungan nol.'; ?></p>
+ <p class="small text-secondary" data-live-note></p>
+ <noscript><p class="alert alert-info mt-3">Aktifkan JavaScript untuk grafik dan pembaruan otomatis. Ringkasan di atas berasal dari waktu halaman dibuka.</p></noscript>
+ <details class="mb-3"><summary>Lihat rincian angka grafik</summary><div class="table-responsive mt-2"><table class="table table-sm"><caption>Jumlah tayangan halaman tercatat, waktu WIB.</caption><thead><tr><th scope="col">Tanggal / jam</th><th scope="col">Non-bot</th><th scope="col">Bot / alat</th><th scope="col">Total</th></tr></thead><tbody data-live-table>
+ <?php foreach($live['daily']??array() as $day): ?><tr><th scope="row"><?php echo html_escape($day['key']); ?></th><td><?php echo (int)$day['non_bot']; ?></td><td><?php echo (int)$day['bots']; ?></td><td><?php echo (int)$day['views']; ?></td></tr><?php endforeach; ?>
+ </tbody></table></div></details>
+ <div class="d-flex flex-wrap align-items-center justify-content-between gap-3"><p class="small mb-0">Satu orang dapat membuka banyak halaman. Klasifikasi bot bersifat perkiraan, bukan bukti trafik organik. Akun anak, pengelola, dan polling grafik tidak dihitung. Retensi detail 7 hari.</p><a class="btn btn-outline-primary flex-shrink-0" href="<?php echo site_url('kelola/trafik'); ?>">Buka laporan trafik <i class="bi bi-arrow-right" aria-hidden="true"></i></a></div>
+ <script type="application/json" id="traffic-live-data"><?php echo json_encode($live,JSON_HEX_TAG|JSON_HEX_AMP|JSON_HEX_APOS|JSON_HEX_QUOT|JSON_UNESCAPED_UNICODE|JSON_THROW_ON_ERROR); ?></script>
+</section>

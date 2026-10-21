@@ -22,7 +22,7 @@ class Settings extends MY_Controller
 			if ( ! is_string($revision) || ! preg_match('/\A[1-9][0-9]{0,9}\z/', $revision)) { $submit_error = 'Versi formulir tidak valid. Muat ulang halaman.'; }
 			elseif ( ! $errors)
 			{
-				$result = $this->Settings_model->save_section($section, $values, $revision, $this->current_user['id']);
+				$result = $this->Settings_model->save_section($section, $values, $revision, $this->current_user['id'], $this->current_user['auth_stamp']);
 				if ($result['ok'])
 				{
 					$this->session->set_flashdata('success', 'Pengaturan tersimpan dan perubahan tercatat dalam audit.');

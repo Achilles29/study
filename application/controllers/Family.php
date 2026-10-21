@@ -96,6 +96,7 @@ class Family extends MY_Controller
 		$this->require_login(array('parent'));
 		$this->require_http_methods(array('GET', 'HEAD'));
 		$this->load->model('Commerce_access_model');
+		$this->load->model('Lifetime_model');
 		$this->render_page('family/children', array(
 			'page_title' => 'Akun anak',
 			'capacity' => 2 + $this->Commerce_access_model->extra_slots($this->current_user['id']),
@@ -112,7 +113,7 @@ class Family extends MY_Controller
 		$submit_error = NULL;
 		if ($this->input->method(TRUE) === 'POST')
 		{
-			$fields = array('username', 'display_name', 'learning_stage', 'password', 'password_confirm');
+			$fields = array('username', 'display_name', 'grade_id', 'password', 'password_confirm');
 			foreach ($fields as $field)
 			{
 				$value = $this->input->post($field, FALSE);
@@ -123,11 +124,12 @@ class Family extends MY_Controller
 				}
 			}
 
+			$grade = study_child_grade($this->input->post('grade_id', FALSE));
+			if (!$grade) { $submit_error = 'Pilih kelas anak dari daftar yang tersedia.'; }
 			if ($submit_error === NULL)
 			{
 				$this->form_validation->set_rules('username', 'Nama pengguna anak', 'required|trim|min_length[4]|max_length[80]|alpha_dash|is_unique[st_users.username]');
 				$this->form_validation->set_rules('display_name', 'Nama panggilan', 'required|trim|min_length[2]|max_length[120]');
-				$this->form_validation->set_rules('learning_stage', 'Kelompok usia belajar', 'required|in_list[early_childhood,primary,secondary]');
 				$this->form_validation->set_rules('password', 'Kata sandi awal', 'required|study_valid_password['.study_child_password_minimum().']');
 				$this->form_validation->set_rules('password_confirm', 'Ulangi kata sandi', 'required|matches[password]');
 
@@ -138,8 +140,9 @@ class Family extends MY_Controller
 						strtolower($this->input->post('username', TRUE)),
 						$this->input->post('display_name', TRUE),
 						$this->input->post('password', FALSE),
-						$this->input->post('learning_stage', TRUE),
-						$this->current_user['auth_stamp']
+						study_child_grade_stage($grade),
+						$this->current_user['auth_stamp'],
+						$grade['id']
 					);
 
 					if ($created)
@@ -174,17 +177,17 @@ class Family extends MY_Controller
 			return;
 		}
 
-		$stage = $this->input->post('learning_stage', FALSE);
-		if ( ! is_string($stage) || ! in_array($stage, array('early_childhood', 'primary', 'secondary'), TRUE))
+		$grade = study_child_grade($this->input->post('grade_id', FALSE));
+		if (!$grade)
 		{
-			$this->session->set_flashdata('error', 'Kelompok belajar yang dipilih tidak valid.');
+			$this->session->set_flashdata('error', 'Pilih kelas anak dari daftar yang tersedia.');
 			redirect('keluarga/anak');
 			return;
 		}
 
-		if ($this->Account_model->update_child_learning_stage($this->current_user['id'], $child_user_id, $stage, $this->current_user['auth_stamp']))
+		if ($this->Account_model->update_child_learning_stage($this->current_user['id'], $child_user_id, study_child_grade_stage($grade), $this->current_user['auth_stamp'], $grade['id']))
 		{
-			$this->session->set_flashdata('success', 'Kelompok belajar anak berhasil diperbarui.');
+			$this->session->set_flashdata('success', 'Kelas anak diperbarui. Katalog akan menampilkan kelas ini terlebih dahulu; kelas lain tetap bisa dipilih.');
 		}
 		else
 		{

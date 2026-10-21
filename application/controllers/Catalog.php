@@ -3,6 +3,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Catalog extends MY_Controller
 {
+	private function public_context($course_id)
+	{
+		$this->load->model('Public_learning_model');
+		return $this->Public_learning_model->context($course_id);
+	}
 	private function target_group_label($value)
 	{
 		return study_target_group_label($value);
@@ -13,7 +18,7 @@ class Catalog extends MY_Controller
 		$this->require_http_methods(array('GET', 'HEAD'));
 		$this->load->model('Content_model');
 		$filters = array(
-			'kelas' => study_grade_filter(),
+			'kelas' => study_learner_grade_filter($this->current_user),
 			'q' => $this->get_scalar_query_param('q', 100),
 			'category_id' => (int) $this->get_scalar_query_param('kategori', 10)
 		);
@@ -28,7 +33,7 @@ class Catalog extends MY_Controller
 			$target_group_labels[$target_group] = study_target_group_label($target_group);
 		}
 		$this->render_page('catalog/index', array(
-			'page_title' => 'Jelajahi kursus',
+			'page_title' => 'Materi dan Latihan Soal SD Kelas 1–6'.($page > 1 ? ' · Halaman '.$page : ''),
 			'courses' => $this->Content_model->list_courses($filters, $per_page, ($page - 1) * $per_page, TRUE),
 			'categories' => $this->Content_model->list_categories(TRUE),
 			'filters' => $filters,
@@ -38,7 +43,7 @@ class Catalog extends MY_Controller
 			'page' => $page,
 			'page_count' => $page_count,
 			'pagination_query' => array_filter(array('q' => $filters['q'], 'kategori' => $filters['category_id'], 'kelas' => $filters['kelas']), static function ($value) {
-				return $value !== '' && $value !== 0;
+				return $value !== 0;
 			})
 		));
 	}
@@ -71,6 +76,9 @@ class Catalog extends MY_Controller
 		$this->render_page('catalog/course', array(
 			'page_title' => $course['title'],
 			'course' => $course,
+			'public_context' => $public_context=$this->public_context($course['id']),
+			'breadcrumbs' => $public_context?$this->Public_learning_model->breadcrumbs($public_context):array(),
+			'public_source' => $public_context,
 			'target_group_label' => $this->target_group_label($course['target_group']),
 			'lessons' => $lessons,
 			'lesson_progress_map' => $this->current_user ? $this->Content_model->get_course_lesson_progress_map($this->current_user['id'], $course['id']) : NULL,
@@ -105,9 +113,23 @@ class Catalog extends MY_Controller
 		$flashcard_deck = $this->Flashcard_model->get_published_deck_for_lesson($lesson['id']);
 		$flashcards = $flashcard_deck ? $this->Flashcard_model->get_published_cards($flashcard_deck['id'], $this->current_user ? $this->current_user['id'] : 0) : array();
 		$this->load->library('Matching_cards');
+		$public_context=$this->public_context($lesson['course_id']);
+		$public_lesson=FALSE; $previous_public_lesson=NULL; $public_source=NULL;
+		if($public_context) {
+			$previous=NULL;
+			foreach($this->Public_learning_model->lessons(array($lesson['course_id'])) as $item) {
+				if((int)$item['id']===(int)$lesson['id']) { $public_lesson=TRUE; $previous_public_lesson=$previous; $public_source=$item; break; }
+				$previous=$item;
+			}
+		}
 		$this->render_page('catalog/lesson', array(
-			'page_title' => $lesson['title'],
+			'page_title' => $lesson['title'].($public_lesson?' — '.$public_context['subject_label'].' Kelas '.$public_context['grade'].' SD':''),
 			'lesson' => $lesson,
+			'public_lesson' => $public_lesson,
+			'public_source' => $public_source,
+			'public_context' => $public_context,
+			'previous_public_lesson' => $previous_public_lesson,
+			'breadcrumbs' => $public_lesson?$this->Public_learning_model->breadcrumbs($public_context,$lesson):array(),
 			'lesson_image' => $lesson_image,
 			'lesson_progress' => $progress,
 			'next_lesson' => $next_lesson,

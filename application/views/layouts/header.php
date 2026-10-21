@@ -4,9 +4,11 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="theme-color" content="#f7f8ff">
+	<?php if($light_public_assets): ?><script>document.documentElement.classList.add('js-public');</script><style>@media(max-width:1199.98px){.js-public .site-header .navbar-collapse:not(.show){display:none}.js-public .site-header .navbar-toggler[hidden]{display:block!important}}</style><?php endif; ?>
 	<title><?php echo html_escape($page_title); ?> · <?php echo html_escape($site_settings['brand_name']); ?></title>
 	<meta name="robots" content="<?php echo $seo['index'] ? 'index, follow' : 'noindex, nofollow'; ?>">
 	<?php if ($seo['index']): ?>
+	<?php if($navigation_view==='home/index' && preg_match('/\A[A-Za-z0-9_-]{20,160}\z/',$site_settings['google_site_verification']??'')): ?><meta name="google-site-verification" content="<?php echo html_escape($site_settings['google_site_verification']); ?>"><?php endif; ?>
 	<meta name="description" content="<?php echo html_escape($seo['description']); ?>">
 	<link rel="canonical" href="<?php echo html_escape($seo['canonical']); ?>">
 	<meta property="og:site_name" content="<?php echo html_escape($site_settings['brand_name']); ?>">
@@ -15,6 +17,9 @@
 	<meta property="og:url" content="<?php echo html_escape($seo['canonical']); ?>">
 	<meta property="og:type" content="website">
 	<?php if ($navigation_view === 'home/index'): ?><script type="application/ld+json"><?php echo json_encode(array('@context' => 'https://schema.org', '@type' => 'WebSite', 'name' => $site_settings['brand_name'], 'url' => site_url('/')), JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_UNESCAPED_SLASHES); ?></script><?php endif; ?>
+	<?php if(!empty($breadcrumbs) && count($breadcrumbs)>1): $breadcrumb_items=array(); foreach($breadcrumbs as $i=>$crumb) { $breadcrumb_items[]=array('@type'=>'ListItem','position'=>$i+1,'name'=>$crumb['label'],'item'=>site_url($crumb['path'])); } ?>
+	<script type="application/ld+json"><?php echo json_encode(array('@context'=>'https://schema.org','@type'=>'BreadcrumbList','itemListElement'=>$breadcrumb_items),JSON_HEX_TAG|JSON_HEX_AMP|JSON_HEX_APOS|JSON_HEX_QUOT|JSON_UNESCAPED_SLASHES); ?></script>
+	<?php endif; ?>
 	<?php endif; ?>
 	<?php $app_css_path = FCPATH.'assets/css/app.css'; $app_css_version = is_file($app_css_path) ? (string) filemtime($app_css_path) : '1'; ?>
 	<link rel="stylesheet" href="<?php echo base_url('assets/vendor/bootstrap/css/bootstrap.min.css'); ?>">
@@ -36,12 +41,17 @@
 		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navigasi-utama" aria-controls="navigasi-utama" aria-expanded="false" aria-label="Buka navigasi" hidden>
 			<span class="navbar-toggler-icon"></span>
 		</button>
+		<?php if ($current_user): ?>
+		<a class="btn btn-outline-primary notification-nav" href="<?php echo site_url('notifikasi'); ?>" aria-label="Kotak notifikasi<?php echo $notification_unread===NULL?', jumlah belum tersedia':', '.(int)$notification_unread.' belum dibaca'; ?>"><i class="bi bi-envelope" aria-hidden="true"></i><?php if($notification_unread): ?><span class="badge text-bg-danger ms-1"><?php echo min(99,(int)$notification_unread); ?><?php echo $notification_unread>99?'+':''; ?></span><?php endif; ?></a>
+		<?php endif; ?>
 		<?php if ($current_user && $current_user['account_kind'] !== 'child'): ?>
 		<a class="member-donation-badge" href="<?php echo site_url('donasi'); ?>"<?php echo strpos($navigation_view, 'donations/') === 0 ? ' aria-current="page"' : ''; ?>><i class="bi bi-heart-fill" aria-hidden="true"></i><span>Donasi</span><span class="donation-caption">Seikhlasnya</span></a>
 		<?php endif; ?>
 		<div class="navbar-collapse" id="navigasi-utama">
 			<div class="navbar-nav mx-auto gap-xl-2">
+				<?php if(!$current_user): ?><a class="nav-link" href="<?php echo site_url('latihan-soal'); ?>"<?php echo $navigation_view==='public_learning/index'?' aria-current="page"':''; ?>>Latihan soal SD</a><?php endif; ?>
 				<a class="nav-link" href="<?php echo site_url('kursus'); ?>"<?php echo study_navigation_attributes($navigation_view, 'catalog', ! empty($is_content_preview)); ?>>Jelajahi kursus</a>
+				<a class="nav-link" href="<?php echo site_url('ulasan'); ?>"<?php echo strpos($navigation_view, 'reviews/') === 0 && empty($is_content_preview) ? ' aria-current="page"' : ''; ?>>Ulasan</a>
 				<?php if ( ! $current_user): ?><a class="nav-link" href="<?php echo site_url('/'); ?>#cara-belajar">Cara belajar</a>
 				<a class="nav-link" href="<?php echo site_url('/'); ?>#untuk-keluarga">Untuk keluarga</a><?php else: ?><a class="nav-link" href="<?php echo site_url('beranda'); ?>"<?php echo study_navigation_attributes($navigation_view, 'dashboard', ! empty($is_content_preview)); ?>>Beranda</a><?php endif; ?>
 				<?php if ($current_user): ?><a class="nav-link" href="<?php echo site_url('belajar/arena'); ?>"<?php echo strpos($navigation_view, 'arena/') === 0 ? ' aria-current="page"' : ''; ?>>Arena Belajar</a><?php endif; ?>

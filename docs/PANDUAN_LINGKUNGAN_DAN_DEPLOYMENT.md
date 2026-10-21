@@ -1,5 +1,15 @@
 # Panduan Lingkungan dan Deployment
 
+## Pembaruan batas unggahan076 — 20 Oktober2026
+
+Untuk impor500 gambar, konfigurasi produksi kini memakai `client_max_body_size 40m` pada vhost Project Pintar, serta `post_max_size=40M`, `upload_max_filesize=4M`, `max_file_uploads=502` pada pool khusus `/etc/projectpintar/php-fpm.conf`. Aplikasi tetap membatasi dokumen3MiB, gambar3MiB per berkas/32MiB total dan resolusi. Catatan/template8m di bagian historis tidak mencukupi fitur076; jangan menerapkannya kembali tanpa penyesuaian. Syntax check/reload serta probe FPM500 gambar/body12MiB lulus. Shared PHP dan vhost Finance/Pustaka tidak diubah. [Detail/bukti076](GAMBAR_IMPOR_076.md).
+
+## Pembaruan runtime gambar070 — 18 Oktober2026
+
+Catatan historis bahwa fileinfo belum tersedia kini digantikan untuk **FPM Project Pintar**: extension terisolasi `/etc/projectpintar/extensions/fileinfo-8.4.21.so`, dimuat lewat drop-in `/etc/systemd/system/projectpintar-php-fpm.service.d/fileinfo.conf`. PHP bersama Finance/Pustaka tidak diubah. Build resmi PHP8.4.21/ABI20240924 sudah diuji; server baru memerlukan extension yang cocok dengan runtime, bukan menyalin binary ke versi lain tanpa pemeriksaan. Backup perlu mencakup konfigurasi ini selain environment, DB dan media.
+
+Multipart PNG20×20 lewat Unix socket FPM produksi lulus pemeriksaan uploaded-file/MIME/GD, simpan/baca/hapus fixture di direktori uji privat. HTTP aplikasi lengkap dan impor empat format diuji pada QA terisolasi. Probe dipindah ke backup070, tidak dipublikasikan. Ini tidak membuktikan semua batas ukuran, disk penuh atau seluruh kondisi jaringan. [Bukti, lokasi dan batas070](BANK_LATIHAN_KREDIT_070.md).
+
 ## Lokasi produksi dan berkas saat pindah server — 18 Oktober 2026
 
 Situs aktif memakai `/www/wwwroot/study`. Folder kerja QA seperti `/www/study-private/donation043-...` hanya salinan untuk pengujian dengan database terisolasi; bukan sumber runtime produksi dan tidak wajib dipindahkan. Jangan menyalin fixture/seed/kredensial sintetis QA ke produksi.
@@ -339,6 +349,8 @@ Jalankan `node scripts/browser-viewport-check.mjs --base-url http://localhost/st
 ## Ubuntu + Nginx + PHP-FPM + aaPanel
 
 ### Konfigurasi server Project Pintar — 16 Oktober 2026
+
+**Pembaruan aktif21Oktober2026:** produksi sekarang memakai `db_study` pada **127.0.0.1:3306** (aaPanel), userpintar_runtime, schema52/85tabel.3308 bukan lagi database aktif, melainkan snapshot lama/read-only danQA. FPM/retensi/notifikasi sudah dialihkan. Replikasi dibatasi db_finance; sumber Finance masih Connecting/error2003 sejak sebelum pemindahan. [Konfigurasi aktif dan bukti081](DATABASE_PORT_081.md). Rincian16Oktober berikut dipertahankan sebagai riwayat, bukan instruksi koneksi saat ini.
 
 Pembaruan fitur setelah deployment awal: migration tambahan 014–015 sudah diterapkan tanpa mengulang migrasi awal; sekarang `db_study` versi 15/35 tabel. Pengaturan umum, review operator tunggal, konfigurasi Midtrans sandbox dan pengaman kuota keluarga dijelaskan di [pusat pengaturan server](PUSAT_PENGATURAN_SERVER.md). Angka 13/33 pada catatan pemindahan berikut adalah snapshot deployment awal, bukan versi terkini.
 

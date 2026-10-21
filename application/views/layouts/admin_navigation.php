@@ -11,6 +11,7 @@
 <div class="admin-drawer-backdrop" hidden></div>
 <div class="admin-workspace">
 	<header class="admin-topbar">
+		<a class="btn btn-outline-primary" href="<?php echo site_url('notifikasi'); ?>" aria-label="Kotak notifikasi"><i class="bi bi-envelope" aria-hidden="true"></i><?php if($notification_unread): ?><span class="badge text-bg-danger ms-1"><?php echo min(99,(int)$notification_unread); ?><?php echo $notification_unread>99?'+':''; ?></span><?php endif; ?></a>
 		<div class="d-flex align-items-center gap-3"><button type="button" class="btn btn-outline-primary admin-menu-toggle" aria-controls="admin-sidebar" aria-expanded="true" aria-label="Buka atau ciutkan menu pengelola" hidden><i class="bi bi-list" aria-hidden="true"></i></button><nav aria-label="Breadcrumb"><ol class="breadcrumb mb-0"><li class="breadcrumb-item"><a href="<?php echo site_url('kelola'); ?>">Pengelola</a></li><li class="breadcrumb-item active" aria-current="page"><?php echo html_escape($page_title); ?></li></ol></nav></div>
 		<div class="admin-account"><a class="btn btn-sm btn-outline-primary" href="<?php echo site_url('beranda'); ?>">Buka tampilan pengguna</a><span class="small"><?php echo html_escape($current_user['username']); ?><strong class="d-block"><?php echo html_escape(implode(', ', array_map('study_role_label', $current_user['roles']))); ?></strong></span><?php echo form_open('keluar'); ?><button type="submit" class="btn btn-sm btn-outline-secondary">Keluar</button><?php echo form_close(); ?></div>
 	</header>

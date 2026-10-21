@@ -183,7 +183,12 @@ $model->db->row = $attempt;
 practice_read_assert($model->find_attempt('31', '41') === $attempt, 'Scoped lookup returns the existing attempt unchanged.');
 $call = $model->db->calls[0];
 practice_read_assert(count($model->db->calls) === 2 && $call[0] === 'query' && $call[2] === array(31, 41, 41), 'Attempt lookup must bind attempt ID and both learner ownership checks.');
-practice_read_assert(strpos($call[1], "WHERE a.id = ? AND a.learner_user_id = ? AND s.learner_user_id = ? AND s.session_type IN ('course_quiz', 'parent_assigned')") !== FALSE, 'Existing attempt/session ownership and supported-type allowlist must remain intact.');
+practice_read_assert(strpos($call[1], "WHERE a.id = ? AND a.learner_user_id = ? AND s.learner_user_id = ? AND s.session_type IN ('course_quiz', 'parent_assigned', 'self_practice', 'assessment')") !== FALSE, 'Attempt/session ownership and explicit supported-type allowlist must remain intact.');
+foreach(array('self_practice','assessment') as $kind){
+ $model=practice_read_fixture();$attempt['session_type']=$kind;$model->db->row=array('session_id'=>51);
+ practice_read_assert($model->can_read_attempt($attempt,41)===TRUE,'Standalone attempt requires its drill record.');
+ $model->db->row=NULL;practice_read_assert($model->can_read_attempt($attempt,41)===FALSE,'Missing drill metadata must fail closed.');
+}
 
 fwrite(STDOUT, 'PASS '.$assertions." practice read-access assertions: owner isolation, strict statuses, final-result retention, course access and family delegation.\n");
 fwrite(STDOUT, "LIMITATION isolated recording fakes only; no database, HTTP, browser or actual entitlement/schedule evaluation.\n");

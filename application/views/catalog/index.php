@@ -2,8 +2,9 @@
 	<div class="page-heading">
 		<div>
 			<p class="eyebrow">Belajar dengan ritmemu</p>
-			<h1 class="h2">Jelajahi kursus</h1>
-			<p class="text-secondary mb-0">Pilih topik yang menarik. Kursus gratis dan pratinjau ditandai dengan jelas.</p>
+			<h1 class="h2">Materi dan latihan soal online</h1>
+			<p class="text-secondary mb-0">Temukan latihan soal SD dan materi belajar berdasarkan kelas atau mata pelajaran. Buka kursus untuk membaca materi dan mencoba latihan dengan pembahasan. Kursus gratis dan pratinjau ditandai dengan jelas.</p>
+			<p class="mt-3 mb-0"><a class="btn btn-teal" href="<?php echo site_url('latihan-soal'); ?>">Pilih kelas dan baca contoh soal</a></p>
 		</div>
 	</div>
 

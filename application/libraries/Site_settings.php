@@ -6,6 +6,15 @@ class Site_settings
 	public function definitions()
 	{
 		return array(
+			'akses_arena'=>array('title'=>'Akses kredit Arena','fields'=>array(
+				'enabled'=>array('label'=>'Persetujuan pemetaan level & harga Arena (lihat Kelola akses Arena dahulu)','type'=>'select','options'=>array('0'=>'Draft — permainan tetap mengikuti akses sebelumnya','1'=>'Setujui dan aktifkan: level 1–2 gratis, berikutnya kredit'),'default'=>'0')
+			)),
+			'latihan_mandiri' => array('title'=>'Latihan Mandiri & Simulasi Ujian','fields'=>array(
+				'daily_free'=>array('label'=>'Sesi Latihan Mandiri gratis per akun per hari WIB','type'=>'select','options'=>array('3'=>'3 sesi','5'=>'5 sesi','10'=>'10 sesi'),'default'=>'3'),
+				'extra_count'=>array('label'=>'Tambahan sesi untuk satu penukaran kuota harian','type'=>'select','options'=>array('5'=>'5 sesi','10'=>'10 sesi'),'default'=>'5'),
+				'extra_price'=>array('label'=>'Draft harga tambahan kuota (kredit, satu kali per penerima per hari)','type'=>'select','options'=>array('5'=>'5 kredit','10'=>'10 kredit','20'=>'20 kredit'),'default'=>'10'),
+				'paid_enabled'=>array('label'=>'Persetujuan harga & aktivasi penukaran kredit latihan (bukan aktivasi Midtrans)','type'=>'select','options'=>array('0'=>'Draft, jangan potong kredit','1'=>'Saya menyetujui harga dan mengaktifkan penukaran'),'default'=>'0')
+			)),
 			'donasi' => array('title' => 'Donasi sukarela', 'fields' => array(
 				'enabled' => array('label' => 'Modul donasi (pembayaran tetap memerlukan Midtrans aktif dan teruji)', 'type' => 'select', 'options' => array('0' => 'Jeda donasi baru', '1' => 'Aktif'), 'default' => '1'),
 				'minimum' => array('label' => 'Nominal minimum per donasi (Rupiah)', 'type' => 'select', 'options' => array('1' => 'Rp1', '1000' => 'Rp1.000', '5000' => 'Rp5.000'), 'default' => '1'),
@@ -51,7 +60,9 @@ class Site_settings
 			'umum' => array('title' => 'Umum & identitas situs', 'fields' => array(
 				'brand_name' => array('label' => 'Nama situs', 'type' => 'text', 'max' => 60, 'required' => TRUE, 'default' => 'Project Pintar'),
 				'tagline' => array('label' => 'Pesan footer', 'type' => 'text', 'max' => 180, 'required' => TRUE, 'default' => 'Belajar sedikit demi sedikit, tumbuh setiap hari.'),
-				'seo_description' => array('label' => 'Deskripsi beranda untuk mesin pencari', 'type' => 'textarea', 'max' => 180, 'required' => TRUE, 'default' => 'Project Pintar, aplikasi belajar anak TK, SD, dan SMP dengan latihan soal, flashcard, permainan edukasi, dan pemantauan progres oleh orang tua.'),
+				'seo_title' => array('label' => 'Judul beranda untuk mesin pencari (tanpa nama situs)', 'type' => 'text', 'max' => 100, 'required' => TRUE, 'default' => 'Latihan Soal Online SD Kelas 1–6 dan Materi Gratis'),
+				'google_site_verification' => array('label'=>'Kode verifikasi Google Search Console (nilai content saja, opsional)', 'type'=>'text', 'max'=>160, 'required'=>FALSE, 'default'=>''),
+				'seo_description' => array('label' => 'Deskripsi beranda untuk mesin pencari', 'type' => 'textarea', 'max' => 180, 'required' => TRUE, 'default' => 'Latihan soal online SD kelas 1–6 dengan pembahasan, materi gratis, dan flashcard. Belajar Matematika, Bahasa Indonesia, dan Bahasa Inggris bersama Project Pintar.'),
 				'support_email' => array('label' => 'Email dukungan (opsional, tampil publik)', 'type' => 'email', 'max' => 190, 'required' => FALSE, 'default' => ''),
 				'brand_icon' => array('label' => 'Simbol merek', 'type' => 'select', 'options' => array('bi-stars' => 'Bintang', 'bi-book' => 'Buku', 'bi-lightbulb' => 'Ide belajar'), 'default' => 'bi-stars')
 			)),
@@ -95,6 +106,10 @@ class Site_settings
 			}
 			elseif ((! empty($field['required']) && $value === '') || mb_strlen($value, 'UTF-8') > $field['max']) { $errors[$key] = 'Periksa isian; maksimal '.$field['max'].' karakter.'; }
 			elseif ($field['type'] === 'email' && $value !== '' && ! filter_var($value, FILTER_VALIDATE_EMAIL)) { $errors[$key] = 'Alamat email tidak valid.'; }
+		}
+		if ($section === 'umum' && ($values['google_site_verification'] ?? '') !== '' && !preg_match('/\A[A-Za-z0-9_-]{20,160}\z/', $values['google_site_verification']))
+		{
+			$errors['google_site_verification']='Tempel nilai content dari tag Google saja (20–160 huruf, angka, - atau _), bukan seluruh HTML, client ID atau client secret.';
 		}
 		if ($section === 'privasi')
 		{

@@ -4,6 +4,7 @@ $has_resume_lessons = $current_user['account_kind'] !== 'parent' && ! empty($res
 $resume_unavailable = $current_user['account_kind'] !== 'parent' && isset($resume_lessons) && $resume_lessons === FALSE;
 ?>
 <section class="container page-section dashboard-page">
+	<?php if ($current_user['account_kind'] !== 'child'): ?><div class="d-flex justify-content-end mb-3"><a class="btn btn-outline-primary" href="<?php echo site_url('ulasan'); ?>"><i class="bi bi-star me-2" aria-hidden="true"></i>Ulasan & masukan</a></div><?php endif; ?>
 	<div class="dashboard-welcome learning-hero mb-4">
 		<div>
 			<p class="eyebrow">Ruang belajarmu</p>
@@ -14,6 +15,9 @@ $resume_unavailable = $current_user['account_kind'] !== 'parent' && isset($resum
 		<img class="learning-hero-art" src="<?php echo base_url('assets/images/learning/hero-v1.webp'); ?>" width="768" height="512" alt="" aria-hidden="true">
 	</div>
 	<nav class="dashboard-shortcuts mb-4" aria-label="Pilihan kegiatan">
+		<a class="dashboard-shortcut shortcut-purple" href="<?php echo site_url('latihan/mandiri'); ?>"><i class="bi bi-shuffle" aria-hidden="true"></i><span><strong>Latihan Mandiri</strong><small>Soal acak sesuai kelasmu</small></span><i class="bi bi-arrow-right" aria-hidden="true"></i></a>
+		<a class="dashboard-shortcut shortcut-teal" href="<?php echo site_url('latihan/ujian'); ?>"><i class="bi bi-ui-checks" aria-hidden="true"></i><span><strong>Simulasi Ujian</strong><small>Tantangan pilihan pengelola</small></span><i class="bi bi-arrow-right" aria-hidden="true"></i></a>
+		<a class="dashboard-shortcut shortcut-gold" href="<?php echo site_url('latihan/kursus'); ?>"><i class="bi bi-journal-check" aria-hidden="true"></i><span><strong>Latihan kursus</strong><small>Gratis · pilih kelas & pelajaran</small></span><i class="bi bi-arrow-right" aria-hidden="true"></i></a>
 		<a class="dashboard-shortcut shortcut-purple" href="<?php echo site_url('kursus'); ?>"><i class="bi bi-journal-richtext" aria-hidden="true"></i><span><strong>Materi belajar</strong><small>Temukan hal baru</small></span><i class="bi bi-arrow-right" aria-hidden="true"></i></a>
 		<a class="dashboard-shortcut shortcut-teal" href="<?php echo site_url('belajar/arena/riwayat'); ?>"><i class="bi bi-clock-history" aria-hidden="true"></i><span><strong>Riwayat Arena</strong><small>Lihat perjalananmu</small></span><i class="bi bi-arrow-right" aria-hidden="true"></i></a>
 		<a class="dashboard-shortcut shortcut-gold" href="<?php echo site_url($current_user['account_kind'] === 'parent' ? 'keluarga/latihan' : ($current_user['account_kind'] === 'child' ? 'latihan/keluarga' : 'latihan')); ?>"><i class="bi bi-pencil-square" aria-hidden="true"></i><span><strong><?php echo $current_user['account_kind'] === 'parent' ? 'Latihan anak' : ($current_user['account_kind'] === 'child' ? 'Latihan keluarga' : 'Riwayat latihan'); ?></strong><small><?php echo $current_user['account_kind'] === 'parent' ? 'Susun kegiatan bersama' : 'Belajar selangkah lagi'; ?></small></span><i class="bi bi-arrow-right" aria-hidden="true"></i></a>

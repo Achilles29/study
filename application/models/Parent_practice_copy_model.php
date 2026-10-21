@@ -35,7 +35,7 @@ class Parent_practice_copy_model extends CI_Model
 		{
 			return $this->fail(404);
 		}
-		if ( ! $this->Parent_practice_model->has_access($parent_user_id, TRUE))
+		if ( ! $this->Parent_practice_model->has_access($parent_user_id, TRUE, $child_user_id))
 		{
 			return $this->fail(403);
 		}

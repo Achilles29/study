@@ -5,7 +5,7 @@ class Practice_scoring
 {
 	public function percentage($correct, $total)
 	{
-		if ( ! is_int($correct) || ! is_int($total) || $total < 1 || $total > 50 || $correct < 0 || $correct > $total)
+		if ( ! is_int($correct) || ! is_int($total) || $total < 1 || $correct < 0 || $correct > $total || $total > intdiv(PHP_INT_MAX, 10001))
 		{
 			throw new InvalidArgumentException('Jumlah jawaban tidak valid.');
 		}

@@ -110,6 +110,8 @@ class MY_Controller extends CI_Controller
 	{
 		$data['navigation_view'] = $view;
 		$data['current_user'] = $this->current_user;
+		$data['notification_unread'] = NULL;
+		if ($this->current_user) { $this->load->model('Notification_model'); $data['notification_unread'] = $this->Notification_model->unread($this->current_user['id']); }
 		$data['admin_theme'] = (strpos($view, 'admin/') === 0);
 		$data['theme_class'] = 'theme-public';
 		if ($this->current_user)
@@ -145,6 +147,8 @@ class MY_Controller extends CI_Controller
 		$this->load->helper('study_admin');
 		$this->load->model('Settings_model');
 		$data['site_settings'] = $this->Settings_model->public_values();
+		$data['light_public_assets'] = !$this->current_user && empty($data['is_content_preview']) && in_array($view,array('home/index','catalog/index','catalog/course','catalog/lesson','public_learning/index'),TRUE);
+		if ($view === 'home/index') { $data['page_title'] = $data['site_settings']['seo_title']; }
 		$data['seo'] = study_page_seo($view, $data, $this->current_user);
 		if ($data['admin_theme'])
 		{

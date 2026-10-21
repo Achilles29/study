@@ -12,6 +12,25 @@ function study_grade_filter()
  if (!is_string($value) || ($value!=='' && $value!=='lintas-kelas' && !isset(study_grades()[$value]))) { show_error('Pilih kelas yang tersedia.',400,'Filter kelas tidak valid'); exit; }
  return $value;
 }
+// A default, never an access restriction. An explicit empty filter shows all grades.
+function study_learner_grade_filter($user)
+{
+ $ci =& get_instance();
+ if ($ci->input->get('kelas',FALSE) === NULL && $user && $user['account_kind']==='child' && !empty($user['grade_id'])) {
+  return study_grade_code($user['grade_id']);
+ }
+ return study_grade_filter();
+}
+function study_child_grade($id)
+{
+ if (!is_string($id) || !preg_match('/\A[1-9][0-9]{0,9}\z/', $id)) { return NULL; }
+ foreach(study_grades() as $grade) { if ((string)$grade['id']===$id) { return $grade; } }
+ return NULL;
+}
+function study_child_grade_stage($grade)
+{
+ return $grade['learning_stage']==='upper_secondary' ? 'secondary' : $grade['learning_stage'];
+}
 function study_grade_select($value, $name='kelas', $form=FALSE)
 {
  $out='<label class="form-label" for="'.html_escape($name).'">Kelas / kelompok</label><select class="form-select" id="'.html_escape($name).'" name="'.html_escape($name).'">';

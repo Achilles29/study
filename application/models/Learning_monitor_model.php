@@ -18,8 +18,8 @@ class Learning_monitor_model extends CI_Model
 			p.started_at started_at, p.completed_at finished_at, p.updated_at touched_at, p.lesson_id content_id
 			FROM st_lesson_progress p JOIN st_lessons l ON l.id=p.lesson_id JOIN st_course_sections s ON s.id=l.section_id JOIN st_courses c ON c.id=s.course_id
 			UNION ALL
-			SELECT 'latihan', a.id, a.learner_user_id, c.id, c.title,
-			IF(s.session_type='course_quiz',s.title,'Latihan keluarga privat'),
+			SELECT 'latihan', a.id, a.learner_user_id, c.id, CASE s.session_type WHEN 'self_practice' THEN 'Latihan Mandiri (bank soal)' WHEN 'assessment' THEN 'Simulasi Ujian (bank soal)' ELSE c.title END,
+			IF(s.session_type IN ('course_quiz','self_practice','assessment'),s.title,'Latihan keluarga privat'),
 			CASE WHEN a.status='graded' THEN 'completed' WHEN a.status='abandoned' THEN 'abandoned' ELSE 'running' END,
 			IF(a.status='graded',a.score,NULL), IF(a.status='graded',a.correct_count,NULL), a.question_count,
 			a.started_at, a.submitted_at, COALESCE(a.submitted_at,a.started_at), s.id
@@ -178,7 +178,8 @@ class Learning_monitor_model extends CI_Model
 
 	public function entitlements($id, $page)
 	{
-		$scope = "SELECT e.id,e.starts_at,e.ends_at,p.title,CASE WHEN e.status='revoked' THEN 'Dicabut' WHEN e.status='expired' OR e.ends_at<=UTC_TIMESTAMP() THEN 'Berakhir' WHEN e.starts_at>UTC_TIMESTAMP() THEN 'Belum mulai' ELSE 'Aktif' END access_status FROM st_entitlements e JOIN st_packages p ON p.id=e.package_id WHERE e.user_id=? UNION ALL SELECT g.id,g.starts_at,g.ends_at,CONCAT(IF(g.environment='production','Live · ','Sandbox · '),COALESCE(p.title,'Platinum keluarga')),CASE WHEN g.status='revoked' THEN 'Dicabut' WHEN g.ends_at<=UTC_TIMESTAMP() THEN 'Berakhir' WHEN g.starts_at>UTC_TIMESTAMP() THEN 'Belum mulai' ELSE IF(g.environment='production','Aktif','Aktif (uji — tidak berlaku di live)') END FROM st_commerce_grants g LEFT JOIN st_packages p ON p.id=g.package_id WHERE g.learner_user_id=? OR (g.kind='platinum' AND EXISTS(SELECT 1 FROM st_family_links l JOIN st_users u ON u.id=l.parent_user_id WHERE l.parent_user_id=g.owner_user_id AND l.child_user_id=? AND l.status='active' AND u.status='active' AND u.account_kind='parent'))";
+		$this->load->model('Lifetime_model');$lifetime_scope=$this->Lifetime_model->predicate($id);
+		$scope = "SELECT e.id,e.starts_at,e.ends_at,p.title,CASE WHEN e.status='revoked' THEN 'Dicabut' WHEN e.status='expired' OR e.ends_at<=UTC_TIMESTAMP() THEN 'Berakhir' WHEN e.starts_at>UTC_TIMESTAMP() THEN 'Belum mulai' ELSE 'Aktif' END access_status FROM st_entitlements e JOIN st_packages p ON p.id=e.package_id WHERE e.user_id=? UNION ALL SELECT g.id,g.starts_at,g.ends_at,CONCAT(IF(g.environment='production','Live · ','Sandbox · '),COALESCE(p.title,IF(g.is_lifetime=1,'Platinum Selamanya · 2 anak','Platinum keluarga'))),CASE WHEN g.status='revoked' THEN 'Dicabut' WHEN g.ends_at<=UTC_TIMESTAMP() THEN 'Berakhir' WHEN g.starts_at>UTC_TIMESTAMP() THEN 'Belum mulai' ELSE IF(g.environment='production','Aktif','Aktif (uji — tidak berlaku di live)') END FROM st_commerce_grants g LEFT JOIN st_packages p ON p.id=g.package_id WHERE g.learner_user_id=? OR (g.kind='platinum' AND (g.is_lifetime=0 OR ($lifetime_scope)) AND EXISTS(SELECT 1 FROM st_family_links l JOIN st_users u ON u.id=l.parent_user_id WHERE l.parent_user_id=g.owner_user_id AND l.child_user_id=? AND l.status='active' AND u.status='active' AND u.account_kind='parent'))";
 		$scope .= " UNION ALL SELECT pr.id,pr.starts_at,pr.ends_at,CONCAT('Poin · ',JSON_UNQUOTE(JSON_EXTRACT(pr.snapshot_json,'$.title'))),CASE WHEN pr.status='revoked' THEN 'Dicabut' WHEN pr.ends_at<=UTC_TIMESTAMP() THEN 'Berakhir' WHEN pr.starts_at>UTC_TIMESTAMP() THEN 'Belum mulai' ELSE 'Aktif' END FROM st_point_redemptions pr WHERE pr.learner_user_id=?";
 		$total = (int) $this->rows('SELECT COUNT(*) total FROM ('.$scope.') grants', array($id,$id,$id,$id))[0]['total'];
 		$page_count = max(1, (int) ceil($total / 20)); $page = min($page_count, max(1, (int) $page));

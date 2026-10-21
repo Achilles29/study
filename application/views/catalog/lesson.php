@@ -1,5 +1,6 @@
 <?php $is_content_preview = ! empty($is_content_preview); $lesson_return_url = $is_content_preview ? site_url('kelola/kursus/'.$lesson['course_id']) : site_url('kursus/'.$lesson['course_slug']); ?>
 <article class="container page-section course-workspace">
+	<?php if(!$is_content_preview) { $this->load->view('public_learning/breadcrumbs'); } ?>
 	<?php if ($is_content_preview): ?>
 		<section class="feature-card mb-4" aria-labelledby="preview-heading">
 			<p class="eyebrow mb-2">Pratinjau pengelola</p>
@@ -66,6 +67,7 @@
 			<?php endif; ?>
 			<?php if ($is_content_preview && ! empty($flashcard_deck) && ! $flashcards): ?><div class="alert alert-warning mt-4" role="status">Set kartu belajar belum memiliki kartu. Lengkapi isinya sebelum mengajukan review.</div><?php endif; ?>
 			<div class="d-flex flex-column flex-sm-row justify-content-between align-items-sm-center gap-3 mt-4">
+				<?php if(!empty($previous_public_lesson) && !$is_content_preview): ?><a class="btn btn-teal" href="<?php echo site_url('materi/'.$previous_public_lesson['slug']); ?>">Pelajaran sebelumnya</a><?php endif; ?>
 				<?php if ($next_lesson): ?>
 					<a class="btn btn-outline-primary rounded-pill" href="<?php echo site_url('materi/'.$next_lesson['slug']); ?>">Pelajaran berikutnya <i class="bi bi-arrow-right ms-1" aria-hidden="true"></i></a>
 				<?php else: ?>
@@ -92,6 +94,12 @@
 					<span class="small text-secondary">Masuk untuk menyimpan progres belajarmu.</span>
 				<?php endif; ?>
 			</div>
+			<?php if(!empty($public_context) && !$is_content_preview): ?>
+				<section class="feature-card mt-4"><h2 class="h5">Lanjutkan belajar</h2>
+					<div class="d-flex flex-wrap gap-2"><a class="btn btn-primary" href="<?php echo site_url('latihan/kursus/'.(int)$lesson['course_id']); ?>">Latihan kursus ini</a><a class="btn btn-teal" href="<?php echo site_url($public_context['public_path']); ?>">Contoh dan topik <?php echo html_escape($public_context['subject_label']); ?> kelas <?php echo (int)$public_context['grade']; ?></a></div>
+				</section>
+				<?php $this->load->view('public_learning/source'); ?>
+			<?php endif; ?>
 		</div>
 	</div>
 </article>

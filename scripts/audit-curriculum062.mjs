@@ -9,7 +9,7 @@ for(let n=50;n<=62;n++){
  const manifests=JSON.parse(run('/www/server/php/84/bin/php',['-r',"define('BASEPATH',getcwd().'/system/');define('APPPATH',getcwd().'/application/');require APPPATH.'libraries/Curriculum_batch.php';echo json_encode((new Curriculum_batch)->load($argv[1]));",batch],{encoding:'utf8',maxBuffer:8*1024*1024}));
  for(const m of manifests){
   assert.match(m.slug,/^[a-z0-9-]+$/);
-  const [c]=rows(`SELECT JSON_OBJECT('id',c.id,'title',c.title,'status',c.status,'summary',c.summary,'objectives',c.learning_objectives,'prerequisites',c.prerequisites,'source',c.source_note,'free',c.is_free,'grade',g.code,'category',x.slug) FROM st_courses c JOIN st_learning_grades g ON g.id=c.grade_id JOIN st_categories x ON x.id=c.category_id WHERE c.slug='${m.slug}'`);assert.ok(c,m.slug);assert.equal(c.status,'published');assert.equal(Number(c.free),0);
+  const [c]=rows(`SELECT JSON_OBJECT('id',c.id,'title',c.title,'status',c.status,'summary',c.summary,'objectives',c.learning_objectives,'prerequisites',c.prerequisites,'source',c.source_note,'free',c.is_free,'grade',g.code,'category',x.slug) FROM st_courses c JOIN st_learning_grades g ON g.id=c.grade_id JOIN st_categories x ON x.id=c.category_id WHERE c.slug='${m.slug}'`);assert.ok(c,m.slug);assert.equal(c.status,'published');assert.equal(Number(c.free),1);
   for(const k of ['title','objectives','prerequisites','source','grade','category'])assert.equal(c[k],m[k],m.slug+':'+k);
   assert.equal(c.summary,batch==='050'?m.summary.replace('Draf pengembangan, ','Materi pengembangan, '):m.summary);
   const [meta]=rows(`SELECT details_json FROM st_audit_events WHERE event_type='content.curriculum_imported' AND entity_type='course' AND entity_id=${c.id}`);assert.equal(meta.batch,batch);assert.equal(meta.key,m.key);assert.equal(meta.source_sha256,m.source_sha256);
@@ -28,4 +28,4 @@ for(let n=50;n<=62;n++){
  }
 }
 assert.deepEqual([courseCount,lessonCount,cardCount,questionCount],[40,358,716,716]);
-console.log(JSON.stringify({result:'PASS',database:db,courses:courseCount,chapters:chapterCount,lessons:lessonCount,cards:cardCount,questions:questionCount,checks:'exact metadata/source SHA/section-body-card-question-option-key identity, published statuses, grade/category, no unintended free/preview/package grants; historical sample course excluded'}));
+console.log(JSON.stringify({result:'PASS',database:db,courses:courseCount,chapters:chapterCount,lessons:lessonCount,cards:cardCount,questions:questionCount,checks:'exact metadata/source SHA/section-body-card-question-option-key identity, published statuses, grade/category, courses free per release063; preview/package grants unchanged; historical sample course excluded'}));

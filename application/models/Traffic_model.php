@@ -5,7 +5,7 @@ class Traffic_model extends CI_Model
 {
 	public function pages()
 	{
-		return array('home/index' => 'Beranda publik', 'catalog/index' => 'Katalog kursus', 'catalog/course' => 'Detail kursus', 'dashboard/index' => 'Dashboard peserta', 'arena/index' => 'Arena Belajar', 'arena/game' => 'Pilihan game', 'arena/pick' => 'Detail aktivitas', 'arena/run' => 'Aktivitas Arena', 'arena/english' => 'Kelas Inggris', 'arena/english_run' => 'Aktivitas Inggris', 'arena/quest' => 'Peta Quest', 'arena/quest_run' => 'Aktivitas Quest', 'arena/history' => 'Riwayat Arena', 'battle/index' => 'Battle Belajar', 'battle/directory' => 'Katalog battle umum', 'battle/public_room' => 'Informasi battle umum', 'catalog/lesson' => 'Materi belajar', 'family/children' => 'Daftar anak');
+		return array('public_learning/index'=>'Latihan soal publik','home/index' => 'Beranda publik', 'catalog/index' => 'Katalog kursus', 'catalog/course' => 'Detail kursus', 'dashboard/index' => 'Dashboard peserta', 'arena/index' => 'Arena Belajar', 'arena/game' => 'Pilihan game', 'arena/pick' => 'Detail aktivitas', 'arena/run' => 'Aktivitas Arena', 'arena/english' => 'Kelas Inggris', 'arena/english_run' => 'Aktivitas Inggris', 'arena/quest' => 'Peta Quest', 'arena/quest_run' => 'Aktivitas Quest', 'arena/history' => 'Riwayat Arena', 'battle/index' => 'Battle Belajar', 'battle/directory' => 'Katalog battle umum', 'battle/public_room' => 'Informasi battle umum', 'catalog/lesson' => 'Materi belajar', 'family/children' => 'Daftar anak');
 	}
 	private function rows($sql, $params = array())
 	{

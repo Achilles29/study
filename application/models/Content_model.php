@@ -486,7 +486,7 @@ class Content_model extends CI_Model
 			'content_version' => 1,
 			'rights_status' => $data['rights_status'],
 			'source_note' => trim($data['source_note']),
-			'is_free' => ! empty($data['is_free']) ? 1 : 0,
+			'is_free' => 1, // Owner policy release063: courses are free; standalone practice is separate.
 			'created_at' => $now,
 			'updated_at' => $now
 		));
@@ -543,7 +543,7 @@ class Content_model extends CI_Model
 			'estimated_minutes' => (int) $data['estimated_minutes'],
 			'rights_status' => $data['rights_status'],
 			'source_note' => trim($data['source_note']),
-			'is_free' => ! empty($data['is_free']) ? 1 : 0,
+			'is_free' => 1,
 			'content_version' => (int) $course['content_version'] + 1,
 			'updated_by_user_id' => (int) $actor_user_id,
 			'updated_at' => $now

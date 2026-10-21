@@ -1,4 +1,5 @@
 <section class="container page-section">
+	<nav class="d-flex flex-wrap gap-2 mb-3" aria-label="Mulai latihan"><a class="btn btn-primary" href="<?php echo site_url('latihan/mandiri'); ?>">Latihan Mandiri</a><a class="btn btn-teal" href="<?php echo site_url('latihan/ujian'); ?>">Simulasi Ujian</a><a class="btn btn-outline-primary" href="<?php echo site_url('latihan/kursus'); ?>">Latihan kursus gratis</a></nav>
 	<a class="back-link d-inline-block mb-3" href="<?php echo site_url('permainan/riwayat'); ?>">Lihat juga riwayat permainan</a>
 	<div class="page-heading"><div><p class="eyebrow">Langkah belajarmu</p><h1 class="h2">Riwayat latihan saya</h1><p class="text-secondary mb-0">Lanjutkan jawaban yang tersimpan atau pelajari kembali pembahasan. Setiap percobaan memiliki catatannya sendiri.</p></div><a class="btn btn-outline-primary rounded-pill" href="<?php echo site_url('kursus'); ?>">Jelajahi kursus</a></div>
 	<?php if ( ! $attempts): ?><div class="empty-card"><h2 class="h4">Belum ada latihan</h2><p class="text-secondary">Buka kursus yang memiliki soal latihan untuk mulai mencoba.</p></div><?php endif; ?>

@@ -21,6 +21,17 @@ class Seo extends CI_Controller
 		if ($result === FALSE) { show_error('Peta situs belum tersedia.', 503); return; }
 		$urls = array(site_url('/'), site_url('kursus'));
 		foreach ($result->result_array() as $course) { $urls[] = site_url('kursus/'.$course['slug']); }
+		$this->load->model('Public_learning_model');
+		try {
+			$courses=$this->Public_learning_model->courses();
+			if($courses) { $urls[]=site_url('latihan-soal'); }
+			foreach($courses as $course) {
+				$urls[]=site_url('latihan-soal/kelas-'.$course['grade']);
+				$urls[]=site_url($course['public_path']);
+			}
+			foreach($this->Public_learning_model->lessons(array_column($courses,'id')) as $lesson) { $urls[]=site_url('materi/'.$lesson['slug']); }
+		} catch(RuntimeException $error) { show_error('Peta situs belum tersedia.',503); return; }
+		$urls=array_values(array_unique($urls));
 		$xml = '<?xml version="1.0" encoding="UTF-8"?>'."\n".'<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
 		foreach ($urls as $url) { $xml .= '<url><loc>'.htmlspecialchars($url, ENT_XML1 | ENT_QUOTES, 'UTF-8').'</loc></url>'; }
 		$this->output->set_content_type('application/xml', 'utf-8')->set_output($xml.'</urlset>');

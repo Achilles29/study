@@ -16,7 +16,7 @@ class Family_practice_model extends CI_Model
 	private function attempts_scope($parent_user_id, $child_user_id)
 	{
 		$this->scope($parent_user_id, $child_user_id);
-		$this->db->join('st_practice_sessions s', "s.learner_user_id = c.id AND s.session_type = 'course_quiz'");
+		$this->db->join('st_practice_sessions s', "s.learner_user_id = c.id AND s.session_type IN ('course_quiz','self_practice','assessment')");
 		$this->db->join('st_practice_attempts a', 'a.session_id = s.id AND a.learner_user_id = c.id');
 	}
 
@@ -43,6 +43,6 @@ class Family_practice_model extends CI_Model
 	public function result($parent_user_id, $child_user_id, $attempt_id)
 	{
 		$this->attempts_scope($parent_user_id, $child_user_id);
-		return $this->db->select('a.*, s.title, s.course_id, s.rules_version')->where('a.id', (int) $attempt_id)->where('a.status', 'graded')->get()->row_array();
+		return $this->db->select('a.*, s.title, s.course_id, s.rules_version, s.session_type')->where('a.id', (int) $attempt_id)->where('a.status', 'graded')->get()->row_array();
 	}
 }

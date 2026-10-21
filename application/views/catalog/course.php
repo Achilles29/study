@@ -3,6 +3,7 @@ $show_lesson_progress = $current_user && isset($lesson_progress_map) && is_array
 $lesson_progress_failed = $current_user && isset($lesson_progress_map) && $lesson_progress_map === FALSE;
 ?>
 <section class="container page-section course-workspace">
+	<?php $this->load->view('public_learning/breadcrumbs'); ?>
 	<a class="back-link" href="<?php echo site_url('kursus'); ?>">
 		<i class="bi bi-arrow-left me-2" aria-hidden="true"></i>Kembali ke katalog
 	</a>
@@ -14,6 +15,7 @@ $lesson_progress_failed = $current_user && isset($lesson_progress_map) && $lesso
 			</p>
 			<h1 class="display-6 fw-bold"><?php echo html_escape($course['title']); ?></h1>
 			<p class="lead text-secondary"><?php echo html_escape($course['summary']); ?></p>
+			<div class="d-flex flex-wrap gap-2 mb-4"><a class="btn btn-teal" href="#isi-kursus">Baca materi gratis</a><?php if ($question_count > 0 && $can_read_course): ?><a class="btn btn-primary" href="<?php echo site_url('latihan/kursus/'.(int)$course['id']); ?>"><i class="bi bi-pencil-square me-2" aria-hidden="true"></i>Latihan kursus · <?php echo (int)$question_count; ?> soal</a><?php endif; ?></div>
 			<?php $age_range_label = study_age_range_label($course['age_min'], $course['age_max']); if ($age_range_label !== ''): ?><p class="small text-secondary"><strong>Sasaran usia:</strong> <?php echo html_escape($age_range_label); ?></p><?php endif; ?>
 
 			<div class="feature-card mb-4">
@@ -22,8 +24,10 @@ $lesson_progress_failed = $current_user && isset($lesson_progress_map) && $lesso
 			</div>
 			<?php if (trim((string) $course['prerequisites']) !== ''): ?><div class="feature-card mb-4"><h2 class="h5">Persiapan belajar</h2><p class="mb-0"><?php echo nl2br(html_escape($course['prerequisites'])); ?></p></div><?php endif; ?>
 
-			<div class="feature-card">
-				<h2 class="h5">Isi kursus</h2>
+			<?php if(!empty($public_context)): ?><p><a class="btn btn-teal" href="<?php echo site_url($public_context['public_path']); ?>">Contoh soal <?php echo html_escape($public_context['subject_label']); ?> kelas <?php echo (int)$public_context['grade']; ?> dan pembahasan</a></p><?php endif; ?>
+			<?php $this->load->view('public_learning/source'); ?>
+			<div class="feature-card mt-4">
+				<h2 class="h5" id="isi-kursus">Isi kursus</h2>
 				<?php if ($lessons && $lesson_progress_failed): ?>
 					<div class="alert alert-warning" role="status"><p class="mb-2">Progres belajarmu belum dapat dimuat. Materi yang terbuka tetap bisa dibaca; progres tersimpan tidak dihapus.</p><a class="alert-link" href="<?php echo html_escape(site_url('kursus/'.$course['slug'])); ?>">Muat ulang progres</a></div>
 				<?php elseif ($lessons && $show_lesson_progress): ?>
@@ -72,7 +76,7 @@ $lesson_progress_failed = $current_user && isset($lesson_progress_map) && $lesso
 		</div>
 
 		<aside class="col-lg-4">
-			<?php if ($question_count > 0): ?><section class="feature-card mb-4"><h2 class="h5">Coba pemahamanmu</h2><p><?php echo (int) $question_count; ?> soal pilihan ganda dengan pembahasan. Simpan sementara atau ulangi latihan untuk belajar lagi.</p><?php if ($can_read_course): ?><a class="btn btn-primary rounded-pill" href="<?php echo site_url('latihan/kursus/'.$course['id']); ?>"><?php echo $current_user ? 'Buka latihan' : 'Masuk untuk berlatih'; ?></a><?php else: ?><p class="text-secondary mb-0">Latihan mengikuti akses kursus ini.</p><?php endif; ?></section><?php endif; ?>
+			<?php if ($question_count > 0): ?><section class="feature-card mb-4"><h2 class="h5">Latihan soal kursus</h2><p><?php echo (int) $question_count; ?> soal pilihan ganda dengan pembahasan untuk materi <?php echo html_escape($course['title']); ?>. Kerjakan latihan soal online, simpan sementara, atau ulangi untuk belajar lagi.</p><?php if ($can_read_course): ?><a class="btn btn-primary rounded-pill" href="<?php echo site_url('latihan/kursus/'.$course['id']); ?>"><?php echo $current_user ? 'Buka latihan' : 'Masuk untuk berlatih'; ?></a><?php else: ?><p class="text-secondary mb-0">Latihan mengikuti akses kursus ini.</p><?php endif; ?></section><?php endif; ?>
 			<div class="feature-card position-sticky" style="top:1rem">
 				<span class="feature-icon feature-purple mb-3"><i class="bi bi-book-half" aria-hidden="true"></i></span>
 				<h2 class="h5">Mulai belajar</h2>

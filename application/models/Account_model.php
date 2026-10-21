@@ -16,7 +16,7 @@ class Account_model extends CI_Model
 
 	public function find_active_user($user_id)
 	{
-		$this->db->select('id, username, email, email_verified_at, display_name, account_kind, learning_stage, status, auth_version, password_hash');
+		$this->db->select('id, username, email, email_verified_at, display_name, account_kind, learning_stage, grade_id, status, auth_version, password_hash');
 		$this->db->from('st_users');
 		$this->db->where('id', (int) $user_id);
 		$this->db->where('status', 'active');
@@ -256,7 +256,7 @@ class Account_model extends CI_Model
 
 	public function get_children($parent_user_id)
 	{
-		$this->db->select('u.id, u.username, u.display_name, u.learning_stage, l.status AS link_status');
+		$this->db->select('u.id, u.username, u.display_name, u.learning_stage, u.grade_id, l.status AS link_status');
 		$this->db->select("(SELECT COUNT(*) FROM st_lesson_progress p WHERE p.learner_user_id = u.id AND p.status = 'completed') AS completed_lessons", FALSE);
 		$this->db->from('st_family_links l');
 		$this->db->join('st_users u', 'u.id = l.child_user_id AND u.status = "active"');
@@ -266,19 +266,21 @@ class Account_model extends CI_Model
 		return $this->db->get()->result_array();
 	}
 
-	public function update_child_learning_stage($parent_user_id, $child_user_id, $learning_stage, $stamp = NULL)
+	public function update_child_learning_stage($parent_user_id, $child_user_id, $learning_stage, $stamp = NULL, $grade_id = NULL)
 	{
+		$grade = $grade_id === NULL ? NULL : study_child_grade((string)$grade_id);
+		if ($grade_id !== NULL && (!$grade || study_child_grade_stage($grade) !== $learning_stage)) { return FALSE; }
 		$allowed_stages = array('early_childhood', 'primary', 'secondary');
 		if ( ! is_string($stamp) || ! in_array($learning_stage, $allowed_stages, TRUE))
 		{
 			return FALSE;
 		}
 
-		$this->db->trans_begin();
+		if ($this->db->trans_begin() !== TRUE) { return FALSE; }
 		$guardian = $this->db->query("SELECT * FROM st_users WHERE id=? AND account_kind='parent' AND status='active' FOR UPDATE", array($parent_user_id))->row_array();
 		if ( ! $guardian || ! hash_equals(study_credential_stamp($guardian), $stamp)) { $this->db->trans_rollback(); return FALSE; }
 		$child = $this->db->query(
-			"SELECT u.id, u.learning_stage FROM st_family_links l
+			"SELECT u.id, u.learning_stage, u.grade_id FROM st_family_links l
 			JOIN st_users u ON u.id = l.child_user_id
 			WHERE l.parent_user_id = ? AND l.child_user_id = ? AND l.status = 'active'
 			AND u.status = 'active' AND u.account_kind = 'child' FOR UPDATE",
@@ -291,16 +293,20 @@ class Account_model extends CI_Model
 		}
 
 		$now = $this->now_utc();
+		// Legacy group-only updates may not silently contradict a selected grade.
+		if ($grade === NULL && $child['grade_id'] !== NULL && study_child_grade_stage(study_child_grade((string)$child['grade_id'])) !== $learning_stage) { $this->db->trans_rollback(); return FALSE; }
+		$data = array('learning_stage' => $learning_stage, 'updated_at' => $now);
+		if ($grade) { $data['grade_id'] = $grade['id']; }
 		$this->db->where('id', (int) $child_user_id);
 		$this->db->where('account_kind', 'child');
-		$this->db->update('st_users', array('learning_stage' => $learning_stage, 'updated_at' => $now));
+		$this->db->update('st_users', $data);
 		$this->db->insert('st_audit_events', array(
 			'actor_user_id' => (int) $parent_user_id,
 			'event_type' => 'family.child_learning_stage_updated',
 			'entity_type' => 'user',
 			'entity_id' => (int) $child_user_id,
 			'correlation_id' => NULL,
-			'details_json' => json_encode(array('previous' => $child['learning_stage'], 'next' => $learning_stage)),
+			'details_json' => json_encode(array('previous' => $child['learning_stage'], 'next' => $learning_stage, 'previous_grade_id' => $child['grade_id'], 'next_grade_id' => $grade ? $grade['id'] : $child['grade_id'])),
 			'created_at' => $now
 		));
 		if ($this->db->trans_status() === FALSE)
@@ -309,12 +315,13 @@ class Account_model extends CI_Model
 			return FALSE;
 		}
 
-		$this->db->trans_commit();
-		return TRUE;
+		return $this->db->trans_commit() === TRUE;
 	}
 
-	public function create_child($parent_user_id, $username, $display_name, $password, $learning_stage, $stamp = NULL)
+	public function create_child($parent_user_id, $username, $display_name, $password, $learning_stage, $stamp = NULL, $grade_id = NULL)
 	{
+		$grade = $grade_id === NULL ? NULL : study_child_grade((string)$grade_id);
+		if ($grade_id !== NULL && (!$grade || study_child_grade_stage($grade) !== $learning_stage)) { return FALSE; }
 		if ( ! study_valid_password($password, study_child_password_minimum()) || ! is_string($username) || ! preg_match('/\A[a-zA-Z0-9_-]{4,80}\z/', $username) || ! is_string($display_name) || ! mb_check_encoding($display_name, 'UTF-8') || mb_strlen(trim($display_name), 'UTF-8') < 2 || mb_strlen(trim($display_name), 'UTF-8') > 120)
 		{
 			return FALSE;
@@ -329,7 +336,7 @@ class Account_model extends CI_Model
 		$now = $this->now_utc();
 		$this->load->library('study_transaction');
 		$password_hash = password_hash($password, PASSWORD_DEFAULT);
-		$result = $this->study_transaction->run($this->db, function () use ($parent_user_id, $username, $display_name, $password_hash, $learning_stage, $now, $stamp) {
+		$result = $this->study_transaction->run($this->db, function () use ($parent_user_id, $username, $display_name, $password_hash, $learning_stage, $now, $stamp, $grade) {
 			$parent = $this->db->query("SELECT * FROM st_users WHERE id=? AND account_kind='parent' AND status='active' FOR UPDATE", array($parent_user_id))->row_array();
 			if ( ! $parent || ! $parent['email_verified_at'] || ! hash_equals(study_credential_stamp($parent), $stamp)) { return array('ok' => FALSE, 'code' => 403); }
 			// Parent lock serializes parallel creation; current reads see the latest committed links.
@@ -343,6 +350,7 @@ class Account_model extends CI_Model
 			'display_name' => trim($display_name),
 			'account_kind' => 'child',
 			'learning_stage' => $learning_stage,
+			'grade_id' => $grade ? $grade['id'] : NULL,
 			'status' => 'active',
 			'created_at' => $now,
 			'updated_at' => $now
@@ -361,7 +369,7 @@ class Account_model extends CI_Model
 			'entity_type' => 'user',
 			'entity_id' => $child_user_id,
 			'correlation_id' => NULL,
-			'details_json' => json_encode(array('family_linked' => TRUE, 'learning_stage' => $learning_stage)),
+			'details_json' => json_encode(array('family_linked' => TRUE, 'learning_stage' => $learning_stage, 'grade_id' => $grade ? $grade['id'] : NULL)),
 			'created_at' => $now
 			));
 

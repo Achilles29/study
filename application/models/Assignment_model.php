@@ -35,7 +35,7 @@ class Assignment_model extends CI_Model
 			return FALSE;
 		}
 		$this->load->model('Parent_practice_model');
-		return $this->Parent_practice_model->has_access($session['created_by_user_id'], $lock);
+		return $this->Parent_practice_model->has_access($session['created_by_user_id'], $lock, $session['learner_user_id']);
 	}
 
 	public function lock_for_child($session_id, $user_id, $parent_user_id)

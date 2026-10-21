@@ -3,10 +3,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Parent_practice_model extends CI_Model
 {
-	public function has_access($parent_user_id, $lock = FALSE)
+	public function has_access($parent_user_id, $lock = FALSE, $child_user_id = NULL)
 	{
 		$this->load->model('Commerce_access_model');
-		if ($this->Commerce_access_model->family_practice($parent_user_id, $lock)) { return TRUE; }
+		if ($this->Commerce_access_model->family_practice($parent_user_id, $lock, $child_user_id)) { return TRUE; }
 		$sql = "SELECT e.id FROM st_entitlements e JOIN st_packages p ON p.id = e.package_id JOIN st_users u ON u.id = e.user_id
 			WHERE e.user_id = ? AND u.account_kind = 'parent' AND u.status = 'active' AND e.status = 'active'
 			AND e.starts_at <= UTC_TIMESTAMP() AND (e.ends_at IS NULL OR e.ends_at > UTC_TIMESTAMP()) AND p.family_practice_enabled = 1
@@ -76,7 +76,7 @@ class Parent_practice_model extends CI_Model
 		{
 			return $this->fail(409);
 		}
-		if ( ! $this->has_access($parent_user_id, TRUE))
+		if ( ! $this->has_access($parent_user_id, TRUE, $session['learner_user_id']))
 		{
 			return $this->fail(403);
 		}
@@ -221,7 +221,7 @@ class Parent_practice_model extends CI_Model
 		{
 			return $this->fail(404);
 		}
-		if ( ! $this->has_access($parent_user_id, TRUE))
+		if ( ! $this->has_access($parent_user_id, TRUE, $child_user_id))
 		{
 			return $this->fail(403);
 		}
@@ -252,7 +252,7 @@ class Parent_practice_model extends CI_Model
 		{
 			return $this->fail(409);
 		}
-		if ($action !== 'cancel' && ! $this->has_access($parent_user_id, TRUE))
+		if ($action !== 'cancel' && ! $this->has_access($parent_user_id, TRUE, $session['learner_user_id']))
 		{
 			return $this->fail(403);
 		}

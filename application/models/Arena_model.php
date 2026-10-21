@@ -166,6 +166,8 @@ class Arena_model extends CI_Model
 			if ($mode === 'timed' && ($pack['game_type'] !== 'math' || $settings['timer'] !== '1' || $user['learning_stage'] === 'early_childhood')) { return array('ok' => FALSE, 'code' => 400); }
 			$running = $this->running($user_id);
 			if ($running) { return array('ok' => TRUE, 'id' => $running['id'], 'resumed' => TRUE); }
+			$this->load->model('Arena_credit_model');
+			if(!$this->Arena_credit_model->access($user_id,$pack['id'])['allowed']){return array('ok'=>FALSE,'code'=>403,'credit_locked'=>TRUE);}
 			if ($user['learning_stage'] === 'early_childhood') { $settings['pairs'] = '4'; $settings['words'] = '5'; $settings['cards'] = '5'; }
 			$content = json_decode($pack['content_json'], TRUE, 512, JSON_THROW_ON_ERROR);
 			$game = $this->arena_engine->create($content, $settings); $now = gmdate('Y-m-d H:i:s');

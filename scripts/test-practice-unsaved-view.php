@@ -13,6 +13,7 @@ function site_url($path)
 {
 	return 'http://localhost/study/index.php/'.$path;
 }
+function base_url($path){return 'http://localhost/study/'.$path;}
 // Preserve supplied attributes so the test observes the view's actual opt-in.
 // The synthetic CSRF field does not exercise CI's HTTP security middleware.
 function form_open($path, $attributes = array())
@@ -76,15 +77,13 @@ function practice_unsaved_form($html, $revision)
 	preg_match('/<form\b[^>]*>/', $form, $opening);
 	practice_unsaved_assert(practice_unsaved_attribute($opening[0], 'id') === 'practice-answer-form', 'Editable attempt must retain its stable form ID');
 	practice_unsaved_assert(practice_unsaved_attribute($opening[0], 'method') === 'post' && practice_unsaved_attribute($opening[0], 'action') === site_url('latihan/percobaan/77'), 'Save/finish must share the existing native POST endpoint');
-	practice_unsaved_assert(preg_match('/\sdata-unsaved-form(?:\s|=|>)/', $opening[0]) === 1, 'Only editable attempts must opt in to the existing unsaved guard');
-	practice_unsaved_assert(practice_unsaved_attribute($opening[0], 'data-unsaved-initial') === 'false', 'Rendered server choices must begin clean, including 400/409 responses');
+	practice_unsaved_assert(strpos($opening[0], 'data-unsaved-form') === FALSE, 'Sheet080 owns autosave/beforeunload; do not run the older manual-only guard too');
 	practice_unsaved_assert(strpos($html, 'data-unsaved-initial="true"') === FALSE, 'Rejected posted choices must not become an initial-dirty snapshot');
-	preg_match_all('/<[^>]+\sdata-unsaved-status(?:\s|=|>)[^>]*>/', $form, $statuses);
+	preg_match_all('/<[^>]+\sid="sheet-save-status"[^>]*>/', $form, $statuses);
 	practice_unsaved_assert(count($statuses[0]) === 1, 'The form must contain one unsaved status region');
 	$status = $statuses[0][0];
 	practice_unsaved_assert(practice_unsaved_attribute($status, 'role') === 'status' && practice_unsaved_attribute($status, 'aria-live') === 'polite', 'Unsaved status must use polite status semantics');
-	practice_unsaved_assert(preg_match('/\shidden(?:\s|=|>)/', $status) === 1, 'Unsaved status must remain hidden before script enhancement');
-	practice_unsaved_assert(strpos($form, 'Pilihan jawaban tidak tersimpan otomatis. Gunakan Simpan sementara sebelum beristirahat.') !== FALSE, 'The native form must explicitly explain manual temporary saving');
+	practice_unsaved_assert(strpos($form, 'Gunakan Simpan sementara sebelum beristirahat.') !== FALSE, 'The native form must explain fallback temporary saving before enhancement');
 	preg_match_all('/<input\b[^>]*>/', $form, $inputs);
 	$revisions = array();
 	$selected = array();
@@ -100,7 +99,7 @@ function practice_unsaved_form($html, $revision)
 		if (practice_unsaved_attribute($input, 'type') !== 'radio') { continue; }
 		$radio_count++;
 		practice_unsaved_assert(in_array($name, array('answers[101]', 'answers[102]'), TRUE), 'Answer groups must preserve the server question IDs');
-		practice_unsaved_assert(preg_match('/<label\b[^>]*>\s*'.preg_quote($input, '/').'\s*<span>/s', $form) === 1, 'Each radio must retain a wrapping visible label');
+		practice_unsaved_assert(preg_match('/<label\b[^>]*>\s*'.preg_quote($input, '/').'\s*<span\b[^>]*>/s', $form) === 1, 'Each radio must retain a wrapping visible label');
 		if (preg_match('/\schecked(?:\s|=|>)/', $input))
 		{
 			practice_unsaved_assert( ! array_key_exists($name, $selected), 'Each answer group must have at most one checked option');
@@ -114,11 +113,12 @@ function practice_unsaved_form($html, $revision)
 	$actions = array();
 	foreach ($buttons[0] as $button)
 	{
+		if (practice_unsaved_attribute($button,'type')==='button') { continue; }
 		practice_unsaved_assert(practice_unsaved_attribute($button, 'type') === 'submit' && practice_unsaved_attribute($button, 'name') === 'action', 'Save/finish must remain native named submit buttons');
 		$actions[] = practice_unsaved_attribute($button, 'value');
 	}
 	practice_unsaved_assert($actions === array('save', 'finish'), 'Manual save and final submit must remain distinct native actions');
-	practice_unsaved_assert(strpos($form, 'Simpan sementara') !== FALSE && strpos($form, 'Selesaikan dan lihat pembahasan') !== FALSE, 'Both actions need visible Indonesian labels');
+	practice_unsaved_assert(strpos($form, 'Simpan sementara') !== FALSE && strpos($form, 'Selesaikan &amp; lihat hasil') !== FALSE, 'Both actions need visible Indonesian labels');
 	return $form;
 }
 function practice_unsaved_read_only($html)
@@ -160,7 +160,7 @@ foreach (array('course_quiz', 'parent_assigned') as $session_type)
 		practice_unsaved_safe($html);
 		practice_unsaved_form($html, $data['attempt']['answer_revision']);
 		practice_unsaved_no_key($html);
-		practice_unsaved_assert(strpos($html, '<p class="eyebrow">'.($session_type === 'parent_assigned' ? 'Latihan keluarga' : 'Latihan mandiri').'</p>') !== FALSE, 'Active heading must distinguish family assignments from course practice');
+		practice_unsaved_assert(strpos($html, '<p class="eyebrow">'.($session_type === 'parent_assigned' ? 'Latihan keluarga' : 'Latihan kursus').'</p>') !== FALSE, 'Active heading must distinguish family assignments from course practice');
 		practice_unsaved_assert(strpos($html, html_escape($data['attempt']['title'])) !== FALSE, 'Attempt titles must preserve escaped Unicode');
 		practice_unsaved_assert(strpos($html, html_escape(html_escape($data['attempt']['title']))) === FALSE, 'Attempt titles must not be double-escaped');
 		foreach ($questions as $question)
@@ -231,4 +231,4 @@ practice_unsaved_assert(strpos($html, 'href="'.site_url('keluarga/latihan/31').'
 practice_unsaved_assert(strpos($html, 'Coba latihan lagi') === FALSE, 'A malformed active report must not expose a learner retry action');
 
 restore_error_handler();
-fwrite(STDOUT, 'PASS '.$renders." practice view renders: active course/family native save/finish and clean unsaved opt-in, saved server choices/revision after error data, escaped text, no unfinished key leakage, graded/abandoned/unknown/report read-only states. Stub helpers; no HTTP status, JavaScript, database or browser claims.\n");
+fwrite(STDOUT, 'PASS '.$renders." practice view renders: active course/family native save/finish and sheet080 status, saved server choices/revision after error data, escaped text, no unfinished key leakage, graded/abandoned/unknown/report read-only states. Stub helpers; no HTTP status, JavaScript, database or browser claims.\n");

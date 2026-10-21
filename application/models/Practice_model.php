@@ -1,5 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+require_once dirname(__DIR__).'/libraries/Question_media.php';
+require_once dirname(__DIR__).'/libraries/Practice_sheet.php';
 
 class Practice_model extends CI_Model
 {
@@ -11,7 +13,7 @@ class Practice_model extends CI_Model
 
 	public function find_attempt($attempt_id, $user_id)
 	{
-		return $this->checked($this->db->query("SELECT a.*, s.course_id, s.title, s.rules_version, s.session_type, s.created_by_user_id FROM st_practice_attempts a JOIN st_practice_sessions s ON s.id = a.session_id WHERE a.id = ? AND a.learner_user_id = ? AND s.learner_user_id = ? AND s.session_type IN ('course_quiz', 'parent_assigned')", array((int) $attempt_id, (int) $user_id, (int) $user_id)))->row_array();
+		return $this->checked($this->db->query("SELECT a.*, s.course_id, s.title, s.rules_version, s.session_type, s.created_by_user_id FROM st_practice_attempts a JOIN st_practice_sessions s ON s.id = a.session_id WHERE a.id = ? AND a.learner_user_id = ? AND s.learner_user_id = ? AND s.session_type IN ('course_quiz', 'parent_assigned', 'self_practice', 'assessment')", array((int) $attempt_id, (int) $user_id, (int) $user_id)))->row_array();
 	}
 
 	public function can_read_attempt($attempt, $user_id)
@@ -27,6 +29,9 @@ class Practice_model extends CI_Model
 		if ($attempt['status'] !== 'in_progress')
 		{
 			return FALSE;
+		}
+		if (in_array($attempt['session_type'], array('self_practice','assessment'), TRUE)) {
+			return (bool)$this->db->where('session_id',$attempt['session_id'])->get('st_drill_sessions')->row_array();
 		}
 		if ($attempt['session_type'] === 'parent_assigned')
 		{
@@ -58,15 +63,17 @@ class Practice_model extends CI_Model
 		$this->checked($this->db->insert('st_audit_events', array('actor_user_id' => (int) $user_id, 'event_type' => $event, 'entity_type' => 'practice_attempt', 'entity_id' => (int) $attempt_id, 'details_json' => '{}', 'created_at' => gmdate('Y-m-d H:i:s'))));
 	}
 
-	public function start($course_id, $user_id, $idempotency_key)
+	public function start($course_id, $user_id, $idempotency_key, $sheet = array())
 	{
+		$sheet = Practice_sheet::validate($sheet);
+		if (!$sheet) { return $this->fail(400); }
 		$this->load->library('Study_transaction');
-		return $this->study_transaction->run($this->db, function () use ($course_id, $user_id, $idempotency_key) {
-			return $this->start_locked($course_id, $user_id, $idempotency_key);
+		return $this->study_transaction->run($this->db, function () use ($course_id, $user_id, $idempotency_key, $sheet) {
+			return $this->start_locked($course_id, $user_id, $idempotency_key, $sheet);
 		});
 	}
 
-	private function start_locked($course_id, $user_id, $idempotency_key)
+	private function start_locked($course_id, $user_id, $idempotency_key, $sheet)
 	{
 		// Serialize starts for a course, including retries from separate browser tabs.
 		$course = $this->checked($this->db->query('SELECT * FROM st_courses WHERE id = ? FOR UPDATE', array((int) $course_id)))->row_array();
@@ -110,6 +117,7 @@ class Practice_model extends CI_Model
 		$this->checked($this->db->insert('st_practice_sessions', array('created_by_user_id' => (int) $user_id, 'learner_user_id' => (int) $user_id, 'course_id' => (int) $course_id, 'title' => $course['title'], 'session_type' => 'course_quiz', 'status' => 'in_progress', 'idempotency_key' => $idempotency_key, 'rules_version' => 'equal_weight_v1', 'created_at' => $now, 'updated_at' => $now)));
 		$session_id = (int) $this->db->insert_id();
 		if ($session_id < 1) { throw new RuntimeException('Practice session identifier unavailable.'); }
+		$this->checked($this->db->where('id',$session_id)->update('st_practice_sessions', array('sheet_rules_json'=>json_encode($sheet, JSON_THROW_ON_ERROR))));
 		foreach ($questions as $index => $question)
 		{
 			$snapshot = array('prompt' => $question['prompt'], 'explanation' => $question['explanation'], 'content_version' => (int) $question['content_version'], 'options' => $question['options']);
@@ -151,7 +159,9 @@ class Practice_model extends CI_Model
 		foreach ($questions as $question_id => $question)
 		{
 			$answer = isset($answer_map[$question_id]) ? $answer_map[$question_id] : NULL;
-			$item = array('id' => $question_id, 'prompt' => $question['prompt'], 'selected_option_id' => $answer ? $answer['selected_option_id'] : NULL, 'options' => array());
+			$item = array('id' => $question_id, 'prompt' => $question['prompt'], 'has_image' => !empty($question['image']), 'selected_option_id' => $answer ? $answer['selected_option_id'] : NULL, 'options' => array());
+			$item['image_count'] = !empty($question['image']) ? 1 + count($question['image']['additional_images'] ?? array()) : 0;
+			$item['media_layout'] = Question_media::layout($question['image'] ?? NULL, $question['prompt'], array_column($question['options'], 'option_text'));
 			foreach ($question['options'] as $option)
 			{
 				$public_option = array('id' => (int) $option['id'], 'option_text' => $option['option_text']);
@@ -171,15 +181,20 @@ class Practice_model extends CI_Model
 		return $result;
 	}
 
-	public function save_answers($attempt_id, $user_id, $revision, $answers, $finish)
+	public function save_answers($attempt_id, $user_id, $revision, $answers, $finish, $events = array())
 	{
+		if (!is_array($events) || count($events)>20) { return $this->fail(400); }
+		foreach ($events as $token=>$reason) {
+			if (!is_string($token) || !preg_match('/\A[a-f0-9]{32}\z/',$token)
+				|| !in_array($reason,array('hidden','blur','sleep'),TRUE)) { return $this->fail(400); }
+		}
 		$this->load->library('Study_transaction');
-		return $this->study_transaction->run($this->db, function () use ($attempt_id, $user_id, $revision, $answers, $finish) {
-			return $this->save_answers_locked($attempt_id, $user_id, $revision, $answers, $finish);
+		return $this->study_transaction->run($this->db, function () use ($attempt_id, $user_id, $revision, $answers, $finish, $events) {
+			return $this->save_answers_locked($attempt_id, $user_id, $revision, $answers, $finish, $events);
 		});
 	}
 
-	private function save_answers_locked($attempt_id, $user_id, $revision, $answers, $finish)
+	private function save_answers_locked($attempt_id, $user_id, $revision, $answers, $finish, $events)
 	{
 		$attempt = $this->find_attempt($attempt_id, $user_id);
 		if ( ! $attempt)
@@ -191,7 +206,14 @@ class Practice_model extends CI_Model
 			return array('ok' => TRUE, 'id' => (int) $attempt_id, 'status' => 'graded');
 		}
 		// Match lock order used by start/content publishing before locking this attempt.
-		if ($attempt['session_type'] === 'parent_assigned')
+		$drill = NULL;
+		if (in_array($attempt['session_type'],array('self_practice','assessment'),TRUE))
+		{
+			$this->checked($this->db->query('SELECT id FROM st_users WHERE id=? FOR UPDATE',array($user_id)));
+			$drill=$this->checked($this->db->query('SELECT * FROM st_drill_sessions WHERE session_id=?',array($attempt['session_id'])))->row_array();
+			$can_save=(bool)$drill;
+		}
+		elseif ($attempt['session_type'] === 'parent_assigned')
 		{
 			$this->load->model('Assignment_model');
 			$session = $this->Assignment_model->lock_for_child($attempt['session_id'], $user_id, $attempt['created_by_user_id']);
@@ -217,7 +239,9 @@ class Practice_model extends CI_Model
 		{
 			return $this->fail(403);
 		}
-		if ($locked['status'] !== 'in_progress' || $attempt['rules_version'] !== 'equal_weight_v1' || (int) $locked['answer_revision'] !== $revision)
+		$sheet = $this->sheet_state($attempt);
+		$stale = (int) $locked['answer_revision'] !== $revision;
+		if ($locked['status'] !== 'in_progress' || $attempt['rules_version'] !== 'equal_weight_v1' || ($stale && (!$events || $sheet['rules']['focus_guard']!=='1')))
 		{
 			return $this->fail(409);
 		}
@@ -225,6 +249,13 @@ class Practice_model extends CI_Model
 		if ( ! $questions || count($questions) !== (int) $locked['question_count'])
 		{
 			return $this->fail(409);
+		}
+		$expired = $drill && $drill['expires_at'] && $drill['expires_at'] <= gmdate('Y-m-d H:i:s');
+		if ($expired || $stale) {
+			// After the deadline, reject late input and grade only the last saved answers.
+			$answers=array();
+			foreach($this->checked($this->db->where('attempt_id',$attempt_id)->get('st_practice_answers'))->result_array() as $saved){$answers[$saved['question_id']]=$saved['selected_option_id']===NULL?'':(string)$saved['selected_option_id'];}
+			$finish=(bool)$expired;
 		}
 		foreach ($answers as $question_id => $option_id)
 		{
@@ -236,6 +267,16 @@ class Practice_model extends CI_Model
 			if ($option_id !== '' && ! in_array($option_id, array_map('strval', $valid_options), TRUE))
 			{
 				return $this->fail(400);
+			}
+		}
+		if ($sheet['rules']['focus_guard']==='1') {
+			foreach ($events as $token=>$reason) {
+				$this->checked($this->db->query('INSERT INTO st_practice_focus_events(attempt_id,event_token,reason,created_at) VALUES(?,?,?,?) ON DUPLICATE KEY UPDATE event_token=event_token',array($attempt_id,$token,$reason,gmdate('Y-m-d H:i:s'))));
+			}
+			$focus_count = $this->focus_count($attempt_id);
+			if ($focus_count >= (int)$sheet['rules']['focus_limit']) {
+				$finish=TRUE;
+				$this->audit($user_id,$attempt_id,'practice.focus_limit');
 			}
 		}
 		$now = gmdate('Y-m-d H:i:s');
@@ -263,16 +304,28 @@ class Practice_model extends CI_Model
 			$this->audit($user_id, $attempt_id, 'practice.graded');
 		}
 		$this->checked($this->db->where('id', (int) $attempt_id)->update('st_practice_attempts', $changes));
-		return array('ok' => TRUE, 'id' => (int) $attempt_id, 'status' => $finish ? 'graded' : 'in_progress');
+		return array('ok' => TRUE, 'id' => (int) $attempt_id, 'status' => $finish ? 'graded' : 'in_progress', 'conflict'=>$stale);
 	}
 
 	public function count_history($user_id)
 	{
-		return (int) $this->db->query("SELECT COUNT(*) AS total FROM st_practice_attempts a JOIN st_practice_sessions s ON s.id = a.session_id WHERE a.learner_user_id = ? AND s.learner_user_id = ? AND s.session_type IN ('course_quiz', 'parent_assigned')", array((int) $user_id, (int) $user_id))->row()->total;
+		return (int) $this->db->query("SELECT COUNT(*) AS total FROM st_practice_attempts a JOIN st_practice_sessions s ON s.id = a.session_id WHERE a.learner_user_id = ? AND s.learner_user_id = ? AND s.session_type IN ('course_quiz', 'parent_assigned', 'self_practice', 'assessment')", array((int) $user_id, (int) $user_id))->row()->total;
 	}
 
 	public function history($user_id, $limit, $offset)
 	{
-		return $this->db->query("SELECT a.id, a.status, a.score, a.correct_count, a.question_count, a.started_at, s.title FROM st_practice_attempts a JOIN st_practice_sessions s ON s.id = a.session_id WHERE a.learner_user_id = ? AND s.learner_user_id = ? AND s.session_type IN ('course_quiz', 'parent_assigned') ORDER BY a.id DESC LIMIT ? OFFSET ?", array((int) $user_id, (int) $user_id, (int) $limit, (int) $offset))->result_array();
+		return $this->db->query("SELECT a.id, a.status, a.score, a.correct_count, a.question_count, a.started_at, s.title FROM st_practice_attempts a JOIN st_practice_sessions s ON s.id = a.session_id WHERE a.learner_user_id = ? AND s.learner_user_id = ? AND s.session_type IN ('course_quiz', 'parent_assigned', 'self_practice', 'assessment') ORDER BY a.id DESC LIMIT ? OFFSET ?", array((int) $user_id, (int) $user_id, (int) $limit, (int) $offset))->result_array();
 	}
+
+	public function deadline($attempt){return $this->db->where('session_id',$attempt['session_id'])->get('st_drill_sessions')->row_array()['expires_at']??NULL;}
+	public function focus_count($attempt_id)
+	{
+		return (int)$this->db->where('attempt_id',$attempt_id)->count_all_results('st_practice_focus_events');
+	}
+	public function sheet_state($attempt)
+	{
+		$row=$this->checked($this->db->select('sheet_rules_json')->where('id',$attempt['session_id'])->get('st_practice_sessions'))->row_array();
+		return array('rules'=>Practice_sheet::read($row['sheet_rules_json']??NULL),'focus_count'=>$this->focus_count($attempt['id']));
+	}
+	public function snapshot_image($attempt,$question_id){return $this->snapshots($attempt['session_id'])[(int)$question_id]['image']??NULL;}
 }

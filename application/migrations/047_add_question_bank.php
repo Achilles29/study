@@ -1,0 +1,21 @@
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+class Migration_Add_question_bank extends CI_Migration
+{
+ public function up()
+ {
+  foreach(array(
+   "CREATE TABLE IF NOT EXISTS st_bank_guard(id TINYINT UNSIGNED PRIMARY KEY) ENGINE=InnoDB",
+   "INSERT IGNORE INTO st_bank_guard(id) VALUES(1)",
+   "CREATE TABLE IF NOT EXISTS st_bank_questions(question_id BIGINT UNSIGNED PRIMARY KEY,fingerprint CHAR(64) CHARACTER SET ascii COLLATE ascii_bin NOT NULL UNIQUE,image_json TEXT NULL,CONSTRAINT fk_bank_question FOREIGN KEY(question_id) REFERENCES st_questions(id)) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4",
+   "CREATE TABLE IF NOT EXISTS st_bank_scopes(question_id BIGINT UNSIGNED NOT NULL,subject_id BIGINT UNSIGNED NOT NULL,grade_id BIGINT UNSIGNED NOT NULL,difficulty ENUM('basic','advanced') NOT NULL,PRIMARY KEY(question_id,subject_id,grade_id,difficulty),INDEX(subject_id,grade_id,difficulty,question_id),CONSTRAINT fk_bank_scope_question FOREIGN KEY(question_id) REFERENCES st_bank_questions(question_id),CONSTRAINT fk_bank_scope_subject FOREIGN KEY(subject_id) REFERENCES st_categories(id),CONSTRAINT fk_bank_scope_grade FOREIGN KEY(grade_id) REFERENCES st_learning_grades(id)) ENGINE=InnoDB",
+   "CREATE TABLE IF NOT EXISTS st_bank_imports(id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,owner_user_id BIGINT UNSIGNED NOT NULL,token CHAR(64) CHARACTER SET ascii COLLATE ascii_bin NOT NULL UNIQUE,payload_json LONGTEXT NOT NULL,status ENUM('preview','committed') NOT NULL DEFAULT 'preview',exam_id BIGINT UNSIGNED NULL,exam_revision INT UNSIGNED NULL,result_json TEXT NULL,created_at DATETIME NOT NULL,expires_at DATETIME NOT NULL,INDEX(owner_user_id,id),CONSTRAINT fk_bank_import_owner FOREIGN KEY(owner_user_id) REFERENCES st_users(id)) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4",
+   "CREATE TABLE IF NOT EXISTS st_exam_templates(id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,title VARCHAR(180) NOT NULL,grade_id BIGINT UNSIGNED NOT NULL,duration_minutes INT UNSIGNED NOT NULL DEFAULT 30,question_shuffle TINYINT UNSIGNED NOT NULL DEFAULT 1,option_shuffle TINYINT UNSIGNED NOT NULL DEFAULT 1,credit_price INT UNSIGNED NOT NULL DEFAULT 0,status ENUM('draft','published','archived') NOT NULL DEFAULT 'draft',revision INT UNSIGNED NOT NULL DEFAULT 1,created_at DATETIME NOT NULL,updated_at DATETIME NOT NULL,CONSTRAINT fk_exam_grade FOREIGN KEY(grade_id) REFERENCES st_learning_grades(id)) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4",
+   "CREATE TABLE IF NOT EXISTS st_exam_questions(exam_id BIGINT UNSIGNED NOT NULL,question_id BIGINT UNSIGNED NOT NULL,sort_order INT UNSIGNED NOT NULL DEFAULT 0,PRIMARY KEY(exam_id,question_id),CONSTRAINT fk_exam_link_exam FOREIGN KEY(exam_id) REFERENCES st_exam_templates(id),CONSTRAINT fk_exam_link_bank FOREIGN KEY(question_id) REFERENCES st_bank_questions(question_id)) ENGINE=InnoDB",
+   "CREATE TABLE IF NOT EXISTS st_drill_sessions(session_id BIGINT UNSIGNED PRIMARY KEY,exam_id BIGINT UNSIGNED NULL,expires_at DATETIME NULL,settings_json TEXT NOT NULL,CONSTRAINT fk_drill_session FOREIGN KEY(session_id) REFERENCES st_practice_sessions(id),CONSTRAINT fk_drill_exam FOREIGN KEY(exam_id) REFERENCES st_exam_templates(id)) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4",
+   "CREATE TABLE IF NOT EXISTS st_drill_daily(learner_user_id BIGINT UNSIGNED NOT NULL,day_wib DATE NOT NULL,used_count INT UNSIGNED NOT NULL DEFAULT 0,extra_count INT UNSIGNED NOT NULL DEFAULT 0,PRIMARY KEY(learner_user_id,day_wib),CONSTRAINT fk_drill_quota_user FOREIGN KEY(learner_user_id) REFERENCES st_users(id)) ENGINE=InnoDB",
+   "CREATE TABLE IF NOT EXISTS st_feature_unlocks(id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,learner_user_id BIGINT UNSIGNED NOT NULL,payer_user_id BIGINT UNSIGNED NOT NULL,feature_type VARCHAR(32) NOT NULL,feature_id BIGINT UNSIGNED NOT NULL,price_credits INT UNSIGNED NOT NULL,created_at DATETIME NOT NULL,UNIQUE KEY uq_feature_unlock(learner_user_id,feature_type,feature_id),CONSTRAINT fk_feature_learner FOREIGN KEY(learner_user_id) REFERENCES st_users(id),CONSTRAINT fk_feature_payer FOREIGN KEY(payer_user_id) REFERENCES st_users(id)) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4"
+  ) as $sql){if(!$this->db->query($sql)){throw new RuntimeException('Question bank schema unavailable.');}}
+ }
+ public function down(){throw new RuntimeException('Preserve questions, sessions, credits and reports.');}
+}
