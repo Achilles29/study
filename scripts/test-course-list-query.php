@@ -1,6 +1,7 @@
 <?php
 if (PHP_SAPI !== 'cli') { exit(1); }
 define('BASEPATH', dirname(__DIR__).'/system/');
+function study_grade_where($code) {}
 
 class CI_Model
 {
@@ -71,7 +72,7 @@ foreach ($cases as $case)
 	$rows = $model->list_courses($filters, $limit, $offset, $published_only);
 	course_list_assert($rows === (new Course_list_test_result())->result_array(), $label.': result rows must pass through unchanged.');
 	$selects = $list_builder->matching_calls(array('select'));
-	course_list_assert(count($selects) === 1 && count($selects[0][1]) === 1 && is_string($selects[0][1][0]), 'List must use one explicit field projection.');
+	course_list_assert(count($selects) === 3 && count($selects[0][1]) === 1 && is_string($selects[0][1][0]), 'List must select explicit card fields and chapter/session counts.');
 	$projection = $selects[0][1][0] ?? '';
 	$selected_fields = preg_split('/\s*,\s*/', trim($projection));
 	course_list_assert(strpos($projection, '*') === FALSE, 'Course list must not select a wildcard.');
@@ -79,6 +80,7 @@ foreach ($cases as $case)
 	{
 		course_list_assert(in_array($field, $selected_fields, TRUE), 'Course list projection missing required field: '.$field.'.');
 	}
+	course_list_assert(strpos($selects[1][1][0], 'AS chapter_count') !== FALSE && strpos($selects[1][1][0], 'AS lesson_count') !== FALSE && strpos($selects[2][1][0], 'AS all_lesson_count') !== FALSE, 'Course list must expose chapter and session counts.');
 	course_list_assert($list_builder->matching_calls(array('join')) === array(array('join', array('st_categories cat', 'cat.id = c.category_id', 'left')), array('join', array('st_users u', 'u.id = c.author_user_id', 'left'))), $label.': category/author aliases require their left joins.');
 	$expected_filters = array_merge(array(array('from', array('st_courses c'))), $expected_filters);
 	course_list_assert($list_builder->matching_calls($filter_methods) === $expected_filters, $label.': list filter grouping or values differ.');

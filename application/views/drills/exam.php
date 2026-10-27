@@ -1,7 +1,7 @@
 <?php $rules=Practice_sheet::read($exam['sheet_rules_json']??NULL); ?>
 <section class="container page-section"><div class="row justify-content-center"><div class="col-lg-8">
  <a class="back-link mb-3" href="<?php echo site_url('latihan/ujian'); ?>">Daftar Simulasi Ujian</a>
- <div class="learning-hero mb-4"><p class="eyebrow">Siap mencoba?</p><h1 class="h2"><?php echo html_escape($exam['title']); ?></h1><p class="mb-0"><?php echo html_escape(study_grade_label($exam['grade_id'])); ?> · <?php echo (int)$count; ?> soal</p></div>
+ <div class="learning-hero mb-4"><p class="eyebrow">Siap mencoba?</p><h1 class="h2"><?php echo html_escape($exam['title']); ?></h1><p class="mb-0"><?php echo html_escape(study_grade_label($exam['grade_id'])); ?> · <?php echo (int)$count; ?> soal · <?php echo html_escape(array('easy'=>'Mudah','medium'=>'Sedang','hard'=>'Susah')[$exam['question_difficulty']??'']??'Campuran'); ?></p></div>
  <?php if($error): ?><div class="alert alert-warning" role="alert"><?php echo html_escape($error); ?></div><?php endif; ?>
  <div class="feature-card"><h2 class="h4">Sebelum mulai</h2>
  <ul>

@@ -1,0 +1,8 @@
+{
+  "http": "server grading; no keys before submit; stale revision; idempotent submit/start; spaced review; 20-question checkpoint; escaped writing; rubric review; private audio/ranges; linked parent scope; publication enforcement",
+  "browser": {
+    "layouts": 12,
+    "errors": [],
+    "audioDuration": 15.41805
+  }
+}

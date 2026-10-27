@@ -12,9 +12,10 @@ $resume_unavailable = $current_user['account_kind'] !== 'parent' && isset($resum
 			<p class="text-secondary mb-3">Ayo pilih satu langkah kecil untuk hari ini.</p>
 			<a class="btn btn-sun" href="<?php echo site_url('belajar/arena'); ?>"><i class="bi bi-controller me-2" aria-hidden="true"></i>Jelajahi Arena Belajar</a>
 		</div>
-		<img class="learning-hero-art" src="<?php echo base_url('assets/images/learning/hero-v1.webp'); ?>" width="768" height="512" alt="" aria-hidden="true">
+		<img class="learning-hero-art pijar-dashboard-art" src="<?php echo base_url('assets/images/branding/pijar-dashboard.webp'); ?>" width="712" height="720" alt="" aria-hidden="true">
 	</div>
 	<nav class="dashboard-shortcuts mb-4" aria-label="Pilihan kegiatan">
+		<a class="dashboard-shortcut shortcut-teal" href="<?php echo site_url('belajar/kelas-inggris'); ?>"><i class="bi bi-translate" aria-hidden="true"></i><span><strong>English Hack</strong><small>Kelas Inggris · materi, audio & latihan</small></span><i class="bi bi-arrow-right" aria-hidden="true"></i></a>
 		<a class="dashboard-shortcut shortcut-purple" href="<?php echo site_url('latihan/mandiri'); ?>"><i class="bi bi-shuffle" aria-hidden="true"></i><span><strong>Latihan Mandiri</strong><small>Soal acak sesuai kelasmu</small></span><i class="bi bi-arrow-right" aria-hidden="true"></i></a>
 		<a class="dashboard-shortcut shortcut-teal" href="<?php echo site_url('latihan/ujian'); ?>"><i class="bi bi-ui-checks" aria-hidden="true"></i><span><strong>Simulasi Ujian</strong><small>Tantangan pilihan pengelola</small></span><i class="bi bi-arrow-right" aria-hidden="true"></i></a>
 		<a class="dashboard-shortcut shortcut-gold" href="<?php echo site_url('latihan/kursus'); ?>"><i class="bi bi-journal-check" aria-hidden="true"></i><span><strong>Latihan kursus</strong><small>Gratis · pilih kelas & pelajaran</small></span><i class="bi bi-arrow-right" aria-hidden="true"></i></a>

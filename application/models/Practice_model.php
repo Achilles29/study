@@ -280,6 +280,10 @@ class Practice_model extends CI_Model
 			}
 		}
 		$now = gmdate('Y-m-d H:i:s');
+		$complete_answers = array();
+		foreach ($questions as $question_id => $_question) $complete_answers[$question_id] = isset($answers[$question_id]) ? $answers[$question_id] : '';
+		$this->load->model('Practice_live_model');
+		$this->Practice_live_model->record_changes($attempt, $complete_answers, $now);
 		$correct = 0;
 		foreach ($questions as $question_id => $question)
 		{

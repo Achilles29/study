@@ -3,8 +3,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 /** Local document parsing only; no HTML cleaning, formula execution or remote fetch. */
 class Question_import
 {
- const HEADERS=array('mapel','kelas','tingkat','soal','a','b','c','d','kunci','bahasan','gambar');
- public function sample(){return array('matematika','sd_1','basic','Ada 2 buku, lalu ditambah 1 buku. Berapa jumlahnya?','1 buku','2 buku','3 buku','4 buku','C','Dua ditambah satu sama dengan tiga.','');}
+ const HEADERS=array('mapel','kelas','tingkat','soal','a','b','c','d','kunci','bahasan','gambar','kesulitan');
+ public function sample(){return array('matematika','sd_1','basic','Ada 2 buku, lalu ditambah 1 buku. Berapa jumlahnya?','1 buku','2 buku','3 buku','4 buku','C','Dua ditambah satu sama dengan tiga.','','mudah');}
  /**
   * Analyze without saving questions. Narrative errors are retained per source
   * number, including unanswered keys; they must never become an assumed A.
@@ -18,7 +18,7 @@ class Question_import
    $text = file_get_contents($path);
    if (!mb_check_encoding($text, 'UTF-8')) { throw new RuntimeException('TXT harus memakai UTF-8.'); }
    $text = str_replace(array("\r\n", "\r"), "\n", preg_replace('/\A\xEF\xBB\xBF/', '', $text));
-   if (!preg_match('/\A\s*(?:MAPEL|KELAS|TINGKAT|SOAL|A|B|C|D|KUNCI|BAHASAN|GAMBAR):/', $text)) {
+   if (!preg_match('/\A\s*(?:MAPEL|KELAS|TINGKAT|KESULITAN|SOAL|A|B|C|D|KUNCI|BAHASAN|GAMBAR):/', $text)) {
     return $this->narrative($text, $defaults);
    }
   }
@@ -38,7 +38,7 @@ class Question_import
   $keys = array();
   $seen = array();
   $declared = NULL;
-  $difficulty = $defaults['tingkat'] ?? '';
+  $difficulty = $defaults['kesulitan'] ?? '';
   foreach (explode("\n", $text) as $offset=>$line) {
    $trim = trim($line);
    $line_number = $offset + 1;
@@ -73,7 +73,8 @@ class Question_import
     $number = (int)$match[1];
     $row = array_fill_keys(self::HEADERS, '');
     foreach (array('mapel', 'kelas') as $name) { $row[$name] = $defaults[$name] ?? ''; }
-    $row['tingkat'] = $difficulty;
+    $row['tingkat'] = $defaults['tingkat'] ?? '';
+    $row['kesulitan'] = $difficulty;
     $row['soal'] = $match[2];
     $current = count($result['items']);
     $result['items'][] = array('number'=>$number, 'line'=>$line_number, 'row'=>$row, 'errors'=>array(), 'warnings'=>array());
@@ -86,7 +87,7 @@ class Question_import
    }
    if (preg_match('/\A(?:BAGIAN|BABAK)\s+[A-Z0-9IVX]+\s*[-:–—]\s*(MUDAH|SEDANG|SULIT)(?:\s*\(.*\))?\z/iu', $trim, $match)
     || preg_match('/\A(MUDAH|SEDANG|SULIT)\z/iu', $trim, $match)) {
-    $difficulty = strtoupper($match[1]) === 'MUDAH' ? 'basic' : 'advanced';
+    $difficulty = array('MUDAH'=>'mudah','SEDANG'=>'sedang','SULIT'=>'susah')[strtoupper($match[1])];
     $current = NULL;
     continue;
    }
@@ -110,8 +111,8 @@ class Question_import
      (($result['items'][$current]['row'][$field] ?? '') !== '' ? "\n" : '').$match[4];
     continue;
    }
-   if (preg_match('/\A(BAHASAN|PEMBAHASAN|GAMBAR):\s*(.*)\z/iu', $trim, $match)) {
-    $field = strtoupper($match[1]) === 'GAMBAR' ? 'gambar' : 'bahasan';
+   if (preg_match('/\A(BAHASAN|PEMBAHASAN|GAMBAR|KESULITAN):\s*(.*)\z/iu', $trim, $match)) {
+    $field = strtoupper($match[1]) === 'GAMBAR' ? 'gambar' : (strtoupper($match[1]) === 'KESULITAN' ? 'kesulitan' : 'bahasan');
     if (isset($result['items'][$current]['seen_'.$field])) { $result['items'][$current]['errors'][] = 'Label '.$match[1].' berulang.'; }
     $result['items'][$current]['seen_'.$field] = TRUE;
     $result['items'][$current]['row'][$field] = $match[2];
@@ -153,8 +154,10 @@ class Question_import
  private function table($rows)
  {
   if(!$rows){throw new RuntimeException('Dokumen kosong.');}$header=array_map(static function($x){return mb_strtolower(trim($x));},array_shift($rows));$header[0]=ltrim($header[0]??'',"\xEF\xBB\xBF");
-  if($header!==self::HEADERS){throw new RuntimeException('Kolom harus sama dengan template: '.implode(', ',self::HEADERS).'.');}
-  $out=array();foreach($rows as $i=>$r){if(count(array_filter($r,static function($v){return trim((string)$v)!=='';}))===0){continue;}if(count($r)>count(self::HEADERS)){throw new RuntimeException('Kolom berlebih pada baris '.($i+2).'.');}$out[]=array_combine(self::HEADERS,array_pad($r,count(self::HEADERS),''));}return $out;
+  $legacy=array_slice(self::HEADERS,0,-1);
+  if(count($header)===count(self::HEADERS)&&end($header)===''&&array_slice($header,0,-1)===$legacy)$header=$legacy;
+  if($header!==self::HEADERS&&$header!==$legacy){throw new RuntimeException('Kolom harus sama dengan template: '.implode(', ',self::HEADERS).'. Kolom kesulitan boleh tidak ada pada berkas lama.');}
+  $out=array();foreach($rows as $i=>$r){if(count(array_filter($r,static function($v){return trim((string)$v)!=='';}))===0){continue;}if(count($r)>count($header)&&count(array_filter(array_slice($r,count($header)),static function($v){return trim((string)$v)!=='';}))){throw new RuntimeException('Kolom berlebih pada baris '.($i+2).'.');}$out[]=array_combine(self::HEADERS,array_pad(array_slice($r,0,count($header)),count(self::HEADERS),''));}return $out;
  }
  public function read($path,$ext)
  {
@@ -162,14 +165,14 @@ class Question_import
   if($ext==='txt'){$text=file_get_contents($path);if(!mb_check_encoding($text,'UTF-8')){throw new RuntimeException('TXT harus memakai UTF-8.');}$out=array();$row=array();$current=NULL;
    foreach(explode("\n",str_replace(array("\r\n","\r"),"\n",preg_replace('/\A\xEF\xBB\xBF/','',$text))) as $line){
     if(trim($line)==='---'){if($row){$out[]=array_replace(array_fill_keys(self::HEADERS,''),$row);}$row=array();$current=NULL;continue;}
-    if(preg_match('/\A(MAPEL|KELAS|TINGKAT|SOAL|A|B|C|D|KUNCI|BAHASAN|GAMBAR):[ \t]?(.*)\z/u',$line,$m)){$current=strtolower($m[1]);if(array_key_exists($current,$row)){throw new RuntimeException('Label '.$m[1].' berulang. Pisahkan soal dengan --- atau awali baris isi dengan backslash.');}$row[$current]=$m[2];}
+    if(preg_match('/\A(MAPEL|KELAS|TINGKAT|KESULITAN|SOAL|A|B|C|D|KUNCI|BAHASAN|GAMBAR):[ \t]?(.*)\z/u',$line,$m)){$current=strtolower($m[1]);if(array_key_exists($current,$row)){throw new RuntimeException('Label '.$m[1].' berulang. Pisahkan soal dengan --- atau awali baris isi dengan backslash.');}$row[$current]=$m[2];}
     elseif($current!==NULL){$row[$current].="\n".(substr($line,0,1)==='\\'?substr($line,1):$line);}elseif(trim($line)!==''){throw new RuntimeException('Gunakan label pada template TXT.');}
    }if($row){$out[]=array_replace(array_fill_keys(self::HEADERS,''),$row);}
   }elseif($ext==='csv'){$h=fopen($path,'rb');$rows=array();try{while(($r=fgetcsv($h,0,',','"',''))!==FALSE){$rows[]=$r;if(count($rows)>501){throw new RuntimeException('Maksimal 500 soal per impor.');}}}finally{fclose($h);}$out=$this->table($rows);
   }elseif(in_array($ext,array('docx','xlsx'),TRUE)){$z=$this->zip($path);try{
    if($ext==='docx'){$xml=$this->xml($z->getFromName('word/document.xml'));$xml->registerXPathNamespace('w','http://schemas.openxmlformats.org/wordprocessingml/2006/main');if($xml->xpath('//w:drawing|//w:pict')){throw new RuntimeException('Untuk gambar, isi nama berkas pada kolom gambar dan lampirkan PNG/JPEG terpisah; jangan tempel gambar di Word.');}$rows=array();foreach($xml->xpath('//w:tbl/w:tr') as $tr){$tr->registerXPathNamespace('w','http://schemas.openxmlformats.org/wordprocessingml/2006/main');$row=array();foreach($tr->xpath('./w:tc') as $tc){$tc->registerXPathNamespace('w','http://schemas.openxmlformats.org/wordprocessingml/2006/main');$paragraphs=array();foreach($tc->xpath('./w:p') as $p){$p->registerXPathNamespace('w','http://schemas.openxmlformats.org/wordprocessingml/2006/main');$text='';foreach($p->xpath('.//w:t|.//w:br|.//w:tab') as $t){$text.=$t->getName()==='br'?"\n":($t->getName()==='tab'?"\t":(string)$t);}$paragraphs[]=$text;}$row[]=implode("\n",$paragraphs);}$rows[]=$row;}$out=$this->table($rows);
    }else{$shared=array();$ss=$z->getFromName('xl/sharedStrings.xml');if($ss!==FALSE){$xml=$this->xml($ss);foreach($xml->si as $si){$text='';foreach($si->xpath('.//*[local-name()="t"]') as $t){$text.=(string)$t;}$shared[]=$text;}}
-    $xml=$this->xml($z->getFromName('xl/worksheets/sheet1.xml'));if(isset($xml->drawing)){throw new RuntimeException('Untuk gambar Excel, gunakan kolom gambar dan lampiran PNG/JPEG terpisah.');}$rows=array();foreach($xml->sheetData->row as $r){$row=array_fill(0,count(self::HEADERS),'');foreach($r->c as $c){if(isset($c->f)){throw new RuntimeException('Rumus Excel tidak dieksekusi. Ubah sel menjadi teks/nilai terlebih dahulu.');}if(!preg_match('/\A([A-K])[1-9][0-9]*\z/',(string)$c['r'],$ref)){throw new RuntimeException('Kolom Excel harus A–K sesuai template.');}$type=(string)$c['t'];if($type==='s'){$value=$shared[(int)$c->v]??NULL;if($value===NULL){throw new RuntimeException('Referensi teks Excel tidak valid.');}}elseif($type==='inlineStr'){$value='';foreach($c->is->xpath('.//*[local-name()="t"]') as $t){$value.=(string)$t;}}else{$value=(string)$c->v;}$row[ord($ref[1])-65]=$value;}$rows[]=$row;if(count($rows)>501){throw new RuntimeException('Maksimal 500 soal per impor.');}}$out=$this->table($rows);}
+    $xml=$this->xml($z->getFromName('xl/worksheets/sheet1.xml'));if(isset($xml->drawing)){throw new RuntimeException('Untuk gambar Excel, gunakan kolom gambar dan lampiran PNG/JPEG terpisah.');}$rows=array();foreach($xml->sheetData->row as $r){$row=array_fill(0,count(self::HEADERS),'');foreach($r->c as $c){if(isset($c->f)){throw new RuntimeException('Rumus Excel tidak dieksekusi. Ubah sel menjadi teks/nilai terlebih dahulu.');}if(!preg_match('/\A([A-L])[1-9][0-9]*\z/',(string)$c['r'],$ref)){throw new RuntimeException('Kolom Excel harus A–L sesuai template.');}$type=(string)$c['t'];if($type==='s'){$value=$shared[(int)$c->v]??NULL;if($value===NULL){throw new RuntimeException('Referensi teks Excel tidak valid.');}}elseif($type==='inlineStr'){$value='';foreach($c->is->xpath('.//*[local-name()="t"]') as $t){$value.=(string)$t;}}else{$value=(string)$c->v;}$row[ord($ref[1])-65]=$value;}$rows[]=$row;if(count($rows)>501){throw new RuntimeException('Maksimal 500 soal per impor.');}}$out=$this->table($rows);}
   }finally{$z->close();}}
   else{throw new RuntimeException('Gunakan TXT, CSV, DOCX atau XLSX sesuai template. Format DOC/XLS lama tidak didukung.');}
   if(!$out||count($out)>500){throw new RuntimeException('Impor harus berisi 1–500 soal.');}return $out;
@@ -180,7 +183,7 @@ class Question_import
    return "CONTOH GAMBAR DALAM SOAL DAN PILIHAN\nUnggah berkas sesuai nama penanda. Kunci hanya contoh; sesuaikan dengan isi gambar Anda.\n2 Soal Pilihan Ganda\n\n6. Perhatikan tabel berikut.\n[GAMBAR: tabel6.png]\nNilai dari [GAMBAR: rumus6.png] adalah …\n   a. 9\n   b. 8\n   c. 7\n   d. 6\n\n7. Gambar manakah yang menunjukkan segitiga?\n   a. [GAMBAR: lingkaran.png]\n   b. [GAMBAR: segitiga.png]\n   c. [GAMBAR: persegi.png]\n   d. [GAMBAR: persegi-panjang.png]\n\nKUNCI JAWABAN\n6.a 7.b\n";
   }
   if ($ext === 'naskah') {
-   return "CONTOH NASKAH SOAL\nPilih mapel, kelas dan tingkat pada halaman unggah.\n1 Soal Pilihan Ganda\n\n1. Ada 2 buku, lalu ditambah 1 buku. Berapa jumlahnya?\n   a. 1 buku\n   b. 2 buku\n   c. 3 buku\n   d. 4 buku\nPEMBAHASAN: Dua ditambah satu sama dengan tiga.\n\nKUNCI JAWABAN\n1.c\n";
+   return "CONTOH NASKAH SOAL\nPilih mapel, kelas, tingkat, dan bila perlu kesulitan pada halaman unggah.\n1 Soal Pilihan Ganda\n\n1. Ada 2 buku, lalu ditambah 1 buku. Berapa jumlahnya?\n   a. 1 buku\n   b. 2 buku\n   c. 3 buku\n   d. 4 buku\nKESULITAN: mudah\nPEMBAHASAN: Dua ditambah satu sama dengan tiga.\n\nKUNCI JAWABAN\n1.c\n";
   }
   $rows=array(self::HEADERS,$this->sample());if($ext==='txt'){$out='';foreach(self::HEADERS as $i=>$k){$out.=strtoupper($k).': '.$rows[1][$i]."\n";}return $out."---\n";}
   if($ext==='csv'){$h=fopen('php://temp','w+');foreach($rows as $row){fputcsv($h,$row,',','"','');}rewind($h);$bytes=stream_get_contents($h);fclose($h);return $bytes;}

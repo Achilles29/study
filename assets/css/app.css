@@ -31,9 +31,13 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 .site-header .navbar { padding-inline: calc(var(--bs-gutter-x, 1.5rem) * .5); }
 .site-header .navbar-toggler[hidden] { display: none; }
 .site-header .navbar-nav .nav-link { display: flex; align-items: center; min-height: 2.75rem; }
+@media (min-width: 1200px) {
+  .site-header:not(.site-header-member) .navbar-nav .nav-link { white-space: nowrap; }
+  .site-header:not(.site-header-member) .navbar-collapse .btn-primary { white-space: nowrap; padding-inline: .9rem !important; }
+}
 .brand-lockup { display: inline-flex; align-items: center; gap: .65rem; color: var(--ink); font-size: 1.15rem; font-weight: 800; letter-spacing: -.04em; }
 .brand-lockup:hover { color: var(--ink); }
-.brand-mark { display: grid; place-items: center; width: 2.25rem; height: 2.25rem; color: white; background: var(--primary); border-radius: .8rem; transform: rotate(-5deg); }
+.brand-mark { display: block; width: 2.65rem; height: 2.65rem; object-fit: contain; flex: 0 0 auto; filter: drop-shadow(0 3px 7px rgba(20,125,146,.2)); }
 .brand-accent { color: var(--primary); }
 .navbar .nav-link { color: #565f78; font-weight: 550; }
 .navbar .nav-link:hover { color: var(--primary-dark); }
@@ -113,6 +117,9 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 .hero-trust { color: #606a7f; font-size: .9rem; }
 .hero-trust i { color: #289c78; }
 .learning-art { position: relative; display: grid; place-items: center; max-width: 100%; min-height: 25rem; overflow: clip; isolation: isolate; }
+.pijar-hero { position: relative; z-index: 1; display: block; width: min(92%, 25rem); height: auto; filter: drop-shadow(0 20px 24px rgba(23,50,77,.16)); transform: translateY(-.5rem); }
+.learning-art-branded .art-card-main { left: 0; bottom: 1.4rem; z-index: 2; width: 13rem; }
+.learning-art-branded .art-card-note { top: 2rem; right: 0; bottom: auto; z-index: 2; }
 .art-sun { position: absolute; z-index: -2; width: 20rem; height: 20rem; background: linear-gradient(145deg, #f1edff, #e8fbf2); border-radius: 47% 53% 55% 45% / 42% 47% 53% 58%; transform: rotate(-15deg); }
 .art-orbit { position: absolute; z-index: -1; border: 1px solid rgba(88,84,216,.13); border-radius: 50%; }
 .orbit-one { width: 24rem; height: 18rem; transform: rotate(32deg); }
@@ -144,6 +151,9 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 .family-band { background: #f4f5ff; }
 .family-band h2 { max-width: 48rem; }
 .site-footer { border-top: 1px solid var(--line); background: #fbfbfd; }
+.footer-brand-line { display: flex; align-items: center; flex-wrap: wrap; gap: .25rem; }
+.footer-brand { display: inline-flex; align-items: center; gap: .4rem; color: var(--ink); font-weight: 800; text-decoration: none; }
+.footer-brand img { width: 2.1rem; height: 2.1rem; object-fit: contain; }
 .auth-shell { min-height: 65vh; }
 .auth-card { width: min(100%, 30rem); padding: clamp(1.4rem, 4vw, 2.5rem); background: #fff; border: 1px solid var(--line); border-radius: 1.5rem; box-shadow: var(--shadow-soft); }
 .auth-card-wide { width: min(100%, 43rem); }
@@ -200,6 +210,9 @@ button, .btn, .form-control, .form-select { min-height: 2.75rem; }
   .hero-title { max-width: 100%; font-size: clamp(2.25rem, 10vw, 3.6rem); overflow-wrap: break-word; }
   .hero-copy { max-width: 100%; overflow-wrap: break-word; }
   .learning-art { min-height: 21rem; }
+	.pijar-hero { width: min(88%, 21rem); }
+	.learning-art-branded .art-card-main { left: .25rem; bottom: .5rem; width: 11.5rem; padding: 1rem; }
+	.learning-art-branded .art-card-note { top: .75rem; right: .25rem; }
   .art-sun { width: 16rem; height: 16rem; }
   .orbit-one { width: 18rem; height: 15rem; }.orbit-two { width: 15rem; height: 20rem; }
   .art-card-note { right: 0; bottom: .25rem; }

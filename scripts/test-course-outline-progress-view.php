@@ -13,27 +13,47 @@ function site_url($path)
 {
 	return 'http://localhost/study/index.php/'.$path;
 }
+function study_grade_label($id)
+{
+	return 'SD Kelas 2';
+}
+function study_grade_code($id)
+{
+	return 'sd_2';
+}
 require FCPATH.'application/helpers/study_ui_helper.php';
 function outline_progress_assert($condition, $label)
 {
 	if ( ! $condition) { throw new RuntimeException($label); }
 }
+class Outline_progress_view_loader
+{
+	public $load;
+	public function __construct()
+	{
+		$this->load = new class { public function view($name) {} };
+	}
+	public function render($data)
+	{
+		$old_get = $_GET;
+		$_GET = array('learner_user_id' => 'PRIVATE_QUERY_LEARNER', 'user_id' => 'PRIVATE_QUERY_USER', 'anak' => 'PRIVATE_QUERY_CHILD');
+		extract($data, EXTR_SKIP);
+		ob_start();
+		try
+		{
+			require FCPATH.'application/views/catalog/course.php';
+			return ob_get_contents();
+		}
+		finally
+		{
+			ob_end_clean();
+			$_GET = $old_get;
+		}
+	}
+}
 function outline_progress_render($data)
 {
-	$old_get = $_GET;
-	$_GET = array('learner_user_id' => 'PRIVATE_QUERY_LEARNER', 'user_id' => 'PRIVATE_QUERY_USER', 'anak' => 'PRIVATE_QUERY_CHILD');
-	extract($data, EXTR_SKIP);
-	ob_start();
-	try
-	{
-		require FCPATH.'application/views/catalog/course.php';
-		return ob_get_contents();
-	}
-	finally
-	{
-		ob_end_clean();
-		$_GET = $old_get;
-	}
+	return (new Outline_progress_view_loader())->render($data);
 }
 function outline_progress_safe($html)
 {
@@ -65,7 +85,7 @@ function outline_progress_rows($html, $data, $states)
 		outline_progress_assert(strpos($row, html_escape($lesson['title'])) !== FALSE && strpos($row, html_escape($lesson['section_title'])) !== FALSE, 'Lesson and section titles must preserve escaped Unicode');
 		outline_progress_assert(strpos($row, html_escape(html_escape($lesson['title']))) === FALSE, 'Lesson title must not be double-escaped');
 		outline_progress_assert(strpos($row, 'text-truncate') === FALSE && preg_match('/class="[^"]*\bflex-(?:column|wrap)\b[^"]*"/', $row) === 1, 'Lesson rows must retain a stacking/wrapping mobile layout without truncating titles');
-		outline_progress_assert(preg_match('/<div\b[^>]*class="[^"]*\btext-break\b[^"]*"[^>]*>\s*<strong>/', $row) === 1, 'Lesson title wrapper must retain the utility that permits unbroken long words to wrap');
+		outline_progress_assert(preg_match('/<div\b[^>]*class="[^"]*\btext-break\b[^"]*"[^>]*>\s*<span[^>]*>Sesi [0-9]+<\/span>\s*<strong>/', $row) === 1, 'Lesson title wrapper must retain the session label and allow long words to wrap');
 		if ((int) $lesson['estimated_minutes'] > 0) { outline_progress_assert(strpos($row, (int) $lesson['estimated_minutes'].' menit') !== FALSE, 'Existing estimated reading time must remain visible'); }
 		$status = $states === NULL ? NULL : $states[$lesson['id']];
 		preg_match_all('/<span\b[^>]*\bdata-lesson-progress="([^"]*)"[^>]*>(.*?)<\/span>/s', $row, $badges);
@@ -104,9 +124,9 @@ function outline_progress_rows($html, $data, $states)
 $lessons = array();
 foreach (array(14, 12, 15, 11) as $index => $lesson_id)
 {
-	$lessons[] = array('id' => $lesson_id, 'title' => 'Materi '.$lesson_id.' <script>aman</script> "kutip" & 日本語 '.str_repeat('judul panjang ', 8), 'slug' => 'materi-'.$lesson_id, 'section_title' => 'Bagian '.($index < 2 ? 'A' : 'B').' <script>aman</script> & 日本語', 'estimated_minutes' => $index === 0 ? 0 : 5 + $index, 'is_preview' => in_array($lesson_id, array(14, 15), TRUE) ? 1 : 0, 'learner_user_id' => 'PRIVATE_OWNER_ID', 'progress_id' => 'PRIVATE_PROGRESS_ID');
+	$lessons[] = array('id' => $lesson_id, 'title' => 'Materi '.$lesson_id.' <script>aman</script> "kutip" & 日本語 '.str_repeat('judul panjang ', 8), 'slug' => 'materi-'.$lesson_id, 'section_id' => $index < 2 ? 1 : 2, 'section_title' => 'Bagian '.($index < 2 ? 'A' : 'B').' <script>aman</script> & 日本語', 'estimated_minutes' => $index === 0 ? 0 : 5 + $index, 'is_preview' => in_array($lesson_id, array(14, 15), TRUE) ? 1 : 0, 'learner_user_id' => 'PRIVATE_OWNER_ID', 'progress_id' => 'PRIVATE_PROGRESS_ID');
 }
-$course = array('id' => 4, 'slug' => 'kursus-aman', 'category_name' => 'Kategori <script>aman</script>', 'title' => 'Kursus <script>aman</script> & 日本語', 'summary' => 'Ringkasan <script>aman</script> "kutip" & 日本語', 'learning_objectives' => "Tujuan <script>aman</script>\nBaris kedua.", 'prerequisites' => 'Persiapan <script>aman</script>', 'age_min' => 7, 'age_max' => 12, 'estimated_minutes' => 20, 'is_free' => 0);
+$course = array('id' => 4, 'slug' => 'kursus-aman', 'grade_id' => 2, 'category_name' => 'Kategori <script>aman</script>', 'title' => 'Kursus <script>aman</script> & 日本語', 'summary' => 'Ringkasan <script>aman</script> "kutip" & 日本語', 'learning_objectives' => "Tujuan <script>aman</script>\nBaris kedua.", 'prerequisites' => 'Persiapan <script>aman</script>', 'age_min' => 7, 'age_max' => 12, 'estimated_minutes' => 20, 'is_free' => 0);
 $base = array('course' => $course, 'lessons' => $lessons, 'target_group_label' => 'Sekolah dasar', 'question_count' => 0, 'has_preview_lessons' => TRUE, 'can_read_course' => TRUE, 'current_user' => array('id' => 'PRIVATE_OWNER_ID', 'account_kind' => 'adult'), 'lesson_progress_map' => array());
 $map = array(12 => 'not_started', 15 => 'in_progress', 11 => 'completed', 999 => 'PRIVATE_UNUSED_STATUS');
 $states = array(14 => 'not_started', 12 => 'not_started', 15 => 'in_progress', 11 => 'completed');

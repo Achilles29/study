@@ -12,10 +12,11 @@
 				<div class="hero-trust mt-4"><i class="bi bi-stars me-2" aria-hidden="true"></i>Belajar setahap demi setahap, sesuai ritmemu.</div>
 			</div>
 			<div class="col-lg-5">
-				<div class="learning-art" role="img" aria-label="Ilustrasi perjalanan belajar: satu langkah kecil dan terus mencoba.">
+				<div class="learning-art learning-art-branded" role="img" aria-label="Pijar, kunang-kunang teman belajar Project Pintar, mengajak pengguna menemukan hal baru.">
 					<div class="art-sun"></div><div class="art-orbit orbit-one"></div><div class="art-orbit orbit-two"></div>
+					<img class="pijar-hero" src="<?php echo base_url('assets/images/branding/pijar-flight.webp'); ?>" width="720" height="658" alt="" aria-hidden="true" fetchpriority="high">
 					<div class="art-card art-card-main"><span class="art-icon art-icon-purple"><i class="bi bi-lightbulb" aria-hidden="true"></i></span><span class="art-label">Ide baru hari ini</span><strong>1 langkah kecil</strong><div class="art-progress"><span></span></div></div>
-					<div class="art-card art-card-note"><span class="art-icon art-icon-yellow"><i class="bi bi-stars" aria-hidden="true"></i></span><div><strong>Hebat!</strong><small>Kamu terus mencoba</small></div></div>
+					<div class="art-card art-card-note"><span class="art-icon art-icon-yellow"><i class="bi bi-stars" aria-hidden="true"></i></span><div><strong>Hai, aku Pijar!</strong><small>Ayo temukan hal baru</small></div></div>
 					<div class="art-spark spark-one">✦</div><div class="art-spark spark-two">✧</div><div class="art-spark spark-three">✦</div>
 				</div>
 			</div>

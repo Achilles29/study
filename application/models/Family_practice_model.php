@@ -36,8 +36,16 @@ class Family_practice_model extends CI_Model
 	public function history($parent_user_id, $child_user_id, $limit, $offset)
 	{
 		$this->attempts_scope($parent_user_id, $child_user_id);
-		$this->db->select("a.id, a.status, a.question_count, a.started_at, a.submitted_at, s.title, CASE WHEN a.status = 'graded' THEN a.score ELSE NULL END AS score, CASE WHEN a.status = 'graded' THEN a.correct_count ELSE NULL END AS correct_count", FALSE);
+		$this->db->join('st_drill_sessions d', 'd.session_id=s.id', 'left');
+		$this->db->join('st_exam_templates e', 'e.id=d.exam_id', 'left');
+		$this->db->select("a.id, a.status, a.question_count, a.started_at, a.submitted_at, s.title, s.session_type, e.parent_live_enabled, CASE WHEN a.status = 'graded' THEN a.score ELSE NULL END AS score, CASE WHEN a.status = 'graded' THEN a.correct_count ELSE NULL END AS correct_count", FALSE);
 		return $this->db->order_by('a.id', 'DESC')->limit(min(10, max(1, (int) $limit)), max(0, (int) $offset))->get()->result_array();
+	}
+
+	public function live_attempt($parent_user_id, $child_user_id, $attempt_id)
+	{
+		$this->attempts_scope($parent_user_id, $child_user_id);
+		return $this->db->select('a.*, s.title, s.course_id, s.rules_version, s.session_type')->where('a.id', (int)$attempt_id)->where('a.status', 'in_progress')->get()->row_array();
 	}
 
 	public function result($parent_user_id, $child_user_id, $attempt_id)

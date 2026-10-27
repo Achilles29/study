@@ -215,6 +215,31 @@ foreach (array('graded', 'abandoned', 'submitted', 'IN_PROGRESS', 'unknown', '')
 	}
 }
 
+// The same review view serves course, self-practice and exam attempts. Check
+// that a wrong saved answer is distinct from a correct or unanswered question.
+foreach (array('course_quiz', 'self_practice', 'assessment') as $session_type)
+{
+	$data = $base;
+	$data['attempt']['status'] = 'graded';
+	$data['attempt']['session_type'] = $session_type;
+	$data['attempt']['question_count'] = 3;
+	$data['questions'][0]['selected_option_id'] = 1001;
+	$data['questions'][0]['is_correct'] = 1;
+	$data['questions'][1]['selected_option_id'] = 2002;
+	$data['questions'][1]['is_correct'] = 0;
+	$data['questions'][2] = $data['questions'][1];
+	$data['questions'][2]['id'] = 103;
+	$data['questions'][2]['selected_option_id'] = NULL;
+	$html = practice_unsaved_render($data);
+	$renders++;
+	practice_unsaved_assert(preg_match('/<a class="sheet-number is-answered"[^>]*data-nav-index="0"[^>]*aria-label="Soal 1, jawaban benar"/', $html) === 1, 'Correct answers need a green navigation state and explicit label');
+	practice_unsaved_assert(preg_match('/<a class="sheet-number is-answered is-wrong"[^>]*data-nav-index="1"[^>]*aria-label="Soal 2, jawaban salah"/', $html) === 1, 'Wrong answers need a red navigation state and explicit label');
+	practice_unsaved_assert(preg_match('/<a class="sheet-number"[^>]*data-nav-index="2"[^>]*aria-label="Soal 3, belum dijawab"/', $html) === 1, 'Unanswered questions must stay distinct from wrong answers');
+	practice_unsaved_assert(preg_match('/<fieldset class="feature-card practice-question is-answered is-wrong mb-4" id="sheet-q-1"/', $html) === 1, 'Wrong question card must carry the red state');
+	practice_unsaved_assert(preg_match('/<fieldset class="feature-card practice-question mb-4" id="sheet-q-2"/', $html) === 1, 'Unanswered question card must remain neutral');
+	practice_unsaved_assert(strpos($html, 'practice-option is-wrong mb-2') !== FALSE && strpos($html, 'Jawaban salah. Mari tinjau langkahnya.') !== FALSE, 'The selected wrong option and explanation need a clear error state');
+}
+
 // Even an accidentally supplied active report is display-only, never a child
 // answer form. Rich extra metadata must not reveal the unfinished answer key.
 $report = $base;

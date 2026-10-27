@@ -66,7 +66,7 @@ class Public_learning_model extends CI_Model
 		$allowed=array_map('intval',array_column($this->courses(),'id'));
 		$ids=array_values(array_intersect($allowed,array_map('intval',$course_ids)));
 		if (!$ids) { return array(); }
-		$q=$this->db->select('l.id,l.title,l.slug,l.updated_at,l.source_note,l.rights_status,s.course_id')
+		$q=$this->db->select('l.id,l.title,l.slug,l.updated_at,l.source_note,l.rights_status,s.course_id,s.id AS section_id,s.title AS section_title')
 			->from('st_lessons l')->join('st_course_sections s','s.id=l.section_id')
 			->where_in('s.course_id',$ids)->where('l.status','published')
 			->where_in('l.rights_status',array('owned','licensed','public_domain'))

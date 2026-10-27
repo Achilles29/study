@@ -15,9 +15,9 @@
     <li>Maksimal 500 soal / 3 MiB. TXT harus UTF-8. Empat pilihan A–D berbeda, satu kunci A/B/C/D. Kunci <code>-</code> berarti belum lengkap, bukan jawaban benar.</li>
     <li>Pembahasan opsional: tambahkan <code>PEMBAHASAN: ...</code> sesudah pilihan pada TXT naskah. Pembahasan kosong diberi pengingat, tidak dibuat otomatis.</li>
     <li>Gambar otomatis: unggah <code>soal7.jpg</code> untuk nomor 7 tanpa menulis nama di soal; gambar tampil di atas teks. Untuk posisi tertentu/pilihan jawaban, tulis <code>[GAMBAR: nama.png]</code>. Galeri lama <code>GAMBAR: satu.png | dua.png</code> tetap didukung. Unggah gambar terpisah; teks rujukan PDF bukan lampiran.</li>
-    <li>Header <code>BAGIAN A - MUDAH</code> memakai tingkat dasar; <code>BAGIAN B - SEDANG</code> atau <code>SULIT</code> memakai lanjutan. Tanpa header, gunakan pilihan tingkat di bawah.</li>
+    <li>Header <code>BAGIAN A - MUDAH</code>, <code>SEDANG</code>, atau <code>SULIT</code> mengisi tag kesulitan soal berikutnya. Ini tidak mengubah klasifikasi Dasar/Lanjutan. Tanpa header, tag boleh kosong atau diisi lewat pilihan di bawah.</li>
     <li>Untuk baris isi yang menyerupai nomor, pilihan, label atau judul kunci, awali dengan backslash (<code>\</code>) agar dibaca sebagai teks biasa.</li>
-    <li>TXT berlabel lama tetap memakai <code>MAPEL:</code>, <code>SOAL:</code>, <code>KUNCI:</code> dan pemisah <code>---</code>. Word memakai tabel; Excel lembar pertama kolom A–K. Jangan ubah nama kolom. Rumus Excel dan gambar tempelan Word/Excel ditolak, bukan dihapus diam-diam.</li>
+    <li>TXT berlabel lama tetap memakai <code>MAPEL:</code>, <code>SOAL:</code>, <code>KUNCI:</code> dan pemisah <code>---</code>; tambahkan <code>KESULITAN:</code> bila perlu. Word/Excel/CSV boleh memakai kolom akhir <code>kesulitan</code> (A–L di Excel). Berkas lama tanpa kolom itu tetap diterima. Rumus Excel dan gambar tempelan Word/Excel ditolak.</li>
    </ul>
   </details>
  </details>
@@ -125,10 +125,11 @@ KUNCI JAWABAN
    </details>
    </details>
   </fieldset>
-  <fieldset class="border-top pt-4 mb-4"><legend class="h5 float-none w-auto"><i class="bi bi-funnel me-2" aria-hidden="true"></i>2. Tentukan klasifikasi</legend><p class="small text-secondary">Untuk TXT naskah, pilih mapel, kelas, dan tingkat. Format berlabel/tabel memakai klasifikasi dari berkas.</p><div class="row g-3">
+  <fieldset class="border-top pt-4 mb-4"><legend class="h5 float-none w-auto"><i class="bi bi-funnel me-2" aria-hidden="true"></i>2. Tentukan klasifikasi</legend><p class="small text-secondary">Untuk TXT naskah, pilih mapel, kelas, tingkat Dasar/Lanjutan, dan kesulitan bawaan bila perlu. Format berlabel/tabel memakai isian dari berkas.</p><div class="row g-3">
    <div class="col-md-4"><label class="form-label" for="mapel">Mata pelajaran</label><select class="form-select" name="mapel" id="mapel"><option value="">Pilih mata pelajaran</option><?php foreach($subjects as $s): ?><option value="<?php echo html_escape($s['slug']); ?>"<?php echo $values['mapel']===$s['slug']?' selected':''; ?>><?php echo html_escape($s['name']); ?></option><?php endforeach; ?></select></div>
    <div class="col-md-4"><label class="form-label" for="kelas">Kelas</label><select class="form-select" name="kelas" id="kelas"><option value="">Pilih kelas</option><?php foreach(study_grades() as $code=>$g): ?><option value="<?php echo html_escape($code); ?>"<?php echo $values['kelas']===$code?' selected':''; ?>><?php echo html_escape($g['name']); ?></option><?php endforeach; ?></select></div>
    <div class="col-md-4"><label class="form-label" for="tingkat">Tingkat bawaan</label><select class="form-select" name="tingkat" id="tingkat"><?php foreach(array('basic'=>'Dasar','advanced'=>'Lanjutan') as $code=>$label): ?><option value="<?php echo $code; ?>"<?php echo $values['tingkat']===$code?' selected':''; ?>><?php echo $label; ?></option><?php endforeach; ?></select></div>
+   <div class="col-md-4"><label class="form-label" for="kesulitan">Kesulitan bawaan (opsional)</label><select class="form-select" name="kesulitan" id="kesulitan"><option value=""<?php echo $values['kesulitan']===''?' selected':''; ?>>Tanpa tag</option><?php foreach(array('easy'=>'Mudah','medium'=>'Sedang','hard'=>'Susah') as $key=>$label): ?><option value="<?php echo $key; ?>"<?php echo $values['kesulitan']===$key?' selected':''; ?>><?php echo $label; ?></option><?php endforeach; ?></select></div>
   </div></fieldset>
   <fieldset class="border-top pt-4"><legend class="h5 float-none w-auto"><i class="bi bi-shield-check me-2" aria-hidden="true"></i>3. Lengkapi sumber &amp; izin</legend>
    <div class="row g-3">

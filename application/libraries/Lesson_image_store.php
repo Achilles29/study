@@ -93,7 +93,7 @@ class Lesson_image_store
 
 	public function upload_available()
 	{
-		if ( ! extension_loaded('gd') || ! extension_loaded('fileinfo') || ! function_exists('imagecreatefromstring') || ! function_exists('imagepng') || ! function_exists('imagejpeg') || ! function_exists('getimagesizefromstring') || ! class_exists('finfo')) { return FALSE; }
+		if ( ! extension_loaded('gd') || ! function_exists('imagecreatefromstring') || ! function_exists('imagepng') || ! function_exists('imagejpeg') || ! function_exists('getimagesizefromstring')) { return FALSE; }
 		try
 		{
 			return $this->guarded(function () {
@@ -170,8 +170,9 @@ class Lesson_image_store
 				$bytes = $this->bounded_bytes($path, self::MAX_UPLOAD_BYTES);
 				if ($bytes === FALSE || ($declared_size !== NULL && strlen($bytes) !== $declared_size)) { return $this->failure(); }
 				$mime = $extension === 'png' ? 'image/png' : 'image/jpeg';
-				$info = new finfo(FILEINFO_MIME_TYPE);
-				if ($info->buffer($bytes) !== $mime) { return $this->failure(); }
+				$magic_ok = $extension === 'png' ? substr($bytes, 0, 8) === "\x89PNG\r\n\x1a\n" : substr($bytes, 0, 3) === "\xff\xd8\xff";
+				if ( ! $magic_ok) { return $this->failure(); }
+				if (class_exists('finfo')) { $info = new finfo(FILEINFO_MIME_TYPE); if ($info->buffer($bytes) !== $mime) { return $this->failure(); } }
 				$dimensions = getimagesizefromstring($bytes);
 				if ($dimensions === FALSE || ! isset($dimensions[0], $dimensions[1], $dimensions['mime']) || $dimensions['mime'] !== $mime || $dimensions[0] < 1 || $dimensions[1] < 1 || $dimensions[0] > self::MAX_DIMENSION || $dimensions[1] > self::MAX_DIMENSION || $dimensions[0] * $dimensions[1] > self::MAX_PIXELS) { return $this->failure(); }
 				if ( ! $this->enough_memory($dimensions[0] * $dimensions[1])) { return $this->failure('unavailable'); }

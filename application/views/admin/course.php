@@ -4,6 +4,7 @@
 			<p class="eyebrow">Panel pengelola · <?php echo html_escape(study_course_status_label($course['status'])); ?></p>
 			<h1 class="h2"><?php echo html_escape($course['title']); ?></h1>
 			<p class="text-secondary mb-0"><?php echo html_escape($course['summary']); ?></p>
+			<a class="btn btn-outline-primary btn-sm rounded-pill mt-3" href="#bab-dan-sesi">Lihat semua bab dan sesi</a>
 		</div>
 		<a class="btn btn-light rounded-pill" href="<?php echo site_url('kelola/kursus'); ?>">Kembali ke daftar</a>
 	</div>
@@ -24,9 +25,9 @@
 					<span class="badge rounded-pill text-bg-secondary">Versi <?php echo (int) $course['content_version']; ?></span>
 				</div>
 			</div>
-			<div class="feature-card">
+			<div class="feature-card" id="bab-dan-sesi">
 				<div class="d-flex justify-content-between align-items-center gap-3 mb-3">
-					<div><h2 class="h5 mb-1">Pelajaran</h2><p class="small text-secondary mb-0">Teks, gambar pendamping, dan kartu belajar ditinjau sebagai satu versi kursus.</p></div>
+					<div><h2 class="h5 mb-1">Bab dan sesi pelajaran</h2><p class="small text-secondary mb-0">Teks, gambar pendamping, dan kartu belajar ditinjau sebagai satu versi kursus.</p></div>
 					<?php if ($can_edit): ?><div class="d-flex flex-wrap gap-2">
 							<a class="btn btn-outline-secondary btn-sm rounded-pill" href="<?php echo site_url('kelola/kursus/'.$course['id'].'/susunan'); ?>">Susun bagian dan pelajaran</a>
 						<a class="btn btn-outline-secondary btn-sm rounded-pill" href="<?php echo site_url('kelola/kursus/'.$course['id'].'/edit'); ?>">Edit kursus</a>
@@ -34,12 +35,16 @@
 					</div><?php endif; ?>
 				</div>
 				<?php if ($lessons): ?>
+					<p class="small text-secondary mb-3"><?php echo count(array_unique(array_column($lessons, 'section_id'))); ?> bab · <?php echo count($lessons); ?> sesi. Semua sesi diurutkan menurut babnya.</p>
 					<div class="list-group list-group-flush">
-						<?php foreach ($lessons as $lesson): ?>
+						<?php $current_section_id = NULL; $session_number = 0; foreach ($lessons as $lesson): if ($current_section_id !== (int) $lesson['section_id']): $current_section_id = (int) $lesson['section_id']; $session_number = 0; ?>
+							<div class="list-group-item px-0 bg-light-subtle"><h3 class="h6 fw-bold mb-0"><?php echo html_escape($lesson['section_title']); ?></h3></div>
+						<?php endif; $session_number++; ?>
 							<article class="list-group-item px-0">
 								<div class="d-flex flex-column flex-sm-row justify-content-between gap-3">
 									<div>
-										<h3 class="h6 mb-1"><?php echo html_escape($lesson['title']); ?></h3>
+										<p class="small fw-semibold text-primary mb-1">Sesi <?php echo $session_number; ?></p>
+										<h4 class="h6 mb-1"><?php echo html_escape($lesson['title']); ?></h4>
 										<p class="small text-secondary mb-2"><?php echo html_escape($lesson['section_title']); ?> · <?php echo html_escape(study_rights_status_label($lesson['rights_status'])); ?> · <?php echo (int) $lesson['estimated_minutes']; ?> menit<?php if ((int) $lesson['is_preview'] === 1): ?> · pratinjau gratis<?php endif; ?></p>
 										<p class="mb-0 text-secondary"><?php $plain = trim(strip_tags($lesson['body_text'])); echo html_escape(mb_strimwidth($plain, 0, 280, '…', 'UTF-8')); ?></p>
 									</div>

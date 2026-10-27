@@ -4,8 +4,11 @@
 .site-header-member { position: sticky; top: 0; z-index: 1020; background: #fff; box-shadow: 0 4px 18px #20284412; max-height: 85vh; max-height: 85dvh; overflow-y: auto; }
 .site-header-member .navbar { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; gap: .5rem; }
 .site-header-member .brand-lockup { grid-column: 1; grid-row: 1; margin-right: 0; min-width: 0; }
+.site-header-member .brand-lockup span { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .site-header-member .navbar-toggler { grid-column: 3; grid-row: 1; min-height: 44px; }
-.site-header-member .notification-nav { grid-column: 2; grid-row: 1; min-width: 44px; min-height: 44px; margin: 0; display: inline-flex; align-items: center; justify-content: center; order: 1; }
+.site-header-member .notification-nav { grid-column: 2; grid-row: 1; position: relative; width: 44px; height: 44px; min-width: 44px; min-height: 44px; margin: 0; padding: 0; display: inline-flex; align-items: center; justify-content: center; order: 1; }
+.site-header-member .notification-nav i { font-size: 1.1rem; line-height: 1; }
+.site-header-member .notification-nav .badge { position: absolute; top: -5px; right: -7px; min-width: 1.35rem; margin: 0 !important; padding: .25rem .3rem; }
 .site-header-member .navbar-collapse { grid-column: 1 / -1; grid-row: 3; min-width: 0; }
 .member-donation-badge { grid-column: 1 / -1; grid-row: 2; display: flex; align-items: center; justify-content: center; gap: .5rem; min-height: 44px; padding: .45rem .85rem; border: 1px solid #d59a25; border-radius: 999px; background: #ffe08a; color: #382400; font-weight: 800; text-decoration: none; white-space: nowrap; box-shadow: 0 3px 9px #69450018; }
 .member-donation-badge:hover, .member-donation-badge:active { background: #ffcb4b; color: #382400; }
@@ -13,11 +16,14 @@
 .site-header-member ~ main, .site-header-member ~ main :is(section,h1,h2)[id] { scroll-margin-top: 10rem; }
 @media (min-width: 1200px) {
   .site-header-member { max-height: none; overflow: visible; }
-  .site-header-member .navbar { display: flex; gap: .75rem; }
-  .site-header-member .navbar-collapse { order: 2; }
-  .member-donation-badge { order: 3; flex-direction: column; gap: 0; line-height: 1.2; position: relative; padding-left: 2rem; }
-  .member-donation-badge > i { position: absolute; left: .65rem; }
-  .donation-caption { border: 0; padding: 0; margin-top: .2rem; }
+  .site-header-member .navbar { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; column-gap: 1rem; row-gap: .35rem; align-items: center; padding-top: .7rem !important; padding-bottom: .45rem !important; }
+  .site-header-member .brand-lockup { grid-column: 1; grid-row: 1; justify-self: start; }
+  .site-header-member .notification-nav { grid-column: 2; grid-row: 1; }
+  .member-donation-badge { grid-column: 3; grid-row: 1; width: auto; min-height: 42px; padding: .4rem .85rem; }
+  .site-header-member .navbar-collapse { grid-column: 1 / -1; grid-row: 2; width: 100%; display: flex; align-items: center; justify-content: space-between; border-top: 1px solid #edf0f5; padding-top: .2rem; }
+  .site-header-member .navbar-nav { flex: 1 1 auto; justify-content: flex-start; margin-left: 0 !important; margin-right: 0 !important; min-width: 0; }
+  .site-header-member .navbar-nav .nav-link { white-space: nowrap; }
+  .site-header-member .navbar-collapse > .d-flex { flex: 0 0 auto; }
 }
 .text-secondary, .form-text { color: var(--muted) !important; }
 .btn { font-weight: 650; min-height: 44px; align-content: center; }
@@ -78,6 +84,7 @@ body.theme-child-secondary .dashboard-welcome { background: linear-gradient(115d
 .learning-hero > div { flex: 1; min-width: 0; }
 .learning-hero h1 { font-size: clamp(1.8rem, 3.6vw, 2.8rem); line-height: 1.14; }
 .learning-hero-art { display: block; width: clamp(12rem, 28%, 21rem); height: auto; border-radius: 1.25rem; flex-shrink: 0; }
+.pijar-dashboard-art { width: clamp(11rem, 25%, 18rem); max-height: 16rem; object-fit: contain; border-radius: 0; filter: drop-shadow(0 18px 24px #10183f36); }
 .dashboard-shortcuts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
 .dashboard-shortcut { display: flex; align-items: center; gap: .85rem; border: 1px solid #b7afd9; border-radius: 1.2rem; padding: 1.25rem; text-decoration: none; min-width: 0; transition: transform .15s ease; }
 .dashboard-shortcut:hover { transform: translateY(-3px); text-decoration: underline; }
@@ -100,6 +107,7 @@ body.theme-child-secondary .dashboard-welcome { background: linear-gradient(115d
 .auth-learning-panel p { color: #edf0ff; margin-bottom: 0; }
 .auth-kicker { display: block; color: #ffe59c; font-weight: 650; font-size: .875rem; }
 .auth-learning-panel img { width: 100%; height: auto; border-radius: 1.25rem; }
+.auth-learning-panel .auth-pijar-art { max-height: 21rem; object-fit: contain; border-radius: 0; filter: drop-shadow(0 18px 25px #07162d55); }
 .auth-learning-tags { display: flex; flex-wrap: wrap; gap: .65rem; }
 .auth-learning-tags span { font-size: .8rem; background: #1c354d; border: 1px solid #68839e; padding: .5rem .7rem; border-radius: 2rem; color: #fff; }
 .signup-steps { padding: 0; margin: 1.5rem 0; list-style: none; display: grid; gap: .8rem; }
@@ -146,6 +154,8 @@ body.theme-child-secondary .dashboard-welcome { background: linear-gradient(115d
   .learning-hero h1 { font-size: 1.65rem; }
   .dashboard-page .learning-hero { flex-direction: column; position: relative; }
   .dashboard-page .learning-hero-art { display: none; }
+	.dashboard-page .pijar-dashboard-art { display: block; position: absolute; right: -.75rem; bottom: -.65rem; width: 7.25rem; max-height: 8rem; opacity: .92; }
+	.dashboard-page .learning-hero > div { padding-right: 4.25rem; }
   .dashboard-shortcuts { grid-template-columns: minmax(0, 1fr); }
   .dashboard-shortcut { flex-wrap: nowrap; }
   .account-utility > .d-flex { width: 100%; }

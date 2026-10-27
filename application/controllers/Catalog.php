@@ -33,9 +33,9 @@ class Catalog extends MY_Controller
 			$target_group_labels[$target_group] = study_target_group_label($target_group);
 		}
 		$this->render_page('catalog/index', array(
-			'page_title' => 'Materi dan Latihan Soal SD Kelas 1–6'.($page > 1 ? ' · Halaman '.$page : ''),
+			'page_title' => 'Materi Kursus SD, SMP, dan SMA'.($page > 1 ? ' · Halaman '.$page : ''),
 			'courses' => $this->Content_model->list_courses($filters, $per_page, ($page - 1) * $per_page, TRUE),
-			'categories' => $this->Content_model->list_categories(TRUE),
+			'categories' => $this->Content_model->list_published_categories(),
 			'filters' => $filters,
 			'total_rows' => $total_rows,
 			'has_filters' => $filters['q'] !== '' || $filters['category_id'] > 0 || $filters['kelas'] !== '',
@@ -109,6 +109,7 @@ class Catalog extends MY_Controller
 		if ($lesson_image === FALSE) { show_error('Gambar pendamping belum dapat dimuat. Coba buka materi kembali.', 503, 'Materi belum tersedia'); return; }
 		$progress = $this->current_user ? $this->Content_model->get_lesson_progress($this->current_user['id'], $lesson['id']) : NULL;
 		$next_lesson = $this->Content_model->get_next_accessible_lesson($this->current_user ? $this->current_user['id'] : 0, $lesson['course_id'], $lesson['id']);
+		$previous_lesson = $this->Content_model->get_previous_accessible_lesson($this->current_user ? $this->current_user['id'] : 0, $lesson['course_id'], $lesson['id']);
 		$this->load->model('Flashcard_model');
 		$flashcard_deck = $this->Flashcard_model->get_published_deck_for_lesson($lesson['id']);
 		$flashcards = $flashcard_deck ? $this->Flashcard_model->get_published_cards($flashcard_deck['id'], $this->current_user ? $this->current_user['id'] : 0) : array();
@@ -133,6 +134,7 @@ class Catalog extends MY_Controller
 			'lesson_image' => $lesson_image,
 			'lesson_progress' => $progress,
 			'next_lesson' => $next_lesson,
+			'previous_lesson' => $previous_lesson,
 			'flashcard_deck' => $flashcard_deck,
 			'flashcards' => $flashcards,
 			'can_play_matching' => count($this->matching_cards->eligible($flashcards)) >= 2,

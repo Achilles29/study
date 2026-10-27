@@ -144,6 +144,13 @@ class Practice extends MY_Controller
 		$error = NULL;
 		if ($this->input->method(TRUE) === 'POST')
 		{
+			if ($this->input->post('sheet_presence') === '1') {
+				$this->load->model('Practice_live_model');
+				$question_id = $this->input->post('current_question_id', FALSE);
+				if (!is_string($question_id) || !preg_match('/\A[1-9][0-9]{0,18}\z/', $question_id) || !$this->Practice_live_model->mark_seen($attempt, (int)$question_id)) { show_404(); return; }
+				$this->sheet_response($attempt);
+				return;
+			}
 			$answers = $this->input->post('answers', FALSE);
 			$json = $this->input->post('answers_json', FALSE);
 			if ($json !== NULL) {
@@ -193,6 +200,7 @@ class Practice extends MY_Controller
 		}
 		$can_retry = $attempt['session_type'] === 'course_quiz' && $this->Practice_model->course_access($this->current_user['id'], $this->Content_model->get_course($attempt['course_id']));
 		$result_page = $attempt['status'] === 'graded' && $view !== 'review';
+		$this->load->model('Practice_live_model');
 		$this->render_page($result_page ? 'practice/result' : 'practice/attempt', array(
 			'page_title' => $attempt['status'] === 'graded' ? ($result_page ? 'Nilai latihan' : 'Pembahasan latihan') : 'Kerjakan latihan',
 			'attempt' => $attempt,
@@ -203,6 +211,7 @@ class Practice extends MY_Controller
 			'deadline' => $this->Practice_model->deadline($attempt),
 			'sheet' => $this->Practice_model->sheet_state($attempt),
 			'load_practice_sheet_script' => !$result_page,
+			'parent_live_enabled' => $this->Practice_live_model->enabled_for_attempt($attempt),
 			'load_unsaved_form_script' => FALSE
 		));
 	}
@@ -228,7 +237,14 @@ class Practice extends MY_Controller
 		if(!$attempt && $this->current_user['account_kind']==='parent'){
 			$this->load->model('Family_practice_model');
 			$owner=$this->db->select('learner_user_id')->where('id',(int)$attempt_id)->get('st_practice_attempts')->row_array();
-			if($owner){$attempt=$this->Family_practice_model->result($this->current_user['id'],$owner['learner_user_id'],$attempt_id);}
+			if($owner){
+				$attempt=$this->Family_practice_model->result($this->current_user['id'],$owner['learner_user_id'],$attempt_id);
+				if(!$attempt){
+					$candidate=$this->Family_practice_model->live_attempt($this->current_user['id'],$owner['learner_user_id'],$attempt_id);
+					$this->load->model('Practice_live_model');
+					if($candidate&&$this->Practice_live_model->enabled_for_attempt($candidate)&&$this->Practice_model->can_read_attempt($candidate,$owner['learner_user_id']))$attempt=$candidate;
+				}
+			}
 		}
 		if(!$attempt && in_array('system_admin',$this->current_user['roles'],TRUE)){
 			$owner=$this->db->select('learner_user_id')->where('id',(int)$attempt_id)->get('st_practice_attempts')->row_array();

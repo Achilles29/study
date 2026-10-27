@@ -1,0 +1,18 @@
+{
+  "responsiveViews": 22,
+  "widths": [
+    1440,
+    390,
+    320
+  ],
+  "intervalSave": "720 minutes persisted",
+  "dailySave": "08:45 WIB persisted",
+  "templatePreview": "plain text; no HTML execution",
+  "invalidTemplate": "400 with input preserved",
+  "staleRevision": "409; reload required",
+  "nonAdmin": "403",
+  "browserErrors": [],
+  "externalMessages": 0,
+  "backend": "PASS: event collection, batching, interval/daily WIB, empty suppression, downtime, dedup, transaction rollback, synthetic delivery, target cancellation",
+  "production": "Migration 62 applied; traffic every 360 minutes; worker observed healthy"
+}

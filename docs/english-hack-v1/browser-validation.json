@@ -1,0 +1,44 @@
+{
+  "answers_checked": 336,
+  "mobile_widths": [
+    {
+      "tab": "overview",
+      "client": 390,
+      "scroll": 390
+    },
+    {
+      "tab": "roadmap",
+      "client": 390,
+      "scroll": 390
+    },
+    {
+      "tab": "studio",
+      "client": 390,
+      "scroll": 390
+    },
+    {
+      "tab": "atlas",
+      "client": 390,
+      "scroll": 390
+    },
+    {
+      "tab": "method",
+      "client": 390,
+      "scroll": 390
+    },
+    {
+      "tab": "tracks",
+      "client": 390,
+      "scroll": 390
+    },
+    {
+      "tab": "sources",
+      "client": 390,
+      "scroll": 390
+    }
+  ],
+  "browser_errors": [],
+  "static_book": "56 units / 364 objective questions / 112 production tasks, JavaScript disabled",
+  "application": "anonymous redirected; admin preview 200/no-store; valid download attachment; invalid download 404; desktop/mobile render",
+  "non_admin": "403 for preview and download"
+}

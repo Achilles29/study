@@ -8,7 +8,7 @@ class Standalone_model extends CI_Model
  public function availability($grade)
  {
   $args=array();$where='';if($grade!==''){$where=' AND s.grade_id=?';$args[]=study_grades()[$grade]['id']??0;}
-  return $this->Bank_model->rows("SELECT s.subject_id,s.grade_id,c.name subject_name,g.name grade_name,COUNT(DISTINCT s.question_id) total FROM st_bank_scopes s JOIN st_questions q ON q.id=s.question_id JOIN st_categories c ON c.id=s.subject_id JOIN st_learning_grades g ON g.id=s.grade_id WHERE q.status='published' AND c.status='active'$where GROUP BY s.subject_id,s.grade_id,c.name,g.name ORDER BY g.sort_order,c.name",$args);
+  return $this->Bank_model->rows("SELECT s.subject_id,s.grade_id,c.name subject_name,g.name grade_name,COUNT(DISTINCT s.question_id) total,COUNT(DISTINCT CASE WHEN b.question_difficulty='easy' THEN s.question_id END) easy_total,COUNT(DISTINCT CASE WHEN b.question_difficulty='medium' THEN s.question_id END) medium_total,COUNT(DISTINCT CASE WHEN b.question_difficulty='hard' THEN s.question_id END) hard_total,COUNT(DISTINCT CASE WHEN b.question_difficulty IS NULL THEN s.question_id END) untagged_total FROM st_bank_scopes s JOIN st_questions q ON q.id=s.question_id JOIN st_bank_questions b ON b.question_id=q.id JOIN st_categories c ON c.id=s.subject_id JOIN st_learning_grades g ON g.id=s.grade_id WHERE q.status='published' AND c.status='active'$where GROUP BY s.subject_id,s.grade_id,c.name,g.name ORDER BY g.sort_order,c.name",$args);
  }
  public function quota($user)
  {
@@ -21,9 +21,10 @@ class Standalone_model extends CI_Model
  {
   if(!is_string($key)||!preg_match('/\A[a-f0-9]{64}\z/',$key)){return array('ok'=>FALSE,'code'=>400);}
   if(!$exam_id){
-   unset($v['difficulty']); // Legacy form field no longer filters or sells access.
+   unset($v['difficulty']); // Legacy Dasar/Lanjutan field never filters access.
+   $v['question_difficulty']=$v['question_difficulty']??'';
    foreach(array('grade_id','subject_id','count','minutes','option_shuffle') as $k){if(!is_string($v[$k]??NULL)){return array('ok'=>FALSE,'code'=>400);}}
-   if(!Practice_sheet::validate($v)||!study_child_grade($v['grade_id'])||!ctype_digit($v['subject_id'])||!ctype_digit($v['count'])||(int)$v['count']<1||(int)$v['count']>50||!ctype_digit($v['minutes'])||(int)$v['minutes']>180||!in_array($v['option_shuffle'],array('0','1'),TRUE)){return array('ok'=>FALSE,'code'=>400);}
+   if(!Practice_sheet::validate($v)||!study_child_grade($v['grade_id'])||!ctype_digit($v['subject_id'])||!ctype_digit($v['count'])||(int)$v['count']<1||(int)$v['count']>50||!ctype_digit($v['minutes'])||(int)$v['minutes']>180||!in_array($v['option_shuffle'],array('0','1'),TRUE)||!is_string($v['question_difficulty'])||!in_array($v['question_difficulty'],array('','easy','medium','hard'),TRUE)){return array('ok'=>FALSE,'code'=>400);}
   }
   return $this->study_transaction->run($this->db,function()use($user,$v,$key,$exam_id){
    // Bank guard serializes snapshots with central question edits; learner lock protects quotas.
@@ -38,14 +39,15 @@ class Standalone_model extends CI_Model
     if((int)$exam['credit_price']>0&&!$this->Feature_credit_model->owns($actor['id'],'exam',$exam_id)){return array('ok'=>FALSE,'code'=>403,'message'=>'Buka akses Simulasi Ujian ini terlebih dahulu.');}
     $start=(new DateTimeImmutable('today',new DateTimeZone('Asia/Jakarta')))->setTimezone(new DateTimeZone('UTC'))->format('Y-m-d H:i:s');
     $this->load->model('Lifetime_model');$used=(int)$this->Bank_model->rows('SELECT COUNT(*) n FROM st_drill_sessions d JOIN st_practice_sessions s ON s.id=d.session_id WHERE d.exam_id=? AND s.learner_user_id=? AND s.created_at>=?',array($exam_id,$actor['id'],$start))[0]['n'];if(!$this->Lifetime_model->covered($actor['id'])&&$used>=(int)$exam['max_daily']){return array('ok'=>FALSE,'code'=>409,'message'=>'Batas percobaan simulasi ini untuk hari ini sudah tercapai.');}
-    $ids=array_column($this->Exam_model->questions($exam_id),'id');$minutes=(int)$exam['duration_minutes'];$shuffle=(bool)$exam['option_shuffle'];$title='Simulasi Ujian · '.$exam['title'];if($exam['question_shuffle']){shuffle($ids);}
+    $ids=array_column($this->Exam_model->questions($exam_id),'id');$minutes=(int)$exam['duration_minutes'];$shuffle=(bool)$exam['option_shuffle'];$title='Simulasi Ujian · '.$exam['title'];if($exam['question_shuffle']){shuffle($ids);}if((int)($exam['draw_count']??0)>0){if(count($ids)<(int)$exam['draw_count'])return array('ok'=>FALSE,'code'=>409,'message'=>'Kumpulan soal simulasi belum mencukupi jumlah per sesi.');$ids=array_slice($ids,0,(int)$exam['draw_count']);}
     $settings=array('exam_revision'=>(int)$exam['revision'],'grade_id'=>(int)$exam['grade_id']);
    }else{
     $quota=$this->quota($actor['id']);if(!$quota['unlimited']&&$quota['used']>=$quota['limit']){return array('ok'=>FALSE,'code'=>409,'message'=>'Kuota hari ini habis. Lanjut besok atau minta orang tua menambah kuota.');}
     $subject=$this->Bank_model->rows("SELECT name FROM st_categories WHERE id=? AND status='active'",array($v['subject_id']))[0]??NULL;if(!$subject){return array('ok'=>FALSE,'code'=>400);}
-    $ids=array_column($this->Bank_model->rows("SELECT q.id FROM st_questions q WHERE q.status='published' AND EXISTS(SELECT 1 FROM st_bank_scopes s WHERE s.question_id=q.id AND s.subject_id=? AND s.grade_id=?) ORDER BY RAND() LIMIT ".(int)$v['count'],array($v['subject_id'],$v['grade_id'])),'id');
-    if(count($ids)!==(int)$v['count']){return array('ok'=>FALSE,'code'=>409,'message'=>'Jumlah soal aktif belum cukup. Pilih jumlah lebih kecil sesuai ketersediaan. Kuota tidak berkurang.');}
-    $minutes=(int)$v['minutes'];$shuffle=$v['option_shuffle']==='1';$title='Latihan Mandiri · '.$subject['name'].' · '.study_grade_label($v['grade_id']);$settings=$v;
+    $args=array($v['subject_id'],$v['grade_id']);$tag_filter='';if($v['question_difficulty']!==''){$tag_filter=' AND b.question_difficulty=?';$args[]=$v['question_difficulty'];}
+    $ids=array_column($this->Bank_model->rows("SELECT q.id FROM st_questions q JOIN st_bank_questions b ON b.question_id=q.id WHERE q.status='published' AND EXISTS(SELECT 1 FROM st_bank_scopes s WHERE s.question_id=q.id AND s.subject_id=? AND s.grade_id=?)$tag_filter ORDER BY RAND() LIMIT ".(int)$v['count'],$args),'id');
+    if(count($ids)!==(int)$v['count']){return array('ok'=>FALSE,'code'=>409,'message'=>'Soal aktif pada kelas, mapel, dan kesulitan pilihan belum cukup. Pilih jumlah lebih kecil atau gunakan campuran. Kuota tidak berkurang.');}
+    $minutes=(int)$v['minutes'];$shuffle=$v['option_shuffle']==='1';$title='Latihan Mandiri · '.$subject['name'].' · '.study_grade_label($v['grade_id']).($v['question_difficulty']!==''?' · '.array('easy'=>'Mudah','medium'=>'Sedang','hard'=>'Susah')[$v['question_difficulty']]:'');$settings=$v;
    }
    if(!$ids||(!$exam&&count($ids)>50)){return array('ok'=>FALSE,'code'=>409,'message'=>'Belum ada soal yang dapat dikerjakan. Hubungi pengelola.');}$snapshots=array();
    foreach($ids as $id){$q=$this->Bank_model->get($id);if(!$q||$q['status']!=='published'||count($q['options'])!==4||array_sum(array_column($q['options'],'is_correct'))!==1){return array('ok'=>FALSE,'code'=>409,'message'=>'Ada soal yang belum siap. Pengelola perlu memeriksanya.');}if($shuffle){shuffle($q['options']);}$snapshots[$id]=array('prompt'=>$q['prompt'],'explanation'=>$q['explanation'],'content_version'=>(int)$q['content_version'],'options'=>$q['options'],'image'=>$q['image']);}

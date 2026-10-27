@@ -9,28 +9,29 @@ function study_admin_menu($roles, $view, $section = '')
 	$items = array(
 		array('Ringkasan', 'Dashboard', 'kelola', 'bi-grid-1x2', $all, 'dashboard'),
 		array('Pengguna & keluarga', 'Direktori pengguna', 'kelola/pengguna', 'bi-people', $owner, 'users'),
-		array('Pembelajaran', 'Kursus & materi', 'kelola/kursus', 'bi-journal-richtext', $content, 'courses'),
-		array('Pembelajaran', 'Bank soal mandiri', 'kelola/bank-soal', 'bi-collection', $owner, 'bank'),
-		array('Pembelajaran', 'Simulasi Ujian', 'kelola/simulasi-ujian', 'bi-ui-checks', $owner, 'exams'),
-		array('Pembelajaran', 'Data master', 'kelola/kategori', 'bi-tags', $content, 'categories'),
-		array('Pembelajaran', 'Arena Belajar', 'kelola/arena', 'bi-controller', $owner, 'arena'),
-		array('Pembelajaran', 'Akses kredit Arena', 'kelola/akses-arena', 'bi-unlock', $owner, 'arena_access'),
-		array('Pembelajaran', 'Moderasi battle', 'kelola/battle', 'bi-shield-check', $owner, 'battle'),
-		array('Pembelajaran', 'Progres pengguna', 'kelola/pembelajaran', 'bi-graph-up', $owner, 'learning'),
-		array('Pembelajaran', 'Progres per modul', 'kelola/pembelajaran/modul', 'bi-collection', $owner, 'modules'),
-		array('Pembelajaran', 'Rapor belajar', 'kelola/rapor', 'bi-file-earmark-bar-graph', $owner, 'reports'),
-		array('Pembelajaran', 'Poin & penukaran', 'kelola/poin', 'bi-award', $owner, 'points'),
-		array('Operasional', 'Jejak audit', 'kelola/audit', 'bi-shield-check', $owner, 'audit'),
-		array('Operasional', 'Kotak Bantuan', 'kelola/bantuan', 'bi-chat-left-text', $owner, 'help'),
-		array('Operasional', 'Notifikasi', 'notifikasi', 'bi-envelope', $owner, 'notifications'),
-		array('Operasional', 'Moderasi ulasan', 'kelola/ulasan', 'bi-star', $owner, 'reviews'),
-		array('Pengaturan', 'Telegram', 'kelola/pengaturan/telegram', 'bi-telegram', $owner, 'telegram'),
-		array('Operasional', 'Kesehatan aplikasi', 'kelola/operasional', 'bi-activity', $owner, 'operations'),
-		array('Trafik & analitik', 'Analitik trafik', 'kelola/trafik', 'bi-bar-chart', $owner, 'traffic'),
+		array('Konten & ujian', 'Kursus & materi', 'kelola/kursus', 'bi-journal-richtext', $content, 'courses'),
+		array('Konten & ujian', 'English Hack', 'kelola/kelas-inggris', 'bi-mortarboard', $owner, 'english_course'),
+		array('Konten & ujian', 'Bank soal mandiri', 'kelola/bank-soal', 'bi-collection', $owner, 'bank'),
+		array('Konten & ujian', 'Simulasi ujian', 'kelola/simulasi-ujian', 'bi-ui-checks', $owner, 'exams'),
+		array('Konten & ujian', 'Data master', 'kelola/kategori', 'bi-tags', $content, 'categories'),
+		array('Aktivitas belajar', 'Progres pengguna', 'kelola/pembelajaran', 'bi-graph-up', $owner, 'learning'),
+		array('Aktivitas belajar', 'Progres per modul', 'kelola/pembelajaran/modul', 'bi-collection', $owner, 'modules'),
+		array('Aktivitas belajar', 'Rapor belajar', 'kelola/rapor', 'bi-file-earmark-bar-graph', $owner, 'reports'),
+		array('Aktivitas belajar', 'Arena Belajar', 'kelola/arena', 'bi-controller', $owner, 'arena'),
+		array('Aktivitas belajar', 'Akses kredit Arena', 'kelola/akses-arena', 'bi-unlock', $owner, 'arena_access'),
+		array('Aktivitas belajar', 'Moderasi battle', 'kelola/battle', 'bi-shield-check', $owner, 'battle'),
+		array('Aktivitas belajar', 'Poin & penukaran', 'kelola/poin', 'bi-award', $owner, 'points'),
+		array('Komunitas', 'Kotak bantuan', 'kelola/bantuan', 'bi-chat-left-text', $owner, 'help'),
+		array('Komunitas', 'Moderasi ulasan', 'kelola/ulasan', 'bi-star', $owner, 'reviews'),
 		array('Paket & pembayaran', 'Paket, kredit & voucher', 'kelola/paket', 'bi-wallet2', $owner, 'commerce'),
 		array('Paket & pembayaran', 'Pesanan & rekonsiliasi', 'kelola/pesanan', 'bi-receipt', $owner, 'orders'),
 		array('Paket & pembayaran', 'Donasi', 'kelola/donasi', 'bi-heart', $owner, 'donations'),
-		array('Paket & pembayaran', 'Kredit & ledger', 'kelola/kredit', 'bi-journal-text', $owner, 'wallets'),
+		array('Paket & pembayaran', 'Kredit & riwayat', 'kelola/kredit', 'bi-journal-text', $owner, 'wallets'),
+		array('Trafik & operasional', 'Analitik trafik', 'kelola/trafik', 'bi-bar-chart', $owner, 'traffic'),
+		array('Trafik & operasional', 'Kesehatan aplikasi', 'kelola/operasional', 'bi-activity', $owner, 'operations'),
+		array('Trafik & operasional', 'Jejak audit', 'kelola/audit', 'bi-shield-check', $owner, 'audit'),
+		array('Komunikasi', 'Notifikasi', 'notifikasi', 'bi-envelope', $owner, 'notifications'),
+		array('Komunikasi', 'Telegram', 'kelola/pengaturan/telegram', 'bi-telegram', $owner, 'telegram'),
 		array('Pengaturan', 'Pusat pengaturan', 'kelola/pengaturan', 'bi-gear', $owner, 'settings')
 	);
 	if ($section === '')
@@ -78,7 +79,7 @@ function study_page_seo($view, $data, $user)
 	if ($view === 'catalog/index')
 	{
 		$canonical = site_url('kursus');
-		$description = 'Pilih materi dan latihan soal SD kelas 1–6 di '.($data['site_settings']['brand_name'] ?? 'Project Pintar').'. Belajar Matematika, Bahasa Indonesia, Bahasa Inggris, dan mapel lain sesuai kelas.';
+		$description = 'Pilih materi kursus SD, SMP, dan SMA di '.($data['site_settings']['brand_name'] ?? 'Project Pintar').'. Belajar bertahap menurut kelas, bab, dan mata pelajaran.';
 		if ( ! empty($data['has_filters'])) { $index = FALSE; }
 		if (($data['page'] ?? 1) > 1) { $canonical .= '?halaman='.(int) $data['page']; }
 	}
@@ -93,7 +94,7 @@ function study_page_seo($view, $data, $user)
 		$canonical=site_url($data['path']);
 		$description=study_seo_excerpt($data['page_title'].'. '.$data['intro']);
 	}
-	elseif ($view === 'catalog/lesson' && !empty($data['public_lesson']) && empty($data['is_content_preview']))
+	elseif ($view === 'catalog/lesson' && !empty($data['lesson']['is_free']) && empty($data['is_content_preview']))
 	{
 		$index=!$user;
 		$canonical=site_url('materi/'.$data['lesson']['slug']);

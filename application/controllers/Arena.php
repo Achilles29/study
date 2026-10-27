@@ -52,6 +52,7 @@ class Arena extends MY_Controller
 		}
 		if ($type === 'english')
 		{
+			if ($this->get_scalar_query_param('versi', 8) !== 'lama') { redirect('belajar/kelas-inggris', 'location', 303); return; }
 			$packs = study_grade_arena($this->arena->english_catalog($this->current_user['id']), $kelas); $settings = $this->arena->english_settings(); $arena_settings = $this->arena->settings();
 			$this->render_page('arena/english', compact('packs', 'settings', 'arena_settings', 'kelas') + array('page_title' => 'Kelas Bahasa Inggris', 'running' => $this->arena->running($this->current_user['id']))); return;
 		}

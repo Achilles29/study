@@ -10,6 +10,7 @@ class Site_settings
 				'enabled'=>array('label'=>'Persetujuan pemetaan level & harga Arena (lihat Kelola akses Arena dahulu)','type'=>'select','options'=>array('0'=>'Draft — permainan tetap mengikuti akses sebelumnya','1'=>'Setujui dan aktifkan: level 1–2 gratis, berikutnya kredit'),'default'=>'0')
 			)),
 			'latihan_mandiri' => array('title'=>'Latihan Mandiri & Simulasi Ujian','fields'=>array(
+				'parent_live_enabled'=>array('label'=>'Orang tua tertaut dapat memantau soal dan jawaban latihan yang sedang berlangsung','type'=>'select','options'=>array('0'=>'Nonaktif','1'=>'Aktif (simulasi tetap memerlukan izin per ujian)'),'default'=>'0'),
 				'daily_free'=>array('label'=>'Sesi Latihan Mandiri gratis per akun per hari WIB','type'=>'select','options'=>array('3'=>'3 sesi','5'=>'5 sesi','10'=>'10 sesi'),'default'=>'3'),
 				'extra_count'=>array('label'=>'Tambahan sesi untuk satu penukaran kuota harian','type'=>'select','options'=>array('5'=>'5 sesi','10'=>'10 sesi'),'default'=>'5'),
 				'extra_price'=>array('label'=>'Draft harga tambahan kuota (kredit, satu kali per penerima per hari)','type'=>'select','options'=>array('5'=>'5 kredit','10'=>'10 kredit','20'=>'20 kredit'),'default'=>'10'),
@@ -64,7 +65,7 @@ class Site_settings
 				'google_site_verification' => array('label'=>'Kode verifikasi Google Search Console (nilai content saja, opsional)', 'type'=>'text', 'max'=>160, 'required'=>FALSE, 'default'=>''),
 				'seo_description' => array('label' => 'Deskripsi beranda untuk mesin pencari', 'type' => 'textarea', 'max' => 180, 'required' => TRUE, 'default' => 'Latihan soal online SD kelas 1–6 dengan pembahasan, materi gratis, dan flashcard. Belajar Matematika, Bahasa Indonesia, dan Bahasa Inggris bersama Project Pintar.'),
 				'support_email' => array('label' => 'Email dukungan (opsional, tampil publik)', 'type' => 'email', 'max' => 190, 'required' => FALSE, 'default' => ''),
-				'brand_icon' => array('label' => 'Simbol merek', 'type' => 'select', 'options' => array('bi-stars' => 'Bintang', 'bi-book' => 'Buku', 'bi-lightbulb' => 'Ide belajar'), 'default' => 'bi-stars')
+				'brand_icon' => array('label' => 'Simbol cadangan (logo resmi tetap Pijar)', 'type' => 'select', 'options' => array('bi-stars' => 'Bintang', 'bi-book' => 'Buku', 'bi-lightbulb' => 'Ide belajar'), 'default' => 'bi-stars')
 			)),
 			'arena' => array('title' => 'Arena Belajar', 'fields' => array(
 				'cards' => array('label' => 'Flashcard mandiri per babak (TK selalu 5)', 'type' => 'select', 'options' => array('5' => '5 kartu', '10' => '10 kartu', '15' => 'Hingga 15 kartu'), 'default' => '15'),

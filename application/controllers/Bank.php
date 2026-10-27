@@ -5,8 +5,8 @@ class Bank extends MY_Controller
  public function __construct(){parent::__construct();$this->require_role(array('system_admin'));$this->load->model('Bank_model');$this->load->library(array('question_import','lesson_image_store','question_image_upload'));$this->output->set_header('Cache-Control: private, no-store')->set_header('X-Robots-Tag: noindex, nofollow');}
  public function index()
  {
-  $this->require_http_methods(array('GET','HEAD'));$grade=study_grade_filter();$subject=$this->get_scalar_query_param('mapel',10);$status=$this->input->get('status',FALSE)??'all';if(!in_array($status,array('all','draft','published','archived'),TRUE)||($subject!==''&&!ctype_digit($subject))){show_error('Filter bank soal tidak valid.',400);return;}
-  $report=$this->Bank_model->listing($grade,(int)$subject,$status,$this->get_positive_query_int('halaman'));$subjects=$this->Bank_model->subjects();$this->render_page('admin/bank/index',compact('report','grade','subject','status','subjects')+array('page_title'=>'Bank soal mandiri','admin_section'=>'bank'));
+  $this->require_http_methods(array('GET','HEAD'));$grade=study_grade_filter();$subject=$this->get_scalar_query_param('mapel',10);$status=$this->input->get('status',FALSE)??'all';$question_difficulty=$this->get_scalar_query_param('kesulitan',12);if(!in_array($status,array('all','draft','published','archived'),TRUE)||!in_array($question_difficulty,array('','easy','medium','hard','untagged'),TRUE)||($subject!==''&&!ctype_digit($subject))){show_error('Filter bank soal tidak valid.',400);return;}
+  $report=$this->Bank_model->listing($grade,(int)$subject,$status,$this->get_positive_query_int('halaman'),$question_difficulty);$subjects=$this->Bank_model->subjects();$this->render_page('admin/bank/index',compact('report','grade','subject','status','question_difficulty','subjects')+array('page_title'=>'Bank soal mandiri','admin_section'=>'bank'));
  }
  public function edit($id='0')
  {
@@ -16,7 +16,7 @@ class Bank extends MY_Controller
    if(!$r['ok']){show_error('Klasifikasi belum dilepas. Sisakan minimal satu klasifikasi; kelas yang masih dirujuk simulasi tidak boleh dilepas. Muat ulang jika revisi berubah.', $r['code']??503);return;}$this->session->set_flashdata('success','Klasifikasi dilepas untuk pemilihan sesi baru. Soal dan hasil lama tetap tersimpan.');redirect('kelola/bank-soal/'.$id,'location',303);return;
   }
   $values=array_fill_keys(Question_import::HEADERS,'');$values+=array('rights_status'=>'owned','source_note'=>'','status'=>'draft','revision'=>'0');$values['tingkat']='basic';$values['kunci']='A';
-  if($record){$scope=$record['scopes'][0];$values=array_replace($values,array('soal'=>$record['prompt'],'bahasan'=>$record['explanation'],'rights_status'=>$record['rights_status'],'source_note'=>$record['source_note'],'status'=>$record['status'],'revision'=>(string)$record['content_version'],'mapel'=>array_column($subjects,'slug','id')[$scope['subject_id']]??'','kelas'=>study_grade_code($scope['grade_id']),'tingkat'=>$scope['difficulty']));foreach($record['options'] as $i=>$o){$values[strtolower(chr(65+$i))]=$o['option_text'];if($o['is_correct']){$values['kunci']=chr(65+$i);}}}
+  if($record){$scope=$record['scopes'][0];$values=array_replace($values,array('soal'=>$record['prompt'],'bahasan'=>$record['explanation'],'kesulitan'=>$record['question_difficulty']??'','rights_status'=>$record['rights_status'],'source_note'=>$record['source_note'],'status'=>$record['status'],'revision'=>(string)$record['content_version'],'mapel'=>array_column($subjects,'slug','id')[$scope['subject_id']]??'','kelas'=>study_grade_code($scope['grade_id']),'tingkat'=>$scope['difficulty']));foreach($record['options'] as $i=>$o){$values[strtolower(chr(65+$i))]=$o['option_text'];if($o['is_correct']){$values['kunci']=chr(65+$i);}}}
   $existing_images=array();
   if(!empty($record['image'])){
    foreach(array_merge(array($record['image']),$record['image']['additional_images']??array()) as $i=>$im){
@@ -43,8 +43,8 @@ class Bank extends MY_Controller
     if(isset($_FILES['image']) && ($_FILES['image']['error']??UPLOAD_ERR_NO_FILE)!==UPLOAD_ERR_NO_FILE){$upload=$this->lesson_image_store->from_upload($_FILES['image']);if($upload['status']!=='ok'){throw new RuntimeException($upload['message']);}$uploaded['question-image']=$upload['image'];$images=array('question-image'=>$upload['image']);$values['gambar']='question-image';}
     $questions=$this->Bank_model->normalize_rows(array($values),$values['rights_status'],$values['source_note'],$images);
     $keep_images=TRUE;$r=$this->Bank_model->save($this->current_user,(int)$id,$values['revision'],$questions[0],$values['status']);
-    if(!$r['ok']){$this->output->set_status_header($r['code']??503);throw new RuntimeException(isset($r['existing_id'])?'Isi sama dengan soal #'.$r['existing_id'].'. Gunakan ID itu; penggabungan riwayat tidak dilakukan otomatis.':'Soal berubah atau penyimpanan belum berhasil. Muat ulang sebelum mencoba lagi.');}
-    $this->session->set_flashdata('success',!empty($r['reused'])?'Soal identik sudah ada; ID tersebut dipakai dan kelas/mapel ditambahkan. Isi/status lama tidak ditimpa.':'Soal tersimpan. Percobaan yang sudah dimulai tetap memakai salinan historis.');redirect('kelola/bank-soal/'.$r['id'],'location',303);return;
+    if(!$r['ok']){$this->output->set_status_header($r['code']??503);throw new RuntimeException($r['message']??(isset($r['existing_id'])?'Isi sama dengan soal #'.$r['existing_id'].'. Gunakan ID itu; penggabungan riwayat tidak dilakukan otomatis.':'Soal berubah atau penyimpanan belum berhasil. Muat ulang sebelum mencoba lagi.'));}
+    $this->session->set_flashdata('success',!empty($r['reused'])?'Soal identik sudah ada; ID tersebut dipakai dan kelas/mapel ditambahkan. Isi, status, dan tag kesulitan lama tidak ditimpa.':'Soal tersimpan. Percobaan yang sudah dimulai tetap memakai salinan historis.');redirect('kelola/bank-soal/'.$r['id'],'location',303);return;
    }catch(RuntimeException $e){$error=$e->getMessage();if(http_response_code()<400){$this->output->set_status_header(400);}}
    finally{if(!$keep_images){$this->question_image_upload->discard($uploaded);}}
   }
@@ -63,8 +63,8 @@ class Bank extends MY_Controller
  }
  public function upload()
  {
-  $this->require_http_methods(array('GET','HEAD','POST'));$error='';$analysis=NULL;$values=array('mapel'=>'','kelas'=>'','tingkat'=>'basic','rights_status'=>'owned','source_note'=>'');$exam=$this->get_scalar_query_param('ujian',18);if($exam!==''&&!ctype_digit($exam)){show_error('ID ujian tidak valid.',400);return;}
-  $exam_context=NULL;if($exam!==''){$this->load->model('Exam_model');$exam_context=$this->Exam_model->get($exam);if(!$exam_context){show_404();return;}if($exam_context['status']!=='draft'){show_error('Buka draft melalui langkah Pilih soal sebelum mengimpor.',409);return;}$values['kelas']=study_grade_code($exam_context['grade_id']);}
+  $this->require_http_methods(array('GET','HEAD','POST'));$error='';$analysis=NULL;$values=array('mapel'=>'','kelas'=>'','tingkat'=>'basic','kesulitan'=>'','rights_status'=>'owned','source_note'=>'');$exam=$this->get_scalar_query_param('ujian',18);if($exam!==''&&!ctype_digit($exam)){show_error('ID ujian tidak valid.',400);return;}
+  $exam_context=NULL;if($exam!==''){$this->load->model('Exam_model');$exam_context=$this->Exam_model->get($exam);if(!$exam_context){show_404();return;}if($exam_context['status']!=='draft'){show_error('Buka draft melalui langkah Pilih soal sebelum mengimpor.',409);return;}$values['kelas']=study_grade_code($exam_context['grade_id']);$values['kesulitan']=$exam_context['question_difficulty']??'';}
   if($this->input->method(TRUE)==='POST'){
    $images=array();$keep_images=FALSE;
    try{
@@ -77,7 +77,7 @@ class Bank extends MY_Controller
     if(!$analysis['ready']){$this->output->set_status_header(422);}
     else{
      $questions=$analysis['questions'];
-     if($exam_context){foreach($questions as $question){if((int)$question['grade_id']!==(int)$exam_context['grade_id'])throw new RuntimeException('Kelas soal harus sesuai kelas simulasi. Periksa kelas pada berkas dan pengaturan.');}}
+     if($exam_context){foreach($questions as $question){if((int)$question['grade_id']!==(int)$exam_context['grade_id'])throw new RuntimeException('Kelas soal harus sesuai kelas simulasi. Periksa kelas pada berkas dan pengaturan.');if($exam_context['question_difficulty']!==NULL&&($question['question_difficulty']??NULL)!==$exam_context['question_difficulty'])throw new RuntimeException('Tag kesulitan setiap soal impor harus sesuai simulasi khusus. Periksa berkas dan pilihan bawaan.');}}
      if($analysis['headings']){$questions[0]['import_headings']=$analysis['headings'];}
      // Retain media once a database write is attempted, even if acknowledgement
      // is uncertain. Never remove an image a committed preview might reference.
@@ -94,7 +94,7 @@ class Bank extends MY_Controller
  {
   $this->require_http_methods(array('GET','HEAD','POST'));$record=$this->Bank_model->import_record($this->current_user['id'],$token);if(!$record){show_404();return;}$error='';
   if($this->input->method(TRUE)==='POST'){
-   if($this->input->post('confirm')!=='1'){show_error('Konfirmasi pemeriksaan seluruh soal terlebih dahulu.',400);return;}$r=$this->Bank_model->commit($this->current_user,$token,$this->input->post('publish')==='1');if($r['ok']){$this->session->set_flashdata('success','Impor selesai: '.$r['result']['new'].' soal baru, '.$r['result']['reused'].' baris memakai ID yang sudah ada.');redirect($record['exam_id']?'kelola/simulasi-ujian/'.$record['exam_id'].'?langkah=soal':'kelola/bank-soal/impor/'.$token,'location',303);return;}$this->output->set_status_header($r['code']??503);$error='Impor belum disimpan: pratinjau kedaluwarsa, ujian berubah/berbeda kelas, atau layanan belum tersedia. Tidak ada sebagian soal yang disimpan.';
+   if($this->input->post('confirm')!=='1'){show_error('Konfirmasi pemeriksaan seluruh soal terlebih dahulu.',400);return;}$r=$this->Bank_model->commit($this->current_user,$token,$this->input->post('publish')==='1');if($r['ok']){$this->session->set_flashdata('success','Impor selesai: '.$r['result']['new'].' soal baru, '.$r['result']['reused'].' baris memakai ID yang sudah ada.');redirect($record['exam_id']?'kelola/simulasi-ujian/'.$record['exam_id'].'?langkah=soal':'kelola/bank-soal/impor/'.$token,'location',303);return;}$this->output->set_status_header($r['code']??503);$error=$r['message']??'Impor belum disimpan: pratinjau kedaluwarsa, ujian berubah/berbeda kelas, atau layanan belum tersedia. Tidak ada sebagian soal yang disimpan.';
   }
   $questions=json_decode($record['payload_json'],TRUE);$known=array_column($this->Bank_model->rows('SELECT question_id,fingerprint FROM st_bank_questions WHERE fingerprint IN ('.implode(',',array_fill(0,count($questions),'?')).')',array_column($questions,'fingerprint')),'question_id','fingerprint');$page=min(max(1,$this->get_positive_query_int('halaman')),max(1,(int)ceil(count($questions)/20)));
   $this->render_page('admin/bank/preview',compact('record','questions','known','page','error')+array('page_title'=>'Periksa impor soal','admin_section'=>'bank'));

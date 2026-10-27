@@ -1,0 +1,9 @@
+{
+  "engine": "Piper 1.8.0 (GPL-3.0)",
+  "engine_source": "https://github.com/OHF-Voice/piper1-gpl",
+  "voice": "en_US-ljspeech-high",
+  "model_card": "https://huggingface.co/rhasspy/piper-voices/blob/main/en/en_US/ljspeech/high/MODEL_CARD",
+  "dataset_license": "public domain, as stated by model card",
+  "content": "Original Project Pintar curriculum contexts",
+  "audio_kind": "synthetic; not a human teacher or a voice recording of a user"
+}

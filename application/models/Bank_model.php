@@ -38,9 +38,11 @@ class Bank_model extends CI_Model
   if(!in_array($rights,array('owned','licensed','public_domain'),TRUE)||!$this->text($source,5,1000)){throw new RuntimeException('Pilih hak penggunaan dan isi sumber minimal 5 karakter.');}
   $subjects=$subject_catalog??array_column($this->subjects(),NULL,'slug');$grades=study_grades();$out=array();$errors=array();
   foreach($rows as $i=>$r){try{
-   foreach(array('mapel','kelas','tingkat','soal','a','b','c','d','kunci','bahasan','gambar') as $k){if(!$this->text($r[$k]??NULL,in_array($k,array('gambar','bahasan'),TRUE)?0:1,in_array($k,array('soal','bahasan'),TRUE)?5000:1000)){throw new RuntimeException('Periksa isian '.$k.' (teks, batas panjang, karakter kontrol).');}}
+   foreach(array('mapel','kelas','tingkat','kesulitan','soal','a','b','c','d','kunci','bahasan','gambar') as $k){if(!$this->text($r[$k]??($k==='kesulitan'?'':NULL),in_array($k,array('gambar','bahasan','kesulitan'),TRUE)?0:1,in_array($k,array('soal','bahasan'),TRUE)?5000:1000)){throw new RuntimeException('Periksa isian '.$k.' (teks, batas panjang, karakter kontrol).');}}
    $subject=$subjects[trim($r['mapel'])]??NULL;$grade=$grades[trim($r['kelas'])]??NULL;$difficulty=array('basic'=>'basic','dasar'=>'basic','advanced'=>'advanced','lanjutan'=>'advanced')[trim($r['tingkat'])]??NULL;
    if(!$subject||!$grade||!$difficulty){throw new RuntimeException('Kode mapel, kelas atau tingkat tidak tersedia.');}
+   $tag=strtolower(trim($r['kesulitan']??''));$tag=array(''=>'','mudah'=>'easy','sedang'=>'medium','susah'=>'hard','sulit'=>'hard','easy'=>'easy','medium'=>'medium','hard'=>'hard')[$tag]??NULL;
+   if($tag===NULL){throw new RuntimeException('Kesulitan soal harus kosong, mudah, sedang, atau susah.');}
    $options=array_map('trim',array($r['a'],$r['b'],$r['c'],$r['d']));if(count(array_unique(array_map(array($this,'normalized'),$options)))!==4){throw new RuntimeException('Empat pilihan harus berbeda dan tidak kosong.');}
    $correct=array_search(strtoupper(trim($r['kunci'])),array('A','B','C','D'),TRUE);if($correct===FALSE){throw new RuntimeException('Kunci harus A, B, C atau D.');}
    // Keep explicit gallery order, then append images referenced in prompt/options.
@@ -81,7 +83,7 @@ class Bank_model extends CI_Model
     return $this->normalized($text);
    },$options);
    if(count(array_unique($option_identities))!==4){throw new RuntimeException('Empat pilihan harus berbeda; gambar identik dengan teks yang sama bukan pilihan berbeda.');}
-   $q=array('prompt'=>$prompt,'options'=>$options,'correct'=>$correct,'explanation'=>trim($r['bahasan']),'subject_id'=>(int)$subject['id'],'grade_id'=>(int)$grade['id'],'difficulty'=>$difficulty,'rights_status'=>$rights,'source_note'=>trim($source),'image'=>$image);$q['fingerprint']=$this->fingerprint($q);$out[]=$q;
+   $q=array('prompt'=>$prompt,'options'=>$options,'correct'=>$correct,'explanation'=>trim($r['bahasan']),'subject_id'=>(int)$subject['id'],'grade_id'=>(int)$grade['id'],'difficulty'=>$difficulty,'question_difficulty'=>$tag?:NULL,'rights_status'=>$rights,'source_note'=>trim($source),'image'=>$image);$q['fingerprint']=$this->fingerprint($q);$out[]=$q;
   }catch(RuntimeException $e){$errors[]='Soal '.($i+1).': '.$e->getMessage();}}
   if($errors){throw new RuntimeException(implode("\n",array_slice($errors,0,12)));}return $out;
  }
@@ -181,14 +183,15 @@ class Bank_model extends CI_Model
  }
  public function get($id)
  {
-  $q=$this->rows('SELECT q.*,b.fingerprint,b.image_json FROM st_bank_questions b JOIN st_questions q ON q.id=b.question_id WHERE q.id=?',array($id))[0]??NULL;if(!$q){return NULL;}
+  $q=$this->rows('SELECT q.*,b.fingerprint,b.image_json,b.question_difficulty FROM st_bank_questions b JOIN st_questions q ON q.id=b.question_id WHERE q.id=?',array($id))[0]??NULL;if(!$q){return NULL;}
   $q['options']=$this->rows('SELECT * FROM st_question_options WHERE question_id=? ORDER BY sort_order,id',array($id));$q['scopes']=$this->rows('SELECT s.*,c.name subject_name,g.name grade_name FROM st_bank_scopes s JOIN st_categories c ON c.id=s.subject_id JOIN st_learning_grades g ON g.id=s.grade_id WHERE s.question_id=? ORDER BY g.sort_order,c.name',array($id));$q['image']=$q['image_json']?json_decode($q['image_json'],TRUE):NULL;return $q;
  }
- public function listing($grade,$subject,$status,$page)
+ public function listing($grade,$subject,$status,$page,$question_difficulty='')
  {
   $where=' FROM st_bank_questions b JOIN st_questions q ON q.id=b.question_id WHERE 1=1';$args=array();if($status!=='all'){$where.=' AND q.status=?';$args[]=$status;}
+  if($question_difficulty!==''){$where.=' AND b.question_difficulty'.($question_difficulty==='untagged'?' IS NULL':'=?');if($question_difficulty!=='untagged')$args[]=$question_difficulty;}
   if($grade!==''||$subject){$where.=' AND EXISTS(SELECT 1 FROM st_bank_scopes s WHERE s.question_id=q.id';if($grade!==''){$where.=' AND s.grade_id=?';$args[]=study_grades()[$grade]['id']??0;}if($subject){$where.=' AND s.subject_id=?';$args[]=$subject;}$where.=')';}
-  $total=(int)$this->rows('SELECT COUNT(*) n'.$where,$args)[0]['n'];$page=min(max(1,(int)$page),max(1,(int)ceil($total/20)));return array('rows'=>$this->rows('SELECT q.id,q.prompt,q.status,q.content_version,b.image_json'.$where.' ORDER BY q.id DESC LIMIT 20 OFFSET '.(($page-1)*20),$args),'total'=>$total,'page'=>$page);
+  $total=(int)$this->rows('SELECT COUNT(*) n'.$where,$args)[0]['n'];$page=min(max(1,(int)$page),max(1,(int)ceil($total/20)));return array('rows'=>$this->rows('SELECT q.id,q.prompt,q.status,q.content_version,b.image_json,b.question_difficulty'.$where.' ORDER BY q.id DESC LIMIT 20 OFFSET '.(($page-1)*20),$args),'total'=>$total,'page'=>$page);
  }
  private function add_scope($id,$q){$this->db->query('INSERT INTO st_bank_scopes(question_id,subject_id,grade_id,difficulty) VALUES(?,?,?,?) ON DUPLICATE KEY UPDATE question_id=question_id',array($id,$q['subject_id'],$q['grade_id'],$q['difficulty']));}
  public function remove_scope($user,$id,$revision,$subject,$grade,$difficulty)
@@ -207,7 +210,7 @@ class Bank_model extends CI_Model
   if($existing){$id=(int)$existing['question_id'];$this->add_scope($id,$q);return array('id'=>$id,'reused'=>TRUE);}
   $now=gmdate('Y-m-d H:i:s');$this->db->insert('st_questions',array('course_id'=>NULL,'created_by_user_id'=>$user['id'],'visibility'=>'shared','question_type'=>'single_choice','prompt'=>$q['prompt'],'explanation'=>$q['explanation'],'status'=>$status,'rights_status'=>$q['rights_status'],'source_note'=>$q['source_note'],'reviewed_by_user_id'=>$status==='published'?$user['id']:NULL,'created_at'=>$now,'updated_at'=>$now));$id=(int)$this->db->insert_id();
   foreach($q['options'] as $i=>$text){$this->db->insert('st_question_options',array('question_id'=>$id,'option_text'=>$text,'is_correct'=>$i===$q['correct']?1:0,'sort_order'=>$i));}
-  $this->db->insert('st_bank_questions',array('question_id'=>$id,'fingerprint'=>$q['fingerprint'],'image_json'=>$q['image']?json_encode($q['image']):NULL));$this->add_scope($id,$q);return array('id'=>$id,'reused'=>FALSE);
+  $this->db->insert('st_bank_questions',array('question_id'=>$id,'fingerprint'=>$q['fingerprint'],'image_json'=>$q['image']?json_encode($q['image']):NULL,'question_difficulty'=>$q['question_difficulty']??NULL));$this->add_scope($id,$q);return array('id'=>$id,'reused'=>FALSE);
  }
  public function save($user,$id,$revision,$q,$status)
  {
@@ -215,12 +218,13 @@ class Bank_model extends CI_Model
   return $this->study_transaction->run($this->db,function()use($user,$id,$revision,$q,$status){
    $this->guard();if(!$this->administrator($user)){return array('ok'=>FALSE,'code'=>403);}
    $old=$id?$this->get($id):NULL;if(($id&&!$old)||(int)$revision!==(int)($old['content_version']??0)){return array('ok'=>FALSE,'code'=>409);}
+   if($old&&$this->rows('SELECT x.exam_id FROM st_exam_questions x JOIN st_exam_templates e ON e.id=x.exam_id WHERE x.question_id=? AND e.question_difficulty IS NOT NULL AND e.question_difficulty<>? LIMIT 1',array($id,$q['question_difficulty']??''))){return array('ok'=>FALSE,'code'=>409,'message'=>'Soal ini dipakai simulasi dengan kesulitan khusus. Lepas dari simulasi sebelum mengganti tag.');}
    if(!$old){$result=$this->insert_or_reuse($q,$user,$status);$id=$result['id'];}
    else{
     $other=$this->rows('SELECT question_id FROM st_bank_questions WHERE fingerprint=? AND question_id<>?',array($q['fingerprint'],$id));if($other){return array('ok'=>FALSE,'code'=>409,'existing_id'=>(int)$other[0]['question_id']);}
     $this->db->where('id',$id)->update('st_questions',array('prompt'=>$q['prompt'],'explanation'=>$q['explanation'],'status'=>$status,'rights_status'=>$q['rights_status'],'source_note'=>$q['source_note'],'reviewed_by_user_id'=>$status==='published'?$user['id']:NULL,'content_version'=>(int)$old['content_version']+1,'updated_at'=>gmdate('Y-m-d H:i:s')));
     if(count($old['options'])!==4){throw new RuntimeException('Invalid option count.');}foreach($old['options'] as $i=>$option){$this->db->where('id',$option['id'])->update('st_question_options',array('option_text'=>$q['options'][$i],'is_correct'=>$i===$q['correct']?1:0));}
-    $this->db->where('question_id',$id)->update('st_bank_questions',array('fingerprint'=>$q['fingerprint'],'image_json'=>$q['image']?json_encode($q['image']):NULL));$this->add_scope($id,$q);
+    $this->db->where('question_id',$id)->update('st_bank_questions',array('fingerprint'=>$q['fingerprint'],'image_json'=>$q['image']?json_encode($q['image']):NULL,'question_difficulty'=>$q['question_difficulty']??NULL));$this->add_scope($id,$q);
    }
    $this->audit($user,'bank.question_saved',$id,array('status'=>$status,'reused'=>$result['reused']??FALSE));return array('ok'=>TRUE,'id'=>$id,'reused'=>$result['reused']??FALSE);
   });
@@ -237,8 +241,9 @@ class Bank_model extends CI_Model
   return $this->study_transaction->run($this->db,function()use($user,$token,$publish){
    $this->guard();if(!$this->administrator($user)){return array('ok'=>FALSE,'code'=>403);}$batch=$this->import_record($user['id'],$token);if(!$batch){return array('ok'=>FALSE,'code'=>404);}if($batch['status']==='committed'){return array('ok'=>TRUE,'result'=>json_decode($batch['result_json'],TRUE),'existing'=>TRUE);}if($batch['expires_at']<gmdate('Y-m-d H:i:s')){return array('ok'=>FALSE,'code'=>409);}
    $questions=json_decode($batch['payload_json'],TRUE,512,JSON_THROW_ON_ERROR);$ids=array();$new=0;$reuse=0;$template=NULL;
-   if($batch['exam_id']){$template=$this->rows('SELECT * FROM st_exam_templates WHERE id=? FOR UPDATE',array($batch['exam_id']))[0]??NULL;if(!$template||$template['status']!=='draft'||(int)$template['revision']!==(int)$batch['exam_revision']){return array('ok'=>FALSE,'code'=>409);}foreach($questions as $q){if((int)$q['grade_id']!==(int)$template['grade_id']){return array('ok'=>FALSE,'code'=>400);}}}
+   if($batch['exam_id']){$template=$this->rows('SELECT * FROM st_exam_templates WHERE id=? FOR UPDATE',array($batch['exam_id']))[0]??NULL;if(!$template||$template['status']!=='draft'||(int)$template['revision']!==(int)$batch['exam_revision']){return array('ok'=>FALSE,'code'=>409);}foreach($questions as $q){if((int)$q['grade_id']!==(int)$template['grade_id']){return array('ok'=>FALSE,'code'=>400);}if($template['question_difficulty']!==NULL&&($q['question_difficulty']??NULL)!==$template['question_difficulty'])return array('ok'=>FALSE,'code'=>409,'message'=>'Kesulitan soal impor tidak sesuai simulasi.');}}
    foreach($questions as $q){$r=$this->insert_or_reuse($q,$user,$publish?'published':'draft');$ids[]=$r['id'];$r['reused']?$reuse++:$new++;}
+   if($template&&$template['question_difficulty']!==NULL){foreach($ids as $question_id){if(!$this->rows('SELECT question_id FROM st_bank_questions WHERE question_id=? AND question_difficulty=?',array($question_id,$template['question_difficulty'])))return array('ok'=>FALSE,'code'=>409,'message'=>'Soal identik di bank memiliki tag kesulitan berbeda. Edit tag soal lama sebelum impor ke simulasi.');}}
    $ids=array_values(array_unique($ids));if($template){$next=(int)$this->rows('SELECT COALESCE(MAX(sort_order),-1)+1 n FROM st_exam_questions WHERE exam_id=?',array($template['id']))[0]['n'];foreach($ids as $id){$this->db->query('INSERT INTO st_exam_questions(exam_id,question_id,sort_order) VALUES(?,?,?) ON DUPLICATE KEY UPDATE question_id=question_id',array($template['id'],$id,$next++));}$this->db->where('id',$template['id'])->update('st_exam_templates',array('revision'=>(int)$template['revision']+1,'updated_at'=>gmdate('Y-m-d H:i:s')));}
    $result=array('new'=>$new,'reused'=>$reuse,'question_ids'=>$ids);$this->db->where('id',$batch['id'])->update('st_bank_imports',array('status'=>'committed','result_json'=>json_encode($result)));$this->audit($user,'bank.import_committed',NULL,array('batch_id'=>$batch['id'],'new'=>$new,'reused'=>$reuse,'exam_id'=>$batch['exam_id']));return array('ok'=>TRUE,'result'=>$result);
   });

@@ -67,7 +67,7 @@
 			<?php endif; ?>
 			<?php if ($is_content_preview && ! empty($flashcard_deck) && ! $flashcards): ?><div class="alert alert-warning mt-4" role="status">Set kartu belajar belum memiliki kartu. Lengkapi isinya sebelum mengajukan review.</div><?php endif; ?>
 			<div class="d-flex flex-column flex-sm-row justify-content-between align-items-sm-center gap-3 mt-4">
-				<?php if(!empty($previous_public_lesson) && !$is_content_preview): ?><a class="btn btn-teal" href="<?php echo site_url('materi/'.$previous_public_lesson['slug']); ?>">Pelajaran sebelumnya</a><?php endif; ?>
+				<?php if(!empty($previous_public_lesson) && !$is_content_preview): ?><a class="btn btn-teal" href="<?php echo site_url('materi/'.$previous_public_lesson['slug']); ?>">Pelajaran sebelumnya</a><?php elseif(!empty($previous_lesson) && !$is_content_preview): ?><a class="btn btn-teal" href="<?php echo html_escape(site_url('materi/'.$previous_lesson['slug'])); ?>">Pelajaran sebelumnya</a><?php endif; ?>
 				<?php if ($next_lesson): ?>
 					<a class="btn btn-outline-primary rounded-pill" href="<?php echo site_url('materi/'.$next_lesson['slug']); ?>">Pelajaran berikutnya <i class="bi bi-arrow-right ms-1" aria-hidden="true"></i></a>
 				<?php else: ?>

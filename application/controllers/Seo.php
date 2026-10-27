@@ -21,6 +21,9 @@ class Seo extends CI_Controller
 		if ($result === FALSE) { show_error('Peta situs belum tersedia.', 503); return; }
 		$urls = array(site_url('/'), site_url('kursus'));
 		foreach ($result->result_array() as $course) { $urls[] = site_url('kursus/'.$course['slug']); }
+		$lesson_result = $this->db->select('l.slug')->from('st_lessons l')->join('st_course_sections s', 's.id = l.section_id')->join('st_courses c', 'c.id = s.course_id')->where('l.status', 'published')->where('c.status', 'published')->where('c.is_free', 1)->order_by('l.id')->limit(10000)->get();
+		if ($lesson_result === FALSE) { show_error('Peta situs belum tersedia.', 503); return; }
+		foreach ($lesson_result->result_array() as $lesson) { $urls[] = site_url('materi/'.$lesson['slug']); }
 		$this->load->model('Public_learning_model');
 		try {
 			$courses=$this->Public_learning_model->courses();

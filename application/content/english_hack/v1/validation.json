@@ -1,0 +1,22 @@
+{
+  "counts": {
+    "levels": 7,
+    "units": 56,
+    "unit_questions": 336,
+    "checkpoint": 28,
+    "production": 112,
+    "capstones": 7,
+    "charts": 9,
+    "objective": 364
+  },
+  "unique_unit_ids": 56,
+  "unique_question_ids": 364,
+  "checks": [
+    "prerequisites exist and precede dependent units",
+    "six questions and two production tasks per unit",
+    "all models meet explicit single-piece word ranges",
+    "unique options and valid answer indexes",
+    "all chart references resolve or are intentionally absent"
+  ],
+  "text_words_approx": 36480
+}

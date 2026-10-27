@@ -1,5 +1,11 @@
 # Peta Adopsi Modul Arena Belajar Pustaka
 
+## Pembaruan impor sesi latihan — 25 Oktober 2026
+
+Atas permintaan terbaru pemilik, definisi sesi latihan Pustaka kini diimpor satu arah. Sebanyak 172 sesi dan 2.456 tautan soal sumber tersimpan di arsip impor Project Pintar; 154 sesi menjadi draft simulasi dan 18 tetap arsip karena dihapus di sumber atau jenjangnya belum tersedia. Sebanyak 1.729 baris soal sumber dipetakan ke bank (1.680 soal unik), termasuk tag kesulitan dan gambar yang tersedia. Dua puluh enam soal yang dibutuhkan sesi belum dapat dimainkan karena pilihan tidak lengkap, gambar sumber hilang, atau pilihan duplikat; data aslinya tetap tersimpan dalam arsip impor. Tidak ada akun peserta, percobaan, jawaban, atau hasil Pustaka yang dipindahkan. Draft dan soal baru berstatus menunggu tinjauan hak penggunaan; pengelola memeriksa isi dan izin sebelum menerbitkan.
+
+Laporan pengelola: `/kelola/simulasi-ujian/impor-pustaka`. Proses satu arah yang dapat diulang: `scripts/import-pustaka-practice060.php`; pemetaan memakai ID sumber dan checksum sehingga pengulangan tidak menggandakan sesi/soal. Bagian historis di bawah merekam batasan yang berlaku sebelum permintaan terbaru ini.
+
 ## Pembaruan instruksi dan implementasi server — 16 Oktober 2026
 
 Pemilik kini secara eksplisit meminta **isi permainan** ikut diadopsi, kecuali soal sesi latihan. Larangan seed konten dalam catatan historis di bawah tidak lagi berlaku untuk konten permainan yang dipilih, ditinjau dan disebutkan pada [Arena Belajar server](ARENA_BELAJAR_SERVER.md). Data akun/anggota, hasil, secret dan konfigurasi Pustaka tetap tidak disalin; Pustaka tidak diubah.

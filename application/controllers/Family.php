@@ -69,7 +69,45 @@ class Family extends MY_Controller
 		$page_count = max(1, (int) ceil($summary['total'] / 10));
 		$page = min($page_count, $this->get_positive_query_int('halaman'));
 		$attempts = $this->Family_practice_model->history($this->current_user['id'], $child['id'], 10, ($page - 1) * 10);
-		$this->render_page('family/practice', array('page_title' => 'Laporan latihan anak', 'child' => $child, 'summary' => $summary, 'attempts' => $attempts, 'page' => $page, 'page_count' => $page_count));
+		$this->load->model('Practice_live_model');
+		$this->render_page('family/practice', array('page_title' => 'Laporan latihan anak', 'child' => $child, 'summary' => $summary, 'attempts' => $attempts, 'page' => $page, 'page_count' => $page_count, 'live_enabled' => $this->Practice_live_model->globally_enabled()));
+	}
+
+	private function authorized_live($child_user_id, $attempt_id)
+	{
+		$child = $this->report_child($child_user_id);
+		$attempt = $this->Family_practice_model->live_attempt($this->current_user['id'], $child['id'], $attempt_id);
+		$this->load->model('Practice_live_model');
+		$this->load->model('Practice_model');
+		if (!$attempt || !$this->Practice_live_model->enabled_for_attempt($attempt) || !$this->Practice_model->can_read_attempt($attempt, $child['id'])) { show_404(); return NULL; }
+		return array($child, $attempt);
+	}
+
+	public function practice_live($child_user_id = 0, $attempt_id = 0)
+	{
+		$access = $this->authorized_live($child_user_id, $attempt_id);
+		if (!$access) return;
+		list($child, $attempt) = $access;
+		$questions = $this->Practice_model->display_questions($attempt);
+		if (count($questions) !== (int)$attempt['question_count']) { show_error('Soal tidak tersedia.', 409); return; }
+		$this->output->set_header('X-Robots-Tag: noindex, nofollow');
+		$this->render_page('family/practice_live', array('page_title'=>'Pantau latihan anak', 'child'=>$child, 'attempt'=>$attempt, 'questions'=>$questions, 'load_parent_practice_live_script'=>TRUE));
+	}
+
+	public function practice_live_status($child_user_id = 0, $attempt_id = 0)
+	{
+		$access = $this->authorized_live($child_user_id, $attempt_id);
+		if (!$access) return;
+		list($child, $attempt) = $access;
+		$answers = $this->Practice_live_model->answers($attempt);
+		if ($answers === NULL) { show_error('Soal tidak tersedia.', 409); return; }
+		$state = $this->Practice_live_model->state($attempt['id']);
+		$timings = $this->Practice_live_model->answer_timings($attempt['id']);
+		$this->output->set_content_type('application/json')->set_output(json_encode(array(
+			'status'=>$attempt['status'], 'title'=>$attempt['title'], 'question_count'=>(int)$attempt['question_count'],
+			'answers'=>$answers, 'timings'=>$timings, 'current_question_id'=>$state['current_question_id'] ?? NULL,
+			'last_seen_at'=>$state['last_seen_at'] ?? NULL, 'server_time'=>gmdate('Y-m-d H:i:s')
+		), JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR));
 	}
 
 	public function practice_result($child_user_id = 0, $attempt_id = 0)

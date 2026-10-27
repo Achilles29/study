@@ -26,6 +26,7 @@
   window.addEventListener('resize', measureBars, {passive: true});
   navigation.querySelector('details').addEventListener('toggle', measureBars);
   let current = 0, navigatingUntil = 0;
+  let notePresence = () => {};
   function revealNumber() {
     if (!mobile.matches || !navigation.querySelector('details').open) return;
     const item = links[current].getBoundingClientRect(), strip = numberStrip.getBoundingClientRect();
@@ -43,10 +44,12 @@
     cards.forEach((card, i) => {
       const yes = selected(card);
       if (yes) answered++;
-      card.classList.toggle('is-answered', yes);
-      links[i].classList.toggle('is-answered', yes);
-      links[i].setAttribute('aria-label', `Soal ${i + 1}, ${yes ? 'sudah' : 'belum'} dijawab`);
-      links[i].querySelector('small').textContent = yes ? '✓' : '○';
+      if (form) {
+        card.classList.toggle('is-answered', yes);
+        links[i].classList.toggle('is-answered', yes);
+        links[i].setAttribute('aria-label', `Soal ${i + 1}, ${yes ? 'sudah' : 'belum'} dijawab`);
+        links[i].querySelector('small').textContent = yes ? '✓' : '○';
+      }
       if (i === current) links[i].setAttribute('aria-current', 'true');
       else links[i].removeAttribute('aria-current');
       if (single) card.hidden = i !== current;
@@ -63,6 +66,7 @@
   function go(index, scroll = true) {
     current = Math.max(0, Math.min(cards.length - 1, index));
     refresh();
+    notePresence();
     if (scroll) {
       // A short last question may not reach the top at the document's end.
       // Keep the explicitly chosen number during the resulting smooth scroll.
@@ -86,7 +90,7 @@
         + (mobile.matches ? navigation.getBoundingClientRect().height : 0) + 32;
       let visible = 0;
       cards.forEach((card, i) => { if (card.getBoundingClientRect().top <= edge) visible = i; });
-      if (visible !== current) { current = visible; refresh(); }
+      if (visible !== current) { current = visible; refresh(); notePresence(); }
     });
   }, {passive: true});
   if (!form) return;
@@ -110,6 +114,9 @@
   const limit = Number(sheet.dataset.limit);
   let focusCount = Number(sheet.dataset.focusCount), pending = {}, episode = false, leaving = false;
   let version = 0, savedVersion = 0, busy = false, finished = false, fatal = false;
+  let parentLive = sheet.dataset.parentLive === '1';
+  let presenceVersion = parentLive ? 1 : 0, savedPresenceVersion = 0;
+  notePresence = () => { if (parentLive && !finished && !fatal) { presenceVersion++; queueMicrotask(pump); } };
   let finishWanted = false, retryTimer, changeTimer, scrollTimer;
   let csrfRetried = false;
   const eventKey = `pp-focus-080:${sheet.dataset.attempt}`;
@@ -171,17 +178,28 @@
     if (busy || finished || fatal) return;
     clearTimeout(retryTimer);
     retryTimer = null;
-    if (version === savedVersion && !Object.keys(pending).length && !finishWanted) return;
+    const needsAnswers = version !== savedVersion || Object.keys(pending).length || finishWanted;
+    const needsPresence = parentLive && presenceVersion !== savedPresenceVersion;
+    if (!needsAnswers && !needsPresence) return;
     busy = true;
     const sentVersion = version, sentEvents = {...pending}, sentFinish = finishWanted;
-    status.textContent = sentFinish ? 'Menyelesaikan latihan…' : 'Menyimpan jawaban…';
+    const presenceOnly = needsPresence && (!needsAnswers || savedPresenceVersion === 0);
+    const sentPresenceVersion = presenceVersion;
+    if (!presenceOnly) status.textContent = sentFinish ? 'Menyelesaikan latihan…' : 'Menyimpan jawaban…';
     try {
-      const body = payload(sentEvents, sentFinish).toString();
+      const dataBody = presenceOnly ? new URLSearchParams() : payload(sentEvents, sentFinish);
+      if (presenceOnly) {
+        form.querySelectorAll('input[type=hidden]').forEach(el => { if (el.name) dataBody.set(el.name, el.value); });
+        dataBody.set('sheet_presence', '1');
+        dataBody.set('current_question_id', cards[current].dataset.questionId);
+      }
+      const body = dataBody.toString();
       const response = await fetch(endpoint, {
         method: 'POST', credentials: 'same-origin', cache: 'no-store', keepalive: body.length < 60000,
         headers: {'Content-Type': 'application/x-www-form-urlencoded', 'Accept': 'application/json'},
         body
       });
+      if (presenceOnly && response.status === 404) { parentLive = false; savedPresenceVersion = sentPresenceVersion; return; }
       if (response.status === 403 && !csrfRetried) {
         // CI rotates CSRF; a different tab may have rotated the shared cookie.
         csrfRetried = true;
@@ -207,6 +225,7 @@
         throw new Error('save');
       }
       csrfRetried = false;
+      if (presenceOnly) { savedPresenceVersion = sentPresenceVersion; return; }
       form.querySelector('[name=revision]').value = data.revision;
       focusCount = data.focus_count;
       Object.keys(sentEvents).forEach(key => { delete pending[key]; });
@@ -221,12 +240,14 @@
         return;
       }
       status.textContent = version === savedVersion ? 'Tersimpan. Kamu bisa melanjutkan.' : 'Pilihan baru menunggu disimpan…';
-    } catch (_) {
+    } catch (error) {
+      if (error.message === 'retry') { retryTimer = setTimeout(pump, 0); return; }
+      if (presenceOnly) { parentLive = false; savedPresenceVersion = sentPresenceVersion; return; }
       status.textContent = 'Belum tersimpan / koneksi terganggu. Jangan tutup halaman. Akan dicoba lagi otomatis.';
       retryTimer = setTimeout(pump, 2500);
     } finally {
       busy = false;
-      if (!retryTimer && !fatal && !finished && (version !== savedVersion || Object.keys(pending).length || finishWanted)) queueMicrotask(pump);
+      if (!retryTimer && !fatal && !finished && (version !== savedVersion || Object.keys(pending).length || finishWanted || (parentLive && presenceVersion !== savedPresenceVersion))) queueMicrotask(pump);
     }
   }
   function scheduleSave() {
@@ -329,5 +350,6 @@
   updateFocus();
   tick();
   setInterval(tick, 1000);
+  if (parentLive) setInterval(() => { if (!document.hidden && !finished && !fatal) notePresence(); }, 10000);
   pump();
 })();

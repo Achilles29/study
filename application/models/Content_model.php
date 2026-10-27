@@ -19,6 +19,15 @@ class Content_model extends CI_Model
 		return $this->db->get('st_categories')->result_array();
 	}
 
+	public function list_published_categories()
+	{
+		$this->db->select('cat.*')->distinct()->from('st_categories cat');
+		$this->db->join('st_courses c', 'c.category_id = cat.id');
+		$this->db->where('cat.status', 'active')->where('c.status', 'published');
+		$this->db->order_by('cat.sort_order', 'ASC')->order_by('cat.name', 'ASC');
+		return $this->db->get()->result_array();
+	}
+
 	public function create_category($name, $description)
 	{
 		$slug = url_title($name, 'dash', TRUE);
@@ -46,7 +55,9 @@ class Content_model extends CI_Model
 	public function list_courses($filters, $limit, $offset, $published_only = FALSE)
 	{
 		study_grade_where($filters['kelas'] ?? '');
-		$this->db->select('c.id, c.grade_id, c.title, c.slug, c.summary, c.target_group, c.age_min, c.age_max, c.estimated_minutes, c.status, c.is_free, c.updated_at, cat.name AS category_name, u.display_name AS author_name');
+		$this->db->select('c.id, c.grade_id, c.title, c.slug, c.summary, c.target_group, c.age_min, c.age_max, c.estimated_minutes, c.status, c.is_free, c.updated_at, cat.name AS category_name, cat.slug AS category_slug, u.display_name AS author_name');
+		$this->db->select('(SELECT COUNT(*) FROM st_course_sections sx WHERE sx.course_id = c.id) AS chapter_count, (SELECT COUNT(*) FROM st_lessons lx INNER JOIN st_course_sections sy ON sy.id = lx.section_id WHERE sy.course_id = c.id AND lx.status = \'published\') AS lesson_count', FALSE);
+		$this->db->select('(SELECT COUNT(*) FROM st_lessons la INNER JOIN st_course_sections sa ON sa.id = la.section_id WHERE sa.course_id = c.id) AS all_lesson_count', FALSE);
 		$this->db->from('st_courses c');
 		$this->db->join('st_categories cat', 'cat.id = c.category_id', 'left');
 		$this->db->join('st_users u', 'u.id = c.author_user_id', 'left');
@@ -104,7 +115,7 @@ class Content_model extends CI_Model
 
 	public function get_course($course_id)
 	{
-		$this->db->select('c.*, cat.name AS category_name, u.display_name AS author_name');
+		$this->db->select('c.*, cat.name AS category_name, cat.slug AS category_slug, u.display_name AS author_name');
 		$this->db->from('st_courses c');
 		$this->db->join('st_categories cat', 'cat.id = c.category_id', 'left');
 		$this->db->join('st_users u', 'u.id = c.author_user_id', 'left');
@@ -114,7 +125,7 @@ class Content_model extends CI_Model
 
 	public function get_course_by_slug($slug)
 	{
-		$this->db->select('c.*, cat.name AS category_name');
+		$this->db->select('c.*, cat.name AS category_name, cat.slug AS category_slug');
 		$this->db->from('st_courses c');
 		$this->db->join('st_categories cat', 'cat.id = c.category_id', 'left');
 		$this->db->where('c.slug', $slug);
@@ -124,7 +135,7 @@ class Content_model extends CI_Model
 
 	public function get_course_lessons($course_id, $published_only = FALSE)
 	{
-		$this->db->select('l.id, l.title, l.slug, l.body_text, l.estimated_minutes, l.sort_order, l.status, l.content_version, l.is_preview, l.rights_status, l.source_note, s.title AS section_title, s.sort_order AS section_order');
+		$this->db->select('l.id, l.title, l.slug, l.body_text, l.estimated_minutes, l.sort_order, l.status, l.content_version, l.is_preview, l.rights_status, l.source_note, s.id AS section_id, s.title AS section_title, s.sort_order AS section_order');
 		$this->db->from('st_lessons l');
 		$this->db->join('st_course_sections s', 's.id = l.section_id');
 		$this->db->where('s.course_id', (int) $course_id);
@@ -152,7 +163,7 @@ class Content_model extends CI_Model
 
 	public function get_published_lesson_index($course_id)
 	{
-		$this->db->select('l.id, l.title, l.slug, l.estimated_minutes, l.sort_order, l.status, l.is_preview, s.course_id AS course_id, c.is_free, s.title AS section_title, s.sort_order AS section_order');
+		$this->db->select('l.id, l.title, l.slug, l.estimated_minutes, l.sort_order, l.status, l.is_preview, s.course_id AS course_id, c.is_free, s.id AS section_id, s.title AS section_title, s.sort_order AS section_order');
 		$this->db->from('st_lessons l');
 		$this->db->join('st_course_sections s', 's.id = l.section_id');
 		$this->db->join('st_courses c', 'c.id = s.course_id');
@@ -179,6 +190,17 @@ class Content_model extends CI_Model
 			{
 				$found_current = TRUE;
 			}
+		}
+		return NULL;
+	}
+
+	public function get_previous_accessible_lesson($user_id, $course_id, $current_lesson_id)
+	{
+		$previous = NULL;
+		foreach ($this->get_published_lesson_index($course_id) as $lesson)
+		{
+			if ((int) $lesson['id'] === (int) $current_lesson_id) { return $previous; }
+			if ($this->can_access_lesson($user_id, $lesson)) { $previous = $lesson; }
 		}
 		return NULL;
 	}

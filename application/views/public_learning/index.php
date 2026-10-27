@@ -23,7 +23,7 @@
 		<section class="mb-5" aria-labelledby="course-<?php echo (int)$course['id']; ?>">
 			<h2 class="h3" id="course-<?php echo (int)$course['id']; ?>"><?php echo html_escape($course['title']); ?></h2>
 			<p class="text-secondary"><?php echo html_escape($course['summary']); ?></p>
-			<div class="row g-4"><div class="col-lg-7">
+			<div class="row g-4"><div class="col-lg-7 order-2 order-lg-1">
 				<h3 class="h5">Contoh soal dan pembahasan</h3>
 				<?php if(empty($samples[$course['id']])): ?><p>Contoh soal publik belum tersedia untuk kursus ini. Mulai dari materi di samping.</p><?php endif; ?>
 				<?php foreach($samples[$course['id']] as $i=>$question): ?>
@@ -37,14 +37,27 @@
 				<?php endforeach; ?>
 				<p class="small text-secondary">Contoh di atas diambil dari soal publik kursus ini; contoh dapat muncul kembali saat latihan. Membuka pembahasan tidak mencatat nilai atau progres.</p>
 				<div class="d-flex flex-wrap gap-2"><a class="btn btn-primary" href="<?php echo site_url('latihan/kursus/'.(int)$course['id']); ?>">Mulai latihan kursus</a><a class="btn btn-teal" href="<?php echo site_url('kursus/'.$course['slug']); ?>">Baca materi kursus</a></div>
-			</div><div class="col-lg-5">
-				<section class="feature-card"><h3 class="h5">Pelajari topiknya</h3><ol class="mb-0">
-				<?php foreach($lessons as $lesson): if((int)$lesson['course_id']!==(int)$course['id'])continue; ?><li class="mb-2"><a href="<?php echo site_url('materi/'.$lesson['slug']); ?>"><?php echo html_escape($lesson['title']); ?></a></li><?php endforeach; ?>
-				</ol></section>
+			</div><div class="col-lg-5 order-1 order-lg-2">
+					<?php $course_chapters = array(); foreach ($lessons as $lesson): if ((int) $lesson['course_id'] !== (int) $course['id']) continue; $section_id = (int) $lesson['section_id']; if (!isset($course_chapters[$section_id])) $course_chapters[$section_id] = array('title' => $lesson['section_title'], 'lessons' => array()); $course_chapters[$section_id]['lessons'][] = $lesson; endforeach; ?>
+					<section class="feature-card"><h3 class="h5">Bab dan sesi materi</h3><p class="small text-secondary"><?php echo count($course_chapters); ?> bab · <?php echo array_sum(array_map(static function ($chapter) { return count($chapter['lessons']); }, $course_chapters)); ?> sesi. Pilih sesi yang ingin dipelajari.</p>
+					<?php foreach ($course_chapters as $chapter): ?><div class="border-top pt-3 mb-3"><h4 class="h6 fw-bold"><?php echo html_escape($chapter['title']); ?></h4><ol class="mb-0">
+					<?php foreach ($chapter['lessons'] as $lesson): ?><li class="mb-2"><a href="<?php echo html_escape(site_url('materi/'.$lesson['slug'])); ?>"><?php echo html_escape($lesson['title']); ?></a></li><?php endforeach; ?>
+					</ol></div><?php endforeach; ?>
+					</section>
 				<?php $this->load->view('public_learning/source',array('public_source'=>$course)); ?>
 			</div></div>
 		</section>
 		<?php endforeach; ?>
+		<?php if($grade===2 && $subject==='matematika'): ?>
+		<section class="mb-5" aria-labelledby="panduan-matematika-kelas-2">
+			<h2 class="h3 mb-3" id="panduan-matematika-kelas-2">Cara memahami soal Matematika kelas 2</h2>
+			<div class="row g-3">
+				<div class="col-md-4"><div class="feature-card h-100"><h3 class="h5">Nilai tempat</h3><p class="mb-0">Pada bilangan 64, angka 6 berarti 6 puluhan atau 60, sedangkan angka 4 berarti 4 satuan. Saat membandingkan dua bilangan, periksa puluhannya lebih dulu.</p></div></div>
+				<div class="col-md-4"><div class="feature-card h-100"><h3 class="h5">Hitung sampai 20</h3><p class="mb-0">Untuk menghitung 9 + 6, ambil 1 dari 6 agar menjadi 10 + 5. Jadi, 9 + 6 = 15. Cara ini membantu saat menjumlahkan bilangan yang mendekati 10.</p></div></div>
+				<div class="col-md-4"><div class="feature-card h-100"><h3 class="h5">Pecahan sederhana</h3><p class="mb-0">Setengah berarti 1 dari 2 bagian yang sama besar. Jika 8 benda dibagi rata menjadi 2 kelompok, setiap kelompok berisi 4 benda.</p></div></div>
+			</div>
+		</section>
+		<?php endif; ?>
 	<?php endif; ?>
 	<section class="feature-card mt-4"><h2 class="h5">Cara memakai latihan ini</h2><p class="mb-0">Baca materi atau contoh, coba tentukan jawaban sendiri, lalu buka pembahasan. Jika belum paham, kembali ke topik terkait. Nilai kuis menunjukkan hasil latihan saat itu, bukan sertifikasi penguasaan seluruh pelajaran.</p></section>
 </section>

@@ -17,6 +17,7 @@ class Public_learning extends MY_Controller
 			if(trim($this->uri->uri_string(),'/')!==$path) { redirect($path,'location',301); return; }
 			$title=$subject!==NULL?'Latihan Soal '.$subjects[$subject]['label'].' Kelas '.$grade.' SD dan Pembahasan':($grade!==NULL?'Latihan Soal SD Kelas '.$grade.' dan Pembahasan':'Latihan Soal Online SD Kelas 1–6');
 			$intro=$subject!==NULL?$subjects[$subject]['intro']:$this->Public_learning_model->grade_intro($grade);
+			if($grade===2 && $subject==='matematika') { $intro='Coba contoh nilai tempat dan urutan bilangan; pelajari penjumlahan, pecahan, bentuk, serta data.'; }
 			if($grade===NULL) { $intro='Pilih kelas dan mata pelajaran, baca contoh soal beserta pembahasan, lalu lanjutkan latihan kursus. Materi berasal dari kursus gratis yang sudah diterbitkan; hasil latihan dapat disimpan setelah masuk akun.'; }
 			$breadcrumbs=array(array('label'=>'Beranda','path'=>''),array('label'=>'Latihan soal','path'=>'latihan-soal'));
 			if($grade!==NULL) { $breadcrumbs[]=array('label'=>'Kelas '.$grade.' SD','path'=>'latihan-soal/kelas-'.$grade); }

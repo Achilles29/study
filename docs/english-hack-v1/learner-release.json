@@ -1,0 +1,41 @@
+{
+  "release": "English Hack learner course",
+  "schema_version": 61,
+  "content_version": "1.0.0",
+  "published_levels": 7,
+  "units": 56,
+  "audio_files": 56,
+  "unit_questions": 336,
+  "checkpoint_pool_questions": 28,
+  "production_tasks": 112,
+  "capstones": 7,
+  "learner_url": "https://www.projectpintar.com/belajar/kelas-inggris",
+  "admin_url": "https://www.projectpintar.com/kelola/kelas-inggris",
+  "navigation": [
+    "navbar",
+    "member dashboard",
+    "Arena Belajar"
+  ],
+  "features": [
+    "server-side grading with immutable attempt snapshots",
+    "idempotent session creation and submission",
+    "per-user progress and spaced review scheduling",
+    "20-question checkpoint after unit practice thresholds",
+    "private writing and audio submissions",
+    "five-criterion admin rubric and revision feedback",
+    "linked-parent progress and portfolio access",
+    "global pause and per-level publication",
+    "paginated histories, portfolio, and assessment queue"
+  ],
+  "validation": [
+    "HTTP lifecycle and access controls passed on isolated QA database",
+    "12 member layout combinations, desktop/mobile, no browser errors",
+    "admin desktop/mobile and menu links passed",
+    "56 WAV files match source text hashes",
+    "production publication read-back: enabled, 7 published levels",
+    "production source JSON denied (404), assets available (200)",
+    "runtime account can read audio and write private media"
+  ],
+  "audio_attribution": "application/content/english_hack/v1/audio/attribution.json",
+  "assessment_note": "Speaking and writing require a reviewer; quiz scores are not CEFR certification."
+}

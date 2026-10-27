@@ -4,6 +4,8 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="theme-color" content="#f7f8ff">
+	<link rel="icon" type="image/png" sizes="256x256" href="<?php echo base_url('assets/images/branding/ico.png'); ?>">
+	<link rel="apple-touch-icon" href="<?php echo base_url('assets/images/branding/ico.png'); ?>">
 	<?php if($light_public_assets): ?><script>document.documentElement.classList.add('js-public');</script><style>@media(max-width:1199.98px){.js-public .site-header .navbar-collapse:not(.show){display:none}.js-public .site-header .navbar-toggler[hidden]{display:block!important}}</style><?php endif; ?>
 	<title><?php echo html_escape($page_title); ?> · <?php echo html_escape($site_settings['brand_name']); ?></title>
 	<meta name="robots" content="<?php echo $seo['index'] ? 'index, follow' : 'noindex, nofollow'; ?>">
@@ -16,6 +18,10 @@
 	<meta property="og:description" content="<?php echo html_escape($seo['description']); ?>">
 	<meta property="og:url" content="<?php echo html_escape($seo['canonical']); ?>">
 	<meta property="og:type" content="website">
+	<meta property="og:image" content="<?php echo base_url('assets/images/branding/project-pintar-pijar-v2.png'); ?>">
+	<meta property="og:image:width" content="1254">
+	<meta property="og:image:height" content="1254">
+	<meta property="og:image:alt" content="Pijar, maskot Project Pintar">
 	<?php if ($navigation_view === 'home/index'): ?><script type="application/ld+json"><?php echo json_encode(array('@context' => 'https://schema.org', '@type' => 'WebSite', 'name' => $site_settings['brand_name'], 'url' => site_url('/')), JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_UNESCAPED_SLASHES); ?></script><?php endif; ?>
 	<?php if(!empty($breadcrumbs) && count($breadcrumbs)>1): $breadcrumb_items=array(); foreach($breadcrumbs as $i=>$crumb) { $breadcrumb_items[]=array('@type'=>'ListItem','position'=>$i+1,'name'=>$crumb['label'],'item'=>site_url($crumb['path'])); } ?>
 	<script type="application/ld+json"><?php echo json_encode(array('@context'=>'https://schema.org','@type'=>'BreadcrumbList','itemListElement'=>$breadcrumb_items),JSON_HEX_TAG|JSON_HEX_AMP|JSON_HEX_APOS|JSON_HEX_QUOT|JSON_UNESCAPED_SLASHES); ?></script>
@@ -35,7 +41,7 @@
 <header class="site-header<?php echo $current_user ? ' site-header-member' : ''; ?>">
 	<nav class="navbar navbar-expand-xl container py-3" aria-label="Navigasi utama">
 		<a class="navbar-brand brand-lockup" href="<?php echo site_url('/'); ?>"<?php echo study_navigation_attributes($navigation_view, 'home', ! empty($is_content_preview)); ?>>
-			<span class="brand-mark" aria-hidden="true"><i class="bi <?php echo html_escape($site_settings['brand_icon']); ?>"></i></span>
+			<img class="brand-mark" src="<?php echo base_url('assets/images/branding/ico.png'); ?>" width="48" height="48" alt="">
 			<span><?php echo html_escape($site_settings['brand_name']); ?></span>
 		</a>
 		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navigasi-utama" aria-controls="navigasi-utama" aria-expanded="false" aria-label="Buka navigasi" hidden>
@@ -55,6 +61,7 @@
 				<?php if ( ! $current_user): ?><a class="nav-link" href="<?php echo site_url('/'); ?>#cara-belajar">Cara belajar</a>
 				<a class="nav-link" href="<?php echo site_url('/'); ?>#untuk-keluarga">Untuk keluarga</a><?php else: ?><a class="nav-link" href="<?php echo site_url('beranda'); ?>"<?php echo study_navigation_attributes($navigation_view, 'dashboard', ! empty($is_content_preview)); ?>>Beranda</a><?php endif; ?>
 				<?php if ($current_user): ?><a class="nav-link" href="<?php echo site_url('belajar/arena'); ?>"<?php echo strpos($navigation_view, 'arena/') === 0 ? ' aria-current="page"' : ''; ?>>Arena Belajar</a><?php endif; ?>
+				<?php if ($current_user): ?><a class="nav-link" href="<?php echo site_url('belajar/kelas-inggris'); ?>"<?php echo strpos($navigation_view, 'english_course/') === 0 ? ' aria-current="page"' : ''; ?>>English Hack</a><?php endif; ?>
 				<?php if ($current_user && $current_user['account_kind'] === 'parent'): ?>
 					<a class="nav-link" href="<?php echo site_url('keluarga/anak'); ?>"<?php echo study_navigation_attributes($navigation_view, 'family', ! empty($is_content_preview)); ?>>Akun anak</a>
 				<?php endif; ?>

@@ -46,6 +46,7 @@
 						<div class="min-w-0">
 							<h2 class="h6 mb-1"><a class="fw-semibold" href="<?php echo site_url('kelola/kursus/'.$course['id']); ?>"><?php echo html_escape($course['title']); ?></a></h2>
 							<p class="small text-secondary mb-0"><?php echo html_escape(($course['category_name'] ?: 'Tanpa kategori').' · '.study_grade_label($course['grade_id'])); ?> · <?php echo html_escape($course['author_name'] ?: 'Pengelola'); ?></p>
+						<p class="small fw-semibold text-primary mb-0"><?php echo (int) $course['chapter_count']; ?> bab · <?php echo (int) $course['all_lesson_count']; ?> sesi<?php if ((int) $course['all_lesson_count'] !== (int) $course['lesson_count']): ?> · <?php echo (int) $course['lesson_count']; ?> terbit<?php endif; ?></p>
 						</div>
 						<span class="badge rounded-pill flex-shrink-0 <?php echo $course['status'] === 'published' ? 'text-bg-success' : ($course['status'] === 'review' ? 'text-bg-warning' : 'text-bg-secondary'); ?>">
 							<?php echo html_escape(study_course_status_label($course['status'])); ?>
@@ -78,6 +79,7 @@
 							<td>
 								<a class="fw-semibold" href="<?php echo site_url('kelola/kursus/'.$course['id']); ?>"><?php echo html_escape($course['title']); ?></a>
 								<div class="small text-secondary"><?php echo html_escape(($course['category_name'] ?: 'Tanpa kategori').' · '.study_grade_label($course['grade_id'])); ?> · <?php echo html_escape($course['author_name'] ?: 'Pengelola'); ?></div>
+								<div class="small fw-semibold text-primary"><?php echo (int) $course['chapter_count']; ?> bab · <?php echo (int) $course['all_lesson_count']; ?> sesi<?php if ((int) $course['all_lesson_count'] !== (int) $course['lesson_count']): ?> · <?php echo (int) $course['lesson_count']; ?> terbit<?php endif; ?></div>
 							</td>
 							<td><?php echo html_escape(study_target_group_label($course['target_group'])); ?></td>
 							<td>
